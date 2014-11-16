@@ -90,13 +90,13 @@ public class Login extends JFrame {
 				
 				Usuario usuario = new Usuario();
 				usuario.setLogin(textLogin.getText());
-				usuario.setSenha(textSenha.getText());
+				usuario.setSenha((textSenha.getPassword()).toString());
 				
 				UsuarioService usuarioService = new UsuarioService();
 				if(usuarioService.consultarUsuarioService(usuario)){
 					JOptionPane.showMessageDialog(null, "Usuario e senha corretos");
 					TelaInicial tl = new TelaInicial();
-					tl.show();
+					tl.setVisible(true);
 					//tl.setExtendedState(new TelaInicial().MAXIMIZED_BOTH);
 					dispose();//sair da tela de login
 				}
