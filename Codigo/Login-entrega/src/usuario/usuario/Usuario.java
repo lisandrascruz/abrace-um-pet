@@ -6,14 +6,7 @@ public class Usuario {
 		private int idUsuario;
 		private String login;
 		private String senha;
-		//Costrutores
-		public Usuario(){
-			
-		}
-		public Usuario(String login,String senha){
-			this.login = login;
-			this.senha = senha;	
-		}
+
 		//Getters e Setters
 		public int getIdUsuario() {
 			return idUsuario;
