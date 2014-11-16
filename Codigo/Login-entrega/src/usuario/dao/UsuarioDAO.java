@@ -28,7 +28,7 @@ public class UsuarioDAO {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/login",
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet",
 					"root", "");
 			consulta = (Statement) conn.createStatement();
 			tabela = consulta
@@ -37,16 +37,14 @@ public class UsuarioDAO {
 
 			if (tabela.next()) {
 				acesso = true;
-
+				conn.close();
 			} else {
 				acesso = false;
-
+				conn.close();
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			return false;
-		} finally {
-			conn.close();
-		}
+		} 
 		return acesso;
 	}
 
