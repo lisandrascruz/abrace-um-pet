@@ -1,28 +1,22 @@
 package usuario.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import usuario.negocio.UsuarioService;
 import usuario.usuario.Usuario;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JPasswordField;
 
 public class LoginGUI extends JFrame {
 
@@ -78,28 +72,32 @@ public class LoginGUI extends JFrame {
 		contentPane.add(lblSenha);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Login-entrega\\imagens\\logn1.png"));
+		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Abrace Um PET\\imagens\\logn1.png"));
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
 		
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
+			
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
+				
 				Usuario usuario = new Usuario();
 				usuario.setLogin(textLogin.getText());
-				usuario.setSenha((textSenha.getPassword()).toString());
+				usuario.setSenha(textSenha.getText());
 				
 				UsuarioService usuarioService = new UsuarioService();
+				
 				if(usuarioService.consultarUsuarioService(usuario)){
+					
 					JOptionPane.showMessageDialog(null, "Usuario e senha corretos");
 					TelaInicialGUI tl = new TelaInicialGUI();
-					tl.setVisible(true);
-					tl.setExtendedState(new TelaInicialGUI().MAXIMIZED_BOTH);
-					dispose();//sair da tela de login
+					tl.setVisible(true);;
+					dispose();
 					
 				}
-				if(!usuarioService.consultarUsuarioService(usuario)){
-					JOptionPane.showMessageDialog(null, "Usuario ou senha incorretos");
+				if(!(usuarioService.consultarUsuarioService(usuario))){
+					JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);
 					textLogin.setText("");
 					textSenha.setText("");
 					textLogin.requestFocus();//volta o cursor pra caixa de login
@@ -121,6 +119,9 @@ public class LoginGUI extends JFrame {
 		JButton btnFaaSeuCadastro = new JButton("Fa\u00E7a seu cadastro");
 		btnFaaSeuCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CadastroUsuario cu = new CadastroUsuario();
+				cu.setVisible(true);
+				dispose();
 			}
 		});
 		btnFaaSeuCadastro.setBounds(335, 382, 144, 23);
