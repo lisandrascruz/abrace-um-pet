@@ -1,24 +1,24 @@
 package usuario.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
-
-import java.awt.Font;
 
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class TelaInicialGUI extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel telaInicialGUI;
 
 	/**
@@ -75,17 +75,21 @@ public class TelaInicialGUI extends JFrame {
 		JButton btnSobre = new JButton("Sobre");
 		btnSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SobreGUI sobre = new SobreGUI();
+				sobre.setVisible(true);
+				dispose();
 			}
 		});
 		btnSobre.setBounds(345, 359, 89, 23);
 		telaInicialGUI.add(btnSobre);
 		
-		JButton button = new JButton("Adote");
+		JButton button = new JButton("");
+		button.setVerticalAlignment(SwingConstants.BOTTOM);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Login-entrega\\imagens\\cadastro.png"));
+		button.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Abrace Um PET\\imagens\\cadastro.png"));
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
 	}
