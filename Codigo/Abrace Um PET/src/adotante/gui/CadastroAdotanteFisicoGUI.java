@@ -1,35 +1,25 @@
-package gui.pessoaFisica;
+package adotante.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.TextField;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-import javax.swing.JTextArea;
-import javax.swing.JFormattedTextField;
-import javax.swing.JEditorPane;
-import javax.swing.JTree;
-import javax.swing.JTable;
-import javax.swing.JProgressBar;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JSeparator;
-import javax.swing.JSlider;
-import javax.swing.JList;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.TextField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class CadastroAdotanteFisicoGUI extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane_cidade;
 	private JTextField textFieldNome;
 	private JTextField txtEx_rg;

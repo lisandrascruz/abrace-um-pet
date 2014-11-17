@@ -1,19 +1,22 @@
 package adotante.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdotanteGUI extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -44,6 +47,13 @@ public class AdotanteGUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroAdotante ca = new CadastroAdotante();
+				ca.setVisible(true);
+				dispose();
+			}
+		});
 		btnCadastrar.setBounds(51, 124, 167, 23);
 		contentPane.add(btnCadastrar);
 		

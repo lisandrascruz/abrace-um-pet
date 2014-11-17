@@ -6,12 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
-
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.SwingConstants;
+
+import adotante.gui.AdotanteGUI;
 
 public class TelaInicialGUI extends JFrame {
 
@@ -52,6 +54,9 @@ public class TelaInicialGUI extends JFrame {
 		JButton btnLogin = new JButton("Adotante");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AdotanteGUI a = new AdotanteGUI();
+				a.setVisible(true);
+				dispose();
 			}
 		});
 		btnLogin.setBounds(195, 359, 89, 23);
