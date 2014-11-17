@@ -164,7 +164,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		textCEP.setColumns(10);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(225, 382, 110, 23);
+		btnCadastrar.setBounds(273, 382, 110, 23);
 		contentPane.add(btnCadastrar);
 		
 		JLabel lblComplemento = new JLabel("Complemento:");
@@ -210,7 +210,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				textNomeJuridico.requestFocus();
 			}
 		});
-		btnLimparCampos.setBounds(348, 382, 134, 23);
+		btnLimparCampos.setBounds(129, 382, 134, 23);
 		contentPane.add(btnLimparCampos);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -251,5 +251,16 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		textEmail.setBounds(364, 147, 217, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroAdotante c = new CadastroAdotante();
+				c.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(393, 382, 89, 23);
+		contentPane.add(btnVoltar);
 	}
 }

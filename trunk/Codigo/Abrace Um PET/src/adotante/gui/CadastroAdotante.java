@@ -53,6 +53,9 @@ public class CadastroAdotante extends JFrame {
 		btnPessoaFsica.setBounds(95, 198, 279, 39);
 		btnPessoaFsica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CadastroAdotanteFisicoGUI af = new CadastroAdotanteFisicoGUI();
+				af.setVisible(true);
+				dispose();
 			}
 		});
 		

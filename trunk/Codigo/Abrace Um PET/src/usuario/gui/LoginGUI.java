@@ -15,7 +15,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import adotante.gui.CadastroAdotante;
 import usuario.negocio.UsuarioService;
 import usuario.usuario.Usuario;
 
@@ -91,7 +90,6 @@ public class LoginGUI extends JFrame {
 				
 				if(usuarioService.consultarUsuarioService(usuario)){
 					
-					JOptionPane.showMessageDialog(null, "Usuario e senha corretos");
 					TelaInicialGUI tl = new TelaInicialGUI();
 					tl.setVisible(true);;
 					dispose();
@@ -120,7 +118,7 @@ public class LoginGUI extends JFrame {
 		JButton btnFaaSeuCadastro = new JButton("Fa\u00E7a seu cadastro");
 		btnFaaSeuCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotante cu = new CadastroAdotante();
+				CadastroUsuarioGUI cu = new CadastroUsuarioGUI();
 				cu.setVisible(true);
 				dispose();
 			}
