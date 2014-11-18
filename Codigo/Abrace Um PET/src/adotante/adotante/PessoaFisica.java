@@ -1,18 +1,18 @@
 package adotante.adotante;
 
 public class PessoaFisica {
-	private int idPessoaF;
+	private int id;
 	private String cpf;
 	private String rg;
 	private char genero;
 	private Adotante adotante;
 	
 	
-	public int getIdPessoaF() {
-		return idPessoaF;
+	public int getId() {
+		return id;
 	}
-	public void setIdPessoaF(int idPessoaF) {
-		this.idPessoaF = idPessoaF;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getCpf() {
 		return cpf;

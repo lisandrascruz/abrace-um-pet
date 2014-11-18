@@ -1,7 +1,7 @@
 package adotante.adotante;
 
 public class Adotante {
-	private int idAdotante;
+	private int id;
 	private String nome;
 	private Endereco endereco;
 	private String telefoneFixo;
@@ -11,11 +11,11 @@ public class Adotante {
 	private String motivoImpedimento;
 	
 	
-	public int getIdAdotante() {
-		return idAdotante;
+	public int getId() {
+		return id;
 	}
-	public void setIdAdotante(int idAdotante) {
-		this.idAdotante = idAdotante;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNome() {
 		return nome;
