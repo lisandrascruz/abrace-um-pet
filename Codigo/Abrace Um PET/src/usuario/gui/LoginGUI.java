@@ -91,7 +91,7 @@ public class LoginGUI extends JFrame {
 				if(usuarioService.consultarUsuarioService(usuario)){
 					
 					TelaInicialGUI tl = new TelaInicialGUI();
-					tl.setVisible(true);;
+					tl.setVisible(true);
 					dispose();
 					
 				}
