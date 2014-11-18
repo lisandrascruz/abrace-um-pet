@@ -1,31 +1,40 @@
 package bd;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public abstract class DAO {
 
-	
-	public void openConnection (){
-		
+	Conexao conexao = new Conexao();
+	Statement consulta = null;
+	ResultSet tabela = null;
+
+	public void openConnection() throws SQLException {
+		conexao.obtemConexao();
 	}
-	
-	public void close(){
-		
+
+	public void close() throws SQLException {
+		conexao.obtemConexao().close();
 	}
-	
-	public void inserir(){
-		
+
+	public void inserir() {
+
 	}
-	
-	public void consultar(){
-		
+
+	public void consultarAnimal() {
 	}
-	
-	public void editar(){
-		
+
+	public void consultarAdotanteFisico() {
 	}
-	
-	public void remover(){
-		
+
+	public void consultaAdotanteJuridico() {
+	}
+
+	public void editar() {
+
+	}
+
+	public void remover() {
+
 	}
 }
-
