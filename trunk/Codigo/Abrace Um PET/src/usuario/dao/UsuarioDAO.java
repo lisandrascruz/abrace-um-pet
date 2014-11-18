@@ -7,8 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usuario.usuario.Usuario;
-
-import com.mysql.jdbc.Statement;
+import bd.Statement;
 
 public class UsuarioDAO {
 	

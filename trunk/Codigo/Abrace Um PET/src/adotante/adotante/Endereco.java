@@ -1,7 +1,7 @@
 package adotante.adotante;
 
 public class Endereco {
-	private int idEndereco;
+	private int id;
 	private String estado;
 	private String cidade;
 	private String bairro;
@@ -10,11 +10,11 @@ public class Endereco {
 	private String cep;
 	
 	
-	public int getIdEndereco() {
-		return idEndereco;
+	public int getId() {
+		return id;
 	}
-	public void setIdEndereco(int idEndereco) {
-		this.idEndereco = idEndereco;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getEstado() {
 		return estado;
