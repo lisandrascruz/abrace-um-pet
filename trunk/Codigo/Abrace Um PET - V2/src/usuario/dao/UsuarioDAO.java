@@ -47,7 +47,6 @@ public class UsuarioDAO {
 		ResultSet resultSet = null;
 		System.out.println(login + ", " + senha);
 		boolean acesso = false;
-		
 		try {
 			Conexao.abrirConceccaoMySQL();
 			conexao = DriverManager.getConnection(
