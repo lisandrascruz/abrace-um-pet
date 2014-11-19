@@ -3,6 +3,9 @@ package usuario.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,47 +41,60 @@ public class LoginGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
 		lblLogin.setBounds(279, 88, 63, 17);
 		contentPane.add(lblLogin);
-		
+
 		textLogin = new JTextField();
 		textLogin.setBounds(379, 88, 199, 20);
 		contentPane.add(textLogin);
 		textLogin.setColumns(10);
-		
+
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
 		lblSenha.setBounds(279, 165, 63, 17);
 		contentPane.add(lblSenha);
-		
+
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\TEstando s\\Codigo\\Abrace Um PET - V2\\imagens\\logn1.png"));
+		label.setIcon(new ImageIcon(
+				"C:\\Users\\Lisandra Cruz\\Desktop\\TEstando s\\Codigo\\Abrace Um PET - V2\\imagens\\logn1.png"));
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
-		
+
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
-			
+
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Usuario usuario = new Usuario();
 				usuario.setLogin(textLogin.getText().toString());
 				usuario.setSenha(textSenha.getText().toString());
-				
+
 				String login = usuario.getLogin().toString();
 				String senha = usuario.getSenha().toString();
+
+				try {
+					MessageDigest md;
+					md = MessageDigest.getInstance("MD5");
+					md.update(senha.getBytes(), 0, senha.length());
+					senha = (new BigInteger(1, md.digest()).toString(16));
+				} catch (NoSuchAlgorithmException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 				UsuarioService usuarioService = new UsuarioService();
-				if(usuarioService.consultarUsuarioService(login, senha)){
+				if (usuarioService.consultarUsuarioService(login, senha)) {
 					TelaInicialGUI tl = new TelaInicialGUI();
 					tl.setVisible(true);
 					dispose();
 				}
-				if(!(usuarioService.consultarUsuarioService(login, senha))){
-					JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);
+				if (!(usuarioService.consultarUsuarioService(login, senha))) {
+					JOptionPane.showMessageDialog(null, "Dados inválidos",
+							"ERRO", 0);
 					textLogin.setText("");
 					textSenha.setText("");
 					textLogin.requestFocus();
@@ -87,7 +103,7 @@ public class LoginGUI extends JFrame {
 		});
 		btnAcessar.setBounds(489, 216, 89, 23);
 		contentPane.add(btnAcessar);
-		
+
 		JButton btnFechar = new JButton("Fechar");
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,7 +112,7 @@ public class LoginGUI extends JFrame {
 		});
 		btnFechar.setBounds(489, 382, 89, 23);
 		contentPane.add(btnFechar);
-		
+
 		JButton btnFaaSeuCadastro = new JButton("Fa\u00E7a seu cadastro");
 		btnFaaSeuCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -107,7 +123,7 @@ public class LoginGUI extends JFrame {
 		});
 		btnFaaSeuCadastro.setBounds(335, 382, 144, 23);
 		contentPane.add(btnFaaSeuCadastro);
-		
+
 		textSenha = new JPasswordField();
 		textSenha.setBounds(379, 165, 199, 20);
 		contentPane.add(textSenha);
