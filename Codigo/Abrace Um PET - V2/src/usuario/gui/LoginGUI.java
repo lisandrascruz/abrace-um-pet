@@ -69,15 +69,15 @@ public class LoginGUI extends JFrame {
 				usuario.setLogin(textLogin.getText().toString());
 				usuario.setSenha(textSenha.getText().toString());
 				
+				String login = usuario.getLogin().toString();
+				String senha = usuario.getSenha().toString();
 				UsuarioService usuarioService = new UsuarioService();
-				if(usuarioService.consultarUsuarioService(usuario)){
-					
+				if(usuarioService.consultarUsuarioService(login, senha)){
 					TelaInicialGUI tl = new TelaInicialGUI();
 					tl.setVisible(true);
 					dispose();
-					
 				}
-				if(!(usuarioService.consultarUsuarioService(usuario))){
+				if(!(usuarioService.consultarUsuarioService(login, senha))){
 					JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);
 					textLogin.setText("");
 					textSenha.setText("");
