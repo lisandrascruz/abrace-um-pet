@@ -55,7 +55,7 @@ public class LoginGUI extends JFrame {
 		contentPane.add(lblSenha);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\PET\\Codigo\\AbraceUmPET-LastCopy\\imagens\\gatinho.png"));
+		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\TEstando s\\Codigo\\Abrace Um PET - V2\\imagens\\logn1.png"));
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
 		

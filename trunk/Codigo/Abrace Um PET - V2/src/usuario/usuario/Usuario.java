@@ -6,7 +6,7 @@ public class Usuario {
 	private int id_usuario;
 	private String login;
 	private String senha;
-
+	private String confirmarSenha;
 	// Getters e Setters
 	public int getId_Usuario() {
 		return id_usuario;
@@ -26,5 +26,13 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
 	}
 }
