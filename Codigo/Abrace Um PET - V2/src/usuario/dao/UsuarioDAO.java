@@ -1,5 +1,6 @@
 package usuario.dao;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -17,20 +18,21 @@ public class UsuarioDAO {
 		Conexao.abrirConceccaoMySQL();
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
-		MessageDigest md;
 		try {
+			MessageDigest md;
 			md = MessageDigest.getInstance("MD5");
 			md.update(senha.getBytes(), 0, senha.length());
+			senha = (new BigInteger(1, md.digest()).toString(16));
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			String query = "INSERT INTO tbl_usuario (login, senha) VALUES ('"
+					+ login + "','" + senha + "')";
+			System.out.println(query);
+			Conexao.comandoMySQL(query);
+			Conexao.fecharConecaoMySQL();
 		}
-
-		String query = "INSERT INTO tbl_usuario (login, senha) VALUES ('"
-				+ login + "','" + senha + "')";
-		System.out.println(query);
-		Conexao.comandoMySQL(query);
-		Conexao.fecharConecaoMySQL();
 		return true;
 	}
 
@@ -45,6 +47,7 @@ public class UsuarioDAO {
 		ResultSet resultSet = null;
 		System.out.println(login + ", " + senha);
 		boolean acesso = false;
+		
 		try {
 			Conexao.abrirConceccaoMySQL();
 			conexao = DriverManager.getConnection(
