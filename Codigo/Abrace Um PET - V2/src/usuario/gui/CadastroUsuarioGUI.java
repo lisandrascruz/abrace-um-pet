@@ -96,11 +96,14 @@ public class CadastroUsuarioGUI extends JFrame {
 				usuario.setLogin(textLogin.getText());
 				usuario.setSenha(textSenha.getText());
 				
+				
+				String login = usuario.getLogin().toString();
+				String senha = usuario.getSenha().toString();
 				UsuarioService usuarioService = new UsuarioService();
-				if(usuarioService.adicionarUsuarioService(usuario)){
+				if(usuarioService.adicionarUsuarioService(login, senha)){
 					JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-					LoginGUI login = new LoginGUI();
-					login.setVisible(true);
+					LoginGUI login1 = new LoginGUI();
+					login1.setVisible(true);
 					dispose();
 				}
 				else{

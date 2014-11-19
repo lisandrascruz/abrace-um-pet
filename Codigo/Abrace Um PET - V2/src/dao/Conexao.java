@@ -69,20 +69,6 @@ public class Conexao {
         	System.out.println("MYSQL Erro: " + erro);
         }
     }
-    
-//    public boolean loginUsuario(String login, String senha){
-//    	boolean logado = false;
-//    	Conexao.abrirConceccaoMySQL();
-//    	String qry = "Select * from tbl_usuario where login='"
-//							+ login + "'and senha='" + senha + "'";
-//    	Conexao.queryMySQL(qry);
-//    	if (Conexao.getResultSet() != null){
-//    		logado = true;
-//    	}
-//    	Conexao.fecharConecaoMySQL();
-//    	
-//    	return logado;
-//    }
 
 }
 
