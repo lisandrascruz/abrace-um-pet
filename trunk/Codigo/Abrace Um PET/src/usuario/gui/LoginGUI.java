@@ -79,12 +79,11 @@ public class LoginGUI extends JFrame {
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
 			
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				
 				Usuario usuario = new Usuario();
 				usuario.setLogin(textLogin.getText());
-				usuario.setSenha(textSenha.getText());
+				usuario.setSenha(textSenha.getPassword().toString());
 				
 				UsuarioService usuarioService = new UsuarioService();
 				
