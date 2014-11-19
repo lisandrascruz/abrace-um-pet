@@ -45,7 +45,6 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 	private JTextField textTelefoneSecundario;
 	private JTextField textTelefonePrincipal;
 	private JTextField textEmail;
-	private JTextField textCPF;
 
 
 
@@ -71,7 +70,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		contentPane.add(lblNomeJuridico);
 		
 		textNomeJuridico = new JTextField();
-		textNomeJuridico.setBounds(173, 80, 408, 20);
+		textNomeJuridico.setBounds(173, 80, 395, 20);
 		contentPane.add(textNomeJuridico);
 		textNomeJuridico.setColumns(10);
 		
@@ -158,11 +157,6 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Adotante adotante = new Adotante();
-				adotante.setNome(textNomeJuridico.getText());
-				adotante.setCpf(textCPF.getText());
-
 			}
 		});
 		btnCadastrar.setBounds(273, 382, 110, 23);
@@ -223,23 +217,23 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		btnCancelar.setBounds(492, 382, 89, 23);
 		contentPane.add(btnCancelar);
 		
-		JLabel lblTelefoneJuridico2 = new JLabel("Telefone Secundario: ");
+		JLabel lblTelefoneJuridico2 = new JLabel("Celular:");
 		lblTelefoneJuridico2.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblTelefoneJuridico2.setBounds(299, 118, 129, 14);
+		lblTelefoneJuridico2.setBounds(364, 118, 65, 14);
 		contentPane.add(lblTelefoneJuridico2);
 		
 		textTelefoneSecundario = new JTextField();
-		textTelefoneSecundario.setBounds(438, 116, 143, 20);
+		textTelefoneSecundario.setBounds(420, 116, 161, 20);
 		contentPane.add(textTelefoneSecundario);
 		textTelefoneSecundario.setColumns(10);
 		
-		JLabel lblTelefonePrincipal = new JLabel("Telefone Principal:");
-		lblTelefonePrincipal.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblTelefonePrincipal.setBounds(51, 118, 118, 14);
-		contentPane.add(lblTelefonePrincipal);
+		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
+		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblTelefoneFixo.setBounds(51, 118, 122, 14);
+		contentPane.add(lblTelefoneFixo);
 		
 		textTelefonePrincipal = new JTextField();
-		textTelefonePrincipal.setBounds(173, 116, 120, 20);
+		textTelefonePrincipal.setBounds(173, 116, 171, 20);
 		contentPane.add(textTelefonePrincipal);
 		textTelefonePrincipal.setColumns(10);
 		
@@ -263,10 +257,5 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		});
 		btnVoltar.setBounds(393, 382, 89, 23);
 		contentPane.add(btnVoltar);
-		
-		textCPF = new JTextField();
-		textCPF.setBounds(436, 182, 86, 20);
-		contentPane.add(textCPF);
-		textCPF.setColumns(10);
 	}
 }

@@ -29,13 +29,12 @@ public class UsuarioDAO {
      * Consultar no bd 
      */
 	@SuppressWarnings("null")
-	public boolean consultarUsuario(Usuario usuario){
-		String login = usuario.getLogin().toString();
-		String senha = usuario.getSenha().toString();
+	public boolean consultarUsuario(String login, String senha){
+		
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		//System.out.println(login +", " + senha);
+		System.out.println(login +", " + senha);
 		boolean acesso = false;
 		try {
 			Conexao.abrirConceccaoMySQL();

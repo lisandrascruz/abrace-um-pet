@@ -6,8 +6,8 @@ import usuario.usuario.Usuario;
 public class UsuarioService {
 	private UsuarioDAO usuarioDao = new UsuarioDAO();
 	
-	public boolean consultarUsuarioService(Usuario usuario){
-		return usuarioDao.consultarUsuario(usuario);
+	public boolean consultarUsuarioService(String login, String senha){
+		return usuarioDao.consultarUsuario(login, senha);
 	}
 	
 	public boolean adicionarUsuarioService(Usuario usuario){
