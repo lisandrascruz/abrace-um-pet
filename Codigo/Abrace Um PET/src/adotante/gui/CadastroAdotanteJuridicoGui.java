@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("unused")
-public class CadastroAdotanteJuridicoGui extends JFrame {
+public class CadastroAdotanteJuridicoGUI extends JFrame {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroAdotanteJuridicoGui frame = new CadastroAdotanteJuridicoGui();
+					CadastroAdotanteJuridicoGUI frame = new CadastroAdotanteJuridicoGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +60,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroAdotanteJuridicoGui() {
+	public CadastroAdotanteJuridicoGUI() {
 		setTitle("Cadastro de Pessoa Juridica - Abrace um PET");
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
