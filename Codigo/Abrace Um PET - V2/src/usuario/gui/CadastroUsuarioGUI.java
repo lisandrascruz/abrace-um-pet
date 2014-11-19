@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.negocio.UsuarioService;
 import usuario.usuario.Usuario;
+import validacoes.Validacao;
 
 import javax.swing.JPasswordField;
 
@@ -25,7 +26,6 @@ public class CadastroUsuarioGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textLogin;
-	private JTextField textEmail;
 	private JPasswordField textSenha;
 	private JPasswordField textConfirmarSenha;
 	/**
@@ -57,18 +57,8 @@ public class CadastroUsuarioGUI extends JFrame {
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblSenha.setBounds(68, 224, 46, 14);
+		lblSenha.setBounds(68, 205, 46, 14);
 		contentPane.add(lblSenha);
-		
-		JLabel lblEmail = new JLabel("E-mail: ");
-		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEmail.setBounds(68, 182, 46, 14);
-		contentPane.add(lblEmail);
-		
-		textEmail = new JTextField();
-		textEmail.setBounds(197, 181, 345, 20);
-		contentPane.add(textEmail);
-		textEmail.setColumns(10);
 		
 		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha:");
 		lblConfirmarSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -78,7 +68,6 @@ public class CadastroUsuarioGUI extends JFrame {
 		JButton btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textEmail.setText("");
 				textLogin.setText("");
 				textSenha.setText("");
 				textConfirmarSenha.setText("");
@@ -93,25 +82,32 @@ public class CadastroUsuarioGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Usuario usuario = new Usuario();
+				Validacao validar = new Validacao();
+				UsuarioService usuarioService = new UsuarioService();
+				
 				usuario.setLogin(textLogin.getText());
 				usuario.setSenha(textSenha.getText());
+				usuario.setConfirmarSenha(textConfirmarSenha.getText());
 				
+				String login = usuario.getLogin().toString();
+				String senha = usuario.getSenha().toString();
+				String confirmacaoSenha = usuario.getConfirmarSenha().toString();
 				
-				//String login = usuario.getLogin().toString();
-				//String senha = usuario.getSenha().toString();
-				UsuarioService usuarioService = new UsuarioService();
-				if(usuarioService.adicionarUsuarioService(usuario)){
-					JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-					LoginGUI login1 = new LoginGUI();
-					login1.setVisible(true);
-					dispose();
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado", "ERROR", 0);
-					textLogin.setText("");
-					textSenha.setText("");
-					textConfirmarSenha.setText("");
-					textEmail.setText("");
+				if(validar.validarLogin(login) && validar.validarSenha(senha) && 
+						validar.validarConfirmacaoSenha(senha, confirmacaoSenha)){
+					
+					if(usuarioService.adicionarUsuarioService(usuario)){
+						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+						LoginGUI login1 = new LoginGUI();
+						login1.setVisible(true);
+						dispose();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado", "ERROR", 0);
+						textLogin.setText("");
+						textSenha.setText("");
+						textConfirmarSenha.setText("");
+					}
 				}
 			}
 		});
@@ -139,7 +135,7 @@ public class CadastroUsuarioGUI extends JFrame {
 		contentPane.add(btnSair);
 		
 		textSenha = new JPasswordField();
-		textSenha.setBounds(197, 221, 345, 23);
+		textSenha.setBounds(197, 202, 345, 23);
 		contentPane.add(textSenha);
 		
 		textConfirmarSenha = new JPasswordField();
