@@ -5,9 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import usuario.usuario.Usuario;
-import bd.Statement;
+import java.sql.Statement;
 
 public class UsuarioDAO {
 	

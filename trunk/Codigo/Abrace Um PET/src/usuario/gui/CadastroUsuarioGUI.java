@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
 
 public class CadastroUsuarioGUI extends JFrame {
 
@@ -20,9 +21,9 @@ public class CadastroUsuarioGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textLogin;
-	private JTextField textSenha;
 	private JTextField textEmail;
-	private JTextField textConfirmarSenha;
+	private JPasswordField textSenha;
+	private JPasswordField textConfirmarSenha;
 
 	/**
 	 * Launch the application.
@@ -72,11 +73,6 @@ public class CadastroUsuarioGUI extends JFrame {
 		lblSenha.setBounds(68, 224, 46, 14);
 		contentPane.add(lblSenha);
 		
-		textSenha = new JTextField();
-		textSenha.setBounds(197, 222, 345, 20);
-		contentPane.add(textSenha);
-		textSenha.setColumns(10);
-		
 		JLabel lblEmail = new JLabel("E-mail: ");
 		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblEmail.setBounds(68, 182, 46, 14);
@@ -91,11 +87,6 @@ public class CadastroUsuarioGUI extends JFrame {
 		lblConfirmarSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblConfirmarSenha.setBounds(68, 263, 115, 14);
 		contentPane.add(lblConfirmarSenha);
-		
-		textConfirmarSenha = new JTextField();
-		textConfirmarSenha.setBounds(197, 261, 345, 20);
-		contentPane.add(textConfirmarSenha);
-		textConfirmarSenha.setColumns(10);
 		
 		JButton btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
@@ -132,5 +123,13 @@ public class CadastroUsuarioGUI extends JFrame {
 		});
 		btnSair.setBounds(440, 315, 102, 23);
 		contentPane.add(btnSair);
+		
+		textSenha = new JPasswordField();
+		textSenha.setBounds(197, 222, 345, 20);
+		contentPane.add(textSenha);
+		
+		textConfirmarSenha = new JPasswordField();
+		textConfirmarSenha.setBounds(197, 261, 345, 20);
+		contentPane.add(textConfirmarSenha);
 	}
 }
