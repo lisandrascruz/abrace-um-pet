@@ -1,4 +1,4 @@
-package usuario.usuario;
+package usuario.dominio;
 
 public class Usuario {
 
@@ -7,6 +7,9 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private String confirmarSenha;
+	private String email;
+	
+	
 	// Getters e Setters
 	public int getId_Usuario() {
 		return id_usuario;
@@ -34,5 +37,13 @@ public class Usuario {
 
 	public void setConfirmarSenha(String confirmarSenha) {
 		this.confirmarSenha = confirmarSenha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

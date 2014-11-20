@@ -15,7 +15,7 @@ import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
 import javax.swing.JFormattedTextField;
 
-import adotante.adotante.Adotante;
+import adotante.dominio.Adotante;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 

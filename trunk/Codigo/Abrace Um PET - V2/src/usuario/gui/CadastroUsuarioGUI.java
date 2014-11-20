@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import usuario.dominio.Usuario;
 import usuario.negocio.UsuarioService;
-import usuario.usuario.Usuario;
 import validacoes.Validacao;
 
 import javax.swing.JPasswordField;
@@ -28,6 +28,7 @@ public class CadastroUsuarioGUI extends JFrame {
 	private JTextField textLogin;
 	private JPasswordField textSenha;
 	private JPasswordField textConfirmarSenha;
+	private JTextField textEmail;
 	/**
 	 * Create the frame.
 	 */
@@ -57,12 +58,12 @@ public class CadastroUsuarioGUI extends JFrame {
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblSenha.setBounds(68, 205, 46, 14);
+		lblSenha.setBounds(68, 184, 46, 14);
 		contentPane.add(lblSenha);
 		
 		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha:");
 		lblConfirmarSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblConfirmarSenha.setBounds(68, 263, 115, 14);
+		lblConfirmarSenha.setBounds(68, 221, 115, 14);
 		contentPane.add(lblConfirmarSenha);
 		
 		JButton btnLimparCampos = new JButton("Limpar Campos");
@@ -87,14 +88,16 @@ public class CadastroUsuarioGUI extends JFrame {
 				
 				usuario.setLogin(textLogin.getText());
 				usuario.setSenha(textSenha.getText());
+				usuario.setEmail(textEmail.getText());
 				usuario.setConfirmarSenha(textConfirmarSenha.getText());
 				
 				String login = usuario.getLogin().toString();
 				String senha = usuario.getSenha().toString();
+				String email = usuario.getEmail().toString();
 				String confirmacaoSenha = usuario.getConfirmarSenha().toString();
 				
 				if(validar.validarLogin(login) && validar.validarSenha(senha) && 
-						validar.validarConfirmacaoSenha(senha, confirmacaoSenha)){
+						validar.validarConfirmacaoSenha(senha, confirmacaoSenha) && validar.validarEmail(email)){
 					
 					if(usuarioService.adicionarUsuarioService(usuario)){
 						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
@@ -106,6 +109,7 @@ public class CadastroUsuarioGUI extends JFrame {
 						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado", "ERROR", 0);
 						textLogin.setText("");
 						textSenha.setText("");
+						textEmail.setText("");
 						textConfirmarSenha.setText("");
 					}
 				}
@@ -135,11 +139,21 @@ public class CadastroUsuarioGUI extends JFrame {
 		contentPane.add(btnSair);
 		
 		textSenha = new JPasswordField();
-		textSenha.setBounds(197, 202, 345, 23);
+		textSenha.setBounds(197, 181, 345, 23);
 		contentPane.add(textSenha);
 		
 		textConfirmarSenha = new JPasswordField();
-		textConfirmarSenha.setBounds(197, 259, 345, 23);
+		textConfirmarSenha.setBounds(197, 218, 345, 23);
 		contentPane.add(textConfirmarSenha);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblEmail.setBounds(68, 256, 46, 14);
+		contentPane.add(lblEmail);
+		
+		textEmail = new JTextField();
+		textEmail.setBounds(197, 254, 345, 20);
+		contentPane.add(textEmail);
+		textEmail.setColumns(10);
 	}
 }

@@ -1,7 +1,7 @@
 package adotante.dao;
 
 import dao.Conexao;
-import adotante.adotante.Adotante;
+import adotante.dominio.Adotante;
 
 public class AdotanteDAO {
 	

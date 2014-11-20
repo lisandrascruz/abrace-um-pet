@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usuario.usuario.Usuario;
+import usuario.dominio.Usuario;
 import dao.Conexao;
 
 public class UsuarioDAO {
@@ -18,17 +18,18 @@ public class UsuarioDAO {
 		Conexao.abrirConceccaoMySQL();
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
+		String email = usuario.getEmail();
+		
 		try {
 			MessageDigest md;
 			md = MessageDigest.getInstance("MD5");
 			md.update(senha.getBytes(), 0, senha.length());
 			senha = (new BigInteger(1, md.digest()).toString(16));
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			String query = "INSERT INTO tbl_usuario (login, senha) VALUES ('"
-					+ login + "','" + senha + "')";
+			String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"
+					+ login + "','" + senha + "','" + email + "')";
 			System.out.println(query);
 			Conexao.comandoMySQL(query);
 			Conexao.fecharConecaoMySQL();
@@ -39,14 +40,15 @@ public class UsuarioDAO {
 	/**
 	 * Consultar no bd
 	 */
-	@SuppressWarnings("null")
 	public boolean consultarUsuario(String login, String senha) {
+		boolean acesso = false;
 
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		System.out.println(login + ", " + senha);
-		boolean acesso = false;
+		
+		//System.out.println(login + ", " + senha);
+		
 		try {
 			Conexao.abrirConceccaoMySQL();
 			conexao = DriverManager.getConnection(
