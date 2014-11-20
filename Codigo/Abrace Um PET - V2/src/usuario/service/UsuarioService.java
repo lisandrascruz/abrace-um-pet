@@ -1,4 +1,4 @@
-package usuario.negocio;
+package usuario.service;
 
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
