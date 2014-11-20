@@ -1,7 +1,7 @@
 package usuario.negocio;
 
 import usuario.dao.UsuarioDAO;
-import usuario.usuario.Usuario;
+import usuario.dominio.Usuario;
 
 public class UsuarioService {
 	private UsuarioDAO usuarioDao = new UsuarioDAO();

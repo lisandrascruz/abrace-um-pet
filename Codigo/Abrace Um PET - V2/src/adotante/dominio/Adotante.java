@@ -1,16 +1,10 @@
-package adotante.adotante;
+package adotante.dominio;
 
 public class Adotante {
 	private int idAdotante;
 	private String nome;
 	private Endereco endereco;
 	private String telefoneFixo;
-	public String getCpf() {
-		return cpf;
-	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
 	private String telefoneCelular;
 	private String email;
 	private String cpf;
@@ -18,6 +12,12 @@ public class Adotante {
 	private String motivoImpedimento;
 	
 	
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 	public int getIdAdotante() {
 		return idAdotante;
 	}

@@ -1,7 +1,7 @@
-package adotante.adotante;
+package adotante.dominio;
 
 public class Endereco {
-	private int idEndereco;
+	//private int idEndereco;
 	private String estado;
 	private String cidade;
 	private String bairro;
@@ -10,12 +10,6 @@ public class Endereco {
 	private String cep;
 	
 	
-	public int getIdEndereco() {
-		return idEndereco;
-	}
-	public void setIdEndereco(int idEndereco) {
-		this.idEndereco = idEndereco;
-	}
 	public String getEstado() {
 		return estado;
 	}
@@ -52,4 +46,8 @@ public class Endereco {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}	
+	public String formarEndereco(){
+		String endereco = getRua() + ", " + getNumero()+", "+ getBairro()+", "+ getCep()+", "+ ", "+getCidade()+"("+getEstado()+")";
+		return endereco;
+	}
 }

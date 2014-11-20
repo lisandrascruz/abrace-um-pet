@@ -1,4 +1,4 @@
-package adotante.adotante;
+package adotante.dominio;
 
 public class PessoaJuridica {
 	private int idPessoaJ;
