@@ -75,7 +75,7 @@ public class TelaInicialGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\PETz\\Codigo\\Abrace Um PET - V2\\imagens\\cadastro.png"));
+		button.setIcon(new ImageIcon("https://abrace-um-pet.googlecode.com/svn/trunk/Codigo/Abrace%20Um%20PET%20-%20V2/imagens/cadastro.png"));
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
 	}
