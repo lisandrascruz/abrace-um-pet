@@ -71,6 +71,7 @@ public class CadastroUsuarioGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				textLogin.setText("");
 				textSenha.setText("");
+				textEmail.setText("");
 				textConfirmarSenha.setText("");
 			}
 		});
