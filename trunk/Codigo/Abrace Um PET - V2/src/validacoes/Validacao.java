@@ -69,12 +69,12 @@ public class Validacao {
 		usuario.setEmail(email);
 		
 		if(email != ""){
-			if((usuario.getEmail().contains("@")) && (usuario.getEmail().contains(".")) && (!(usuario.getEmail()).contains(" "))){
+			if((usuario.getEmail().contains("@")) && (usuario.getEmail().contains(".com")) && (!(usuario.getEmail()).contains(" "))){
 				String nomeEmail = new String(email.substring(0,email.lastIndexOf('@')));
 				String dominio = new String(email.substring(email.lastIndexOf('@') + 1, email.length()));
 				
-				if (!(nomeEmail.length() >=1) && (!nomeEmail.contains("@")) && (dominio.contains(".")) && (!dominio.contains("@")) && 
-						(dominio.indexOf(".") >=1) && (dominio.lastIndexOf(".") < dominio.length() - 1)){
+				if (!(nomeEmail.length() >=1) && (!nomeEmail.contains("@")) && (dominio.contains(".com")) && (!dominio.contains("@")) && 
+						(dominio.indexOf(".com") >=1) && (dominio.lastIndexOf(".com") < dominio.length() - 1)){
 					JOptionPane.showMessageDialog(null, "Email Iválido", "ERROR", 0);
 					valido = false;
 				}

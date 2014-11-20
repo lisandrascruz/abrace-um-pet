@@ -58,8 +58,7 @@ public class LoginGUI extends JFrame {
 		contentPane.add(lblSenha);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(
-				"C:\\Users\\Lisandra Cruz\\Desktop\\TEstando s\\Codigo\\Abrace Um PET - V2\\imagens\\logn1.png"));
+		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\PETz\\Codigo\\Abrace Um PET - V2\\imagens\\logn1.png"));
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
 
@@ -68,37 +67,7 @@ public class LoginGUI extends JFrame {
 
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-
-				Usuario usuario = new Usuario();
-				usuario.setLogin(textLogin.getText().toString());
-				usuario.setSenha(textSenha.getText().toString());
-
-				String login = usuario.getLogin().toString();
-				String senha = usuario.getSenha().toString();
-
-				try {
-					MessageDigest md;
-					md = MessageDigest.getInstance("MD5");
-					md.update(senha.getBytes(), 0, senha.length());
-					senha = (new BigInteger(1, md.digest()).toString(16));
-				} catch (NoSuchAlgorithmException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-				UsuarioService usuarioService = new UsuarioService();
-				if (usuarioService.consultarUsuarioService(login, senha)) {
-					TelaInicialGUI tl = new TelaInicialGUI();
-					tl.setVisible(true);
-					dispose();
-				}
-				if (!(usuarioService.consultarUsuarioService(login, senha))) {
-					JOptionPane.showMessageDialog(null, "Dados inválidos",
-							"ERRO", 0);
-					textLogin.setText("");
-					textSenha.setText("");
-					textLogin.requestFocus();
-				}
+				login();
 			}
 		});
 		btnAcessar.setBounds(489, 216, 89, 23);
@@ -127,5 +96,43 @@ public class LoginGUI extends JFrame {
 		textSenha = new JPasswordField();
 		textSenha.setBounds(379, 165, 199, 20);
 		contentPane.add(textSenha);
+	}
+
+	public String criptografar(String senha) {
+		try {
+			MessageDigest md;
+			md = MessageDigest.getInstance("MD5");
+			md.update(senha.getBytes(), 0, senha.length());
+			senha = (new BigInteger(1, md.digest()).toString(16));
+		} catch (NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+		}
+		return senha;
+	}
+
+	public void login() {
+		Usuario usuario = new Usuario();
+		UsuarioService usuarioService = new UsuarioService();
+		
+		usuario.setLogin(textLogin.getText().toString());
+		usuario.setSenha(new String(textSenha.getPassword()));
+
+		String login = usuario.getLogin().toString();
+		String senha = usuario.getSenha().toString();
+		
+		senha = criptografar(senha);
+
+		if (usuarioService.consultarUsuarioService(login, senha)) {
+			TelaInicialGUI tl = new TelaInicialGUI();
+			tl.setVisible(true);
+			dispose();
+		}
+		if (!(usuarioService.consultarUsuarioService(login, senha))) {
+			JOptionPane.showMessageDialog(null, "Dados inválidos",
+					"ERRO", 0);
+			textLogin.setText("");
+			textSenha.setText("");
+			textLogin.requestFocus();
+		}
 	}
 }
