@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Criptografia {
 	
-	public void criptografar(String senha){
+	public String criptografar(String senha){
 		try {
 			MessageDigest md;
 			md = MessageDigest.getInstance("MD5");
@@ -16,5 +16,6 @@ public class Criptografia {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		return senha;
 	}
 }
