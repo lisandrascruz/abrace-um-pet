@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import md5.Criptografia;
 import usuario.dominio.Usuario;
 import dao.Conexao;
 
@@ -19,21 +20,15 @@ public class UsuarioDAO {
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
 		String email = usuario.getEmail();
-		
-		try {
-			MessageDigest md;
-			md = MessageDigest.getInstance("MD5");
-			md.update(senha.getBytes(), 0, senha.length());
-			senha = (new BigInteger(1, md.digest()).toString(16));
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} finally {
-			String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"
-					+ login + "','" + senha + "','" + email + "')";
-			System.out.println(query);
-			Conexao.comandoMySQL(query);
-			Conexao.fecharConecaoMySQL();
-		}
+
+		Criptografia criptografia = new Criptografia();
+		senha = criptografia.criptografar(senha);
+
+		String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"
+				+ login + "','" + senha + "','" + email + "')";
+		System.out.println(query);
+		Conexao.comandoMySQL(query);
+		Conexao.fecharConecaoMySQL();
 		return true;
 	}
 
@@ -46,9 +41,9 @@ public class UsuarioDAO {
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		
-		//System.out.println(login + ", " + senha);
-		
+
+		// System.out.println(login + ", " + senha);
+
 		try {
 			Conexao.abrirConceccaoMySQL();
 			conexao = DriverManager.getConnection(
