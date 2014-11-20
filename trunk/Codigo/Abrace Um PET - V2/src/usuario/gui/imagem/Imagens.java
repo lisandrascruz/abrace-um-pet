@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Imagens {
@@ -16,9 +17,9 @@ public class Imagens {
 		}
 	}
 	
-	public static void imagemCadastro(JLabel label) {
+	public static void imagemCadastro(JButton button) {
 		try {
-			label.setIcon(new ImageIcon(new File("imagens/cadastro.png").getCanonicalPath()));
+			button.setIcon(new ImageIcon(new File("imagens/cadastro.png").getCanonicalPath()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
