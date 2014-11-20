@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
-import usuario.negocio.UsuarioService;
-import validacoes.Validacao;
+import usuario.service.UsuarioService;
+import usuario.service.infraestrutura.Validacao;
 
 import javax.swing.JPasswordField;
 

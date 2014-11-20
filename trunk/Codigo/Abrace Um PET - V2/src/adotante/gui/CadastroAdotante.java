@@ -89,7 +89,7 @@ public class CadastroAdotante extends JFrame {
 		contentPane.add(lblCadastroDeUsurio);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\TEstando s\\Codigo\\Abrace Um PET - V2\\imagens\\Sem T\u00EDtulo-1.png"));
+		label.setIcon(new ImageIcon("https://abrace-um-pet.googlecode.com/svn/trunk/Codigo/Abrace Um PET - V2/imagens/Sem Título-1.png"));
 		label.setBounds(385, 180, 244, 236);
 		contentPane.add(label);
 	}

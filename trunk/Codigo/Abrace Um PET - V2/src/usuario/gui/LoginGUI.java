@@ -3,6 +3,8 @@ package usuario.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
-import usuario.negocio.UsuarioService;
+import usuario.gui.imagem.Imagens;
+import usuario.service.UsuarioService;
 
 public class LoginGUI extends JFrame {
 
@@ -58,7 +61,8 @@ public class LoginGUI extends JFrame {
 		contentPane.add(lblSenha);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\PETz\\Codigo\\Abrace Um PET - V2\\imagens\\logn1.png"));
+		Imagens.imagemLogin(label);
+		
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
 
