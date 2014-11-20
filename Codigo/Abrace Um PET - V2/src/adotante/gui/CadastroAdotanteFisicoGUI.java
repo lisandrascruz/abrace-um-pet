@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -38,6 +39,10 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private JTextField textEmail;
 
 
+	JPanel panel = new JPanel();  
+	JScrollPane scroller = new JScrollPane(panel);
+	JScrollPane scroller = new JScrollPane(panel);
+	this.getContentPane().add(scroller, BorderLayout.CENTER); 
 
 	/**
 	 * Create the frame.
