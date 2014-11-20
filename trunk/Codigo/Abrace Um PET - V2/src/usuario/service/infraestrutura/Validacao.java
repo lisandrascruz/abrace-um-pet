@@ -1,4 +1,4 @@
-package validacoes;
+package usuario.service.infraestrutura;
 
 import javax.swing.JOptionPane;
 
