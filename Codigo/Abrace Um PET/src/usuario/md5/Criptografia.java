@@ -5,8 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Criptografia {
-	
-	public String criptografar(String senha){
+
+	public String criptografar(String senha) {
 		try {
 			MessageDigest md;
 			md = MessageDigest.getInstance("MD5");

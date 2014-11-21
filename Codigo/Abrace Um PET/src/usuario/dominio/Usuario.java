@@ -5,10 +5,8 @@ public class Usuario {
 	private int id_usuario;
 	private String login;
 	private String senha;
-//	private String confirmarSenha;
 	private String email;
-	
-	
+
 	public int getId_Usuario() {
 		return id_usuario;
 	}
@@ -29,7 +27,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-		public String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -37,11 +35,4 @@ public class Usuario {
 		this.email = email;
 	}
 
-//	public String getConfirmarSenha() {
-//		return confirmarSenha;
-//	}
-//
-//	public void setConfirmarSenha(String confirmarSenha) {
-//		this.confirmarSenha = confirmarSenha;
-//	}
 }
