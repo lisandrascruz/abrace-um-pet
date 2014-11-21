@@ -27,7 +27,6 @@ public class Conexao {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conexao = DriverManager.getConnection(
 					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			System.out.println("MySQL conectado");
 		} catch (Exception erro) {
 			System.out.println("MYSQL Erro(abrir): " + erro);
 		}
@@ -39,7 +38,6 @@ public class Conexao {
 	public static void fecharConecaoMySQL() {
 		try {
 			conexao.close();
-			System.out.println("MYSQL Desconectado.");
 		} catch (Exception erro) {
 			System.out.println("MYSQL Erro(fechar): " + erro);
 		}

@@ -125,15 +125,15 @@ public class Validacao {
 	 */
 
 	public boolean validarCadastro(String login) {
-		boolean valido = true;
+		boolean valido = false;
 		usuario.setLogin(login);
 
 		if (usuarioDao.consultarUsuario(login)) {
 			JOptionPane.showMessageDialog(null,
 					"Login já cadastrado! Tente outro.", "ERROR", 0);
-			valido = true;
-		} else {
 			valido = false;
+		} else {
+			valido = true;
 		}
 		return valido;
 	}

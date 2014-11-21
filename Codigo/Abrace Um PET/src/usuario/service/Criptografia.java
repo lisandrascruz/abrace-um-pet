@@ -1,4 +1,4 @@
-package usuario.md5;
+package usuario.service;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

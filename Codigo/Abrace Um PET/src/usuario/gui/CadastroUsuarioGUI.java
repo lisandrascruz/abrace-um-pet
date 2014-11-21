@@ -20,9 +20,7 @@ import usuario.service.UsuarioService;
 
 public class CadastroUsuarioGUI extends JFrame {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textLogin;
@@ -99,8 +97,13 @@ public class CadastroUsuarioGUI extends JFrame {
 				String email = usuario.getEmail().toString();
 				String confirmacaoSenha = getConfirmarSenha().toString();
 
-				validarDadosUsuario(usuario, validar, usuarioService, login,
-						senha, email, confirmacaoSenha);
+				if (validar.validarCadastro(login) == true) {
+					validarDadosUsuario(usuario, validar, usuarioService,
+							login, senha, email, confirmacaoSenha);
+				} else {
+					textLogin.setText("");
+					textLogin.requestFocus();
+				}
 			}
 		});
 		btnCadastrar.setBounds(197, 315, 117, 23);
@@ -165,8 +168,8 @@ public class CadastroUsuarioGUI extends JFrame {
 	public void validarDadosUsuario(Usuario usuario, Validacao validar,
 			UsuarioService usuarioService, String login, String senha,
 			String email, String confirmacaoSenha) {
-		
-		if (validar.validarCadastro(login) && validar.validarLogin(login) && validar.validarSenha(senha)
+
+		if (validar.validarLogin(login) && validar.validarSenha(senha)
 				&& validar.validarConfirmacaoSenha(senha, confirmacaoSenha)
 				&& validar.validarEmail(email)) {
 
@@ -185,5 +188,6 @@ public class CadastroUsuarioGUI extends JFrame {
 				textConfirmarSenha.setText("");
 			}
 		}
+
 	}
 }
