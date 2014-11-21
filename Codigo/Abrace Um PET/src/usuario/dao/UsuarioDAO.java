@@ -27,8 +27,7 @@ public class UsuarioDAO {
 		Criptografia criptografia = new Criptografia();
 		senha = criptografia.criptografar(senha);
 
-		String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"
-				+ login + "','" + senha + "','" + email + "')";
+		String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"+ login + "','" + senha + "','" + email + "')";
 		Conexao.comandoMySQL(query);
 		Conexao.fecharConecaoMySQL();
 		return true;
@@ -51,7 +50,6 @@ public class UsuarioDAO {
 
 		String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
 				+ login + "','" + senha + "','" + email + "')";
-		System.out.println(query);
 		Conexao.comandoMySQL(query);
 		Conexao.fecharConecaoMySQL();
 		return true;
@@ -59,7 +57,6 @@ public class UsuarioDAO {
 
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
-	 * 
 	 * @param login
 	 * @param senha
 	 * @return
@@ -79,7 +76,6 @@ public class UsuarioDAO {
 	public boolean consultarUsuario(String login) {
 		String resultSet1 = ("select login from tbl_usuario where login='"
 				+ login + "'");
-		System.out.println(resultSet1);
 		return consultar(resultSet1);
 	}
 	/**

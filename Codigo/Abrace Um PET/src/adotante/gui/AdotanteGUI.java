@@ -57,19 +57,19 @@ public class AdotanteGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnCadastrar.setBounds(51, 124, 167, 23);
+		btnCadastrar.setBounds(51, 125, 167, 23);
 		contentPane.add(btnCadastrar);
 
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(51, 179, 167, 23);
+		btnEditar.setBounds(51, 180, 167, 23);
 		contentPane.add(btnEditar);
 
 		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(51, 242, 167, 23);
+		btnConsultar.setBounds(51, 241, 167, 23);
 		contentPane.add(btnConsultar);
 
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(51, 298, 167, 23);
+		btnExcluir.setBounds(51, 303, 167, 23);
 		contentPane.add(btnExcluir);
 
 		JLabel lblAdotante = new JLabel("Adotante");

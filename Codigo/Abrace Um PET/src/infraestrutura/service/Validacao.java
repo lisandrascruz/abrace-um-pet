@@ -33,7 +33,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR CAMPO SENHA (MINIMO 3 CARACTERES)
-	 * 
 	 * @param senha
 	 * @return
 	 */
@@ -129,8 +128,7 @@ public class Validacao {
 		usuario.setLogin(login);
 
 		if (usuarioDao.consultarUsuario(login)) {
-			JOptionPane.showMessageDialog(null,
-					"Login já cadastrado! Tente outro.", "ERROR", 0);
+			JOptionPane.showMessageDialog(null,"Login já cadastrado! Tente outro.", "ERROR", 0);
 			valido = false;
 		} else {
 			valido = true;
