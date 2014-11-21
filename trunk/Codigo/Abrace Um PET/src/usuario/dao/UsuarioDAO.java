@@ -54,46 +54,21 @@ public class UsuarioDAO {
 		Conexao.fecharConecaoMySQL();
 		return true;
 	}
-
-	/**
-	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
-	 * @param login
-	 * @param senha
-	 * @return
-	 */
-	public boolean consultarLogin(String login, String senha) {
-		String resultSet1 = ("select login, senha from tbl_usuario where login='"
-				+ login + "'and senha='" + senha + "'");
-		
-		return consultar(resultSet1);
-	}
 	/**
 	 * 
-	 * @param login
+	 * @param query
 	 * @return
 	 */
-
-	public boolean consultarUsuario(String login) {
-		String resultSet1 = ("select login from tbl_usuario where login='"
-				+ login + "'");
-		return consultar(resultSet1);
-	}
-	/**
-	 * 
-	 * @param resultSet1
-	 * @return
-	 */
-	public boolean consultar(String resultSet1) {
+	public boolean consultar(String query) {
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		boolean usuario = false;
 		try {
 			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
 			statement = (Statement) conexao.createStatement();
-			resultSet = statement.executeQuery(resultSet1);
+			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
 				usuario = true;
 			} else {
@@ -105,5 +80,28 @@ public class UsuarioDAO {
 		}
 		return usuario;
 	}
+
+	/**
+	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+	 * @param login
+	 * @param senha
+	 * @return
+	 */
+	public boolean consultarLogin(String login, String senha) {
+		String resultSet = ("select login, senha from tbl_usuario where login='"
+				+ login + "'and senha='" + senha + "'");
+		
+		return consultar(resultSet);
+	}
+	/**
+	 * @param login
+	 * @return
+	 */
+	public boolean consultarUsuario(String login) {
+		String resultSet = ("select login from tbl_usuario where login='"
+				+ login + "'");
+		return consultar(resultSet);
+	}
+	
 
 }

@@ -75,7 +75,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR EMAIL DO USUARIO
-	 * 
 	 * @param email
 	 * @return
 	 */
@@ -90,24 +89,20 @@ public class Validacao {
 
 				String nomeEmail = new String(email.substring(0,
 						email.lastIndexOf('@')));
+				
 				String dominio = new String(email.substring(
 						email.lastIndexOf('@') + 1, email.length()));
 
-				if (!(nomeEmail.length() >= 1) && (!nomeEmail.contains("@"))
-						&& (dominio.contains(".com"))
-						&& (!dominio.contains("@"))
-						&& (dominio.indexOf(".com") >= 1)
-						&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
-					JOptionPane.showMessageDialog(null, "Email Iválido",
-							"ERROR", 0);
+				if (!(nomeEmail.length() >= 1) && (!nomeEmail.contains("@")) && (dominio.contains(".com"))
+						&& (!dominio.contains("@"))	&& (dominio.indexOf(".com") >= 1)&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
+					JOptionPane.showMessageDialog(null, "Email Iválido","ERROR", 0);
 					valido = false;
 				} else {
 					valido = true;
 				}
 			} else {
 				JOptionPane.showMessageDialog(null,
-						"Email errado, usar formato - exemplo@exemplo.com",
-						"ERROR", 0);
+						"Email errado, usar formato - exemplo@exemplo.com","ERROR", 0);
 				valido = false;
 			}
 
@@ -126,7 +121,7 @@ public class Validacao {
 	public boolean validarCadastro(String login) {
 		boolean valido = false;
 		usuario.setLogin(login);
-
+		
 		if (usuarioDao.consultarUsuario(login)) {
 			JOptionPane.showMessageDialog(null,"Login já cadastrado! Tente outro.", "ERROR", 0);
 			valido = false;
@@ -135,5 +130,6 @@ public class Validacao {
 		}
 		return valido;
 	}
+	
 
 }

@@ -98,8 +98,7 @@ public class CadastroUsuarioGUI extends JFrame {
 				String confirmacaoSenha = getConfirmarSenha().toString();
 
 				if (validar.validarCadastro(login) == true) {
-					validarDadosUsuario(usuario, validar, usuarioService,
-							login, senha, email, confirmacaoSenha);
+					validacaoDadosUsuario(usuario, validar, usuarioService, login, senha, email, confirmacaoSenha);
 				} else {
 					textLogin.setText("");
 					textLogin.requestFocus();
@@ -165,17 +164,14 @@ public class CadastroUsuarioGUI extends JFrame {
 	 * @param email
 	 * @param confirmacaoSenha
 	 */
-	public void validarDadosUsuario(Usuario usuario, Validacao validar,
-			UsuarioService usuarioService, String login, String senha,
+	public void validacaoDadosUsuario(Usuario usuario, Validacao validar, UsuarioService usuarioService, String login, String senha,
 			String email, String confirmacaoSenha) {
 
-		if (validar.validarLogin(login) && validar.validarSenha(senha)
-				&& validar.validarConfirmacaoSenha(senha, confirmacaoSenha)
+		if (validar.validarLogin(login) && validar.validarSenha(senha)&& validar.validarConfirmacaoSenha(senha, confirmacaoSenha)
 				&& validar.validarEmail(email)) {
 
 			if (usuarioService.adicionarUsuarioService(usuario)) {
-				JOptionPane.showMessageDialog(null,
-						"Usuario cadastrado com sucesso");
+				JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
 				LoginGUI login1 = new LoginGUI();
 				login1.setVisible(true);
 				dispose();

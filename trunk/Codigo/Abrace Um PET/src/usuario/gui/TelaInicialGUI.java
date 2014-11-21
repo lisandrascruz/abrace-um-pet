@@ -15,9 +15,6 @@ import adotante.gui.AdotanteGUI;
 
 public class TelaInicialGUI extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel telaInicialGUI;
 
