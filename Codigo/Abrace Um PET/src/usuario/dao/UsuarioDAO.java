@@ -64,31 +64,39 @@ public class UsuarioDAO {
 	 * @param senha
 	 * @return
 	 */
-	public boolean consultarUsuario(String login, String senha) {
-		boolean acesso = false;
+	public boolean consultarLogin(String login, String senha) {
+		String resultSet1 = ("select login, senha from tbl_usuario where login='"
+				+ login + "'and senha='" + senha + "'");
+		return consultar(resultSet1);
+	}
 
+	public boolean consultarUsuario(String login) {
+		String resultSet1 = ("select login, senha from tbl_usuario where login='"
+				+ login + "'");
+		return consultar(resultSet1);
+	}
+
+	public boolean consultar(String resultSet1) {
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-
+		boolean usuario = false;
 		try {
 			Conexao.abrirConceccaoMySQL();
 			conexao = DriverManager.getConnection(
 					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
 			statement = (Statement) conexao.createStatement();
-			resultSet = statement
-					.executeQuery("select login, senha from tbl_usuario where login='"
-							+ login + "'and senha='" + senha + "'");
+			resultSet = statement.executeQuery(resultSet1);
 			if (resultSet.next()) {
-				acesso = true;
+				usuario = true;
 			} else {
-				acesso = false;
+				usuario = false;
 			}
 			Conexao.fecharConecaoMySQL();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return acesso;
+		return usuario;
 	}
 
 }

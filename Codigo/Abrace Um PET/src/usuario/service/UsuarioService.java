@@ -7,7 +7,7 @@ public class UsuarioService {
 	private UsuarioDAO usuarioDao = new UsuarioDAO();
 
 	public boolean consultarUsuarioService(String login, String senha) {
-		return usuarioDao.consultarUsuario(login, senha);
+		return usuarioDao.consultarLogin(login, senha);
 	}
 
 	public boolean adicionarUsuarioService(Usuario usuario) {
