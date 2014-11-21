@@ -32,7 +32,7 @@ public class TelaInicialGUI extends JFrame {
 		telaInicialGUI.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(telaInicialGUI);
 		telaInicialGUI.setLayout(null);
-		
+
 		JButton btnLogin = new JButton("Adotante");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -43,11 +43,11 @@ public class TelaInicialGUI extends JFrame {
 		});
 		btnLogin.setBounds(195, 359, 89, 23);
 		telaInicialGUI.add(btnLogin);
-		
+
 		JButton btnAnimal = new JButton("Animal");
 		btnAnimal.setBounds(37, 359, 89, 23);
 		telaInicialGUI.add(btnAnimal);
-		
+
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,7 +58,7 @@ public class TelaInicialGUI extends JFrame {
 		});
 		btnSair.setBounds(503, 359, 89, 23);
 		telaInicialGUI.add(btnSair);
-		
+
 		JButton btnSobre = new JButton("Sobre");
 		btnSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -69,14 +69,14 @@ public class TelaInicialGUI extends JFrame {
 		});
 		btnSobre.setBounds(345, 359, 89, 23);
 		telaInicialGUI.add(btnSobre);
-		
+
 		JButton button = new JButton("");
 		button.setVerticalAlignment(SwingConstants.BOTTOM);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		Imagens.imagemCadastro(button);
+		Imagens.imagemCadastroUsuario(button);
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
 	}

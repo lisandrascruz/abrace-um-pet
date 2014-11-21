@@ -12,9 +12,9 @@ import usuario.dominio.Usuario;
 import usuario.md5.Criptografia;
 
 public class UsuarioDAO {
-
 	/**
 	 * ADICIONAR USUARIO NO BANCO DE DADOS
+	 * 
 	 * @param usuario
 	 * @return
 	 */
@@ -29,23 +29,24 @@ public class UsuarioDAO {
 
 		String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"
 				+ login + "','" + senha + "','" + email + "')";
-		System.out.println(query);
 		Conexao.comandoMySQL(query);
 		Conexao.fecharConecaoMySQL();
 		return true;
 	}
+
 	/**
 	 * DELETAR USUARIO NO BANCO DE DADOS
+	 * 
 	 * @param usuario
 	 * @return
 	 */
 	public boolean excluirUsuario(Usuario usuario) {
 		Conexao.abrirConceccaoMySQL();
+		Criptografia criptografia = new Criptografia();
+
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
 		String email = usuario.getEmail();
-
-		Criptografia criptografia = new Criptografia();
 		senha = criptografia.criptografar(senha);
 
 		String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
@@ -55,8 +56,10 @@ public class UsuarioDAO {
 		Conexao.fecharConecaoMySQL();
 		return true;
 	}
+
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+	 * 
 	 * @param login
 	 * @param senha
 	 * @return
