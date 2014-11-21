@@ -5,8 +5,7 @@ import adotante.dominio.Adotante;
 
 public class AdotanteDAO {
 	/**
-	 * inserir no bd
-	 * 
+	 * INSERIR NO BANCO
 	 * @param adotante
 	 */
 	public void adicionarAdotante(Adotante adotante) {
@@ -20,7 +19,7 @@ public class AdotanteDAO {
 	}
 
 	/**
-	 * Consultar no bd
+	 *CONSULTAR NO BANCO
 	 */
 	public void consultarAdorante(Adotante adotante) {
 		Conexao.abrirConceccaoMySQL();

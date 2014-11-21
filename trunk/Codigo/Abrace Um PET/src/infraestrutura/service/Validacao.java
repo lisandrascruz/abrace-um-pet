@@ -2,11 +2,13 @@ package infraestrutura.service;
 
 import javax.swing.JOptionPane;
 
+import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
 
 public class Validacao {
 	Usuario usuario = new Usuario();
+	UsuarioDAO usuarioDao = new UsuarioDAO();
 	CadastroUsuarioGUI cadastroUsuario = new CadastroUsuarioGUI();
 
 	/**
@@ -86,6 +88,7 @@ public class Validacao {
 			if ((usuario.getEmail().contains("@"))
 					&& (usuario.getEmail().contains(".com"))
 					&& (!(usuario.getEmail()).contains(" "))) {
+
 				String nomeEmail = new String(email.substring(0,
 						email.lastIndexOf('@')));
 				String dominio = new String(email.substring(
@@ -115,10 +118,24 @@ public class Validacao {
 		}
 		return valido;
 	}
+	/**
+	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
+	 * @param login
+	 * @return
+	 */
 
 	public boolean validarCadastro(String login) {
+		boolean valido = true;
+		usuario.setLogin(login);
 
-		return false;
+		if (usuarioDao.consultarUsuario(login)) {
+			JOptionPane.showMessageDialog(null,
+					"Login já cadastrado! Tente outro.", "ERROR", 0);
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
 	}
 
 }

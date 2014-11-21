@@ -165,8 +165,8 @@ public class CadastroUsuarioGUI extends JFrame {
 	public void validarDadosUsuario(Usuario usuario, Validacao validar,
 			UsuarioService usuarioService, String login, String senha,
 			String email, String confirmacaoSenha) {
-
-		if (validar.validarLogin(login) && validar.validarSenha(senha)
+		
+		if (validar.validarCadastro(login) && validar.validarLogin(login) && validar.validarSenha(senha)
 				&& validar.validarConfirmacaoSenha(senha, confirmacaoSenha)
 				&& validar.validarEmail(email)) {
 
