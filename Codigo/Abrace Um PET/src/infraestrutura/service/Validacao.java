@@ -41,8 +41,7 @@ public class Validacao {
 		int tamanhoSenha = senha.length();
 
 		if (tamanhoSenha < 3) {
-			JOptionPane.showMessageDialog(null,
-					"A senha deve conter pelo menos 3 digitos", "ERROR", 0);
+			JOptionPane.showMessageDialog(null,"A senha deve conter pelo menos 3 digitos", "ERROR", 0);
 			valido = false;
 		} else {
 			valido = true;
