@@ -11,8 +11,8 @@ public class AdotanteDAO {
 	public void adicionarAdotante(Adotante adotante) {
 		Conexao.abrirConceccaoMySQL();
 		String nome = adotante.getNome();
-		String cpf = adotante.getCpf();
-		String query = "INSERT INTO tbl_adotante VALUES('" + nome + "','" + cpf
+		//String cpf = adotante.getCpf();
+		String query = "INSERT INTO tbl_adotante VALUES('" + nome + "','" + "cpf"
 				+ "')";
 		Conexao.comandoMySQL(query);
 		Conexao.fecharConecaoMySQL();
@@ -29,8 +29,8 @@ public class AdotanteDAO {
 	public void apagarAdotante(Adotante adotante) {
 		Conexao.abrirConceccaoMySQL();
 		String nome = adotante.getNome();
-		String cpf = adotante.getCpf();
-		String query = "DELETE INTO tbl_adotante VALUES('" + nome + "','" + cpf
+		//String cpf = adotante.getCpf();
+		String query = "DELETE INTO tbl_adotante VALUES('" + nome + "','" + "cpf"
 				+ "')";
 		Conexao.comandoMySQL(query);
 		Conexao.fecharConecaoMySQL();

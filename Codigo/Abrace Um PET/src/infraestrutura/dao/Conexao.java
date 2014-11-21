@@ -62,13 +62,17 @@ public class Conexao {
 	/**
 	 * EXECUTAR COMANDOS
 	 */
-	public static void comandoMySQL(String comando) {
+	public static long comandoMySQL(String comando) {
+		long x = -1;
 		try {
 			statement = conexao.createStatement();
 			statement.execute(comando);
 		} catch (Exception erro) {
 			System.out.println("MYSQL Erro: " + erro);
 		}
+		return x;
 	}
+	
+	
 
 }
