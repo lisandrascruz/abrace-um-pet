@@ -1,17 +1,13 @@
 package adotante.dominio;
 
 public class PessoaJuridica {
-	private int idPessoaJ;
+	private int id;
 	private String cnpj;
 	private PessoaFisica responsavel;
 	private Adotante adotante;
 
-	public int getIdPessoaJ() {
-		return idPessoaJ;
-	}
-
-	public void setIdPessoaJ(int idPessoaJ) {
-		this.idPessoaJ = idPessoaJ;
+	public int getId() {
+		return id;
 	}
 
 	public String getCnpj() {
