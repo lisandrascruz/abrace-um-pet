@@ -92,10 +92,10 @@ public class CadastroUsuarioGUI extends JFrame {
 				usuario.setEmail(textEmail.getText());
 				setConfirmarSenha(new String(textConfirmarSenha.getPassword()));
 
-				String login = usuario.getLogin().toString();
-				String senha = usuario.getSenha().toString();
-				String email = usuario.getEmail().toString();
-				String confirmacaoSenha = getConfirmarSenha().toString();
+				String login = usuario.getLogin();
+				String senha = usuario.getSenha();
+				String email = usuario.getEmail();
+				String confirmacaoSenha = getConfirmarSenha();
 
 				if (validar.validarCadastro(login) == true) {
 					validacaoDadosUsuario(usuario, validar, usuarioService, login, senha, email, confirmacaoSenha);

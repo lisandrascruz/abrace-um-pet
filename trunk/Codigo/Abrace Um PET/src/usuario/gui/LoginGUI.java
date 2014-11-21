@@ -101,11 +101,11 @@ public class LoginGUI extends JFrame {
 		Usuario usuario = new Usuario();
 		UsuarioService usuarioService = new UsuarioService();
 
-		usuario.setLogin(textLogin.getText().toString());
+		usuario.setLogin(textLogin.getText());
 		usuario.setSenha(new String(textSenha.getPassword()));
 
-		String login = usuario.getLogin().toString();
-		String senha = usuario.getSenha().toString();
+		String login = usuario.getLogin();
+		String senha = usuario.getSenha();
 
 		Criptografia criptografia = new Criptografia();
 		senha = criptografia.criptografar(senha);
