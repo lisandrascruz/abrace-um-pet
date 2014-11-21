@@ -1,5 +1,7 @@
 package adotante.gui;
 
+import infraestrutura.service.Validacao;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import adotante.dominio.Adotante;
+import adotante.dominio.Endereco;
+import adotante.dominio.PessoaFisica;
+import adotante.service.PessoaFisicaService;
+
+
 
 public class CadastroAdotanteFisicoGUI extends JFrame {
 
@@ -59,6 +68,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		textNomeFisico.setBounds(173, 80, 401, 20);
 		contentPane.add(textNomeFisico);
 		textNomeFisico.setColumns(10);
+		
+		textCPF = new JTextField();
+		textCPF.setBounds(173, 147, 118, 20);
+		contentPane.add(textCPF);
+		textCPF.setColumns(10);
 
 		JLabel lblEnderecoEmpresarial = new JLabel("Endere\u00E7o:");
 		lblEnderecoEmpresarial.setFont(new Font("Microsoft YaHei", Font.PLAIN,
@@ -80,11 +94,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCpf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblCpf.setBounds(51, 149, 46, 14);
 		contentPane.add(lblCpf);
-
-		textCPF = new JTextField();
-		textCPF.setBounds(173, 147, 118, 20);
-		contentPane.add(textCPF);
-		textCPF.setColumns(10);
 
 		textRua = new JTextField();
 		textRua.setBounds(167, 236, 275, 20);
@@ -144,8 +153,37 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				PessoaFisica pessoaFisica = new PessoaFisica();
+				Endereco endereco = new Endereco();
+				Adotante adotante = new Adotante();
+				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+				
+				
+				
+				pessoaFisica.setCpf(textCPF.getText());
+				endereco.setBairro(textBairro.getText());
+				endereco.setCep(textCEP.getText());
+				endereco.setCidade(textCidade.getText());
+				endereco.setComplemento(textComplemento.getText());
+				endereco.setBairro(textEstado.getText());
+				endereco.setEstado(textNumero.getText());
+				endereco.setRua(textRua.getText());
+				adotante.setNome(textNomeFisico.getText());
+				adotante.setEmail(textEmail.getText());
+				adotante.setTelefoneFixo(textTelefoneFixo.getText());
+				adotante.setTelefoneCelular(textCelular.getText());
+				
+			
+				adotante.setEndereco(endereco);
+				pessoaFisica.setAdotante(adotante);
+
+				
+				pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
+
+				
 			}
 		});
+		
 		btnCadastrar.setBounds(273, 382, 110, 23);
 		contentPane.add(btnCadastrar);
 
