@@ -2,15 +2,13 @@ package usuario.dominio;
 
 public class Usuario {
 
-	// Atributos
 	private int id_usuario;
 	private String login;
 	private String senha;
-	private String confirmarSenha;
+//	private String confirmarSenha;
 	private String email;
 	
 	
-	// Getters e Setters
 	public int getId_Usuario() {
 		return id_usuario;
 	}
@@ -31,19 +29,19 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getConfirmarSenha() {
-		return confirmarSenha;
-	}
-
-	public void setConfirmarSenha(String confirmarSenha) {
-		this.confirmarSenha = confirmarSenha;
-	}
-
-	public String getEmail() {
+		public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+//	public String getConfirmarSenha() {
+//		return confirmarSenha;
+//	}
+//
+//	public void setConfirmarSenha(String confirmarSenha) {
+//		this.confirmarSenha = confirmarSenha;
+//	}
 }

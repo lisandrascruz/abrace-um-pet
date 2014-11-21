@@ -56,7 +56,7 @@ public class UsuarioDAO {
 		return true;
 	}
 	/**
-	 * login
+	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
 	 * @param login
 	 * @param senha
 	 * @return

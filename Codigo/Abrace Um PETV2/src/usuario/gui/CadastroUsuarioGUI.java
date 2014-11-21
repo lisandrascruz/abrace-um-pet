@@ -11,13 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
 import usuario.service.UsuarioService;
-
-import javax.swing.JPasswordField;
 
 public class CadastroUsuarioGUI extends JFrame {
 
@@ -30,6 +29,7 @@ public class CadastroUsuarioGUI extends JFrame {
 	private JPasswordField textSenha;
 	private JPasswordField textConfirmarSenha;
 	private JTextField textEmail;
+	private String confirmarSenha;
 	/**
 	 * Create the frame.
 	 */
@@ -81,7 +81,7 @@ public class CadastroUsuarioGUI extends JFrame {
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+
 			public void actionPerformed(ActionEvent e) {
 				
 				Usuario usuario = new Usuario();
@@ -89,14 +89,15 @@ public class CadastroUsuarioGUI extends JFrame {
 				UsuarioService usuarioService = new UsuarioService();
 				
 				usuario.setLogin(textLogin.getText());
-				usuario.setSenha(textSenha.getText());
+				usuario.setSenha(new String (textSenha.getPassword()));
 				usuario.setEmail(textEmail.getText());
-				usuario.setConfirmarSenha(textConfirmarSenha.getText());
+				setConfirmarSenha(new String(textConfirmarSenha.getPassword()));
+				
 				
 				String login = usuario.getLogin().toString();
 				String senha = usuario.getSenha().toString();
 				String email = usuario.getEmail().toString();
-				String confirmacaoSenha = usuario.getConfirmarSenha().toString();
+				String confirmacaoSenha = getConfirmarSenha().toString();
 				
 				if(validar.validarLogin(login) && validar.validarSenha(senha) && 
 						validar.validarConfirmacaoSenha(senha, confirmacaoSenha) && validar.validarEmail(email)){
@@ -157,5 +158,12 @@ public class CadastroUsuarioGUI extends JFrame {
 		textEmail.setBounds(197, 254, 345, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
+	}
+	
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
 	}
 }
