@@ -2,13 +2,13 @@ package usuario.dominio;
 
 public class Usuario {
 
-	private int id_usuario;
+	private int id;
 	private String login;
 	private String senha;
 	private String email;
 
-	public int getId_Usuario() {
-		return id_usuario;
+	public int getId() {
+		return id;
 	}
 
 	public String getLogin() {
