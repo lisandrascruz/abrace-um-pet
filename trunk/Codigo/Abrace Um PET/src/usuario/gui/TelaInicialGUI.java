@@ -1,17 +1,15 @@
 package usuario.gui;
 
-import java.awt.EventQueue;
+import infraestrutura.gui.Imagens;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import adotante.gui.AdotanteGUI;
 
@@ -22,22 +20,6 @@ public class TelaInicialGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel telaInicialGUI;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaInicialGUI frame = new TelaInicialGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -94,7 +76,7 @@ public class TelaInicialGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Abrace Um PET\\imagens\\cadastro.png"));
+		Imagens.imagemCadastro(button);
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
 	}

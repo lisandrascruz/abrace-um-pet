@@ -1,6 +1,7 @@
 package usuario.gui;
 
-import java.awt.EventQueue;
+import infraestrutura.service.Validacao;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +9,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JPasswordField;
+
+import usuario.dominio.Usuario;
+import usuario.service.UsuarioService;
 
 public class CadastroUsuarioGUI extends JFrame {
 
@@ -21,26 +26,10 @@ public class CadastroUsuarioGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textLogin;
-	private JTextField textEmail;
 	private JPasswordField textSenha;
 	private JPasswordField textConfirmarSenha;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroUsuarioGUI frame = new CadastroUsuarioGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JTextField textEmail;
+	private String confirmarSenha;
 	/**
 	 * Create the frame.
 	 */
@@ -70,30 +59,20 @@ public class CadastroUsuarioGUI extends JFrame {
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblSenha.setBounds(68, 224, 46, 14);
+		lblSenha.setBounds(68, 184, 46, 14);
 		contentPane.add(lblSenha);
-		
-		JLabel lblEmail = new JLabel("E-mail: ");
-		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEmail.setBounds(68, 182, 46, 14);
-		contentPane.add(lblEmail);
-		
-		textEmail = new JTextField();
-		textEmail.setBounds(197, 181, 345, 20);
-		contentPane.add(textEmail);
-		textEmail.setColumns(10);
 		
 		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha:");
 		lblConfirmarSenha.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblConfirmarSenha.setBounds(68, 263, 115, 14);
+		lblConfirmarSenha.setBounds(68, 221, 115, 14);
 		contentPane.add(lblConfirmarSenha);
 		
 		JButton btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textEmail.setText("");
 				textLogin.setText("");
 				textSenha.setText("");
+				textEmail.setText("");
 				textConfirmarSenha.setText("");
 			}
 		});
@@ -101,6 +80,44 @@ public class CadastroUsuarioGUI extends JFrame {
 		contentPane.add(btnLimparCampos);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				Usuario usuario = new Usuario();
+				Validacao validar = new Validacao();
+				UsuarioService usuarioService = new UsuarioService();
+				
+				usuario.setLogin(textLogin.getText());
+				usuario.setSenha(new String (textSenha.getPassword()));
+				usuario.setEmail(textEmail.getText());
+				setConfirmarSenha(new String(textConfirmarSenha.getPassword()));
+				
+				
+				String login = usuario.getLogin().toString();
+				String senha = usuario.getSenha().toString();
+				String email = usuario.getEmail().toString();
+				String confirmacaoSenha = getConfirmarSenha().toString();
+				
+				if(validar.validarLogin(login) && validar.validarSenha(senha) && 
+						validar.validarConfirmacaoSenha(senha, confirmacaoSenha) && validar.validarEmail(email)){
+					
+					if(usuarioService.adicionarUsuarioService(usuario)){
+						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+						LoginGUI login1 = new LoginGUI();
+						login1.setVisible(true);
+						dispose();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado", "ERROR", 0);
+						textLogin.setText("");
+						textSenha.setText("");
+						textEmail.setText("");
+						textConfirmarSenha.setText("");
+					}
+				}
+			}
+		});
 		btnCadastrar.setBounds(197, 315, 117, 23);
 		contentPane.add(btnCadastrar);
 		
@@ -125,11 +142,28 @@ public class CadastroUsuarioGUI extends JFrame {
 		contentPane.add(btnSair);
 		
 		textSenha = new JPasswordField();
-		textSenha.setBounds(197, 222, 345, 20);
+		textSenha.setBounds(197, 181, 345, 23);
 		contentPane.add(textSenha);
 		
 		textConfirmarSenha = new JPasswordField();
-		textConfirmarSenha.setBounds(197, 261, 345, 20);
+		textConfirmarSenha.setBounds(197, 218, 345, 23);
 		contentPane.add(textConfirmarSenha);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblEmail.setBounds(68, 256, 46, 14);
+		contentPane.add(lblEmail);
+		
+		textEmail = new JTextField();
+		textEmail.setBounds(197, 254, 345, 20);
+		contentPane.add(textEmail);
+		textEmail.setColumns(10);
+	}
+	
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
 	}
 }

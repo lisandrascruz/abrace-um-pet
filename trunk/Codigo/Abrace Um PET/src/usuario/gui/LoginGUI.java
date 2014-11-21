@@ -1,11 +1,11 @@
 package usuario.gui;
 
-import java.awt.EventQueue;
+import infraestrutura.gui.Imagens;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +15,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import usuario.negocio.UsuarioService;
-import usuario.usuario.Usuario;
+import usuario.dominio.Usuario;
+import usuario.md5.Criptografia;
+import usuario.service.UsuarioService;
 
 public class LoginGUI extends JFrame {
 
@@ -29,22 +30,6 @@ public class LoginGUI extends JFrame {
 	private JPasswordField textSenha;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginGUI frame = new LoginGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public LoginGUI() {
@@ -55,56 +40,38 @@ public class LoginGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
 		lblLogin.setBounds(279, 88, 63, 17);
 		contentPane.add(lblLogin);
-		
+
 		textLogin = new JTextField();
 		textLogin.setBounds(379, 88, 199, 20);
 		contentPane.add(textLogin);
 		textLogin.setColumns(10);
-		
+
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
 		lblSenha.setBounds(279, 165, 63, 17);
 		contentPane.add(lblSenha);
-		
+
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Abrace Um PET\\imagens\\logn1.png"));
+		Imagens.imagemLogin(label);
+
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
-		
+
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				
-				Usuario usuario = new Usuario();
-				usuario.setLogin(textLogin.getText());
-				usuario.setSenha(textSenha.getPassword().toString());
-				
-				UsuarioService usuarioService = new UsuarioService();
-				
-				if(usuarioService.consultarUsuarioService(usuario)){
-					
-					TelaInicialGUI tl = new TelaInicialGUI();
-					tl.setVisible(true);
-					dispose();
-					
-				}
-				if(!(usuarioService.consultarUsuarioService(usuario))){
-					JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);
-					textLogin.setText("");
-					textSenha.setText("");
-					textLogin.requestFocus();//volta o cursor pra caixa de login
-				}
+				login();
 			}
 		});
 		btnAcessar.setBounds(489, 216, 89, 23);
 		contentPane.add(btnAcessar);
-		
+
 		JButton btnFechar = new JButton("Fechar");
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,7 +80,7 @@ public class LoginGUI extends JFrame {
 		});
 		btnFechar.setBounds(489, 382, 89, 23);
 		contentPane.add(btnFechar);
-		
+
 		JButton btnFaaSeuCadastro = new JButton("Fa\u00E7a seu cadastro");
 		btnFaaSeuCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,9 +91,35 @@ public class LoginGUI extends JFrame {
 		});
 		btnFaaSeuCadastro.setBounds(335, 382, 144, 23);
 		contentPane.add(btnFaaSeuCadastro);
-		
+
 		textSenha = new JPasswordField();
 		textSenha.setBounds(379, 165, 199, 20);
 		contentPane.add(textSenha);
+	}
+
+	public void login() {
+		Usuario usuario = new Usuario();
+		UsuarioService usuarioService = new UsuarioService();
+
+		usuario.setLogin(textLogin.getText().toString());
+		usuario.setSenha(new String(textSenha.getPassword()));
+
+		String login = usuario.getLogin().toString();
+		String senha = usuario.getSenha().toString();
+
+		Criptografia criptografia = new Criptografia();
+		senha = criptografia.criptografar(senha);
+
+		if (usuarioService.consultarUsuarioService(login, senha)) {
+			TelaInicialGUI tl = new TelaInicialGUI();
+			tl.setVisible(true);
+			dispose();
+		}
+		if (!(usuarioService.consultarUsuarioService(login, senha))) {
+			JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);
+			textLogin.setText("");
+			textSenha.setText("");
+			textLogin.requestFocus();
+		}
 	}
 }
