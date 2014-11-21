@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import usuario.gui.LoginGUI;
-
 public class CadastroAdotante extends JFrame {
 
 	/**
@@ -75,21 +73,21 @@ public class CadastroAdotante extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginGUI login = new LoginGUI();
-				login.setVisible(true);
+				AdotanteGUI adotante = new AdotanteGUI();
+				adotante.setVisible(true);
 				dispose();
 			}
 		});
 		btnVoltar.setBounds(285, 382, 89, 23);
 		contentPane.add(btnVoltar);
 		
-		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Usu\u00E1rio");
+		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Adotante");
 		lblCadastroDeUsurio.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblCadastroDeUsurio.setBounds(44, 37, 151, 39);
+		lblCadastroDeUsurio.setBounds(44, 37, 214, 39);
 		contentPane.add(lblCadastroDeUsurio);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\abrace-um-pet\\Codigo\\Abrace Um PET\\imagens\\Sem T\u00EDtulo-1.png"));
+		label.setIcon(new ImageIcon("https://abrace-um-pet.googlecode.com/svn/trunk/Codigo/Abrace Um PET - V2/imagens/Sem Título-1.png"));
 		label.setBounds(385, 180, 244, 236);
 		contentPane.add(label);
 	}

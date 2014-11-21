@@ -1,5 +1,7 @@
 package adotante.gui;
 
+import infraestrutura.dao.Conexao;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -15,12 +17,16 @@ import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
 import javax.swing.JFormattedTextField;
 
+import adotante.dominio.Adotante;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("unused")
-public class CadastroAdotanteJuridicoGUI extends JFrame {
+public class CadastroAdotanteJuridicoGui extends JFrame {
 
 	/**
 	 * 
@@ -41,26 +47,12 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField textTelefonePrincipal;
 	private JTextField textEmail;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroAdotanteJuridicoGUI frame = new CadastroAdotanteJuridicoGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public CadastroAdotanteJuridicoGUI() {
+	public CadastroAdotanteJuridicoGui() {
 		setTitle("Cadastro de Pessoa Juridica - Abrace um PET");
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
@@ -79,7 +71,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblNomeJuridico);
 		
 		textNomeJuridico = new JTextField();
-		textNomeJuridico.setBounds(173, 80, 408, 20);
+		textNomeJuridico.setBounds(173, 80, 395, 20);
 		contentPane.add(textNomeJuridico);
 		textNomeJuridico.setColumns(10);
 		
@@ -164,6 +156,10 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		textCEP.setColumns(10);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCadastrar.setBounds(273, 382, 110, 23);
 		contentPane.add(btnCadastrar);
 		
@@ -213,32 +209,32 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		btnLimparCampos.setBounds(129, 382, 134, 23);
 		contentPane.add(btnLimparCampos);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnCancelar.setBounds(492, 382, 89, 23);
-		contentPane.add(btnCancelar);
+		btnSair.setBounds(492, 382, 89, 23);
+		contentPane.add(btnSair);
 		
-		JLabel lblTelefoneJuridico2 = new JLabel("Telefone Secundario: ");
+		JLabel lblTelefoneJuridico2 = new JLabel("Celular:");
 		lblTelefoneJuridico2.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblTelefoneJuridico2.setBounds(299, 118, 129, 14);
+		lblTelefoneJuridico2.setBounds(364, 118, 65, 14);
 		contentPane.add(lblTelefoneJuridico2);
 		
 		textTelefoneSecundario = new JTextField();
-		textTelefoneSecundario.setBounds(438, 116, 143, 20);
+		textTelefoneSecundario.setBounds(420, 116, 161, 20);
 		contentPane.add(textTelefoneSecundario);
 		textTelefoneSecundario.setColumns(10);
 		
-		JLabel lblTelefonePrincipal = new JLabel("Telefone Principal:");
-		lblTelefonePrincipal.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblTelefonePrincipal.setBounds(51, 118, 118, 14);
-		contentPane.add(lblTelefonePrincipal);
+		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
+		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblTelefoneFixo.setBounds(51, 118, 122, 14);
+		contentPane.add(lblTelefoneFixo);
 		
 		textTelefonePrincipal = new JTextField();
-		textTelefonePrincipal.setBounds(173, 116, 120, 20);
+		textTelefonePrincipal.setBounds(173, 116, 171, 20);
 		contentPane.add(textTelefonePrincipal);
 		textTelefonePrincipal.setColumns(10);
 		
@@ -252,15 +248,15 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotante c = new CadastroAdotante();
 				c.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(393, 382, 89, 23);
-		contentPane.add(btnVoltar);
+		btnCancelar.setBounds(393, 382, 89, 23);
+		contentPane.add(btnCancelar);
 	}
 }

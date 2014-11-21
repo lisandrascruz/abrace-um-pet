@@ -1,80 +1,91 @@
 package usuario.dao;
 
+import infraestrutura.dao.Conexao;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import usuario.usuario.Usuario;
-
 import java.sql.Statement;
 
-public class UsuarioDAO {
-	
-	private boolean acesso;
+import usuario.dominio.Usuario;
+import usuario.md5.Criptografia;
 
-	public boolean consultarUsuario(Usuario usuario) {
+public class UsuarioDAO {
+
+	/**
+	 * ADICIONAR USUARIO NO BANCO DE DADOS
+	 * @param usuario
+	 * @return
+	 */
+	public boolean adicionarUsuario(Usuario usuario) {
+		Conexao.abrirConceccaoMySQL();
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
-		//String senha = md5(usuario.getSenha());
-		
-		Connection conn = null;
-		Statement consulta = null;
-		ResultSet tabela = null;
+		String email = usuario.getEmail();
+
+		Criptografia criptografia = new Criptografia();
+		senha = criptografia.criptografar(senha);
+
+		String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"
+				+ login + "','" + senha + "','" + email + "')";
+		System.out.println(query);
+		Conexao.comandoMySQL(query);
+		Conexao.fecharConecaoMySQL();
+		return true;
+	}
+	/**
+	 * DELETAR USUARIO NO BANCO DE DADOS
+	 * @param usuario
+	 * @return
+	 */
+	public boolean excluirUsuario(Usuario usuario) {
+		Conexao.abrirConceccaoMySQL();
+		String login = usuario.getLogin();
+		String senha = usuario.getSenha();
+		String email = usuario.getEmail();
+
+		Criptografia criptografia = new Criptografia();
+		senha = criptografia.criptografar(senha);
+
+		String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
+				+ login + "','" + senha + "','" + email + "')";
+		System.out.println(query);
+		Conexao.comandoMySQL(query);
+		Conexao.fecharConecaoMySQL();
+		return true;
+	}
+	/**
+	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+	 * @param login
+	 * @param senha
+	 * @return
+	 */
+	public boolean consultarUsuario(String login, String senha) {
+		boolean acesso = false;
+
+		Connection conexao = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			consulta = (Statement) conn.createStatement();
-			tabela = consulta.executeQuery("select login, senha from tbl_usuario where login='"
+			Conexao.abrirConceccaoMySQL();
+			conexao = DriverManager.getConnection(
+					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			statement = (Statement) conexao.createStatement();
+			resultSet = statement
+					.executeQuery("select login, senha from tbl_usuario where login='"
 							+ login + "'and senha='" + senha + "'");
-			if (tabela.next()) {
+			if (resultSet.next()) {
 				acesso = true;
-				conn.close();
 			} else {
 				acesso = false;
-				conn.close();
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+			Conexao.fecharConecaoMySQL();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (Exception e) {
-                	e.printStackTrace();
-                }
-            }
-        }
-		
+		}
 		return acesso;
 	}
 
-	   public static String md5(String input) {
-	         
-	        String md5 = null;
-	         
-	        if(null == input) return null;
-          
-	        try {
-	             
-	        //Create MessageDigest object for MD5
-	        MessageDigest digest = MessageDigest.getInstance("MD5");
-	         
-	        //Update input string in message digest
-	        digest.update(input.getBytes(), 0, input.length());
-	 
-	        //Converts message digest value in base 16 (hex) 
-	        md5 = new BigInteger(1, digest.digest()).toString(16);
-	 
-	        } catch (NoSuchAlgorithmException e) {
-	 
-	            e.printStackTrace();
-	        }
-	        return md5;
-	    }
 }
