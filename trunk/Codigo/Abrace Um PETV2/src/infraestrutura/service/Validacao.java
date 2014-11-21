@@ -3,9 +3,11 @@ package infraestrutura.service;
 import javax.swing.JOptionPane;
 
 import usuario.dominio.Usuario;
+import usuario.gui.CadastroUsuarioGUI;
 
 public class Validacao {
 	Usuario usuario = new Usuario();
+	CadastroUsuarioGUI cadU = new CadastroUsuarioGUI();
 	/**
 	 * Valida o login do usuario. Deve ter pelo menos 3 caracteres
 	 * @param login
@@ -51,10 +53,10 @@ public class Validacao {
 	public boolean validarConfirmacaoSenha(String senha, String confirmacaoSenha){
 		boolean valido = false;
 		
-		usuario.setConfirmarSenha(confirmacaoSenha);
+		cadU.setConfirmarSenha(confirmacaoSenha);
 		usuario.setSenha(senha);
 		
-		if(!(usuario.getConfirmarSenha().equals(usuario.getSenha()))){
+		if(!(cadU.getConfirmarSenha().equals(usuario.getSenha()))){
 			JOptionPane.showMessageDialog(null, "Senhas não conferem", "ERROR", 0);
 			valido = false;
 		}
@@ -63,6 +65,11 @@ public class Validacao {
 		}
 		return valido;
 	}
+	/**
+	 * VALIDA A ENTRADA DO EMAIL
+	 * @param email
+	 * @return
+	 */
 	
 	public boolean validarEmail(String email){
 		boolean valido = false;

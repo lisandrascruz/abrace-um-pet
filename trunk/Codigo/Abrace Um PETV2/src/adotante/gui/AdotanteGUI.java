@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import usuario.gui.TelaInicialGUI;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -73,5 +76,25 @@ public class AdotanteGUI extends JFrame {
 		lblAdotante.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblAdotante.setBounds(51, 45, 95, 14);
 		contentPane.add(lblAdotante);
+		
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnSair.setBounds(530, 382, 89, 23);
+		contentPane.add(btnSair);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicialGUI ti = new TelaInicialGUI();
+				ti.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(431, 382, 89, 23);
+		contentPane.add(btnVoltar);
 	}
 }

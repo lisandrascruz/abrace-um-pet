@@ -185,14 +185,14 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		btnLimparCampos.setBounds(129, 382, 134, 23);
 		contentPane.add(btnLimparCampos);
 
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnCancelar.setBounds(492, 382, 89, 23);
-		contentPane.add(btnCancelar);
+		btnSair.setBounds(492, 382, 89, 23);
+		contentPane.add(btnSair);
 
 		JLabel lblCelular = new JLabel("Celular:");
 		lblCelular.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -224,7 +224,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("Cancelar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotante c = new CadastroAdotante();

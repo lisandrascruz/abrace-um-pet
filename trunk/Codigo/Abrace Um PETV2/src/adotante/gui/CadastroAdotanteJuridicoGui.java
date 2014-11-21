@@ -23,6 +23,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("unused")
 public class CadastroAdotanteJuridicoGui extends JFrame {
@@ -208,14 +209,14 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		btnLimparCampos.setBounds(129, 382, 134, 23);
 		contentPane.add(btnLimparCampos);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnCancelar.setBounds(492, 382, 89, 23);
-		contentPane.add(btnCancelar);
+		btnSair.setBounds(492, 382, 89, 23);
+		contentPane.add(btnSair);
 		
 		JLabel lblTelefoneJuridico2 = new JLabel("Celular:");
 		lblTelefoneJuridico2.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -247,15 +248,15 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotante c = new CadastroAdotante();
 				c.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(393, 382, 89, 23);
-		contentPane.add(btnVoltar);
+		btnCancelar.setBounds(393, 382, 89, 23);
+		contentPane.add(btnCancelar);
 	}
 }
