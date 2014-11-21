@@ -49,7 +49,7 @@ public class CadastroAdotante extends JFrame {
 		setContentPane(contentPane);
 
 		JButton btnPessoaFsica = new JButton("Pessoa F\u00EDsica");
-		btnPessoaFsica.setBounds(95, 198, 279, 39);
+		btnPessoaFsica.setBounds(61, 154, 279, 39);
 		btnPessoaFsica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotanteFisicoGUI af = new CadastroAdotanteFisicoGUI();
@@ -59,7 +59,7 @@ public class CadastroAdotante extends JFrame {
 		});
 
 		JButton btnPessoaJurdica = new JButton("Pessoa Jur\u00EDdica");
-		btnPessoaJurdica.setBounds(95, 124, 279, 39);
+		btnPessoaJurdica.setBounds(61, 222, 279, 39);
 		btnPessoaJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotanteJuridicoGui cadastroPessoaJuridica = new CadastroAdotanteJuridicoGui();

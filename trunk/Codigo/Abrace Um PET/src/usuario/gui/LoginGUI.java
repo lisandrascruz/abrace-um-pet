@@ -84,8 +84,8 @@ public class LoginGUI extends JFrame {
 		JButton btnFaaSeuCadastro = new JButton("Fa\u00E7a seu cadastro");
 		btnFaaSeuCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroUsuarioGUI cu = new CadastroUsuarioGUI();
-				cu.setVisible(true);
+				CadastroUsuarioGUI cadastroUsuario = new CadastroUsuarioGUI();
+				cadastroUsuario.setVisible(true);
 				dispose();
 			}
 		});
