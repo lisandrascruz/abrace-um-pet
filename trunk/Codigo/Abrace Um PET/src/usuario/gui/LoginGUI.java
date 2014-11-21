@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
-import usuario.md5.Criptografia;
+import usuario.service.Criptografia;
 import usuario.service.UsuarioService;
 
 public class LoginGUI extends JFrame {

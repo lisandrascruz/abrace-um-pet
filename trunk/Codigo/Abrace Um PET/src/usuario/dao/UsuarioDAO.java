@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usuario.dominio.Usuario;
-import usuario.md5.Criptografia;
+import usuario.service.Criptografia;
 
 public class UsuarioDAO {
 	/**
@@ -67,15 +67,26 @@ public class UsuarioDAO {
 	public boolean consultarLogin(String login, String senha) {
 		String resultSet1 = ("select login, senha from tbl_usuario where login='"
 				+ login + "'and senha='" + senha + "'");
+		
 		return consultar(resultSet1);
 	}
+	/**
+	 * 
+	 * @param login
+	 * @return
+	 */
 
 	public boolean consultarUsuario(String login) {
-		String resultSet1 = ("select login, senha from tbl_usuario where login='"
+		String resultSet1 = ("select login from tbl_usuario where login='"
 				+ login + "'");
+		System.out.println(resultSet1);
 		return consultar(resultSet1);
 	}
-
+	/**
+	 * 
+	 * @param resultSet1
+	 * @return
+	 */
 	public boolean consultar(String resultSet1) {
 		Connection conexao = null;
 		Statement statement = null;
