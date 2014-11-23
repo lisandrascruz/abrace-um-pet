@@ -33,18 +33,35 @@ public class Validacao {
 
 	/**
 	 * VALIDAR CAMPO SENHA (MINIMO 3 CARACTERES)
+	 * 
 	 * @param senha
 	 * @return
 	 */
 	public boolean validarSenha(String senha) {
 		boolean valido = false;
 		int tamanhoSenha = senha.length();
+		usuario.setSenha(senha);
 
-		if (tamanhoSenha < 3) {
-			JOptionPane.showMessageDialog(null,"A senha deve conter pelo menos 3 digitos", "ERROR", 0);
-			valido = false;
-		} else {
-			valido = true;
+		if (senha != "") {
+			if (tamanhoSenha < 3) {
+				JOptionPane.showMessageDialog(null,
+						"A senha deve conter pelo menos 3 digitos", "ERROR", 0);
+				
+			} else {
+				valido = true;
+			}
+
+			if (!(senha.contains("!") || senha.contains("@")
+					|| senha.contains("#") || senha.contains("%")
+					|| senha.contains("&") || senha.contains("$"))) {
+
+				JOptionPane.showMessageDialog(null,
+								"A senha deve conter pelo menos um caracter especial. Ex. !@#$%&",
+								"ERROR", 0);
+				valido = false;
+			} else {
+				valido = true;
+			}
 		}
 		return valido;
 	}
@@ -74,6 +91,7 @@ public class Validacao {
 
 	/**
 	 * VALIDAR EMAIL DO USUARIO
+	 * 
 	 * @param email
 	 * @return
 	 */
@@ -88,20 +106,25 @@ public class Validacao {
 
 				String nomeEmail = new String(email.substring(0,
 						email.lastIndexOf('@')));
-				
+
 				String dominio = new String(email.substring(
 						email.lastIndexOf('@') + 1, email.length()));
 
-				if (!(nomeEmail.length() >= 1) && (!nomeEmail.contains("@")) && (dominio.contains(".com"))
-						&& (!dominio.contains("@"))	&& (dominio.indexOf(".com") >= 1)&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
-					JOptionPane.showMessageDialog(null, "Email Iválido","ERROR", 0);
+				if (!(nomeEmail.length() >= 1) && (!nomeEmail.contains("@"))
+						&& (dominio.contains(".com"))
+						&& (!dominio.contains("@"))
+						&& (dominio.indexOf(".com") >= 1)
+						&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
+					JOptionPane.showMessageDialog(null, "Email Iválido",
+							"ERROR", 0);
 					valido = false;
 				} else {
 					valido = true;
 				}
 			} else {
 				JOptionPane.showMessageDialog(null,
-						"Email errado, usar formato - exemplo@exemplo.com","ERROR", 0);
+						"Email errado, usar formato - exemplo@exemplo.com",
+						"ERROR", 0);
 				valido = false;
 			}
 
@@ -111,8 +134,10 @@ public class Validacao {
 		}
 		return valido;
 	}
+
 	/**
 	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
+	 * 
 	 * @param login
 	 * @return
 	 */
@@ -120,15 +145,15 @@ public class Validacao {
 	public boolean validarCadastro(String login) {
 		boolean valido = false;
 		usuario.setLogin(login);
-		
+
 		if (usuarioDao.consultarUsuario(login)) {
-			JOptionPane.showMessageDialog(null,"Login já cadastrado! Tente outro.", "ERROR", 0);
+			JOptionPane.showMessageDialog(null,
+					"Login já cadastrado! Tente outro.", "ERROR", 0);
 			valido = false;
 		} else {
 			valido = true;
 		}
 		return valido;
 	}
-	
 
 }
