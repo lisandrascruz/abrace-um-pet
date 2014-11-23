@@ -1,7 +1,5 @@
 package infraestrutura.service;
 
-import javax.swing.JOptionPane;
-
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
@@ -21,47 +19,27 @@ public class Validacao {
 		boolean valido = true;
 		int tamanhoLogin = login.length();
 
-		if (tamanhoLogin < 3) {
-			JOptionPane.showMessageDialog(null,
-					"O login deve conter pelo menos 3 digitos", "ERROR", 0);
-			valido = false;
-		} else {
+		if (tamanhoLogin >= 3) {
 			valido = true;
+		} else {
+			valido = false;
 		}
 		return valido;
 	}
 
 	/**
-	 * VALIDAR CAMPO SENHA (MINIMO 3 CARACTERES E PELO MENOS UM CARACTER ESPECIAL)
-	 * 
+	 * VALIDAR CAMPO SENHA (MINIMO 3 CARACTERES)
 	 * @param senha
 	 * @return
 	 */
 	public boolean validarSenha(String senha) {
-		boolean valido = false;
+		boolean valido = true;
 		int tamanhoSenha = senha.length();
-		usuario.setSenha(senha);
 
-		if (senha != "") {
-			if (tamanhoSenha < 3) {
-				JOptionPane.showMessageDialog(null,
-						"A senha deve conter pelo menos 3 digitos", "ERROR", 0);
-				
-			} else {
-				valido = true;
-			}
-
-			if (!(senha.contains("!") || senha.contains("@")
-					|| senha.contains("#") || senha.contains("%")
-					|| senha.contains("&") || senha.contains("$"))) {
-
-				JOptionPane.showMessageDialog(null,
-								"A senha deve conter pelo menos um caracter especial. Ex. !@#$%&",
-								"ERROR", 0);
-				valido = false;
-			} else {
-				valido = true;
-			}
+		if (tamanhoSenha >= 6) {
+			valido = true;
+		} else {
+			valido = false;
 		}
 		return valido;
 	}
@@ -74,86 +52,73 @@ public class Validacao {
 	 * @return
 	 */
 	public boolean validarConfirmacaoSenha(String senha, String confirmacaoSenha) {
-		boolean valido = false;
+		boolean valido;
 
 		cadastroUsuario.setConfirmarSenha(confirmacaoSenha);
 		usuario.setSenha(senha);
 
-		if (!(cadastroUsuario.getConfirmarSenha().equals(usuario.getSenha()))) {
-			JOptionPane.showMessageDialog(null, "Senhas não conferem", "ERROR",
-					0);
-			valido = false;
-		} else {
+		if ((cadastroUsuario.getConfirmarSenha().equals(usuario.getSenha()))) {
 			valido = true;
+		} else {
+			valido = false;
 		}
 		return valido;
 	}
 
 	/**
 	 * VALIDAR EMAIL DO USUARIO
-	 * 
 	 * @param email
 	 * @return
 	 */
 	public boolean validarEmail(String email) {
-		boolean valido = false;
+		boolean valido = true;
 		usuario.setEmail(email);
 
 		if (email != "") {
+			
 			if ((usuario.getEmail().contains("@"))
 					&& (usuario.getEmail().contains(".com"))
 					&& (!(usuario.getEmail()).contains(" "))) {
 
 				String nomeEmail = new String(email.substring(0,
 						email.lastIndexOf('@')));
-
+				
 				String dominio = new String(email.substring(
 						email.lastIndexOf('@') + 1, email.length()));
 
-				if (!(nomeEmail.length() >= 1) && (!nomeEmail.contains("@"))
-						&& (dominio.contains(".com"))
-						&& (!dominio.contains("@"))
-						&& (dominio.indexOf(".com") >= 1)
-						&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
-					JOptionPane.showMessageDialog(null, "Email Iválido",
-							"ERROR", 0);
-					valido = false;
+				if ((nomeEmail.length() >= 1) && (!nomeEmail.contains("@")) && (dominio.contains(".com"))
+						&& (!dominio.contains("@"))	&& (dominio.indexOf(".com") >= 1)&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
+						valido = true;
 				} else {
-					valido = true;
+					valido = false;
 				}
+				
 			} else {
-				JOptionPane.showMessageDialog(null,
-						"Email errado, usar formato - exemplo@exemplo.com",
-						"ERROR", 0);
 				valido = false;
 			}
 
 		} else {
-			JOptionPane.showMessageDialog(null, "Digite um email.", "ERROR", 0);
 			valido = false;
 		}
 		return valido;
 	}
-
 	/**
 	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
-	 * 
 	 * @param login
 	 * @return
 	 */
 
 	public boolean validarCadastro(String login) {
-		boolean valido = false;
+		boolean valido = true;
 		usuario.setLogin(login);
-
+		
 		if (usuarioDao.consultarUsuario(login)) {
-			JOptionPane.showMessageDialog(null,
-					"Login já cadastrado! Tente outro.", "ERROR", 0);
 			valido = false;
 		} else {
 			valido = true;
 		}
 		return valido;
 	}
+	
 
 }
