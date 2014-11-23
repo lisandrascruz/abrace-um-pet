@@ -17,6 +17,9 @@ import adotante.dominio.Endereco;
 import adotante.dominio.PessoaFisica;
 import adotante.service.PessoaFisicaService;
 
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+
 
 
 public class CadastroAdotanteFisicoGUI extends JFrame {
@@ -38,6 +41,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private JTextField textCelular;
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
+	private JTextField textRG;
 
 	/**
 	 * Create the frame.
@@ -75,12 +79,12 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JLabel lblEnderecoEmpresarial = new JLabel("Endere\u00E7o:");
 		lblEnderecoEmpresarial.setFont(new Font("Microsoft YaHei", Font.PLAIN,
 				12));
-		lblEnderecoEmpresarial.setBounds(25, 210, 114, 14);
+		lblEnderecoEmpresarial.setBounds(25, 236, 114, 14);
 		contentPane.add(lblEnderecoEmpresarial);
 
 		JLabel lblRua = new JLabel("Rua:");
 		lblRua.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRua.setBounds(45, 238, 46, 14);
+		lblRua.setBounds(45, 261, 46, 14);
 		contentPane.add(lblRua);
 
 		JLabel lblDadosFisicos = new JLabel("Dados: ");
@@ -94,57 +98,57 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(lblCpf);
 
 		textRua = new JTextField();
-		textRua.setBounds(167, 236, 275, 20);
+		textRua.setBounds(167, 259, 275, 20);
 		contentPane.add(textRua);
 		textRua.setColumns(10);
 
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblBairro.setBounds(376, 267, 46, 14);
+		lblBairro.setBounds(376, 290, 46, 14);
 		contentPane.add(lblBairro);
 
 		textBairro = new JTextField();
-		textBairro.setBounds(432, 270, 142, 20);
+		textBairro.setBounds(432, 293, 142, 20);
 		contentPane.add(textBairro);
 		textBairro.setColumns(10);
 
 		JLabel lblNumero = new JLabel("Numero:");
 		lblNumero.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblNumero.setBounds(449, 238, 65, 14);
+		lblNumero.setBounds(449, 261, 65, 14);
 		contentPane.add(lblNumero);
 
 		textNumero = new JTextField();
-		textNumero.setBounds(509, 236, 65, 20);
+		textNumero.setBounds(509, 259, 65, 20);
 		contentPane.add(textNumero);
 		textNumero.setColumns(10);
 
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCidade.setBounds(45, 299, 46, 14);
+		lblCidade.setBounds(45, 322, 46, 14);
 		contentPane.add(lblCidade);
 
 		textCidade = new JTextField();
-		textCidade.setBounds(167, 297, 187, 20);
+		textCidade.setBounds(167, 320, 187, 20);
 		contentPane.add(textCidade);
 		textCidade.setColumns(10);
 
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEstado.setBounds(376, 301, 46, 14);
+		lblEstado.setBounds(376, 324, 46, 14);
 		contentPane.add(lblEstado);
 
 		textEstado = new JTextField();
-		textEstado.setBounds(432, 297, 142, 20);
+		textEstado.setBounds(432, 320, 142, 20);
 		contentPane.add(textEstado);
 		textEstado.setColumns(10);
 
 		JLabel lblCep = new JLabel("CEP: ");
 		lblCep.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCep.setBounds(45, 272, 46, 14);
+		lblCep.setBounds(45, 295, 46, 14);
 		contentPane.add(lblCep);
 
 		textCEP = new JTextField();
-		textCEP.setBounds(167, 267, 187, 20);
+		textCEP.setBounds(167, 290, 187, 20);
 		contentPane.add(textCEP);
 		textCEP.setColumns(10);
 
@@ -159,6 +163,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				
 				
 				pessoaFisica.setCpf(textCPF.getText());
+				pessoaFisica.setRg(textRG.getText());
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
 				endereco.setCidade(textCidade.getText());
@@ -182,21 +187,21 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			}
 		});
 		
-		btnCadastrar.setBounds(273, 382, 110, 23);
+		btnCadastrar.setBounds(298, 382, 100, 23);
 		contentPane.add(btnCadastrar);
 
 		JLabel lblComplemento = new JLabel("Complemento:");
 		lblComplemento.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblComplemento.setBounds(45, 328, 89, 14);
+		lblComplemento.setBounds(45, 351, 89, 14);
 		contentPane.add(lblComplemento);
 
 		textComplemento = new JTextField();
-		textComplemento.setBounds(167, 328, 407, 20);
+		textComplemento.setBounds(167, 351, 407, 20);
 		contentPane.add(textComplemento);
 		textComplemento.setColumns(10);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(33, 185, 563, 14);
+		separator.setBounds(11, 217, 563, 14);
 		contentPane.add(separator);
 
 		JButton btnLimparCampos = new JButton("Limpar Campos");
@@ -214,11 +219,12 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				textRua.setText("");
 				textTelefoneFixo.setText("");
 				textCelular.setText("");
+				textRG.setText("");
 
 				textNomeFisico.requestFocus();
 			}
 		});
-		btnLimparCampos.setBounds(129, 382, 134, 23);
+		btnLimparCampos.setBounds(167, 382, 124, 23);
 		contentPane.add(btnLimparCampos);
 
 		JButton btnSair = new JButton("Sair");
@@ -227,7 +233,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				System.exit(0);
 			}
 		});
-		btnSair.setBounds(492, 382, 89, 23);
+		btnSair.setBounds(499, 382, 75, 23);
 		contentPane.add(btnSair);
 
 		JLabel lblCelular = new JLabel("Celular:");
@@ -252,7 +258,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEmail.setBounds(301, 149, 46, 14);
+		lblEmail.setBounds(308, 149, 46, 14);
 		contentPane.add(lblEmail);
 
 		textEmail = new JTextField();
@@ -268,7 +274,38 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(393, 382, 89, 23);
+		btnVoltar.setBounds(408, 382, 81, 23);
 		contentPane.add(btnVoltar);
+		
+		JLabel lblRg = new JLabel("RG: ");
+		lblRg.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblRg.setBounds(51, 174, 46, 14);
+		contentPane.add(lblRg);
+		
+		textRG = new JTextField();
+		textRG.setBounds(173, 178, 118, 20);
+		contentPane.add(textRG);
+		textRG.setColumns(10);
+		
+		JComboBox<String> comboOrgEmissor = new JComboBox<String>();
+		comboOrgEmissor.setModel(new DefaultComboBoxModel<String>(new String[] {"", "SSP", "SDS", "OUTROS"}));
+		comboOrgEmissor.setSelectedIndex(0);
+		comboOrgEmissor.setBounds(393, 178, 58, 20);
+		contentPane.add(comboOrgEmissor);
+		
+		JComboBox<String> comboEstado = new JComboBox<String>();
+		comboEstado.setModel(new DefaultComboBoxModel<String>(new String[] {" ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"}));
+		comboEstado.setBounds(509, 178, 65, 20);
+		contentPane.add(comboEstado);
+		
+		JLabel lblEs = new JLabel("Estado:");
+		lblEs.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblEs.setBounds(461, 180, 53, 14);
+		contentPane.add(lblEs);
+		
+		JLabel lblOrgemissor = new JLabel("Org.Emissor:");
+		lblOrgemissor.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblOrgemissor.setBounds(308, 174, 89, 28);
+		contentPane.add(lblOrgemissor);
 	}
 }
