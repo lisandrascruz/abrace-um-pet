@@ -8,35 +8,48 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import adotante.dominio.PessoaFisica;
+import com.mysql.jdbc.PreparedStatement;
 
+import adotante.dominio.PessoaFisica;
 
 public class PessoaFisicaDAO {
 	/**
 	 * ADICIONAR USUARIO NO BANCO DE DADOS
+	 * 
 	 * @param usuario
 	 * @return
 	 */
 	public boolean adicionarPessoFisica(PessoaFisica pessoaFisica) {
-		Conexao.abrirConceccaoMySQL();
+		try {
+			Connection con = Conexao.abrirConceccaoMySQL();
 
-		String query = "INSERT INTO endereco (estado, cidade, bairro, rua, numero, cep, complemento) VALUES ('"
-				+ pessoaFisica.getAdotante().getEndereco().getEstado()
-				+ "', '"
-				+ pessoaFisica.getAdotante().getEndereco().getCidade()
-				+ "', '"
-				+ pessoaFisica.getAdotante().getEndereco().getBairro()
-				+ "', '"
-				+ pessoaFisica.getAdotante().getEndereco().getRua()
-				+ "', '" 
-				+ pessoaFisica.getAdotante().getEndereco().getNumero() 
-				+ "', '"
-				+ pessoaFisica.getAdotante().getEndereco().getCep()
-				+ "', '"
-				+ pessoaFisica.getAdotante().getEndereco().getComplemento()+ "')";
-		Conexao.comandoMySQL(query);
-		Conexao.fecharConecaoMySQL();
-		return true;
+			String query = "INSERT INTO endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement preparedStatement = (PreparedStatement) con
+					.prepareStatement(query);
+
+			preparedStatement.setString(1, pessoaFisica.getAdotante()
+					.getEndereco().getEstado());
+			preparedStatement.setString(2, pessoaFisica.getAdotante()
+					.getEndereco().getCidade());
+			preparedStatement.setString(3, pessoaFisica.getAdotante()
+					.getEndereco().getBairro());
+			preparedStatement.setString(3, pessoaFisica.getAdotante()
+					.getEndereco().getRua());
+			preparedStatement.setString(3, pessoaFisica.getAdotante()
+					.getEndereco().getNumero());
+			preparedStatement.setString(3, pessoaFisica.getAdotante()
+					.getEndereco().getCep());
+			preparedStatement.setString(3, pessoaFisica.getAdotante()
+					.getEndereco().getComplemento());
+			preparedStatement.execute();  
+			preparedStatement.close(); 
+
+			Conexao.fecharConecaoMySQL();
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
 	}
 
 	/**
@@ -45,22 +58,20 @@ public class PessoaFisicaDAO {
 	 * @param usuario
 	 * @return
 	 */
-	/*public boolean excluirUsuario(Usuario usuario) {
-		Conexao.abrirConceccaoMySQL();
-
-
-		String login = usuario.getLogin();
-		String senha = usuario.getSenha();
-		String email = usuario.getEmail();
-
-
-		String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
-				+ login + "','" + senha + "','" + email + "')";
-		System.out.println(query);
-		Conexao.comandoMySQL(query);
-		Conexao.fecharConecaoMySQL();
-		return true;
-	}*/
+	/*
+	 * public boolean excluirUsuario(Usuario usuario) {
+	 * Conexao.abrirConceccaoMySQL();
+	 * 
+	 * 
+	 * String login = usuario.getLogin(); String senha = usuario.getSenha();
+	 * String email = usuario.getEmail();
+	 * 
+	 * 
+	 * String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
+	 * + login + "','" + senha + "','" + email + "')";
+	 * System.out.println(query); Conexao.comandoMySQL(query);
+	 * Conexao.fecharConecaoMySQL(); return true; }
+	 */
 
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
