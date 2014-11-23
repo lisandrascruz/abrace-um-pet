@@ -176,7 +176,7 @@ public class CadastroUsuarioGUI extends JFrame {
 				login1.setVisible(true);
 				dispose();
 			} else {
-				JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado", "ERROR", 0);
+				JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente.", "ERROR", 0);
 				textLogin.setText("");
 				textSenha.setText("");
 				textEmail.setText("");
