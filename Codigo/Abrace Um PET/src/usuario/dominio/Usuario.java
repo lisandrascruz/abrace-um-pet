@@ -1,11 +1,22 @@
 package usuario.dominio;
 
+import adotante.dominio.PessoaFisica;
+
 public class Usuario {
 
 	private int id;
 	private String login;
 	private String senha;
 	private String email;
+	private PessoaFisica pessoaFisica;
+
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
 
 	public int getId() {
 		return id;
