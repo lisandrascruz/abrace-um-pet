@@ -38,9 +38,27 @@ public class UsuarioDAO {
 			preparedStatement.setString(1, login);
 			preparedStatement.setString(2, senha);
 			preparedStatement.setString(3, email);
-			preparedStatement.execute();  
-			preparedStatement.close(); 
+			//preparedStatement.execute();  
+			//preparedStatement.close(); 
+			
 
+			
+			int affectedRows = preparedStatement.executeUpdate();
+
+	        if (affectedRows == 0) {
+	            throw new SQLException("Creating user failed, no rows affected.");
+	        }
+
+	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	            	System.out.println(generatedKeys.getLong(1));
+	            }
+	            else {
+	                throw new SQLException("Creating user failed, no ID obtained.");
+	            }
+	        }
+			preparedStatement.close(); 
+			
 			Conexao.fecharConecaoMySQL();
 			return true;
 		} catch (Exception ex) {
