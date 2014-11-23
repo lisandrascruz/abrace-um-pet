@@ -187,7 +187,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			}
 		});
 		
-		btnCadastrar.setBounds(298, 382, 100, 23);
+		btnCadastrar.setBounds(194, 382, 118, 23);
 		contentPane.add(btnCadastrar);
 
 		JLabel lblComplemento = new JLabel("Complemento:");
@@ -224,7 +224,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				textNomeFisico.requestFocus();
 			}
 		});
-		btnLimparCampos.setBounds(167, 382, 124, 23);
+		btnLimparCampos.setBounds(45, 382, 128, 23);
 		contentPane.add(btnLimparCampos);
 
 		JButton btnSair = new JButton("Sair");
@@ -233,7 +233,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				System.exit(0);
 			}
 		});
-		btnSair.setBounds(499, 382, 75, 23);
+		btnSair.setBounds(472, 382, 102, 23);
 		contentPane.add(btnSair);
 
 		JLabel lblCelular = new JLabel("Celular:");
@@ -274,7 +274,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(408, 382, 81, 23);
+		btnVoltar.setBounds(335, 382, 113, 23);
 		contentPane.add(btnVoltar);
 		
 		JLabel lblRg = new JLabel("RG: ");
