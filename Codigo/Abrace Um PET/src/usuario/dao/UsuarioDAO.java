@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import usuario.dominio.Usuario;
 import usuario.service.Criptografia;
 
@@ -19,18 +21,31 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public boolean adicionarUsuario(Usuario usuario) {
-		Conexao.abrirConceccaoMySQL();
-		String login = usuario.getLogin();
-		String senha = usuario.getSenha();
-		String email = usuario.getEmail();
+		try {
+			Connection con = Conexao.abrirConceccaoMySQL();
+			String login = usuario.getLogin();
+			String senha = usuario.getSenha();
+			String email = usuario.getEmail();
 
-		Criptografia criptografia = new Criptografia();
-		senha = criptografia.criptografar(senha);
+			Criptografia criptografia = new Criptografia();
+			senha = criptografia.criptografar(senha);
 
-		String query = "INSERT INTO tbl_usuario (login, senha, email) VALUES ('"+ login + "','" + senha + "','" + email + "')";
-		Conexao.comandoMySQL(query);
-		Conexao.fecharConecaoMySQL();
-		return true;
+			String query = "INSERT INTO tbl_usuario (login, senha, email) values (?, ?, ?)";
+
+			PreparedStatement preparedStatement = (PreparedStatement) con
+					.prepareStatement(query);
+
+			preparedStatement.setString(1, login);
+			preparedStatement.setString(2, senha);
+			preparedStatement.setString(3, email);
+			preparedStatement.execute();  
+			preparedStatement.close(); 
+
+			Conexao.fecharConecaoMySQL();
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
 	}
 
 	/**
@@ -39,8 +54,8 @@ public class UsuarioDAO {
 	 * @param usuario
 	 * @return
 	 */
-	public boolean excluirUsuario(Usuario usuario) {
-		Conexao.abrirConceccaoMySQL();
+	/*public boolean excluirUsuario(Usuario usuario) {
+		Connection con = Conexao.abrirConceccaoMySQL();
 		Criptografia criptografia = new Criptografia();
 
 		String login = usuario.getLogin();
@@ -53,7 +68,8 @@ public class UsuarioDAO {
 		Conexao.comandoMySQL(query);
 		Conexao.fecharConecaoMySQL();
 		return true;
-	}
+	}*/
+
 	/**
 	 * 
 	 * @param query
@@ -66,7 +82,8 @@ public class UsuarioDAO {
 		boolean usuario = false;
 		try {
 			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			conexao = DriverManager.getConnection(
+					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
@@ -83,6 +100,7 @@ public class UsuarioDAO {
 
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+	 * 
 	 * @param login
 	 * @param senha
 	 * @return
@@ -90,9 +108,10 @@ public class UsuarioDAO {
 	public boolean consultarLogin(String login, String senha) {
 		String resultSet = ("select login, senha from tbl_usuario where login='"
 				+ login + "'and senha='" + senha + "'");
-		
+
 		return consultar(resultSet);
 	}
+
 	/**
 	 * @param login
 	 * @return
@@ -102,6 +121,5 @@ public class UsuarioDAO {
 				+ login + "'");
 		return consultar(resultSet);
 	}
-	
 
 }

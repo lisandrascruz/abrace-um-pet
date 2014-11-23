@@ -3,6 +3,7 @@ package infraestrutura.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Conexao {
@@ -14,6 +15,15 @@ public class Conexao {
 	public static ResultSet getResultSet() {
 		return resultSet;
 	}
+	
+	
+
+	/*public static PreparedStatement ConnectionStatement(String sql) {
+		PreparedStatement preparedStatement = (PreparedStatement) conexao.prepareStatement(sql);
+		return preparedStatement;
+	}*/
+
+
 
 	public static void setResultSet(ResultSet resultSet) {
 		Conexao.resultSet = resultSet;
@@ -22,13 +32,13 @@ public class Conexao {
 	/**
 	 * ABRE CONEXÃO COM COM BANCO
 	 */
-	public static void abrirConceccaoMySQL() {
+	public static Connection abrirConceccaoMySQL() throws SQLException{
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conexao = DriverManager.getConnection(
+			Class.forName("com.mysql.jdbc.Driver");
+			return conexao = DriverManager.getConnection(
 					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
-		} catch (Exception erro) {
-			System.out.println("MYSQL Erro(abrir): " + erro);
+		}  catch (ClassNotFoundException e) {    
+            throw new SQLException(e.getMessage());  
 		}
 	}
 
