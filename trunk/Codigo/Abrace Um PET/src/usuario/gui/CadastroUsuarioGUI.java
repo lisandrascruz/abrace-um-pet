@@ -20,7 +20,6 @@ import usuario.service.UsuarioService;
 
 public class CadastroUsuarioGUI extends JFrame {
 
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textLogin;
@@ -97,14 +96,68 @@ public class CadastroUsuarioGUI extends JFrame {
 				String email = usuario.getEmail();
 				String confirmacaoSenha = getConfirmarSenha();
 
-				if (validar.validarCadastro(login) == true) {
-					validacaoDadosUsuario(usuario, validar, usuarioService, login, senha, email, confirmacaoSenha);
-				} else {
-					textLogin.setText("");
-					textLogin.requestFocus();
+				if(validacaoDadosUsuario(validar, login, senha, email,confirmacaoSenha)){
+					if (usuarioService.adicionarUsuarioService(usuario)) {
+						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+						LoginGUI login1 = new LoginGUI();
+						login1.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+						textLogin.setText("");
+						textSenha.setText("");
+						textEmail.setText("");
+						textConfirmarSenha.setText("");
+					}
 				}
 			}
-		});
+
+			/**
+			 * @param validar
+			 * @param login
+			 * @param senha
+			 * @param email
+			 * @param confirmacaoSenha
+			 */
+			public boolean validacaoDadosUsuario(Validacao validar, String login,
+					String senha, String email, String confirmacaoSenha) {
+				boolean valido;
+				if (validar.validarCadastro(login) == true) {
+					if(validar.validarLogin(login)){
+						if(validar.validarSenha(senha)){
+							if(validar.validarConfirmacaoSenha(senha, confirmacaoSenha)){
+								if(validar.validarEmail(email)){
+									return valido = true;
+								}
+								else{
+									JOptionPane.showMessageDialog(null,
+											"Email errado, usar formato - exemplo@exemplo.com","ERROR", 0);
+									return valido = false;
+								}
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Senhas não conferem", "ERROR",0);
+								return valido = false;
+							}
+						}
+						else{
+							JOptionPane.showMessageDialog(null,"A senha deve conter pelo menos 6 digitos", "ERROR", 0);
+							return valido = false;
+						}
+					}else{
+						JOptionPane.showMessageDialog(null,"O login deve conter pelo menos 3 caracteres", "ERROR", 0);
+						return valido = false;
+						}
+				}else {
+					JOptionPane.showMessageDialog(null,"Login já cadastrado! Tente outro.", "ERROR", 0);
+					valido = false;
+					textLogin.setText("");
+					textLogin.requestFocus();
+					}
+				return valido;
+			}
+			
+			});
 		btnCadastrar.setBounds(197, 315, 117, 23);
 		contentPane.add(btnCadastrar);
 
@@ -155,34 +208,5 @@ public class CadastroUsuarioGUI extends JFrame {
 		this.confirmarSenha = confirmarSenha;
 	}
 
-	/**
-	 * @param usuario
-	 * @param validar
-	 * @param usuarioService
-	 * @param login
-	 * @param senha
-	 * @param email
-	 * @param confirmacaoSenha
-	 */
-	public void validacaoDadosUsuario(Usuario usuario, Validacao validar, UsuarioService usuarioService, String login, String senha,
-			String email, String confirmacaoSenha) {
-
-		if (validar.validarLogin(login) && validar.validarSenha(senha)&& validar.validarConfirmacaoSenha(senha, confirmacaoSenha)
-				&& validar.validarEmail(email)) {
-
-			if (usuarioService.adicionarUsuarioService(usuario)) {
-				JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-				LoginGUI login1 = new LoginGUI();
-				login1.setVisible(true);
-				dispose();
-			} else {
-				JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente.", "ERROR", 0);
-				textLogin.setText("");
-				textSenha.setText("");
-				textEmail.setText("");
-				textConfirmarSenha.setText("");
-			}
-		}
-
-	}
+	
 }
