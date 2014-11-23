@@ -14,7 +14,6 @@ import adotante.dominio.PessoaFisica;
 public class PessoaFisicaDAO {
 	/**
 	 * ADICIONAR USUARIO NO BANCO DE DADOS
-	 * 
 	 * @param usuario
 	 * @return
 	 */

@@ -64,6 +64,11 @@ public class AdotanteGUI extends JFrame {
 		btnEditar.setBounds(51, 180, 167, 23);
 		contentPane.add(btnEditar);
 
+		JLabel lblAdotante = new JLabel("Adotante");
+		lblAdotante.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
+		lblAdotante.setBounds(51, 45, 95, 14);
+		contentPane.add(lblAdotante);
+		
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.setBounds(51, 241, 167, 23);
 		contentPane.add(btnConsultar);
@@ -72,10 +77,6 @@ public class AdotanteGUI extends JFrame {
 		btnExcluir.setBounds(51, 303, 167, 23);
 		contentPane.add(btnExcluir);
 
-		JLabel lblAdotante = new JLabel("Adotante");
-		lblAdotante.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAdotante.setBounds(51, 45, 95, 14);
-		contentPane.add(lblAdotante);
 
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
