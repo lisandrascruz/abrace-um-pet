@@ -32,7 +32,7 @@ public class Validacao {
 	}
 
 	/**
-	 * VALIDAR CAMPO SENHA (MINIMO 3 CARACTERES)
+	 * VALIDAR CAMPO SENHA (MINIMO 3 CARACTERES E PELO MENOS UM CARACTER ESPECIAL)
 	 * 
 	 * @param senha
 	 * @return
