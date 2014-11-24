@@ -69,10 +69,14 @@ public class TelaInicialGUI extends JFrame {
 
 		JButton button = new JButton("");
 		button.setVerticalAlignment(SwingConstants.BOTTOM);
+		button.setToolTipText("CLIQUE AQUI PARA EFETUAR UMA ADOÇÃO");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				  
 			}
+			
 		});
+		
 		Imagens.imagemCadastroUsuario(button);
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
