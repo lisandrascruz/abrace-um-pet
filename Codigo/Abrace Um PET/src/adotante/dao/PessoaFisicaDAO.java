@@ -87,12 +87,13 @@ public class PessoaFisicaDAO {
 	        }
 			preparedStatement.close(); 
 			
-			query = "insert into pessoafisica (rg, cpf, idAdotante) values (?, ?, ?)";
+			query = "insert into pessoafisica (rg, cpf, genero, idAdotante) values (?, ?, ?, ?)";
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			
 			preparedStatement.setString(1, pessoaFisica.getRg());
 			preparedStatement.setString(2, pessoaFisica.getCpf());
-			preparedStatement.setInt(3, id);
+			preparedStatement.setString(3, pessoaFisica.getGenero());
+			preparedStatement.setInt(4, id);
 			
 			affectedRows = preparedStatement.executeUpdate();
 
