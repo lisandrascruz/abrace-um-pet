@@ -4,7 +4,7 @@ public class PessoaFisica {
 	private int id;
 	private String cpf;
 	private String rg;
-	private char genero;
+	private String genero;
 	private Adotante adotante;
 	
 	
@@ -23,10 +23,10 @@ public class PessoaFisica {
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-	public char getGenero() {
+	public String getGenero() {
 		return genero;
 	}
-	public void setGenero(char genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 	public Adotante getAdotante() {

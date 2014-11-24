@@ -42,6 +42,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
 	private JTextField textRG;
+	private JComboBox  comboGenero;
 
 	/**
 	 * Create the frame.
@@ -164,6 +165,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
+				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
 				endereco.setCidade(textCidade.getText());
@@ -171,6 +173,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setBairro(textEstado.getText());
 				endereco.setEstado(textNumero.getText());
 				endereco.setRua(textRua.getText());
+				endereco.setNumero(textNumero.getText());
 				adotante.setNome(textNomeFisico.getText());
 				adotante.setEmail(textEmail.getText());
 				adotante.setTelefoneFixo(textTelefoneFixo.getText());
@@ -287,14 +290,23 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(textRG);
 		textRG.setColumns(10);
 		
-		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblSexo.setBounds(472, 82, 38, 14);
-		contentPane.add(lblSexo);
+		JLabel lblGenero = new JLabel("Sexo:");
+		lblGenero.setBounds(479, 83, 46, 14);
+		contentPane.add(lblGenero);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "F", "M"}));
-		comboBox.setBounds(521, 80, 53, 20);
-		contentPane.add(comboBox);
+		comboGenero = new JComboBox();
+		comboGenero.setModel(new DefaultComboBoxModel(new String[] {" ", "M", "F"}));
+		comboGenero.setBounds(518, 80, 53, 20);
+		contentPane.add(comboGenero);
+		
+		/*JLabel lblGenero = new JLabel("Sexo:");
+		lblGenero.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblGenero.setBounds(472, 82, 38, 14);
+		lblGenero.add(lblGenero);
+		
+		comboGenero = new JComboBox();
+		comboGenero.setModel(new DefaultComboBoxModel(new String[] {"", "F", "M"}));
+		comboGenero.setBounds(521, 80, 53, 20);
+		contentPane.add(comboGenero);*/
 	}
 }
