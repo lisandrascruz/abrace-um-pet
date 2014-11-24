@@ -131,4 +131,63 @@ public class Validacao {
 		}
 		return valido;
 	}
+	
+	public boolean validarNomePF(String nome) {
+		boolean valido;
+
+		if (nome != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public boolean validarSexoPF(String genero) {
+		boolean valido;
+
+		if (genero != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public boolean validarTelFixo(String telefoneFixo) {
+		boolean valido;
+		int tamanhoTelFixo = telefoneFixo.length();
+
+		if ((telefoneFixo != "") && (tamanhoTelFixo == 11)){
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public boolean validarCelular(String telefoneCelular) {
+		boolean valido;
+		int tamanhoTelCelular = telefoneCelular.length();
+
+		if ((telefoneCelular != "") && (tamanhoTelCelular == 11)){
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public boolean validarCpf(String cpf) {
+		boolean valido;
+		int tamanhoCpf = cpf.length();
+
+		if ((cpf != "") && (tamanhoCpf == 11)){
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+	
 }
