@@ -67,12 +67,12 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(lblNomeFisico);
 
 		textNomeFisico = new JTextField();
-		textNomeFisico.setBounds(173, 80, 401, 20);
+		textNomeFisico.setBounds(173, 80, 289, 20);
 		contentPane.add(textNomeFisico);
 		textNomeFisico.setColumns(10);
 		
 		textCPF = new JTextField();
-		textCPF.setBounds(173, 147, 118, 20);
+		textCPF.setBounds(173, 147, 171, 20);
 		contentPane.add(textCPF);
 		textCPF.setColumns(10);
 
@@ -258,11 +258,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEmail.setBounds(308, 149, 46, 14);
+		lblEmail.setBounds(51, 180, 46, 14);
 		contentPane.add(lblEmail);
 
 		textEmail = new JTextField();
-		textEmail.setBounds(364, 147, 210, 20);
+		textEmail.setBounds(173, 178, 289, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 
@@ -279,33 +279,22 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		
 		JLabel lblRg = new JLabel("RG: ");
 		lblRg.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRg.setBounds(51, 174, 46, 14);
+		lblRg.setBounds(364, 149, 46, 14);
 		contentPane.add(lblRg);
 		
 		textRG = new JTextField();
-		textRG.setBounds(173, 178, 118, 20);
+		textRG.setBounds(420, 147, 154, 20);
 		contentPane.add(textRG);
 		textRG.setColumns(10);
 		
-		JComboBox<String> comboOrgEmissor = new JComboBox<String>();
-		comboOrgEmissor.setModel(new DefaultComboBoxModel<String>(new String[] {"", "SSP", "SDS", "OUTROS"}));
-		comboOrgEmissor.setSelectedIndex(0);
-		comboOrgEmissor.setBounds(393, 178, 58, 20);
-		contentPane.add(comboOrgEmissor);
+		JLabel lblSexo = new JLabel("Sexo:");
+		lblSexo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblSexo.setBounds(472, 82, 38, 14);
+		contentPane.add(lblSexo);
 		
-		JComboBox<String> comboEstado = new JComboBox<String>();
-		comboEstado.setModel(new DefaultComboBoxModel<String>(new String[] {" ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"}));
-		comboEstado.setBounds(509, 178, 65, 20);
-		contentPane.add(comboEstado);
-		
-		JLabel lblEs = new JLabel("Estado:");
-		lblEs.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEs.setBounds(461, 180, 53, 14);
-		contentPane.add(lblEs);
-		
-		JLabel lblOrgemissor = new JLabel("Org.Emissor:");
-		lblOrgemissor.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblOrgemissor.setBounds(308, 174, 89, 28);
-		contentPane.add(lblOrgemissor);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "F", "M"}));
+		comboBox.setBounds(521, 80, 53, 20);
+		contentPane.add(comboBox);
 	}
 }

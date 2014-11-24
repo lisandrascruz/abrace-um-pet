@@ -122,7 +122,7 @@ public class CadastroUsuarioGUI extends JFrame {
 			public boolean validacaoDadosUsuario(Validacao validar, String login,
 					String senha, String email, String confirmacaoSenha) {
 				boolean valido;
-				if (validar.validarCadastro(login) == true) {
+				if (validar.validarCadastro(login)) {
 					if(validar.validarLogin(login)){
 						if(validar.validarSenha(senha)){
 							if(validar.validarConfirmacaoSenha(senha, confirmacaoSenha)){
@@ -130,8 +130,7 @@ public class CadastroUsuarioGUI extends JFrame {
 									return valido = true;
 								}
 								else{
-									JOptionPane.showMessageDialog(null,
-											"Email errado, usar formato - exemplo@exemplo.com","ERROR", 0);
+									JOptionPane.showMessageDialog(null, "Por favor, digite um email Iválido, usar formato - exemplo@exemplo.com","ERROR", 0);
 									return valido = false;
 								}
 							}
@@ -141,7 +140,7 @@ public class CadastroUsuarioGUI extends JFrame {
 							}
 						}
 						else{
-							JOptionPane.showMessageDialog(null,"A senha deve conter pelo menos 6 digitos", "ERROR", 0);
+							JOptionPane.showMessageDialog(null,"A senha deve conter no minimo 6 digitos e pelo menos 1 caracter especial", "ERROR", 0);
 							return valido = false;
 						}
 					}else{
