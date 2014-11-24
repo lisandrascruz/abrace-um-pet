@@ -5,6 +5,7 @@ public class PessoaJuridica {
 	private String cnpj;
 	private PessoaFisica responsavel;
 	private Adotante adotante;
+	private Endereco endereco;
 
 	public int getId() {
 		return id;
@@ -32,6 +33,14 @@ public class PessoaJuridica {
 
 	public void setAdotante(Adotante adotante) {
 		this.adotante = adotante;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 }

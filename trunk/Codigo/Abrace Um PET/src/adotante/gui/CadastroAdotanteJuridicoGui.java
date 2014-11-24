@@ -18,11 +18,17 @@ import javax.swing.JRadioButton;
 import javax.swing.JFormattedTextField;
 
 import adotante.dominio.Adotante;
+import adotante.dominio.Endereco;
+import adotante.dominio.PessoaFisica;
+import adotante.dominio.PessoaJuridica;
+import adotante.service.PessoaFisicaService;
+import adotante.service.PessoaJuridicaService;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("unused")
@@ -43,8 +49,8 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 	private JTextField textCEP;
 	private JTextField textComplemento;
 	private JTextField textResponsavel;
-	private JTextField textTelefoneSecundario;
-	private JTextField textTelefonePrincipal;
+	private JTextField textCelular;
+	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
 
 	/**
@@ -160,6 +166,41 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				PessoaJuridica pessoaJuridica = new PessoaJuridica();
+				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+				PessoaFisica pessoaFisica = new PessoaFisica();
+				Endereco endereco = new Endereco();
+				Adotante adotante = new Adotante();
+				
+				
+				
+				adotante.setNome(textNomeJuridico.getText());
+				adotante.setEmail(textEmail.getText());
+				adotante.setTelefoneFixo(textTelefoneFixo.getText());
+				adotante.setTelefoneCelular(textCelular.getText());
+				
+				
+				
+				pessoaJuridica.setCnpj(textCNPJ.getText());
+				
+				endereco.setBairro(textBairro.getText());
+				endereco.setCep(textCEP.getText());
+				endereco.setCidade(textCidade.getText());
+				endereco.setComplemento(textComplemento.getText());
+				endereco.setBairro(textEstado.getText());
+				endereco.setEstado(textNumero.getText());
+				endereco.setRua(textRua.getText());
+				endereco.setNumero(textNumero.getText());
+				
+			
+				adotante.setEndereco(endereco);
+				pessoaJuridica.setAdotante(adotante);
+				//pessoaJuridica.setResponsavel(pessoaFisica);
+				
+				pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
+
+				
 			}
 		});
 		btnCadastrar.setBounds(273, 382, 110, 23);
@@ -192,6 +233,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		JButton btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				textNomeJuridico.setText("");
 				textBairro.setText("");
 				textCEP.setText("");
@@ -203,8 +245,8 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				textNumero.setText("");
 				textResponsavel.setText("");
 				textRua.setText("");
-				textTelefonePrincipal.setText("");
-				textTelefoneSecundario.setText("");
+				textTelefoneFixo.setText("");
+				textCelular.setText("");
 				textNomeJuridico.requestFocus();
 			}
 		});
@@ -226,20 +268,20 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		lblTelefoneJuridico2.setBounds(364, 118, 65, 14);
 		contentPane.add(lblTelefoneJuridico2);
 
-		textTelefoneSecundario = new JTextField();
-		textTelefoneSecundario.setBounds(420, 116, 161, 20);
-		contentPane.add(textTelefoneSecundario);
-		textTelefoneSecundario.setColumns(10);
+		textCelular = new JTextField();
+		textCelular.setBounds(420, 116, 161, 20);
+		contentPane.add(textCelular);
+		textCelular.setColumns(10);
 
 		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
 		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblTelefoneFixo.setBounds(51, 118, 122, 14);
 		contentPane.add(lblTelefoneFixo);
 
-		textTelefonePrincipal = new JTextField();
-		textTelefonePrincipal.setBounds(173, 116, 171, 20);
-		contentPane.add(textTelefonePrincipal);
-		textTelefonePrincipal.setColumns(10);
+		textTelefoneFixo = new JTextField();
+		textTelefoneFixo.setBounds(173, 116, 171, 20);
+		contentPane.add(textTelefoneFixo);
+		textTelefoneFixo.setColumns(10);
 
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
