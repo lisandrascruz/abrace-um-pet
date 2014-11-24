@@ -156,6 +156,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				Endereco endereco = new Endereco();
 				Adotante adotante = new Adotante();
@@ -183,10 +184,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				adotante.setEndereco(endereco);
 				pessoaFisica.setAdotante(adotante);
 
-				
 				pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
-
-				
 			}
 		});
 		
