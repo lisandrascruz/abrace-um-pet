@@ -30,7 +30,7 @@ public class UsuarioDAO {
 			Criptografia criptografia = new Criptografia();
 			senha = criptografia.criptografar(senha);
 
-			String query = "INSERT INTO tbl_usuario (login, senha, email) values (?, ?, ?)";
+			String query = "INSERT INTO usuario (login, senha, email) values (?, ?, ?)";
 
 			PreparedStatement preparedStatement = (PreparedStatement) con
 					.prepareStatement(query);
@@ -42,7 +42,7 @@ public class UsuarioDAO {
 			//preparedStatement.close(); 
 			
 
-			
+			int id;
 			int affectedRows = preparedStatement.executeUpdate();
 
 	        if (affectedRows == 0) {
@@ -51,7 +51,7 @@ public class UsuarioDAO {
 
 	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	            	System.out.println(generatedKeys.getLong(1));
+	            	id = (int) generatedKeys.getLong(1);
 	            }
 	            else {
 	                throw new SQLException("Creating user failed, no ID obtained.");
@@ -124,7 +124,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public boolean consultarLogin(String login, String senha) {
-		String resultSet = ("select login, senha from tbl_usuario where login='"
+		String resultSet = ("select login, senha from usuario where login='"
 				+ login + "'and senha='" + senha + "'");
 
 		return consultar(resultSet);
@@ -135,7 +135,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public boolean consultarUsuario(String login) {
-		String resultSet = ("select login from tbl_usuario where login='"
+		String resultSet = ("select login from usuario where login='"
 				+ login + "'");
 		return consultar(resultSet);
 	}
