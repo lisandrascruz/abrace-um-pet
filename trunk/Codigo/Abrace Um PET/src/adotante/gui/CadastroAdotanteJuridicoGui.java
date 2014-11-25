@@ -200,12 +200,14 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				pessoaJuridica.setAdotante(adotante);
 				//pessoaJuridica.setResponsavel(pessoaFisica);
 				
-				pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
-				
+				if(pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)){				
 				JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
 				TelaInicialGUI ti = new TelaInicialGUI();
 				ti.setVisible(true);
 				dispose();
+				}else{
+					JOptionPane.showMessageDialog(null,"Adotante Juridico não pode ser cadastrado! Tente novamente", "ERROR", 0);
+				}
 				
 			}
 		});

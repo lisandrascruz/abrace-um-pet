@@ -143,7 +143,7 @@ public class Validacao {
 	 * @param nome
 	 * @return
 	 */
-	public boolean validarNomePF(String nome) {
+	public boolean validarNomePessoaFisica(String nome) {
 		boolean valido;
 
 		if (nome != "") {
@@ -160,7 +160,7 @@ public class Validacao {
 	 * @param genero
 	 * @return
 	 */
-	public boolean validarSexoPF(String genero) {
+	public boolean validarSexoPessoaFisica(String genero) {
 		boolean valido;
 
 		if (genero != "") {
@@ -177,7 +177,7 @@ public class Validacao {
 	 * @param telefoneFixo
 	 * @return
 	 */
-	public boolean validarTelFixo(String telefoneFixo) {
+	public boolean validarTelefoneFixo(String telefoneFixo) {
 		boolean valido;
 		int tamanhoTelFixo = telefoneFixo.length();
 
@@ -209,7 +209,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR CPF
-	 * 
 	 * @param cpf
 	 * @return
 	 */
@@ -227,7 +226,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR RG
-	 * 
 	 * @param rg
 	 * @return
 	 */
@@ -279,7 +277,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR CEP
-	 * 
 	 * @param cep
 	 * @return
 	 */
@@ -299,13 +296,11 @@ public class Validacao {
 
 	/**
 	 * VALIDAR BAIRRO
-	 * 
 	 * @param bairro
 	 * @return
 	 */
 	public boolean validarBairro(String bairro) {
 		boolean valido;
-
 		if (bairro != "") {
 			valido = true;
 		} else {
@@ -333,7 +328,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR ESTADO
-	 * 
 	 * @param estado
 	 * @return
 	 */
