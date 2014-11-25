@@ -184,11 +184,11 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setComplemento(textComplemento.getText());
 				
-				adotante.setNome(textNomeJuridico.getText());
-				adotante.setEmail(textEmail.getText());
-				adotante.setTelefoneFixo(textTelefoneFixo.getText());
-				adotante.setTelefoneCelular(textCelular.getText());
-				adotante.setEndereco(endereco);
+				pessoaFisica.setNome(textNomeJuridico.getText());
+				pessoaFisica.setEmail(textEmail.getText());
+				pessoaFisica.setTelefoneFixo(textTelefoneFixo.getText());
+				pessoaFisica.setTelefoneCelular(textCelular.getText());
+				pessoaFisica.setEndereco(endereco);
 
 				pessoaJuridica.setCnpj(textCNPJ.getText());
 				pessoaJuridica.setAdotante(adotante);
