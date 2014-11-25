@@ -14,7 +14,6 @@ public class Validacao {
 
 	/**
 	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
-	 * 
 	 * @param login
 	 * @return
 	 */
