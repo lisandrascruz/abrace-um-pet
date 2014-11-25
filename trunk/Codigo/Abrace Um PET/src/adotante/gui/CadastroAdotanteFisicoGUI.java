@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -19,6 +20,8 @@ import adotante.service.PessoaFisicaService;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
+import usuario.gui.TelaInicialGUI;
 
 
 
@@ -42,7 +45,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
 	private JTextField textRG;
-	private JComboBox  comboGenero;
+	private JComboBox<String>  comboGenero;
 
 	/**
 	 * Create the frame.
@@ -156,34 +159,41 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dadosAdotanteFisico();
+				JOptionPane.showMessageDialog(null, "Adotante Fisico cadastrado com sucesso!!");
+				TelaInicialGUI ti = new TelaInicialGUI();
+				ti.setVisible(true);
+				dispose();
+			}
+
+			/**
+			 * SETA OS DADAOS PASSADOS PELO USUARIO
+			 */
+			public void dadosAdotanteFisico() {
 				PessoaFisica pessoaFisica = new PessoaFisica();
+				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
 				Adotante adotante = new Adotante();
-				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				
-				
 				
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
+				
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
 				endereco.setCidade(textCidade.getText());
 				endereco.setComplemento(textComplemento.getText());
-				endereco.setBairro(textEstado.getText());
-				endereco.setEstado(textNumero.getText());
+				endereco.setEstado(textEstado.getText());
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
+				
 				adotante.setNome(textNomeFisico.getText());
 				adotante.setEmail(textEmail.getText());
 				adotante.setTelefoneFixo(textTelefoneFixo.getText());
 				adotante.setTelefoneCelular(textCelular.getText());
-				
-			
 				adotante.setEndereco(endereco);
+				
 				pessoaFisica.setAdotante(adotante);
-
 				pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
 			}
 		});
@@ -292,8 +302,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblGenero.setBounds(479, 83, 46, 14);
 		contentPane.add(lblGenero);
 		
-		comboGenero = new JComboBox();
-		comboGenero.setModel(new DefaultComboBoxModel(new String[] {" ", "M", "F"}));
+		comboGenero = new JComboBox<String>();
+		comboGenero.setModel(new DefaultComboBoxModel<String>(new String[] {" ", "M", "F"}));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
 		

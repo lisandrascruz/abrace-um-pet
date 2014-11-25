@@ -26,8 +26,7 @@ public class PessoaFisicaDAO {
 
 			String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
 
-			PreparedStatement preparedStatement = (PreparedStatement) con
-					.prepareStatement(query);
+			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
 			preparedStatement.setString(1, pessoaFisica.getAdotante()
 					.getEndereco().getEstado());

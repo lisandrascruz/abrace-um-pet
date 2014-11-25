@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -25,8 +24,7 @@ public class PessoaJuridicaDAO {
 
 			String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
 
-			PreparedStatement preparedStatement = (PreparedStatement) con
-					.prepareStatement(query);
+			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
 			preparedStatement.setString(1, pessoaJuridica.getAdotante()
 					.getEndereco().getEstado());
@@ -99,9 +97,13 @@ public class PessoaJuridicaDAO {
 			preparedStatement.setInt(2, id);
 			preparedStatement.setInt(3, id);
 
-			affectedRows = preparedStatement.executeUpdate();
-			System.out.println("Pessoa JUridica");
+			System.out.println("Pessoa Juridica"); //teste
+			
+			affectedRows = preparedStatement.executeUpdate(); // ERRO AQUII!!!!
 
+			System.out.println("Pessoa Juridica"); //teste 
+			
+			
 			if (affectedRows == 0) {
 				throw new SQLException(
 						"Creating user failed, no rows affected.");

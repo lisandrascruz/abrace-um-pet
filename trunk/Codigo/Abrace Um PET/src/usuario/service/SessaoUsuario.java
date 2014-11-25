@@ -4,7 +4,7 @@ import usuario.dominio.Usuario;
 
 
 public class SessaoUsuario {
-	private Usuario usuarioLogado;
+	Usuario usuarioLogado;
 	private static SessaoUsuario instancia = new SessaoUsuario();
 	private SessaoUsuario(){}
 	public static SessaoUsuario getInstancia() {

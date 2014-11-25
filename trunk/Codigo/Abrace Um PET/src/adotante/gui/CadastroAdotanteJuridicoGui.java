@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +31,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.SwingConstants;
+
+import usuario.gui.TelaInicialGUI;
 
 @SuppressWarnings("unused")
 public class CadastroAdotanteJuridicoGui extends JFrame {
@@ -184,14 +187,13 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				
 				pessoaJuridica.setCnpj(textCNPJ.getText());
 				
+				endereco.setRua(textRua.getText());
+				endereco.setNumero(textNumero.getText());
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
 				endereco.setCidade(textCidade.getText());
+				endereco.setEstado(textEstado.getText());
 				endereco.setComplemento(textComplemento.getText());
-				endereco.setBairro(textEstado.getText());
-				endereco.setEstado(textNumero.getText());
-				endereco.setRua(textRua.getText());
-				endereco.setNumero(textNumero.getText());
 				
 			
 				adotante.setEndereco(endereco);
@@ -199,7 +201,11 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				//pessoaJuridica.setResponsavel(pessoaFisica);
 				
 				pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
-
+				
+				JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
+				TelaInicialGUI ti = new TelaInicialGUI();
+				ti.setVisible(true);
+				dispose();
 				
 			}
 		});
