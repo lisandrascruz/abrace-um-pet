@@ -176,17 +176,6 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				Endereco endereco = new Endereco();
 				Adotante adotante = new Adotante();
 				
-				
-				
-				adotante.setNome(textNomeJuridico.getText());
-				adotante.setEmail(textEmail.getText());
-				adotante.setTelefoneFixo(textTelefoneFixo.getText());
-				adotante.setTelefoneCelular(textCelular.getText());
-				
-				
-				
-				pessoaJuridica.setCnpj(textCNPJ.getText());
-				
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
 				endereco.setBairro(textBairro.getText());
@@ -195,19 +184,25 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setComplemento(textComplemento.getText());
 				
-			
+				adotante.setNome(textNomeJuridico.getText());
+				adotante.setEmail(textEmail.getText());
+				adotante.setTelefoneFixo(textTelefoneFixo.getText());
+				adotante.setTelefoneCelular(textCelular.getText());
 				adotante.setEndereco(endereco);
+
+				pessoaJuridica.setCnpj(textCNPJ.getText());
 				pessoaJuridica.setAdotante(adotante);
-				//pessoaJuridica.setResponsavel(pessoaFisica);
 				
-				if(pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)){				
-				JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
-				dispose();
-				}else{
-					JOptionPane.showMessageDialog(null,"Adotante Juridico não pode ser cadastrado! Tente novamente", "ERROR", 0);
-				}
+				pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
+				
+//				if(pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)){				
+//				JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
+//				TelaInicialGUI ti = new TelaInicialGUI();
+//				ti.setVisible(true);
+//				dispose();
+//				}else{
+//					JOptionPane.showMessageDialog(null,"Adotante Juridico não pode ser cadastrado! Tente novamente", "ERROR", 0);
+//				}
 				
 			}
 		});
