@@ -1,6 +1,7 @@
 package infraestrutura.service;
 
-import javax.swing.JOptionPane;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
@@ -28,6 +29,7 @@ public class Validacao {
 		}
 		return valido;
 	}
+
 	/**
 	 * VALIDAR CAMPO LOGIN (MINIMO 3 CARACTERES)
 	 * 
@@ -45,8 +47,10 @@ public class Validacao {
 		}
 		return valido;
 	}
+
 	/**
-	 * VALIDAR CAMPO SENHA (MINIMO 6 CARACTERES E PELO MENOS UM CARACTER ESPECIAL)
+	 * VALIDAR CAMPO SENHA (MINIMO 6 CARACTERES E PELO MENOS UM CARACTER
+	 * ESPECIAL)
 	 * 
 	 * @param senha
 	 * @return
@@ -57,15 +61,16 @@ public class Validacao {
 		usuario.setSenha(senha);
 
 		if (senha != "") {
-			if (tamanhoSenha < 6 && (!(senha.contains("!") || senha.contains("@")
-					|| senha.contains("#") || senha.contains("%")
-					|| senha.contains("&") || senha.contains("$")))) {
+			if (tamanhoSenha < 6
+					&& (!(senha.contains("!") || senha.contains("@")
+							|| senha.contains("#") || senha.contains("%")
+							|| senha.contains("&") || senha.contains("$")))) {
 				valido = false;
 			} else {
 				valido = true;
 			}
 
-		}else{
+		} else {
 			valido = false;
 		}
 		return valido;
@@ -131,7 +136,13 @@ public class Validacao {
 		}
 		return valido;
 	}
-	
+
+	/**
+	 * VALIDAR NOME DA PESSOA FISICA
+	 * 
+	 * @param nome
+	 * @return
+	 */
 	public boolean validarNomePF(String nome) {
 		boolean valido;
 
@@ -142,7 +153,13 @@ public class Validacao {
 		}
 		return valido;
 	}
-	
+
+	/**
+	 * VALIDAR SEXO DA PESSOA FISICA
+	 * 
+	 * @param genero
+	 * @return
+	 */
 	public boolean validarSexoPF(String genero) {
 		boolean valido;
 
@@ -153,41 +170,182 @@ public class Validacao {
 		}
 		return valido;
 	}
-	
+
+	/**
+	 * VALIDAR TELEFONE FIXO DA PESSOA FISICA
+	 * 
+	 * @param telefoneFixo
+	 * @return
+	 */
 	public boolean validarTelFixo(String telefoneFixo) {
 		boolean valido;
 		int tamanhoTelFixo = telefoneFixo.length();
 
-		if ((telefoneFixo != "") && (tamanhoTelFixo == 11)){
+		if ((telefoneFixo != "") && (tamanhoTelFixo == 11)) {
 			valido = true;
 		} else {
 			valido = false;
 		}
 		return valido;
 	}
-	
+
+	/**
+	 * VALIDAR TELEFONE CELULAR DA PESSOA FISICA
+	 * 
+	 * @param telefoneCelular
+	 * @return
+	 */
 	public boolean validarCelular(String telefoneCelular) {
 		boolean valido;
 		int tamanhoTelCelular = telefoneCelular.length();
 
-		if ((telefoneCelular != "") && (tamanhoTelCelular == 11)){
+		if ((telefoneCelular != "") && (tamanhoTelCelular == 11)) {
 			valido = true;
 		} else {
 			valido = false;
 		}
 		return valido;
 	}
-	
+
+	/**
+	 * VALIDAR CPF
+	 * 
+	 * @param cpf
+	 * @return
+	 */
 	public boolean validarCpf(String cpf) {
 		boolean valido;
 		int tamanhoCpf = cpf.length();
 
-		if ((cpf != "") && (tamanhoCpf == 11)){
+		if ((cpf != "") && (tamanhoCpf == 11)) {
 			valido = true;
 		} else {
 			valido = false;
 		}
 		return valido;
 	}
-	
+
+	/**
+	 * VALIDAR RG
+	 * 
+	 * @param rg
+	 * @return
+	 */
+	public boolean validarRg(String rg) {
+		boolean valido;
+		int tamanhoRg = rg.length();
+
+		if ((rg != "") && (tamanhoRg == 7)) {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
+	/**
+	 * VALIDAR RUA DO ENDERECO
+	 * 
+	 * @param rua
+	 * @return
+	 */
+	public boolean validarRua(String rua) {
+		boolean valido;
+
+		if (rua != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
+	/**
+	 * VALIDAR NUMERO DO ENDERECO
+	 * 
+	 * @param numero
+	 * @return
+	 */
+	public boolean validarNumero(String numero) {
+		boolean valido;
+
+		if (numero != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
+	/**
+	 * VALIDAR CEP
+	 * 
+	 * @param cep
+	 * @return
+	 */
+	public boolean validarCep(String cep) {
+		boolean valido;
+		int tamanhoCep = cep.length();
+		Pattern pattern = Pattern.compile("[0-9]");
+		Matcher matcher = pattern.matcher(cep);
+
+		if ((cep != "") && (tamanhoCep == 8) && (matcher.find())) {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
+	/**
+	 * VALIDAR BAIRRO
+	 * 
+	 * @param bairro
+	 * @return
+	 */
+	public boolean validarBairro(String bairro) {
+		boolean valido;
+
+		if (bairro != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
+	/**
+	 * VALIDAR CIDADE
+	 * 
+	 * @param rua
+	 * @return
+	 */
+	public boolean validarCidade(String cidade) {
+		boolean valido;
+
+		if (cidade != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
+	/**
+	 * VALIDAR ESTADO
+	 * 
+	 * @param estado
+	 * @return
+	 */
+	public boolean validarEstado(String estado) {
+		boolean valido;
+
+		if (estado != "") {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
+
 }
