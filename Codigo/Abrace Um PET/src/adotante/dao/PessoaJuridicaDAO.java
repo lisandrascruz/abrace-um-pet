@@ -25,13 +25,13 @@ public class PessoaJuridicaDAO {
 
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
-			preparedStatement.setString(1, pessoaJuridica.getAdotante().getEndereco().getEstado());
-			preparedStatement.setString(2, pessoaJuridica.getAdotante().getEndereco().getCidade());
-			preparedStatement.setString(3, pessoaJuridica.getAdotante().getEndereco().getBairro());
-			preparedStatement.setString(4, pessoaJuridica.getAdotante().getEndereco().getRua());
-			preparedStatement.setString(5, pessoaJuridica.getAdotante().getEndereco().getNumero());
-			preparedStatement.setString(6, pessoaJuridica.getAdotante().getEndereco().getCep());
-			preparedStatement.setString(7, pessoaJuridica.getAdotante().getEndereco().getComplemento());
+			preparedStatement.setString(1, pessoaJuridica.getEndereco().getEstado());
+			preparedStatement.setString(2, pessoaJuridica.getEndereco().getCidade());
+			preparedStatement.setString(3, pessoaJuridica.getEndereco().getBairro());
+			preparedStatement.setString(4, pessoaJuridica.getEndereco().getRua());
+			preparedStatement.setString(5, pessoaJuridica.getEndereco().getNumero());
+			preparedStatement.setString(6, pessoaJuridica.getEndereco().getCep());
+			preparedStatement.setString(7, pessoaJuridica.getEndereco().getComplemento());
 			
 			int affectedRows = preparedStatement.executeUpdate();
 
@@ -55,11 +55,11 @@ public class PessoaJuridicaDAO {
 			query = "insert into adotante (nome, idEndereco, telefoneFixo, telefoneCelular, email) VALUES (?, ?, ?, ?, ?)";
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
-			preparedStatement.setString(1, pessoaJuridica.getAdotante().getNome());
+			preparedStatement.setString(1, pessoaJuridica.getResponsavel().getNome());
 			preparedStatement.setInt   (2, id);
-			preparedStatement.setString(3, pessoaJuridica.getAdotante().getTelefoneFixo());
-			preparedStatement.setString(4, pessoaJuridica.getAdotante().getTelefoneCelular());
-			preparedStatement.setString(5, pessoaJuridica.getAdotante().getEmail());
+			preparedStatement.setString(3, pessoaJuridica.getResponsavel().getTelefoneFixo());
+			preparedStatement.setString(4, pessoaJuridica.getResponsavel().getTelefoneCelular());
+			preparedStatement.setString(5, pessoaJuridica.getResponsavel().getEmail());
 
 			affectedRows = preparedStatement.executeUpdate();
 
