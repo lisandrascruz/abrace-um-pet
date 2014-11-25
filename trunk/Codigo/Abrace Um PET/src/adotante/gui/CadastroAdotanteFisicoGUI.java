@@ -165,7 +165,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Adotante adotante = new Adotante();
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
@@ -243,7 +242,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					String telefoneFixo, String telefoneCelular, String cpf,
 					String rg, String email) {
 				Validacao validar = new Validacao();
-				boolean valido;
+				boolean valido = false;
 
 				if (validar.validarCadastroPf(cpf)) {
 					if (validar.validarNomePessoaFisica(nome)) {
