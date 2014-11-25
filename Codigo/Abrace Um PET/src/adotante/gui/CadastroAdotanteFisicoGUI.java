@@ -6,7 +6,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,18 +17,12 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import usuario.gui.LoginGUI;
+import usuario.gui.TelaInicialGUI;
 import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
 import adotante.dominio.PessoaFisica;
 import adotante.service.PessoaFisicaService;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-import usuario.dominio.Usuario;
-import usuario.gui.LoginGUI;
-import usuario.gui.TelaInicialGUI;
-import usuario.service.UsuarioService;
 
 public class CadastroAdotanteFisicoGUI extends JFrame {
 
@@ -164,7 +160,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				setarDadosAdotanteFisico();
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
@@ -178,8 +175,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 								endereco.getNumero(), endereco.getCep(),
 								endereco.getBairro(), endereco.getCidade(),
 								endereco.getEstado()))) {
-					if (pessoaFisicaService
-							.adicionarPessoaFisicaService(pessoaFisica)) {
+					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
 						JOptionPane.showMessageDialog(null,"Usuario cadastrado com sucesso");
 						LoginGUI login1 = new LoginGUI();
 						login1.setVisible(true);
@@ -198,7 +194,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			/**
 			 * SETA OS DADOS PASSADOS PELO USUARIO
 			 */
-			public void setarDadosAdotanteFisico(PessoaFisica pessoaFisica) {
+			public void setarDadosAdotanteFisico() {
+				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
 				Adotante adotante = new Adotante();
