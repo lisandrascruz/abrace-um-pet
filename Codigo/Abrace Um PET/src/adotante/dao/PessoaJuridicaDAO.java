@@ -87,8 +87,8 @@ public class PessoaJuridicaDAO {
 							"Creating user failed, no ID obtained.");
 				}
 			}
-			System.out.println("adotante");
 			preparedStatement.close();
+			System.out.println("adotante");
 
 			query = "insert into pessoajuridica (cnpj, idResponsavel, idAdotante) values (?, ?, ?)";
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
