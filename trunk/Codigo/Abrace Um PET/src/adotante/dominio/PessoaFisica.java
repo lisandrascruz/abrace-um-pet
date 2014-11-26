@@ -2,21 +2,13 @@ package adotante.dominio;
 
 public class PessoaFisica {
 	private int id;
-	private String nome;
 	private String cpf;
-	private Endereco endereco;
-	private String telefoneFixo;
-	private String telefoneCelular;
-	private String email;
 	private String rg;
-	private String sexo;
+	private String genero;
+	private Adotante adotante;
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
+	public int getId() {
+		return id;
 	}
 
 	public String getCpf() {
@@ -27,38 +19,6 @@ public class PessoaFisica {
 		this.cpf = cpf;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
-	public String getTelefoneFixo() {
-		return telefoneFixo;
-	}
-
-	public void setTelefoneFixo(String telefoneFixo) {
-		this.telefoneFixo = telefoneFixo;
-	}
-
-	public String getTelefoneCelular() {
-		return telefoneCelular;
-	}
-
-	public void setTelefoneCelular(String telefoneCelular) {
-		this.telefoneCelular = telefoneCelular;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getRg() {
 		return rg;
 	}
@@ -67,16 +27,19 @@ public class PessoaFisica {
 		this.rg = rg;
 	}
 
-	public String getSexo() {
-		return sexo;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
-	public int getId() {
-		return id;
+	public Adotante getAdotante() {
+		return adotante;
 	}
 
+	public void setAdotante(Adotante adotante) {
+		this.adotante = adotante;
+	}
 }

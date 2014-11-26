@@ -184,25 +184,25 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setComplemento(textComplemento.getText());
 				
-				pessoaFisica.setNome(textNomeJuridico.getText());
-				pessoaFisica.setEmail(textEmail.getText());
-				pessoaFisica.setTelefoneFixo(textTelefoneFixo.getText());
-				pessoaFisica.setTelefoneCelular(textCelular.getText());
-				pessoaFisica.setEndereco(endereco);
+				adotante.setNome(textNomeJuridico.getText());
+				adotante.setEmail(textEmail.getText());
+				adotante.setTelefoneFixo(textTelefoneFixo.getText());
+				adotante.setTelefoneCelular(textCelular.getText());
+				adotante.setEndereco(endereco);
 
 				pessoaJuridica.setCnpj(textCNPJ.getText());
 				pessoaJuridica.setAdotante(adotante);
 				
-				pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
+				//pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
 				
-//				if(pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)){				
-//				JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
-//				TelaInicialGUI ti = new TelaInicialGUI();
-//				ti.setVisible(true);
-//				dispose();
-//				}else{
-//					JOptionPane.showMessageDialog(null,"Adotante Juridico não pode ser cadastrado! Tente novamente", "ERROR", 0);
-//				}
+				if(pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)){				
+					JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
+					TelaInicialGUI ti = new TelaInicialGUI();
+					ti.setVisible(true);
+					dispose();
+				}else{
+					JOptionPane.showMessageDialog(null,"Adotante Juridico não pode ser cadastrado! Tente novamente", "ERROR", 0);
+				}
 				
 			}
 		});
