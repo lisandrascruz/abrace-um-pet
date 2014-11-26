@@ -166,11 +166,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
 
-				if ((validacaoDadosPF(pessoaFisica.getNome(),
-						pessoaFisica.getSexo(), pessoaFisica.getTelefoneFixo(),
-						pessoaFisica.getTelefoneCelular(),
+				if ((validacaoDadosPF(pessoaFisica.getAdotante().getNome(),pessoaFisica.getGenero(), 
+						pessoaFisica.getAdotante().getTelefoneFixo(),
+						pessoaFisica.getAdotante().getTelefoneCelular(),
 						pessoaFisica.getCpf(), pessoaFisica.getRg(),
-						pessoaFisica.getEmail()))
+						pessoaFisica.getAdotante().getEmail()))
 						&& (validacaoDadosEndereco(endereco.getRua(),
 								endereco.getNumero(), endereco.getCep(),
 								endereco.getBairro(), endereco.getCidade(),
@@ -202,7 +202,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
-				pessoaFisica.setSexo(comboGenero.getSelectedItem().toString());
+				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
 
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
@@ -212,13 +212,12 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
 
-				pessoaFisica.setNome(textNomeFisico.getText());
-				pessoaFisica.setEmail(textEmail.getText());
-				pessoaFisica.setTelefoneFixo(textTelefoneFixo.getText());
-				pessoaFisica.setTelefoneCelular(textCelular.getText());
-				pessoaFisica.setEndereco(endereco);
+				pessoaFisica.getAdotante().setNome(textNomeFisico.getText());
+				pessoaFisica.getAdotante().setEmail(textEmail.getText());
+				pessoaFisica.getAdotante().setTelefoneFixo(textTelefoneFixo.getText());
+				pessoaFisica.getAdotante().setTelefoneCelular(textCelular.getText());
+				pessoaFisica.getAdotante().setEndereco(endereco);
 
-				adotante.setPessoaFisica(pessoaFisica);
 				pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
 			}
 
