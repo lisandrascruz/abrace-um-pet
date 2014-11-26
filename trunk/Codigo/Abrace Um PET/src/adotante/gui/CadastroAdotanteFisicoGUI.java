@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
-import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
 import adotante.dominio.PessoaFisica;
 import adotante.service.PessoaFisicaService;
