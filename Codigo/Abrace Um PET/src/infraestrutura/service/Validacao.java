@@ -60,8 +60,8 @@ public class Validacao {
 		usuario.setSenha(senha);
 
 		if (senha != "") {
-			if (tamanhoSenha < 6
-					&& (!(senha.contains("!") || senha.contains("@")
+			if ((tamanhoSenha < 6)
+					|| (!(senha.contains("!") || senha.contains("@")
 							|| senha.contains("#") || senha.contains("%")
 							|| senha.contains("&") || senha.contains("$")))) {
 				valido = false;

@@ -131,20 +131,28 @@ public class CadastroUsuarioGUI extends JFrame {
 								}
 								else{
 									JOptionPane.showMessageDialog(null, "Por favor, digite um email Iválido, usar formato - exemplo@exemplo.com","ERROR", 0);
+									textEmail.requestFocus();
 									return valido = false;
 								}
 							}
 							else{
 								JOptionPane.showMessageDialog(null, "Senhas não conferem", "ERROR",0);
+								textSenha.setText("");
+								textConfirmarSenha.setText("");
+								textSenha.requestFocus();
 								return valido = false;
 							}
 						}
 						else{
 							JOptionPane.showMessageDialog(null,"A senha deve conter no minimo 6 digitos e pelo menos 1 caracter especial", "ERROR", 0);
+							textSenha.setText("");
+							textConfirmarSenha.setText("");
+							textSenha.requestFocus();
 							return valido = false;
 						}
 					}else{
-						JOptionPane.showMessageDialog(null,"O login deve conter pelo menos 3 caracteres", "ERROR", 0);
+						JOptionPane.showMessageDialog(null,"O login deve conter pelo menos 6 caracteres", "ERROR", 0);
+						textLogin.requestFocus();
 						return valido = false;
 						}
 				}else {
