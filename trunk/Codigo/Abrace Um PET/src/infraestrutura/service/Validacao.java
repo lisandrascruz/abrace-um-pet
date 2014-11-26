@@ -356,5 +356,23 @@ public class Validacao {
 		}
 		return valido;
 	}
+	
+	/**
+	 *  VALIDAR CNPJ
+	 * 
+	 * @param cnpj
+	 * @return
+	 */
+	public boolean validarCnpj(String cnpj) {
+		int tamanhoCnpj = cnpj.length();
+		boolean valido;
+
+		if ((cnpj != "") && (tamanhoCnpj == 14)) {
+			valido = true;
+		} else {
+			valido = false;
+		}
+		return valido;
+	}
 
 }
