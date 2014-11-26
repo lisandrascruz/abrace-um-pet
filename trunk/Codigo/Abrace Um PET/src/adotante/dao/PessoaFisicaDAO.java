@@ -19,7 +19,7 @@ public class PessoaFisicaDAO {
 	 * @param usuario
 	 * @return
 	 */
-	public boolean adicionarPessoFisica(PessoaFisica pessoaFisica) {
+	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) {
 		try {
 			int id;
 			Connection con = Conexao.abrirConceccaoMySQL();

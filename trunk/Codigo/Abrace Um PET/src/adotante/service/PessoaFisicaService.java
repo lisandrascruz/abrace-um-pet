@@ -8,6 +8,6 @@ public class PessoaFisicaService {
 	private PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 
 	public boolean adicionarPessoaFisicaService(PessoaFisica pessoaFisica) {
-		return pessoaFisicaDAO.adicionarPessoFisica(pessoaFisica);
+		return pessoaFisicaDAO.adicionarPessoaFisica(pessoaFisica);
 	}
 }
