@@ -28,13 +28,20 @@ public class PessoaFisicaDAO {
 
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
-			preparedStatement.setString(1, pessoaFisica.getEndereco().getEstado());
-			preparedStatement.setString(2, pessoaFisica.getEndereco().getCidade());
-			preparedStatement.setString(3, pessoaFisica.getEndereco().getBairro());
-			preparedStatement.setString(4, pessoaFisica.getEndereco().getRua());
-			preparedStatement.setString(5, pessoaFisica.getEndereco().getNumero());
-			preparedStatement.setString(6, pessoaFisica.getEndereco().getCep());
-			preparedStatement.setString(7, pessoaFisica.getEndereco().getComplemento());
+			preparedStatement.setString(1, pessoaFisica.getAdotante()
+					.getEndereco().getEstado());
+			preparedStatement.setString(2, pessoaFisica.getAdotante()
+					.getEndereco().getCidade());
+			preparedStatement.setString(3, pessoaFisica.getAdotante()
+					.getEndereco().getBairro());
+			preparedStatement.setString(4, pessoaFisica.getAdotante()
+					.getEndereco().getRua());
+			preparedStatement.setString(5, pessoaFisica.getAdotante()
+					.getEndereco().getNumero());
+			preparedStatement.setString(6, pessoaFisica.getAdotante()
+					.getEndereco().getCep());
+			preparedStatement.setString(7, pessoaFisica.getAdotante()
+					.getEndereco().getComplemento());
 
 			int affectedRows = preparedStatement.executeUpdate();
 
@@ -57,11 +64,11 @@ public class PessoaFisicaDAO {
 			query = "insert into adotante (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			
-			preparedStatement.setString(1, pessoaFisica.getNome());
+			preparedStatement.setString(1, pessoaFisica.getAdotante().getNome());
 			preparedStatement.setInt(2, id);
-			preparedStatement.setString(3, pessoaFisica.getTelefoneFixo());
-			preparedStatement.setString(4, pessoaFisica.getTelefoneCelular());
-			preparedStatement.setString(5, pessoaFisica.getEmail());
+			preparedStatement.setString(3, pessoaFisica.getAdotante().getTelefoneFixo());
+			preparedStatement.setString(4, pessoaFisica.getAdotante().getTelefoneCelular());
+			preparedStatement.setString(5, pessoaFisica.getAdotante().getEmail());
 			
 			affectedRows = preparedStatement.executeUpdate();
 
@@ -84,7 +91,7 @@ public class PessoaFisicaDAO {
 			
 			preparedStatement.setString(1, pessoaFisica.getRg());
 			preparedStatement.setString(2, pessoaFisica.getCpf());
-			preparedStatement.setString(3, pessoaFisica.getSexo());
+			preparedStatement.setString(3, pessoaFisica.getGenero());
 			preparedStatement.setInt(4, id);
 			
 			affectedRows = preparedStatement.executeUpdate();
@@ -164,35 +171,6 @@ public class PessoaFisicaDAO {
 			e.printStackTrace();
 		}
 		return acesso;
-	}
-	
-	public boolean consultar(String query) {
-		Connection conexao = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		boolean usuario = false;
-		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			statement = (Statement) conexao.createStatement();
-			resultSet = statement.executeQuery(query);
-			if (resultSet.next()) {
-				usuario = true;
-			} else {
-				usuario = false;
-			}
-			Conexao.fecharConecaoMySQL();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return usuario;
-	}
-	
-	public boolean consultarPessoaFisica(String cpf) {
-		String resultSet = ("select cpf from pessoafisica where cpf='"
-				+ cpf + "'");
-		return consultar(resultSet);
 	}
 
 }

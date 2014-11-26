@@ -3,8 +3,6 @@ package infraestrutura.service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import adotante.dao.PessoaFisicaDAO;
-import adotante.dominio.PessoaFisica;
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
@@ -12,8 +10,6 @@ import usuario.gui.CadastroUsuarioGUI;
 public class Validacao {
 	Usuario usuario = new Usuario();
 	UsuarioDAO usuarioDao = new UsuarioDAO();
-	PessoaFisica pessoaFisica = new PessoaFisica();
-	PessoaFisicaDAO pessoaFisicaDao = new PessoaFisicaDAO();
 	CadastroUsuarioGUI cadastroUsuario = new CadastroUsuarioGUI();
 
 	/**
@@ -21,23 +17,11 @@ public class Validacao {
 	 * @param login
 	 * @return
 	 */
-	public boolean validarCadastro(String login) { //mudar nome de método para validarCadastroUsuario
+	public boolean validarCadastro(String login) {
 		boolean valido;
 		usuario.setLogin(login);
 
 		if (usuarioDao.consultarUsuario(login)) {
-			valido = false;
-		} else {
-			valido = true;
-		}
-		return valido;
-	}
-
-	public boolean validarCadastroPf(String cpf) {
-		boolean valido;
-		pessoaFisica.setCpf(cpf);
-		
-		if (pessoaFisicaDao.consultarPessoaFisica(cpf)){
 			valido = false;
 		} else {
 			valido = true;
