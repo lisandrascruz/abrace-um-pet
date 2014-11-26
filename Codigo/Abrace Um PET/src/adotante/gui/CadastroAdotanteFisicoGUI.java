@@ -251,17 +251,13 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 												return valido = true;
 											}
 										} else {
-											JOptionPane
-													.showMessageDialog(
-															null,
+											JOptionPane.showMessageDialog(null,
 															"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
 															"ERROR", 0);
 											return valido = false;
 										}
 									} else {
-										JOptionPane
-												.showMessageDialog(
-														null,
+										JOptionPane.showMessageDialog(null,
 														"Por favor, digite um RG válido.",
 														"ERROR", 0);
 										return valido = false;
@@ -273,17 +269,13 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 									return valido = false;
 								}
 							} else {
-								JOptionPane
-										.showMessageDialog(
-												null,
+								JOptionPane.showMessageDialog(null,
 												"Por favor, digite um número de celular válido.",
 												"ERROR", 0);
 								return valido = false;
 							}
 						} else {
-							JOptionPane
-									.showMessageDialog(
-											null,
+							JOptionPane.showMessageDialog(null,
 											"Por favor, digite um número de telefone fixo válido.",
 											"ERROR", 0);
 							return valido = false;
