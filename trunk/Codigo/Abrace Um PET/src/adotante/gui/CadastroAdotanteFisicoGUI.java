@@ -198,8 +198,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
-				Adotante adotante = new Adotante();
-
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
