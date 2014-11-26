@@ -185,6 +185,9 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					}
 				}
 				JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
+				/**
+				 * ajustar tela ao salvar
+				 */
 				TelaInicialGUI ti = new TelaInicialGUI();
 				ti.setVisible(true);
 				dispose();
@@ -447,7 +450,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(lblEmail);
 
 		textEmail = new JTextField();
-		textEmail.setBounds(173, 178, 289, 20);
+		textEmail.setBounds(173, 178, 249, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 
