@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
+import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
 import adotante.dominio.PessoaFisica;
 import adotante.service.PessoaFisicaService;
@@ -159,47 +160,20 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				setarDadosAdotanteFisico();
+
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
+				Adotante adotante = new Adotante();
 
-				if ((validacaoDadosPF(pessoaFisica.getAdotante().getNome(),pessoaFisica.getGenero(), 
-						pessoaFisica.getAdotante().getTelefoneFixo(),
-						pessoaFisica.getAdotante().getTelefoneCelular(),
-						pessoaFisica.getCpf(), pessoaFisica.getRg(),
-						pessoaFisica.getAdotante().getEmail()))
-						&& (validacaoDadosEndereco(endereco.getRua(),
-								endereco.getNumero(), endereco.getCep(),
-								endereco.getBairro(), endereco.getCidade(),
-								endereco.getEstado()))) {
-					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
-						JOptionPane.showMessageDialog(null,"Usuario cadastrado com sucesso");
-						LoginGUI login1 = new LoginGUI();
-						login1.setVisible(true);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente!","ERROR", 0);
+				pessoaFisica.getAdotante().setNome(textNomeFisico.getText());
+				pessoaFisica.getAdotante().setEmail(textEmail.getText());
+				pessoaFisica.getAdotante().setTelefoneFixo(
+						textTelefoneFixo.getText());
+				pessoaFisica.getAdotante().setTelefoneCelular(
+						textCelular.getText());
+				pessoaFisica.getAdotante().setEndereco(endereco);
 
-					}
-				}
-				JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
-				/**
-				 * ajustar tela ao salvar
-				 */
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
-				dispose();
-			}
-
-			/**
-			 * SETA OS DADOS PASSADOS PELO USUARIO
-			 */
-			public void setarDadosAdotanteFisico() {
-				PessoaFisica pessoaFisica = new PessoaFisica();
-				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				Endereco endereco = new Endereco();
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
@@ -211,15 +185,83 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
+				
+				pessoaFisica.setAdotante(adotante);
 
-				pessoaFisica.getAdotante().setNome(textNomeFisico.getText());
-				pessoaFisica.getAdotante().setEmail(textEmail.getText());
-				pessoaFisica.getAdotante().setTelefoneFixo(textTelefoneFixo.getText());
-				pessoaFisica.getAdotante().setTelefoneCelular(textCelular.getText());
-				pessoaFisica.getAdotante().setEndereco(endereco);
+				String nome = pessoaFisica.getAdotante().getNome();
+				String email = pessoaFisica.getAdotante().getEmail();
+				String telefoneFixo = pessoaFisica.getAdotante()
+						.getTelefoneFixo();
+				String telefoneCelular = pessoaFisica.getAdotante()
+						.getTelefoneCelular();
+				String cpf = pessoaFisica.getCpf();
+				String rg = pessoaFisica.getRg();
+				String genero = pessoaFisica.getGenero();
 
-				pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
+				String numero = endereco.getNumero();
+				String rua = endereco.getRua();
+				String cep = endereco.getCep();
+				String bairro = endereco.getBairro();
+				String cidade = endereco.getCidade();
+				String estado = endereco.getEstado();
+
+				if ((validacaoDadosPF(nome, genero, telefoneFixo,
+						telefoneCelular, cpf, rg, email) && (validacaoDadosEndereco(
+						rua, numero, cep, bairro, cidade, estado)))) {
+					if (pessoaFisicaService
+							.adicionarPessoaFisicaService(pessoaFisica)) {
+						JOptionPane.showMessageDialog(null,
+								"Usuario cadastrado com sucesso");
+						LoginGUI login1 = new LoginGUI();
+						login1.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"O cadastro não pode ser realizado, tente novamente!",
+										"ERROR", 0);
+
+					}
+				}
+				JOptionPane.showMessageDialog(null,
+						"Adotante Fisico cadastrado com sucesso!!");
+				/**
+				 * ajustar tela ao salvar
+				 */
+				TelaInicialGUI ti = new TelaInicialGUI();
+				ti.setVisible(true);
+				dispose();
 			}
+
+			// /**
+			// * SETA OS DADOS PASSADOS PELO USUARIO
+			// */
+			// public void setarDadosAdotanteFisico() {
+			// PessoaFisica pessoaFisica = new PessoaFisica();
+			// PessoaFisicaService pessoaFisicaService = new
+			// PessoaFisicaService();
+			// Endereco endereco = new Endereco();
+			// pessoaFisica.setCpf(textCPF.getText());
+			// pessoaFisica.setRg(textRG.getText());
+			// pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
+			//
+			// endereco.setBairro(textBairro.getText());
+			// endereco.setCep(textCEP.getText());
+			// endereco.setCidade(textCidade.getText());
+			// endereco.setComplemento(textComplemento.getText());
+			// endereco.setEstado(textEstado.getText());
+			// endereco.setRua(textRua.getText());
+			// endereco.setNumero(textNumero.getText());
+			//
+			// pessoaFisica.getAdotante().setNome(textNomeFisico.getText());
+			// pessoaFisica.getAdotante().setEmail(textEmail.getText());
+			// pessoaFisica.getAdotante().setTelefoneFixo(textTelefoneFixo.getText());
+			// pessoaFisica.getAdotante().setTelefoneCelular(textCelular.getText());
+			// pessoaFisica.getAdotante().setEndereco(endereco);
+			//
+			// pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
+			// }
 
 			/**
 			 * VALIDAR DADOS DA PESSOA FISICA
@@ -251,13 +293,17 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 												return valido = true;
 											}
 										} else {
-											JOptionPane.showMessageDialog(null,
+											JOptionPane
+													.showMessageDialog(
+															null,
 															"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
 															"ERROR", 0);
 											return valido = false;
 										}
 									} else {
-										JOptionPane.showMessageDialog(null,
+										JOptionPane
+												.showMessageDialog(
+														null,
 														"Por favor, digite um RG válido.",
 														"ERROR", 0);
 										return valido = false;
@@ -269,13 +315,17 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 									return valido = false;
 								}
 							} else {
-								JOptionPane.showMessageDialog(null,
+								JOptionPane
+										.showMessageDialog(
+												null,
 												"Por favor, digite um número de celular válido.",
 												"ERROR", 0);
 								return valido = false;
 							}
 						} else {
-							JOptionPane.showMessageDialog(null,
+							JOptionPane
+									.showMessageDialog(
+											null,
 											"Por favor, digite um número de telefone fixo válido.",
 											"ERROR", 0);
 							return valido = false;
