@@ -3,7 +3,6 @@ package adotante.dominio;
 public class Adotante {
 	private int id;
 	private String nome;
-	private String cpf;
 	private Endereco endereco;
 	private String telefoneFixo;
 	private String telefoneCelular;
@@ -19,12 +18,6 @@ public class Adotante {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public String getCpf() {
-		return cpf;
-	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 	public Endereco getEndereco() {
 		return endereco;
