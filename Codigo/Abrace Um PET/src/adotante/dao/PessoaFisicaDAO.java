@@ -132,39 +132,39 @@ public class PessoaFisicaDAO {
 	 * Conexao.fecharConecaoMySQL(); return true; }
 	 */
 
-	/**
-	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
-	 * 
-	 * @param login
-	 * @param senha
-	 * @return
-	 */
-	public boolean consultarUsuario(String login, String senha) {
-		boolean acesso = false;
-
-		Connection conexao = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-
-		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			statement = (Statement) conexao.createStatement();
-			resultSet = statement
-					.executeQuery("select login, senha from tbl_usuario where login='"
-							+ login + "'and senha='" + senha + "'");
-			if (resultSet.next()) {
-				acesso = true;
-			} else {
-				acesso = false;
-			}
-			Conexao.fecharConecaoMySQL();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return acesso;
-	}
+//	/**
+//	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+//	 * 
+//	 * @param login
+//	 * @param senha
+//	 * @return
+//	 */
+//	public boolean consultarUsuario(String login, String senha) {
+//		boolean acesso = false;
+//
+//		Connection conexao = null;
+//		Statement statement = null;
+//		ResultSet resultSet = null;
+//
+//		try {
+//			Conexao.abrirConceccaoMySQL();
+//			conexao = DriverManager.getConnection(
+//					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
+//			statement = (Statement) conexao.createStatement();
+//			resultSet = statement
+//					.executeQuery("select login, senha from tbl_usuario where login='"
+//							+ login + "'and senha='" + senha + "'");
+//			if (resultSet.next()) {
+//				acesso = true;
+//			} else {
+//				acesso = false;
+//			}
+//			Conexao.fecharConecaoMySQL();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return acesso;
+//	}
 	
 	public boolean consultar(String query) {
 		Connection conexao = null;
@@ -192,7 +192,7 @@ public class PessoaFisicaDAO {
 	public boolean consultarPessoaFisica(String cpf) {
 		String resultSet = ("select cpf from pessoafisica where cpf='"
 				+ cpf + "'");
-		System.out.println(consultar(resultSet));
+//		System.out.println(consultar(resultSet));
 		return consultar(resultSet);
 	}
 

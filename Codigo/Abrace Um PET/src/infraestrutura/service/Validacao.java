@@ -1,13 +1,10 @@
 package infraestrutura.service;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import adotante.dao.PessoaFisicaDAO;
-import adotante.dominio.PessoaFisica;
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
+import adotante.dao.PessoaFisicaDAO;
+import adotante.dominio.PessoaFisica;
 
 public class Validacao {
 	Usuario usuario = new Usuario();
@@ -181,12 +178,12 @@ public class Validacao {
 	}
 
 	/**
-	 * VALIDAR SEXO DA PESSOA FISICA
+	 * VALIDAR GENERO DA PESSOA FISICA
 	 * 
 	 * @param genero
 	 * @return
 	 */
-	public boolean validarSexoPessoaFisica(String genero) {
+	public boolean validarGeneroPessoaFisica(String genero) {
 		boolean valido;
 
 		if (genero != "") {
@@ -206,8 +203,9 @@ public class Validacao {
 	public boolean validarTelefoneFixo(String telefoneFixo) {
 		boolean valido;
 		int tamanhoTelFixo = telefoneFixo.length();
+		
 
-		if ((telefoneFixo != "") && (tamanhoTelFixo == 11)) {
+		if ((telefoneFixo != "") && (telefoneFixo.matches("[0-9]")) && (tamanhoTelFixo == 11)) {
 			valido = true;
 		} else {
 			valido = false;
@@ -225,14 +223,15 @@ public class Validacao {
 		boolean valido;
 		int tamanhoTelCelular = telefoneCelular.length();
 
-		if ((telefoneCelular != "") && (tamanhoTelCelular == 11)) {
+		if ((telefoneCelular != "") && (telefoneCelular.matches("[0-9]")) && (tamanhoTelCelular == 11)) {
 			valido = true;
 		} else {
 			valido = false;
 		}
 		return valido;
 	}
-
+	
+	
 	/**
 	 * VALIDAR CPF
 	 * @param cpf
@@ -242,7 +241,7 @@ public class Validacao {
 		boolean valido;
 		int tamanhoCpf = cpf.length();
 
-		if ((cpf != "") && (tamanhoCpf == 11)) {
+		if ((cpf != "") && (cpf.matches("[0-9]")) && (tamanhoCpf == 11)) {
 			valido = true;
 		} else {
 			valido = false;
@@ -259,7 +258,7 @@ public class Validacao {
 		boolean valido;
 		int tamanhoRg = rg.length();
 
-		if ((rg != "") && (tamanhoRg == 7)) {
+		if ((rg != "") && (rg.matches("[0-9]")) && (tamanhoRg == 7)) {
 			valido = true;
 		} else {
 			valido = false;
@@ -309,10 +308,9 @@ public class Validacao {
 	public boolean validarCep(String cep) {
 		boolean valido;
 		int tamanhoCep = cep.length();
-		Pattern pattern = Pattern.compile("[0-9]");
-		Matcher matcher = pattern.matcher(cep);
+		
 
-		if ((cep != "") && (tamanhoCep == 8) && (matcher.find())) {
+		if ((cep != "") && (tamanhoCep == 8) && (cep.matches("[0-9]"))) {
 			valido = true;
 		} else {
 			valido = false;
@@ -378,7 +376,7 @@ public class Validacao {
 		int tamanhoCnpj = cnpj.length();
 		boolean valido;
 
-		if ((cnpj != "") && (tamanhoCnpj == 14)) {
+		if ((cnpj != "") && (cnpj.matches("[0-9]")) && (tamanhoCnpj == 14)) {
 			valido = true;
 		} else {
 			valido = false;
