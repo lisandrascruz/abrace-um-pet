@@ -228,7 +228,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				ti.setVisible(true);
 				dispose();
 			}
-
+			}
 			// /**
 			// * SETA OS DADOS PASSADOS PELO USUARIO
 			// */
@@ -274,7 +274,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			public boolean validacaoDadosPF(String cpf, String nome, String genero, 
 					String telefoneFixo, String telefoneCelular, String rg, String email) {
 				Validacao validar = new Validacao();
-				boolean valido;
+				boolean valido = false;
 
 				if (validar.validarCadastroPf(cpf)) {
 					if (validar.validarNomePessoaFisica(nome)) {
@@ -407,7 +407,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					valido = false;
 				}
 				return valido;
-			}
+			}});
 		
 
 		btnCadastrar.setBounds(194, 382, 118, 23);
@@ -523,5 +523,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			
 
 }
+}
+		
+	
 		
 		
