@@ -32,33 +32,30 @@ public class UsuarioDAO {
 
 			String query = "INSERT INTO usuario (login, senha, email) values (?, ?, ?)";
 
-			PreparedStatement preparedStatement = (PreparedStatement) con
-					.prepareStatement(query);
+			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
 			preparedStatement.setString(1, login);
 			preparedStatement.setString(2, senha);
 			preparedStatement.setString(3, email);
-			//preparedStatement.execute();  
-			//preparedStatement.close(); 
-			
+			// preparedStatement.execute();
+			// preparedStatement.close();
 
 			int id;
 			int affectedRows = preparedStatement.executeUpdate();
 
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating user failed, no rows affected.");
-	        }
+			if (affectedRows == 0) {
+				throw new SQLException("Creating user failed, no rows affected.");
+			}
 
-	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	            	id = (int) generatedKeys.getLong(1);
-	            }
-	            else {
-	                throw new SQLException("Creating user failed, no ID obtained.");
-	            }
-	        }
-			preparedStatement.close(); 
-			
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					id = (int) generatedKeys.getLong(1);
+				} else {
+					throw new SQLException("Creating user failed, no ID obtained.");
+				}
+			}
+			preparedStatement.close();
+
 			Conexao.fecharConecaoMySQL();
 			return true;
 		} catch (Exception ex) {
@@ -72,21 +69,19 @@ public class UsuarioDAO {
 	 * @param usuario
 	 * @return
 	 */
-	/*public boolean excluirUsuario(Usuario usuario) {
-		Connection con = Conexao.abrirConceccaoMySQL();
-		Criptografia criptografia = new Criptografia();
-
-		String login = usuario.getLogin();
-		String senha = usuario.getSenha();
-		String email = usuario.getEmail();
-		senha = criptografia.criptografar(senha);
-
-		String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
-				+ login + "','" + senha + "','" + email + "')";
-		Conexao.comandoMySQL(query);
-		Conexao.fecharConecaoMySQL();
-		return true;
-	}*/
+	/*
+	 * public boolean excluirUsuario(Usuario usuario) { Connection con =
+	 * Conexao.abrirConceccaoMySQL(); Criptografia criptografia = new
+	 * Criptografia();
+	 * 
+	 * String login = usuario.getLogin(); String senha = usuario.getSenha();
+	 * String email = usuario.getEmail(); senha =
+	 * criptografia.criptografar(senha);
+	 * 
+	 * String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
+	 * + login + "','" + senha + "','" + email + "')";
+	 * Conexao.comandoMySQL(query); Conexao.fecharConecaoMySQL(); return true; }
+	 */
 
 	/**
 	 * 
@@ -100,8 +95,7 @@ public class UsuarioDAO {
 		boolean usuario = false;
 		try {
 			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
@@ -124,8 +118,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public boolean consultarLogin(String login, String senha) {
-		String resultSet = ("select login, senha from usuario where login='"
-				+ login + "'and senha='" + senha + "'");
+		String resultSet = ("select login, senha from usuario where login='" + login + "'and senha='" + senha + "'");
 
 		return consultar(resultSet);
 	}
@@ -135,8 +128,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public boolean consultarUsuario(String login) {
-		String resultSet = ("select login from usuario where login='"
-				+ login + "'");
+		String resultSet = ("select login from usuario where login='" + login + "'");
 		return consultar(resultSet);
 	}
 

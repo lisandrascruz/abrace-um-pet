@@ -1,6 +1,7 @@
 package adotante.gui;
 
 import infraestrutura.dao.Conexao;
+import infraestrutura.service.Validacao;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -34,6 +35,8 @@ import javax.swing.SwingConstants;
 
 import usuario.gui.TelaInicialGUI;
 
+import javax.swing.DropMode;
+
 @SuppressWarnings("unused")
 public class CadastroAdotanteJuridicoGui extends JFrame {
 
@@ -55,6 +58,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 	private JTextField textCelular;
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
+	private JTextField textMostraNomeResponsavel;
 
 	/**
 	 * Create the frame.
@@ -83,7 +87,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		textNomeJuridico.setBounds(173, 80, 395, 20);
 		contentPane.add(textNomeJuridico);
 		textNomeJuridico.setColumns(10);
-
+		
 		JLabel lblEnderecoEmpresarial = new JLabel("Endere\u00E7o Juridico: ");
 		lblEnderecoEmpresarial.setFont(new Font("Microsoft YaHei", Font.PLAIN,
 				12));
@@ -100,7 +104,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblDadosEmpresariais.setBounds(25, 54, 132, 14);
 		contentPane.add(lblDadosEmpresariais);
-
+		
 		JLabel lblCpf = new JLabel("CNPJ: ");
 		lblCpf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblCpf.setBounds(51, 149, 46, 14);
@@ -165,7 +169,29 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		textCEP.setBounds(175, 280, 187, 20);
 		contentPane.add(textCEP);
 		textCEP.setColumns(10);
-
+		
+		textMostraNomeResponsavel = new JTextField();
+		textMostraNomeResponsavel.setBounds(301, 182, 199, 20);
+		contentPane.add(textMostraNomeResponsavel);
+		textMostraNomeResponsavel.setColumns(10);
+		
+		JButton btnValidarcpf = new JButton("ValidarCPF");
+		btnValidarcpf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Validacao validar = new Validacao();
+				PessoaFisica pessoaFisica = new PessoaFisica();
+				
+				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
+				String cpf = pessoaFisica.getCpf();
+				
+				if(validar.validarCpfResponsavelJuridico(cpf)){
+					String nome=pessoaFisica.getAdotante().getNome();
+					textMostraNomeResponsavel.setText(nome);
+				}
+			}
+		});
+		btnValidarcpf.setBounds(507, 181, 89, 23);
+		contentPane.add(btnValidarcpf);
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -229,7 +255,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		contentPane.add(lblResponsavel);
 
 		textResponsavel = new JTextField();
-		textResponsavel.setBounds(173, 182, 171, 20);
+		textResponsavel.setBounds(173, 182, 118, 20);
 		contentPane.add(textResponsavel);
 		textResponsavel.setColumns(10);
 
@@ -306,5 +332,8 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		});
 		btnCancelar.setBounds(393, 382, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		
+
 	}
 }
