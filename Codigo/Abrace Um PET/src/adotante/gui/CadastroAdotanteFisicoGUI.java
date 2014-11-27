@@ -224,14 +224,14 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 					}
 				}
-				JOptionPane.showMessageDialog(null,
-						"Adotante Fisico cadastrado com sucesso!!");
-				/**
-				 * ajustar tela ao salvar
-				 */
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
-				dispose();
+//				JOptionPane.showMessageDialog(null,
+//						"Adotante Fisico cadastrado com sucesso!!");
+//				/**
+//				 * ajustar tela ao salvar
+//				 */
+//				TelaInicialGUI ti = new TelaInicialGUI();
+//				ti.setVisible(true);
+//				dispose();
 			}
 
 			// /**

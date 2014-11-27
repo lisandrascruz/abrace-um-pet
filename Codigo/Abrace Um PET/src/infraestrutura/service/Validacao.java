@@ -32,6 +32,17 @@ public class Validacao {
 		}
 		return valido;
 	}
+	
+	public boolean validarCpfResponsavelJuridico(String cpf){
+		boolean valido = false;
+		pessoaFisica.setCpf(cpf);
+		if(pessoaFisicaDao.consultarPessoaFisica(cpf)){
+			valido = false;
+		}else{
+			valido = true;
+		}
+		return valido;
+	}
 
 	public boolean validarCadastroPf(String cpf) {
 		boolean valido;
@@ -374,5 +385,6 @@ public class Validacao {
 		}
 		return valido;
 	}
+
 
 }
