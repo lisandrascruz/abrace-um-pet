@@ -184,9 +184,13 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
 				String cpf = pessoaFisica.getCpf();
 				
-				if(validar.validarCpfResponsavelJuridico(cpf)){
-					String nome=pessoaFisica.getAdotante().getNome();
-					textMostraNomeResponsavel.setText(nome);
+				if(!(validar.validarCpfResponsavelJuridico(cpf))){
+					//String nome=pessoaFisica.getAdotante().getNome();
+					textMostraNomeResponsavel.setText("OOOKKKK");
+					JOptionPane.showMessageDialog(null, "PESSOA ENCONTRADA!!");
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "PESSOA nao ENCONTRADA!!");
 				}
 			}
 		});

@@ -144,12 +144,12 @@ public class Validacao {
 				String dominio = new String(email.substring(
 						email.lastIndexOf('@') + 1, email.length()));
 
-				if (!(nomeEmail.length() >= 1) && (!nomeEmail.contains("@"))
+				if ((nomeEmail.length() >= 1) && (!nomeEmail.contains("@"))
 						&& (dominio.contains(".com"))
 						&& (!dominio.contains("@"))
 						&& (dominio.indexOf(".com") >= 1)
 						&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
-					valido = false;
+					valido = true;
 				} else {
 					valido = true;
 				}
