@@ -82,6 +82,33 @@ public class Conexao {
 		}
 		return x;
 	}
+	/**
+	 * GERAL PARA CONSULTA
+	 * 
+	 * @param query
+	 * @return
+	 */
+	public boolean consultar(String query) {
+		Connection conexao = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		boolean usuario = false;
+		try {
+			Conexao.abrirConceccaoMySQL();
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			statement = (Statement) conexao.createStatement();
+			resultSet = statement.executeQuery(query);
+			if (resultSet.next()) {
+				usuario = true;
+			} else {
+				usuario = false;
+			}
+			Conexao.fecharConecaoMySQL();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
 	
 	
 
