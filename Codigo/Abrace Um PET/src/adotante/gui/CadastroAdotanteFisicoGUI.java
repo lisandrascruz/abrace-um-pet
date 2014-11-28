@@ -219,14 +219,19 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					} else {
 						JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente!","ERROR", 0);
 					}
+<<<<<<< .mine
+				}
+				//JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
+=======
 				}else{
 				JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
+>>>>>>> .r103
 				/**
 				 * ajustar tela ao salvar
 				 */
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
-				dispose();
+				//TelaInicialGUI ti = new TelaInicialGUI();
+				//ti.setVisible(true);
+				//dispose();
 			}
 			}
 			// /**
@@ -284,72 +289,85 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 									if (validar.validarCpf(cpf)) {
 										if (validar.validarRg(rg)) {
 											if (validar.validarEmail(email)) {
-												return valido = true;
+												 valido = true;
 											}
-										} else {
-											JOptionPane
-													.showMessageDialog(
-															null,
-															"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
-															"ERROR", 0);
-											return valido = false;
+											else {
+												JOptionPane
+														.showMessageDialog(
+																null,
+																"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
+																"ERROR", 0);
+													valido = false;
+											}
 										}
-									} else {
-										JOptionPane
-												.showMessageDialog(
-														null,
-														"Por favor, digite um RG válido.",
-														"ERROR", 0);
-										return valido = false;
+										else {
+											JOptionPane
+											.showMessageDialog(
+													null,
+													"Por favor, digite um RG válido.",
+													"ERROR", 0);
+									 valido = false;
+										}
 									}
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Por favor, digite um CPF válido.",
-											"ERROR", 0);
-									return valido = false;
-								}
-							} else {
-								JOptionPane
-										.showMessageDialog(
-												null,
-												"Por favor, digite um número de celular válido.",
+									else {
+										JOptionPane.showMessageDialog(null,
+												"Por favor, digite um CPF válido.",
 												"ERROR", 0);
-								return valido = false;
-							}
-						} else {
-							JOptionPane
+										valido = false;
+									}
+								} 
+								else {
+									JOptionPane
 									.showMessageDialog(
 											null,
-											"Por favor, digite um número de telefone fixo válido.",
+											"Por favor, digite um número de celular válido.",
 											"ERROR", 0);
-							return valido = false;
+							 valido = false;
+							 }
+							}
+							else {
+								JOptionPane
+								.showMessageDialog(
+										null,
+										"Por favor, digite um número de telefone fixo válido.",
+										"ERROR", 0);
+						 valido = false;
+							}
 						}
-					} else {
-						JOptionPane.showMessageDialog(null,
-								"Por favor, selecione um gênero.", "ERROR", 0);
-						return valido = false;
+						else {
+							JOptionPane.showMessageDialog(null,
+									"Por favor, selecione um gênero.", "ERROR", 0);
+							 valido = false;
+						}
 					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Pessoa já cadastrada! Tente outro.", "ERROR", 0);
-
-					textNomeFisico.setText("");
-					textBairro.setText("");
-					textCEP.setText("");
-					textCidade.setText("");
-					textCPF.setText("");
-					textComplemento.setText("");
-					textEmail.setText("");
-					textEstado.setText("");
-					textNumero.setText("");
-					textRua.setText("");
-					textTelefoneFixo.setText("");
-					textCelular.setText("");
-					textRG.setText("");
-
-					textNomeFisico.requestFocus();
-					return valido = false;
+					else{
+						JOptionPane.showMessageDialog(null,
+								"Por favor, digite o nome", "ERROR", 0);
+						 valido = false;
+					}
+						
 				}
+					else {
+						JOptionPane.showMessageDialog(null,
+								"Pessoa já cadastrada! Tente outro.", "ERROR", 0);
+						textNomeFisico.setText("");
+						textBairro.setText("");
+						textCEP.setText("");
+						textCidade.setText("");
+						textCPF.setText("");
+						textComplemento.setText("");
+						textEmail.setText("");
+						textEstado.setText("");
+						textNumero.setText("");
+						textRua.setText("");
+						textTelefoneFixo.setText("");
+						textCelular.setText("");
+						textRG.setText("");
+
+						textNomeFisico.requestFocus();
+						 valido = false;
+
+					}
 				return valido;
 			}
 
