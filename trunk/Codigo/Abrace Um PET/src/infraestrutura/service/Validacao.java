@@ -1,5 +1,15 @@
 package infraestrutura.service;
 
+<<<<<<< .mine
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import adotante.dao.PessoaFisicaDAO;
+import adotante.dao.PessoaJuridicaDAO;
+import adotante.dominio.PessoaFisica;
+=======
+>>>>>>> .r103
+import adotante.dominio.PessoaJuridica;
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
@@ -10,7 +20,9 @@ public class Validacao {
 	Usuario usuario = new Usuario();
 	UsuarioDAO usuarioDao = new UsuarioDAO();
 	PessoaFisica pessoaFisica = new PessoaFisica();
+	PessoaJuridica pessoaJuridica = new PessoaJuridica();
 	PessoaFisicaDAO pessoaFisicaDao = new PessoaFisicaDAO();
+	PessoaJuridicaDAO pessoaJuridicaDao = new PessoaJuridicaDAO();
 	CadastroUsuarioGUI cadastroUsuario = new CadastroUsuarioGUI();
 
 	/**
@@ -53,6 +65,7 @@ public class Validacao {
 		return valido;
 	}
 
+
 	/**
 	 * VALIDAR CAMPO LOGIN (MINIMO 3 CARACTERES)
 	 * 
@@ -83,7 +96,7 @@ public class Validacao {
 		int tamanhoSenha = senha.length();
 		usuario.setSenha(senha);
 
-		if (senha != "") {
+		if (!senha.equals( "")) {
 			if (tamanhoSenha < 6
 					&& (!(senha.contains("!") || senha.contains("@")
 							|| senha.contains("#") || senha.contains("%")
@@ -130,7 +143,7 @@ public class Validacao {
 		boolean valido;
 		usuario.setEmail(email);
 
-		if (email != "") {
+		if (!email.equals("")) {
 			if ((usuario.getEmail().contains("@"))
 					&& (usuario.getEmail().contains(".com"))
 					&& (!(usuario.getEmail()).contains(" "))) {
@@ -169,7 +182,7 @@ public class Validacao {
 	public boolean validarNomePessoaFisica(String nome) {
 		boolean valido;
 
-		if (nome != "") {
+		if (!nome.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -185,12 +198,12 @@ public class Validacao {
 	 */
 	public boolean validarGeneroPessoaFisica(String genero) {
 		boolean valido;
-
-		if (genero != "") {
+		if (!genero.equals(" ")) {
 			valido = true;
 		} else {
-			valido = false;
+			valido = false ;
 		}
+		
 		return valido;
 	}
 
@@ -258,7 +271,11 @@ public class Validacao {
 		boolean valido;
 		int tamanhoRg = rg.length();
 
+<<<<<<< .mine
+		if ((!rg.equals("")) && (tamanhoRg == 7)) {
+=======
 		if ((rg != "") && (rg.matches("[0-9]")) && (tamanhoRg == 7)) {
+>>>>>>> .r103
 			valido = true;
 		} else {
 			valido = false;
@@ -275,7 +292,7 @@ public class Validacao {
 	public boolean validarRua(String rua) {
 		boolean valido;
 
-		if (rua != "") {
+		if (!rua.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -292,7 +309,7 @@ public class Validacao {
 	public boolean validarNumero(String numero) {
 		boolean valido;
 
-		if (numero != "") {
+		if (!numero.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -310,7 +327,11 @@ public class Validacao {
 		int tamanhoCep = cep.length();
 		
 
+<<<<<<< .mine
+		if ((!cep.equals("")) && (tamanhoCep == 8) && (matcher.find())) {
+=======
 		if ((cep != "") && (tamanhoCep == 8) && (cep.matches("[0-9]"))) {
+>>>>>>> .r103
 			valido = true;
 		} else {
 			valido = false;
@@ -325,7 +346,7 @@ public class Validacao {
 	 */
 	public boolean validarBairro(String bairro) {
 		boolean valido;
-		if (bairro != "") {
+		if (!bairro.equals("")){
 			valido = true;
 		} else {
 			valido = false;
@@ -342,7 +363,7 @@ public class Validacao {
 	public boolean validarCidade(String cidade) {
 		boolean valido;
 
-		if (cidade != "") {
+		if (!cidade.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -358,7 +379,7 @@ public class Validacao {
 	public boolean validarEstado(String estado) {
 		boolean valido;
 
-		if (estado != "") {
+		if (!estado.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -376,7 +397,11 @@ public class Validacao {
 		int tamanhoCnpj = cnpj.length();
 		boolean valido;
 
+<<<<<<< .mine
+		if ((!cnpj.equals("")) && (tamanhoCnpj == 14)) {
+=======
 		if ((cnpj != "") && (cnpj.matches("[0-9]")) && (tamanhoCnpj == 14)) {
+>>>>>>> .r103
 			valido = true;
 		} else {
 			valido = false;
