@@ -13,6 +13,8 @@ import com.mysql.jdbc.PreparedStatement;
 import adotante.dominio.PessoaFisica;
 
 public class PessoaFisicaDAO {
+	
+	Conexao conexao = new Conexao();
 	/**
 	 * ADICIONAR USUARIO NO BANCO DE DADOS
 	 * 
@@ -57,11 +59,16 @@ public class PessoaFisicaDAO {
 		}
 		return usuario;
 	}
-
+	
 	public boolean consultarPessoaFisica(String cpf) {
-		String resultSet = ("select cpf from pessoafisica where cpf='"
-				+ cpf + "'");
-		return consultar(resultSet);
+		String resultSet = ("select cpf from pessoaFisica where cpf='" + cpf + "'");
+		return (conexao.consultar(resultSet));
+	}
+	
+	public PessoaFisica consultarRepresentante(String cpf) {
+		PessoaFisica pessoaFisica = new PessoaFisica();
+		String resultSet = ("select cpf from pessoaFisica where cpf='" + cpf + "'");
+		return pessoaFisica;
 	}
 
 	public int inserirEndereco(PessoaFisica pessoaFisica, Connection con) {

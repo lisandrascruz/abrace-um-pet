@@ -45,6 +45,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
 	private JTextField textMostraNomeResponsavel;
+	private PessoaFisica representante;
 
 	/**
 	 * Create the frame.
@@ -168,13 +169,14 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Validacao validar = new Validacao();
 				PessoaFisica pessoaFisica = new PessoaFisica();
-				Adotante adotante = new Adotante();
+				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+				pessoaFisica = pessoaJuridicaService.consultarRepresentante(textResponsavel.getText());
+						
+
 				
-				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
-				String cpf = pessoaFisica.getCpf();
-				
-				if((validar.validarCpfResponsavelJuridico(cpf))){
-					textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
+				if(validar.validarCpfResponsavelJuridico(pessoaFisica.getCpf())){
+					//textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
+					representante = pessoaFisica;
 				}
 				else{
 					textMostraNomeResponsavel.setText("");
@@ -209,6 +211,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				adotante.setEndereco(endereco);
 
 				pessoaJuridica.setCnpj(textCNPJ.getText());
+				//pessoaJuridica.setResponsavel(representante);
 				pessoaJuridica.setAdotante(adotante);
 				
 				String numero = endereco.getNumero();
