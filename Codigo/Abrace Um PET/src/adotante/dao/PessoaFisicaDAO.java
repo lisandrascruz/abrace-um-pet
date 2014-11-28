@@ -38,72 +38,66 @@ public class PessoaFisicaDAO {
 
 			int affectedRows = preparedStatement.executeUpdate();
 
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating user failed, no rows affected.");
-	        }
+			if (affectedRows == 0) {
+				throw new SQLException("Creating user failed, no rows affected.");
+			}
 
-	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	            	id = (int) generatedKeys.getLong(1);
-	            }
-	            else {
-	                throw new SQLException("Creating user failed, no ID obtained.");
-	            }
-	        }
-			preparedStatement.close(); 
-			
-			
-			
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					id = (int) generatedKeys.getLong(1);
+				} else {
+					throw new SQLException("Creating user failed, no ID obtained.");
+				}
+			}
+			preparedStatement.close();
+
 			query = "insert into adotante (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
-			
+
 			preparedStatement.setString(1, pessoaFisica.getAdotante().getNome());
 			preparedStatement.setInt(2, id);
 			preparedStatement.setString(3, pessoaFisica.getAdotante().getTelefoneFixo());
 			preparedStatement.setString(4, pessoaFisica.getAdotante().getTelefoneCelular());
 			preparedStatement.setString(5, pessoaFisica.getAdotante().getEmail());
-			
+
 			affectedRows = preparedStatement.executeUpdate();
 
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating user failed, no rows affected.");
-	        }
+			if (affectedRows == 0) {
+				throw new SQLException("Creating user failed, no rows affected.");
+			}
 
-	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	            	id = (int) generatedKeys.getLong(1);
-	            }
-	            else {
-	                throw new SQLException("Creating user failed, no ID obtained.");
-	            }
-	        }
-			preparedStatement.close(); 
-			
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					id = (int) generatedKeys.getLong(1);
+				} else {
+					throw new SQLException("Creating user failed, no ID obtained.");
+				}
+			}
+			preparedStatement.close();
+
 			query = "insert into pessoafisica (rg, cpf, genero, idAdotante) values (?, ?, ?, ?)";
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
-			
+
 			preparedStatement.setString(1, pessoaFisica.getRg());
 			preparedStatement.setString(2, pessoaFisica.getCpf());
 			preparedStatement.setString(3, pessoaFisica.getGenero());
 			preparedStatement.setInt(4, id);
-			
+
 			affectedRows = preparedStatement.executeUpdate();
 
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating user failed, no rows affected.");
-	        }
+			if (affectedRows == 0) {
+				throw new SQLException("Creating user failed, no rows affected.");
+			}
 
-	        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	            	id = (int) generatedKeys.getLong(1);
-	            }
-	            else {
-	                throw new SQLException("Creating user failed, no ID obtained.");
-	            }
-	        }
-			preparedStatement.close(); 
-			
-			
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					id = (int) generatedKeys.getLong(1);
+				} else {
+					throw new SQLException("Creating user failed, no ID obtained.");
+				}
+			}
+			preparedStatement.close();
+
 			Conexao.fecharConecaoMySQL();
 			return true;
 		} catch (Exception ex) {
@@ -132,40 +126,37 @@ public class PessoaFisicaDAO {
 	 * Conexao.fecharConecaoMySQL(); return true; }
 	 */
 
-//	/**
-//	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
-//	 * 
-//	 * @param login
-//	 * @param senha
-//	 * @return
-//	 */
-//	public boolean consultarUsuario(String login, String senha) {
-//		boolean acesso = false;
-//
-//		Connection conexao = null;
-//		Statement statement = null;
-//		ResultSet resultSet = null;
-//
-//		try {
-//			Conexao.abrirConceccaoMySQL();
-//			conexao = DriverManager.getConnection(
-//					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
-//			statement = (Statement) conexao.createStatement();
-//			resultSet = statement
-//					.executeQuery("select login, senha from tbl_usuario where login='"
-//							+ login + "'and senha='" + senha + "'");
-//			if (resultSet.next()) {
-//				acesso = true;
-//			} else {
-//				acesso = false;
-//			}
-//			Conexao.fecharConecaoMySQL();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return acesso;
-//	}
-	
+	/**
+	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+	 * 
+	 * @param login
+	 * @param senha
+	 * @return
+	 */
+	public boolean consultarUsuario(String login, String senha) {
+		boolean acesso = false;
+
+		Connection conexao = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			Conexao.abrirConceccaoMySQL();
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			statement = (Statement) conexao.createStatement();
+			resultSet = statement.executeQuery("select login, senha from tbl_usuario where login='" + login + "'and senha='" + senha + "'");
+			if (resultSet.next()) {
+				acesso = true;
+			} else {
+				acesso = false;
+			}
+			Conexao.fecharConecaoMySQL();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return acesso;
+	}
+
 	public boolean consultar(String query) {
 		Connection conexao = null;
 		Statement statement = null;
@@ -173,8 +164,7 @@ public class PessoaFisicaDAO {
 		boolean usuario = false;
 		try {
 			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
@@ -188,13 +178,11 @@ public class PessoaFisicaDAO {
 		}
 		return usuario;
 	}
-	
+
 	public boolean consultarPessoaFisica(String cpf) {
-		String resultSet = ("select cpf from pessoafisica where cpf='"
-				+ cpf + "'");
-//		System.out.println(consultar(resultSet));
+		String resultSet =("select cpf from pessoafisica where cpf='" + cpf + "'");
+		System.out.println(consultar(resultSet));
 		return consultar(resultSet);
 	}
-
 
 }

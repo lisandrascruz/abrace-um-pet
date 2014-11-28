@@ -41,9 +41,15 @@ public class Validacao {
 		}
 		return valido;
 	}
+	/**
+	 * CONSULTA SE O CPF DO ADOTANTE FISICO EXISTE NO SISTEMA
+	 * @param cpf
+	 * @return
+	 */
 	
 	public boolean validarCpfResponsavelJuridico(String cpf){
 		boolean valido = false;
+		String nome = null;
 		pessoaFisica.setCpf(cpf);
 		if(pessoaFisicaDao.consultarPessoaFisica(cpf)){
 			valido = false;

@@ -84,7 +84,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		contentPane.add(lblNomeJuridico);
 
 		textNomeJuridico = new JTextField();
-		textNomeJuridico.setBounds(173, 80, 395, 20);
+		textNomeJuridico.setBounds(173, 80, 409, 20);
 		contentPane.add(textNomeJuridico);
 		textNomeJuridico.setColumns(10);
 		
@@ -171,22 +171,27 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		textCEP.setColumns(10);
 		
 		textMostraNomeResponsavel = new JTextField();
+		textMostraNomeResponsavel.setEnabled(false);
+		textMostraNomeResponsavel.setEditable(false);
 		textMostraNomeResponsavel.setBounds(301, 182, 199, 20);
 		contentPane.add(textMostraNomeResponsavel);
 		textMostraNomeResponsavel.setColumns(10);
 		
-		JButton btnValidarcpf = new JButton("ValidarCPF");
-		btnValidarcpf.addActionListener(new ActionListener() {
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Validacao validar = new Validacao();
 				PessoaFisica pessoaFisica = new PessoaFisica();
+				Adotante adotante = new Adotante();
 				
 				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
+				adotante.setNome(textMostraNomeResponsavel.getText());
 				String cpf = pessoaFisica.getCpf();
+				String nome = adotante.getNome();
 				
-				if(!(validar.validarCpfResponsavelJuridico(cpf))){
-					//String nome=pessoaFisica.getAdotante().getNome();
-					textMostraNomeResponsavel.setText("OOOKKKK");
+				System.out.println(nome);
+				if((validar.validarCpfResponsavelJuridico(cpf))){
+					textMostraNomeResponsavel.setText("ook");
 					JOptionPane.showMessageDialog(null, "PESSOA ENCONTRADA!!");
 					
 				}else{
@@ -194,8 +199,8 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				}
 			}
 		});
-		btnValidarcpf.setBounds(507, 181, 89, 23);
-		contentPane.add(btnValidarcpf);
+		btnConsultar.setBounds(507, 181, 112, 23);
+		contentPane.add(btnConsultar);
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
