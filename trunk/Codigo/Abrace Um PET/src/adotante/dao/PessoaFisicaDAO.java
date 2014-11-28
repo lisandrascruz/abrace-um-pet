@@ -19,6 +19,7 @@ public class PessoaFisicaDAO {
 	 * @param usuario
 	 * @return
 	 */
+	Conexao conexao = new Conexao();
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) {
 		try {
 			int id;
@@ -105,33 +106,7 @@ public class PessoaFisicaDAO {
 		}
 	}
 
-	/**
-	 * GERAL PARA CONSULTA
-	 * 
-	 * @param query
-	 * @return
-	 */
-	public boolean consultar(String query) {
-		Connection conexao = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		boolean usuario = false;
-		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			statement = (Statement) conexao.createStatement();
-			resultSet = statement.executeQuery(query);
-			if (resultSet.next()) {
-				usuario = true;
-			} else {
-				usuario = false;
-			}
-			Conexao.fecharConecaoMySQL();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return usuario;
-	}
+	
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
 	 * 
@@ -142,8 +117,7 @@ public class PessoaFisicaDAO {
 	public boolean consultarUsuario(String login, String senha) {
 
 		String resultSet = (("select login, senha from tbl_usuario where login='" + login + "'and senha='" + senha + "'"));
-		System.out.println(consultar(resultSet));
-		return consultar(resultSet);
+		return conexao.consultar(resultSet);
 	}
 
 	/**
@@ -153,8 +127,7 @@ public class PessoaFisicaDAO {
 	 */
 	public boolean consultarPessoaFisica(String cpf) {
 		String resultSet = ("select cpf from pessoafisica where cpf='" + cpf + "'");
-		System.out.println(consultar(resultSet));
-		return consultar(resultSet);
+		return conexao.consultar(resultSet);
 	}
 
 }

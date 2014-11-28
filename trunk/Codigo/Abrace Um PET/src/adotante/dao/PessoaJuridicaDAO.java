@@ -16,6 +16,7 @@ public class PessoaJuridicaDAO {
 	 * @param usuario
 	 * @return
 	 */
+	Conexao conexao = new Conexao();
 	public boolean adicionarPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		try {
 			int id;
@@ -109,6 +110,12 @@ public class PessoaJuridicaDAO {
 			return false;
 		}
 	}
+	public boolean consultarPessoaFisica(String cnpj) {
+		String resultSet = ("select cpf from pessoajuridica where cnpj='" + cnpj + "'");
+		return (conexao.consultar(resultSet));
+	}
+
+	
 	
 	
 }
