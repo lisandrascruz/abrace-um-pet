@@ -185,7 +185,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
-				System.out.println(comboGenero.getSelectedItem().toString());
 
 				pessoaFisica.setAdotante(adotante);
 
@@ -217,18 +216,23 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 						login1.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente!","ERROR", 0);
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"O cadastro não pode ser realizado, tente novamente!",
+										"ERROR", 0);
+
 					}
-				}else{
-				JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
+				}
+				//JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
 				/**
 				 * ajustar tela ao salvar
 				 */
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
-				dispose();
+				//TelaInicialGUI ti = new TelaInicialGUI();
+				//ti.setVisible(true);
+				//dispose();
 			}
-			}
+
 			// /**
 			// * SETA OS DADOS PASSADOS PELO USUARIO
 			// */
@@ -271,85 +275,99 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @param email
 			 * @return
 			 */
-			public boolean validacaoDadosPF(String cpf, String nome, String genero, 
-					String telefoneFixo, String telefoneCelular, String rg, String email) {
+			public boolean validacaoDadosPF(String nome, String genero,
+					String telefoneFixo, String telefoneCelular, String cpf,
+					String rg, String email) {
 				Validacao validar = new Validacao();
 				boolean valido = false;
 
 				if (validar.validarCadastroPf(cpf)) {
 					if (validar.validarNomePessoaFisica(nome)) {
-						if (validar.validarGeneroPessoaFisica(genero)) {
+						if (validar.validarSexoPessoaFisica(genero)) {
 							if (validar.validarTelefoneFixo(telefoneFixo)) {
 								if (validar.validarCelular(telefoneCelular)) {
 									if (validar.validarCpf(cpf)) {
 										if (validar.validarRg(rg)) {
 											if (validar.validarEmail(email)) {
-												return valido = true;
+												 valido = true;
 											}
-										} else {
-											JOptionPane
-													.showMessageDialog(
-															null,
-															"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
-															"ERROR", 0);
-											return valido = false;
+											else {
+												JOptionPane
+														.showMessageDialog(
+																null,
+																"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
+																"ERROR", 0);
+													valido = false;
+											}
 										}
-									} else {
-										JOptionPane
-												.showMessageDialog(
-														null,
-														"Por favor, digite um RG válido.",
-														"ERROR", 0);
-										return valido = false;
+										else {
+											JOptionPane
+											.showMessageDialog(
+													null,
+													"Por favor, digite um RG válido.",
+													"ERROR", 0);
+									 valido = false;
+										}
 									}
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Por favor, digite um CPF válido.",
-											"ERROR", 0);
-									return valido = false;
-								}
-							} else {
-								JOptionPane
-										.showMessageDialog(
-												null,
-												"Por favor, digite um número de celular válido.",
+									else {
+										JOptionPane.showMessageDialog(null,
+												"Por favor, digite um CPF válido.",
 												"ERROR", 0);
-								return valido = false;
-							}
-						} else {
-							JOptionPane
+										valido = false;
+									}
+								} 
+								else {
+									JOptionPane
 									.showMessageDialog(
 											null,
-											"Por favor, digite um número de telefone fixo válido.",
+											"Por favor, digite um número de celular válido.",
 											"ERROR", 0);
-							return valido = false;
+							 valido = false;
+							 }
+							}
+							else {
+								JOptionPane
+								.showMessageDialog(
+										null,
+										"Por favor, digite um número de telefone fixo válido.",
+										"ERROR", 0);
+						 valido = false;
+							}
 						}
-					} else {
-						JOptionPane.showMessageDialog(null,
-								"Por favor, selecione um gênero.", "ERROR", 0);
-						return valido = false;
+						else {
+							JOptionPane.showMessageDialog(null,
+									"Por favor, selecione um gênero.", "ERROR", 0);
+							 valido = false;
+						}
 					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Pessoa já cadastrada! Tente outro.", "ERROR", 0);
-
-					textNomeFisico.setText("");
-					textBairro.setText("");
-					textCEP.setText("");
-					textCidade.setText("");
-					textCPF.setText("");
-					textComplemento.setText("");
-					textEmail.setText("");
-					textEstado.setText("");
-					textNumero.setText("");
-					textRua.setText("");
-					textTelefoneFixo.setText("");
-					textCelular.setText("");
-					textRG.setText("");
-
-					textNomeFisico.requestFocus();
-					return valido = false;
+					else{
+						JOptionPane.showMessageDialog(null,
+								"Por favor, digite o nome", "ERROR", 0);
+						 valido = false;
+					}
+						
 				}
+					else {
+						JOptionPane.showMessageDialog(null,
+								"Pessoa já cadastrada! Tente outro.", "ERROR", 0);
+						textNomeFisico.setText("");
+						textBairro.setText("");
+						textCEP.setText("");
+						textCidade.setText("");
+						textCPF.setText("");
+						textComplemento.setText("");
+						textEmail.setText("");
+						textEstado.setText("");
+						textNumero.setText("");
+						textRua.setText("");
+						textTelefoneFixo.setText("");
+						textCelular.setText("");
+						textRG.setText("");
+
+						textNomeFisico.requestFocus();
+						 valido = false;
+
+					}
 				return valido;
 			}
 
@@ -407,8 +425,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					valido = false;
 				}
 				return valido;
-			}});
-		
+			}
+		});
 
 		btnCadastrar.setBounds(194, 382, 118, 23);
 		contentPane.add(btnCadastrar);
@@ -520,11 +538,15 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				" ", "M", "F" }));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
-			
 
+		/*
+		 * JLabel lblGenero = new JLabel("Sexo:"); lblGenero.setFont(new
+		 * Font("Microsoft YaHei", Font.PLAIN, 12)); lblGenero.setBounds(472,
+		 * 82, 38, 14); lblGenero.add(lblGenero);
+		 * 
+		 * comboGenero = new JComboBox(); comboGenero.setModel(new
+		 * DefaultComboBoxModel(new String[] {"", "F", "M"}));
+		 * comboGenero.setBounds(521, 80, 53, 20); contentPane.add(comboGenero);
+		 */
+	}
 }
-}
-		
-	
-		
-		
