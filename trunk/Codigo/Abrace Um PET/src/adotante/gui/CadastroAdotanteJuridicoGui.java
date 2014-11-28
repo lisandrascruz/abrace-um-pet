@@ -190,7 +190,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				String nome = adotante.getNome();
 				
 				System.out.println(nome);
-				if((validar.validarCpfResponsavelJuridico(cpf))){
+				if((validar.validarCpfResponsavelJuridico(cpf))==false){
 					textMostraNomeResponsavel.setText("ook");
 					JOptionPane.showMessageDialog(null, "PESSOA ENCONTRADA!!");
 					

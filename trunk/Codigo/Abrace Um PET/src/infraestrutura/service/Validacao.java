@@ -1,5 +1,12 @@
 package infraestrutura.service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import adotante.dao.PessoaFisicaDAO;
+import adotante.dao.PessoaJuridicaDAO;
+import adotante.dominio.PessoaFisica;
+import adotante.dominio.PessoaJuridica;
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
@@ -10,15 +17,19 @@ public class Validacao {
 	Usuario usuario = new Usuario();
 	UsuarioDAO usuarioDao = new UsuarioDAO();
 	PessoaFisica pessoaFisica = new PessoaFisica();
+	PessoaJuridica pessoaJuridica = new PessoaJuridica();
 	PessoaFisicaDAO pessoaFisicaDao = new PessoaFisicaDAO();
+	PessoaJuridicaDAO pessoaJuridicaDao = new PessoaJuridicaDAO();
 	CadastroUsuarioGUI cadastroUsuario = new CadastroUsuarioGUI();
 
 	/**
 	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
+	 * 
 	 * @param login
 	 * @return
 	 */
-	public boolean validarCadastro(String login) { //mudar nome de método para validarCadastroUsuario
+	public boolean validarCadastro(String login) { // mudar nome de método para
+													// validarCadastroUsuario
 		boolean valido;
 		usuario.setLogin(login);
 
@@ -29,23 +40,32 @@ public class Validacao {
 		}
 		return valido;
 	}
-	
-	public boolean validarCpfResponsavelJuridico(String cpf){
-		boolean valido = false;
+
+	/**
+	 * CONSULTA SE O CPF DO ADOTANTE FISICO EXISTE NO SISTEMA
+	 * 
+	 * @param cpf
+	 * @return
+	 */
+
+	public boolean validarCpfResponsavelJuridico(String cpf) {
+		boolean valido;
+		String nome = null;
 		pessoaFisica.setCpf(cpf);
-		if(pessoaFisicaDao.consultarPessoaFisica(cpf)){
+		if (pessoaFisicaDao.consultarPessoaFisica(cpf)) {
 			valido = false;
-		}else{
+		} else {
 			valido = true;
 		}
 		return valido;
 	}
+	
 
 	public boolean validarCadastroPf(String cpf) {
 		boolean valido;
 		pessoaFisica.setCpf(cpf);
-		
-		if (pessoaFisicaDao.consultarPessoaFisica(cpf)){
+
+		if (pessoaFisicaDao.consultarPessoaFisica(cpf)) {
 			valido = false;
 		} else {
 			valido = true;
@@ -83,11 +103,8 @@ public class Validacao {
 		int tamanhoSenha = senha.length();
 		usuario.setSenha(senha);
 
-		if (senha != "") {
-			if (tamanhoSenha < 6
-					&& (!(senha.contains("!") || senha.contains("@")
-							|| senha.contains("#") || senha.contains("%")
-							|| senha.contains("&") || senha.contains("$")))) {
+		if (!senha.equals("")) {
+			if (tamanhoSenha < 6 && (!(senha.contains("!") || senha.contains("@") || senha.contains("#") || senha.contains("%") || senha.contains("&") || senha.contains("$")))) {
 				valido = false;
 			} else {
 				valido = true;
@@ -130,21 +147,14 @@ public class Validacao {
 		boolean valido;
 		usuario.setEmail(email);
 
-		if (email != "") {
-			if ((usuario.getEmail().contains("@"))
-					&& (usuario.getEmail().contains(".com"))
-					&& (!(usuario.getEmail()).contains(" "))) {
+		if (!email.equals("")) {
+			if ((usuario.getEmail().contains("@")) && (usuario.getEmail().contains(".com")) && (!(usuario.getEmail()).contains(" "))) {
 
-				String nomeEmail = new String(email.substring(0,
-						email.lastIndexOf('@')));
+				String nomeEmail = new String(email.substring(0, email.lastIndexOf('@')));
 
-				String dominio = new String(email.substring(
-						email.lastIndexOf('@') + 1, email.length()));
+				String dominio = new String(email.substring(email.lastIndexOf('@') + 1, email.length()));
 
-				if ((nomeEmail.length() >= 1) && (!nomeEmail.contains("@"))
-						&& (dominio.contains(".com"))
-						&& (!dominio.contains("@"))
-						&& (dominio.indexOf(".com") >= 1)
+				if ((nomeEmail.length() >= 1) && (!nomeEmail.contains("@")) && (dominio.contains(".com")) && (!dominio.contains("@")) && (dominio.indexOf(".com") >= 1)
 						&& (dominio.lastIndexOf(".com") < dominio.length() - 1)) {
 					valido = true;
 				} else {
@@ -169,7 +179,7 @@ public class Validacao {
 	public boolean validarNomePessoaFisica(String nome) {
 		boolean valido;
 
-		if (nome != "") {
+		if (!nome.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -185,12 +195,12 @@ public class Validacao {
 	 */
 	public boolean validarGeneroPessoaFisica(String genero) {
 		boolean valido;
-
-		if (genero != "") {
+		if (!genero.equals(" ")) {
 			valido = true;
 		} else {
 			valido = false;
 		}
+
 		return valido;
 	}
 
@@ -203,7 +213,6 @@ public class Validacao {
 	public boolean validarTelefoneFixo(String telefoneFixo) {
 		boolean valido;
 		int tamanhoTelFixo = telefoneFixo.length();
-		
 
 		if ((telefoneFixo != "") && (telefoneFixo.matches("[0-9]")) && (tamanhoTelFixo == 11)) {
 			valido = true;
@@ -230,10 +239,10 @@ public class Validacao {
 		}
 		return valido;
 	}
-	
-	
+
 	/**
 	 * VALIDAR CPF
+	 * 
 	 * @param cpf
 	 * @return
 	 */
@@ -251,6 +260,7 @@ public class Validacao {
 
 	/**
 	 * VALIDAR RG
+	 * 
 	 * @param rg
 	 * @return
 	 */
@@ -258,12 +268,13 @@ public class Validacao {
 		boolean valido;
 		int tamanhoRg = rg.length();
 
-		if ((rg != "") && (rg.matches("[0-9]")) && (tamanhoRg == 7)) {
-			valido = true;
-		} else {
-			valido = false;
-		}
-		return valido;
+			if ((rg != "") && (rg.matches("[0-9]")) && (tamanhoRg == 7)) {
+				valido = true;
+			} else {
+				valido = false;
+			}
+			return valido;
+
 	}
 
 	/**
@@ -275,7 +286,7 @@ public class Validacao {
 	public boolean validarRua(String rua) {
 		boolean valido;
 
-		if (rua != "") {
+		if (!rua.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -292,7 +303,7 @@ public class Validacao {
 	public boolean validarNumero(String numero) {
 		boolean valido;
 
-		if (numero != "") {
+		if (!numero.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -302,15 +313,16 @@ public class Validacao {
 
 	/**
 	 * VALIDAR CEP
+	 * 
 	 * @param cep
 	 * @return
 	 */
 	public boolean validarCep(String cep) {
 		boolean valido;
 		int tamanhoCep = cep.length();
-		
 
 		if ((cep != "") && (tamanhoCep == 8) && (cep.matches("[0-9]"))) {
+
 			valido = true;
 		} else {
 			valido = false;
@@ -320,12 +332,13 @@ public class Validacao {
 
 	/**
 	 * VALIDAR BAIRRO
+	 * 
 	 * @param bairro
 	 * @return
 	 */
 	public boolean validarBairro(String bairro) {
 		boolean valido;
-		if (bairro != "") {
+		if (!bairro.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -342,7 +355,7 @@ public class Validacao {
 	public boolean validarCidade(String cidade) {
 		boolean valido;
 
-		if (cidade != "") {
+		if (!cidade.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
@@ -352,37 +365,39 @@ public class Validacao {
 
 	/**
 	 * VALIDAR ESTADO
+	 * 
 	 * @param estado
 	 * @return
 	 */
 	public boolean validarEstado(String estado) {
 		boolean valido;
 
-		if (estado != "") {
+		if (!estado.equals("")) {
 			valido = true;
 		} else {
 			valido = false;
 		}
 		return valido;
 	}
-	
+
 	/**
-	 *  VALIDAR CNPJ
+	 * VALIDAR CNPJ
 	 * 
 	 * @param cnpj
 	 * @return
 	 */
 	public boolean validarCnpj(String cnpj) {
 		int tamanhoCnpj = cnpj.length();
-		boolean valido;
+		boolean valido = false;
 
-		if ((cnpj != "") && (cnpj.matches("[0-9]")) && (tamanhoCnpj == 14)) {
-			valido = true;
-		} else {
-			valido = false;
+		if ((!cnpj.equals("")) && (tamanhoCnpj == 14)) {
+			if ((cnpj != "") && (cnpj.matches("[0-9]")) && (tamanhoCnpj == 14)) {
+				valido = true;
+			} else {
+				valido = false;
+			}
 		}
 		return valido;
 	}
-
 
 }

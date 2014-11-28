@@ -106,57 +106,11 @@ public class PessoaFisicaDAO {
 	}
 
 	/**
-	 * DELETAR USUARIO NO BANCO DE DADOS
+	 * GERAL PARA CONSULTA
 	 * 
-	 * @param usuario
+	 * @param query
 	 * @return
 	 */
-	/*
-	 * public boolean excluirUsuario(Usuario usuario) {
-	 * Conexao.abrirConceccaoMySQL();
-	 * 
-	 * 
-	 * String login = usuario.getLogin(); String senha = usuario.getSenha();
-	 * String email = usuario.getEmail();
-	 * 
-	 * 
-	 * String query = "DELETE INTO tbl_usuario (login, senha, email) VALUES ('"
-	 * + login + "','" + senha + "','" + email + "')";
-	 * System.out.println(query); Conexao.comandoMySQL(query);
-	 * Conexao.fecharConecaoMySQL(); return true; }
-	 */
-
-	/**
-	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
-	 * 
-	 * @param login
-	 * @param senha
-	 * @return
-	 */
-	public boolean consultarUsuario(String login, String senha) {
-		boolean acesso = false;
-
-		Connection conexao = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-
-		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			statement = (Statement) conexao.createStatement();
-			resultSet = statement.executeQuery("select login, senha from tbl_usuario where login='" + login + "'and senha='" + senha + "'");
-			if (resultSet.next()) {
-				acesso = true;
-			} else {
-				acesso = false;
-			}
-			Conexao.fecharConecaoMySQL();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return acesso;
-	}
-
 	public boolean consultar(String query) {
 		Connection conexao = null;
 		Statement statement = null;
@@ -178,9 +132,27 @@ public class PessoaFisicaDAO {
 		}
 		return usuario;
 	}
+	/**
+	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
+	 * 
+	 * @param login
+	 * @param senha
+	 * @return
+	 */
+	public boolean consultarUsuario(String login, String senha) {
 
+		String resultSet = (("select login, senha from tbl_usuario where login='" + login + "'and senha='" + senha + "'"));
+		System.out.println(consultar(resultSet));
+		return consultar(resultSet);
+	}
+
+	/**
+	 * CONSULTA SE A PESSOA FISICA EXISTE NO BANCO ATRAVES DO CPF
+	 * @param cpf
+	 * @return
+	 */
 	public boolean consultarPessoaFisica(String cpf) {
-		String resultSet =("select cpf from pessoafisica where cpf='" + cpf + "'");
+		String resultSet = ("select cpf from pessoafisica where cpf='" + cpf + "'");
 		System.out.println(consultar(resultSet));
 		return consultar(resultSet);
 	}
