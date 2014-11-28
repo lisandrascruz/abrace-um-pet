@@ -1,41 +1,27 @@
 package adotante.gui;
 
-import infraestrutura.dao.Conexao;
 import infraestrutura.service.Validacao;
 
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
-import javax.swing.JSeparator;
-import javax.swing.JRadioButton;
-import javax.swing.JFormattedTextField;
 
 import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
-import adotante.service.PessoaFisicaService;
 import adotante.service.PessoaJuridicaService;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.SwingConstants;
-
+import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
-
-import javax.swing.DropMode;
 
 @SuppressWarnings("unused")
 public class CadastroAdotanteJuridicoGui extends JFrame {
@@ -185,17 +171,13 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				Adotante adotante = new Adotante();
 				
 				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
-				adotante.setNome(textMostraNomeResponsavel.getText());
 				String cpf = pessoaFisica.getCpf();
-				String nome = adotante.getNome();
 				
-				System.out.println(nome);
-				if((validar.validarCpfResponsavelJuridico(cpf))==false){
-					textMostraNomeResponsavel.setText("ook");
-					JOptionPane.showMessageDialog(null, "PESSOA ENCONTRADA!!");
-					
-				}else{
-					JOptionPane.showMessageDialog(null, "PESSOA nao ENCONTRADA!!");
+				if((validar.validarCpfResponsavelJuridico(cpf))){
+					textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
+				}
+				else{
+					textMostraNomeResponsavel.setText("");
 				}
 			}
 		});
@@ -207,6 +189,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				
 				PessoaJuridica pessoaJuridica = new PessoaJuridica();
 				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+				
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				Endereco endereco = new Endereco();
 				Adotante adotante = new Adotante();
@@ -228,18 +211,131 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				pessoaJuridica.setCnpj(textCNPJ.getText());
 				pessoaJuridica.setAdotante(adotante);
 				
-				//pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
+				String numero = endereco.getNumero();
+				String rua = endereco.getRua();
+				String cep = endereco.getCep();
+				String bairro = endereco.getBairro();
+				String cidade = endereco.getCidade();
+				String estado = endereco.getEstado();
 				
-				if(pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)){				
-					JOptionPane.showMessageDialog(null, "Adotante Juridico cadastrado com sucesso!!");
-					TelaInicialGUI ti = new TelaInicialGUI();
-					ti.setVisible(true);
-					dispose();
-				}else{
-					JOptionPane.showMessageDialog(null,"Adotante Juridico não pode ser cadastrado! Tente novamente", "ERROR", 0);
+				String nome = pessoaJuridica.getAdotante().getNome();
+				String email = pessoaJuridica.getAdotante().getEmail();
+				String telefoneFixo = pessoaJuridica.getAdotante().getTelefoneFixo();
+				String telefoneCelular = pessoaJuridica.getAdotante().getTelefoneCelular();
+				String cnpj = pessoaJuridica.getCnpj();
+				
+				if((validarPessoaJuridica(pessoaJuridica, pessoaJuridicaService, numero, rua, cep, bairro, cidade, estado, nome, telefoneFixo, telefoneCelular, cnpj, email))
+						&&	(validarEndereco(numero, rua, cep, bairro, cidade, estado))){
+					if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
+						JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
+						LoginGUI login1 = new LoginGUI();
+						login1.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "O cadastro do adotante juridico não pode ser realizado, tente novamente!", "ERROR", 0);
+					}
 				}
+			}
+
+			/**
+			 * @param pessoaJuridica
+			 * @param pessoaJuridicaService
+			 * @param numero
+			 * @param rua
+			 * @param cep
+			 * @param bairro
+			 * @param cidade
+			 * @param estado
+			 * @param nome
+			 * @param telefoneFixo
+			 * @param telefoneCelular
+			 * @param cnpj
+			 */
+			public boolean validarPessoaJuridica(PessoaJuridica pessoaJuridica, PessoaJuridicaService pessoaJuridicaService, String numero, String rua, String cep, String bairro,
+					String cidade, String estado, String nome, String telefoneFixo, String telefoneCelular, String cnpj, String email) {
+				Validacao validar = new Validacao();
+				boolean valido = false;
+				
+				if(validar.validarNome(nome)){
+					if((validar.validarTelefoneFixo(telefoneFixo))){
+						if(validar.validarCelular(telefoneCelular)){
+							if(validar.validarCnpj(cnpj)){
+								if(validar.validarEmail(email)){
+									valido = true;
+								}else{
+									JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com", "ERROR", 0);
+									valido = false;
+								}
+							}else{
+								JOptionPane.showMessageDialog(null, "Por favor, digite um CNPJ válido.", "ERROR", 0);
+								valido = false;
+							}
+						}else{
+							JOptionPane.showMessageDialog(null, "Por favor, digite um número de celular válido.", "ERROR", 0);
+							valido = false;
+						}
+					}else{
+						JOptionPane.showMessageDialog(null, "Por favor, digite um número de telefone fixo válido.", "ERROR", 0);
+						valido = false;
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "Por favor, digite o nome", "ERROR", 0);
+					valido = false;
+				}return valido;
 				
 			}
+
+
+			/**
+			 * @param pessoaJuridica
+			 * @param pessoaJuridicaService
+			 * @param numero
+			 * @param rua
+			 * @param cep
+			 * @param bairro
+			 * @param cidade
+			 * @param estado
+			 * @return 
+			 */
+			public boolean validarEndereco(String numero, String rua, String cep, String bairro,
+					String cidade, String estado) {
+				
+				Validacao validar = new Validacao();
+				boolean valido;
+				
+					if (validar.validarRua(rua)) {
+						if (validar.validarNumero(numero)) {
+							if (validar.validarCep(cep)) {
+								if (validar.validarBairro(bairro)) {
+									if (validar.validarCidade(cidade)) {
+										if (validar.validarEstado(estado)) {
+											valido = true;
+										} else {
+											JOptionPane.showMessageDialog(null, "Por favor, digite um estado válido.", "ERROR", 0);
+											valido = false;
+										}
+									} else {
+										JOptionPane.showMessageDialog(null, "Por favor, digite uma cidade válida.", "ERROR", 0);
+										valido = false;
+									}
+								} else {
+									JOptionPane.showMessageDialog(null, "Por favor, digite um bairro válido.", "ERROR", 0);
+									valido = false;
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Por favor, digite um cep válido. - Por exemplo: 00000000.", "ERROR", 0);
+								valido = false;
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.", "ERROR", 0);
+							valido = false;
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Por favor, digite uma rua válida.", "ERROR", 0);
+						valido = false;
+					}return valido;
+				}
+
 		});
 		btnCadastrar.setBounds(273, 382, 110, 23);
 		contentPane.add(btnCadastrar);
