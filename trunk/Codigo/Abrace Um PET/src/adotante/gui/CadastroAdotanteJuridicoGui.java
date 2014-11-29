@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
+import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.service.PessoaJuridicaService;
@@ -194,6 +195,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				Endereco endereco = new Endereco();
+				Pessoa pessoa = new Pessoa();
 				Adotante adotante = new Adotante();
 				
 				endereco.setRua(textRua.getText());
@@ -204,15 +206,17 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setComplemento(textComplemento.getText());
 				
-				adotante.setNome(textNomeJuridico.getText());
-				adotante.setEmail(textEmail.getText());
-				adotante.setTelefoneFixo(textTelefoneFixo.getText());
-				adotante.setTelefoneCelular(textCelular.getText());
-				adotante.setEndereco(endereco);
+				pessoa.setNome(textNomeJuridico.getText());
+				pessoa.setEmail(textEmail.getText());
+				pessoa.setTelefoneFixo(textTelefoneFixo.getText());
+				pessoa.setTelefoneCelular(textCelular.getText());
+				pessoa.setEndereco(endereco);
+
+				adotante.setPessoa(pessoa);
 
 				pessoaJuridica.setCnpj(textCNPJ.getText());
 				//pessoaJuridica.setResponsavel(representante);
-				pessoaJuridica.setAdotante(adotante);
+				pessoaJuridica.setPessoa(pessoa);
 				
 				String numero = endereco.getNumero();
 				String rua = endereco.getRua();
@@ -221,10 +225,10 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
 				
-				String nome = pessoaJuridica.getAdotante().getNome();
-				String email = pessoaJuridica.getAdotante().getEmail();
-				String telefoneFixo = pessoaJuridica.getAdotante().getTelefoneFixo();
-				String telefoneCelular = pessoaJuridica.getAdotante().getTelefoneCelular();
+				String nome = pessoaJuridica.getPessoa().getNome();
+				String email = pessoaJuridica.getPessoa().getEmail();
+				String telefoneFixo = pessoaJuridica.getPessoa().getTelefoneFixo();
+				String telefoneCelular = pessoaJuridica.getPessoa().getTelefoneCelular();
 				String cnpj = pessoaJuridica.getCnpj();
 				
 				if((validarPessoaJuridica(pessoaJuridica, pessoaJuridicaService, numero, rua, cep, bairro, cidade, estado, nome, telefoneFixo, telefoneCelular, cnpj, email))
