@@ -19,8 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
-import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
+import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.service.PessoaFisicaService;
 
@@ -161,7 +161,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
-				Adotante adotante = new Adotante();
+				Pessoa pessoa = new Pessoa();
+				
 				// endereco
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
@@ -170,25 +171,24 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
-				// adotante
-
-				adotante.setNome(textNomeFisico.getText());
-				adotante.setEmail(textEmail.getText());
-				adotante.setTelefoneFixo(textTelefoneFixo.getText());
-				adotante.setTelefoneCelular(textCelular.getText());
-				adotante.setEndereco(endereco);
-
+				
+				// pessoa
+				pessoa.setNome(textNomeFisico.getText());
+				pessoa.setEmail(textEmail.getText());
+				pessoa.setTelefoneFixo(textTelefoneFixo.getText());
+				pessoa.setTelefoneCelular(textCelular.getText());
+				pessoa.setEndereco(endereco);
+				
 				// pessoa fisica
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
+				pessoaFisica.setPessoa(pessoa);
 
-				pessoaFisica.setAdotante(adotante);
-
-				String nome = pessoaFisica.getAdotante().getNome();
-				String email = pessoaFisica.getAdotante().getEmail();
-				String telefoneFixo = pessoaFisica.getAdotante().getTelefoneFixo();
-				String telefoneCelular = pessoaFisica.getAdotante().getTelefoneCelular();
+				String nome = pessoaFisica.getPessoa().getNome();
+				String email = pessoaFisica.getPessoa().getEmail();
+				String telefoneFixo = pessoaFisica.getPessoa().getTelefoneFixo();
+				String telefoneCelular = pessoaFisica.getPessoa().getTelefoneCelular();
 				String cpf = pessoaFisica.getCpf();
 				String rg = pessoaFisica.getRg();
 				String genero = pessoaFisica.getGenero();

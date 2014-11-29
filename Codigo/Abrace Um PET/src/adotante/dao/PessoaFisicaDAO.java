@@ -7,9 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import com.mysql.jdbc.PreparedStatement;
-
 import adotante.dominio.PessoaFisica;
 
 public class PessoaFisicaDAO {
@@ -25,10 +23,12 @@ public class PessoaFisicaDAO {
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) {
 		try {
 			Connection con = Conexao.abrirConceccaoMySQL();
+			System.out.print(pessoaFisica.getRg());
 			
 			int idEndereco = inserirEndereco(pessoaFisica, con);
-			int idAdotante = inserirAdotante( pessoaFisica,  con,  idEndereco);
-			inserirPessoaFisica( pessoaFisica,  con,  idAdotante);
+			int idPessoa = inserirPessoa( pessoaFisica,  con,  idEndereco);
+			inserirPessoaFisica( pessoaFisica,  con,  idPessoa);
+			inserirAdotante( con,  idPessoa);
 
 			Conexao.fecharConecaoMySQL();
 			return true;
@@ -71,6 +71,8 @@ public class PessoaFisicaDAO {
 		return pessoaFisica;
 	}
 
+	
+
 	public int inserirEndereco(PessoaFisica pessoaFisica, Connection con) {
 		int id;
 		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
@@ -79,19 +81,19 @@ public class PessoaFisicaDAO {
 			PreparedStatement preparedStatement = (PreparedStatement) con
 					.prepareStatement(query);
 
-			preparedStatement.setString(1, pessoaFisica.getAdotante()
+			preparedStatement.setString(1, pessoaFisica.getPessoa()
 					.getEndereco().getEstado());
-			preparedStatement.setString(2, pessoaFisica.getAdotante()
+			preparedStatement.setString(2, pessoaFisica.getPessoa()
 					.getEndereco().getCidade());
-			preparedStatement.setString(3, pessoaFisica.getAdotante()
+			preparedStatement.setString(3, pessoaFisica.getPessoa()
 					.getEndereco().getBairro());
-			preparedStatement.setString(4, pessoaFisica.getAdotante()
+			preparedStatement.setString(4, pessoaFisica.getPessoa()
 					.getEndereco().getRua());
-			preparedStatement.setString(5, pessoaFisica.getAdotante()
+			preparedStatement.setString(5, pessoaFisica.getPessoa()
 					.getEndereco().getNumero());
-			preparedStatement.setString(6, pessoaFisica.getAdotante()
+			preparedStatement.setString(6, pessoaFisica.getPessoa()
 					.getEndereco().getCep());
-			preparedStatement.setString(7, pessoaFisica.getAdotante()
+			preparedStatement.setString(7, pessoaFisica.getPessoa()
 					.getEndereco().getComplemento());
 
 			int affectedRows = preparedStatement.executeUpdate();
@@ -116,22 +118,22 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 
-	public int inserirAdotante(PessoaFisica pessoaFisica, Connection con, int idEndereco) {
+	public int inserirPessoa(PessoaFisica pessoaFisica, Connection con, int idEndereco) {
 		int id;
-		String query = "insert into adotante (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
+		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
 		try {
 
 			PreparedStatement preparedStatement = (PreparedStatement) con
 					.prepareStatement(query);
 
 			preparedStatement
-					.setString(1, pessoaFisica.getAdotante().getNome());
+					.setString(1, pessoaFisica.getPessoa().getNome());
 			preparedStatement.setInt(2, idEndereco);
-			preparedStatement.setString(3, pessoaFisica.getAdotante()
+			preparedStatement.setString(3, pessoaFisica.getPessoa()
 					.getTelefoneFixo());
-			preparedStatement.setString(4, pessoaFisica.getAdotante()
+			preparedStatement.setString(4, pessoaFisica.getPessoa()
 					.getTelefoneCelular());
-			preparedStatement.setString(5, pessoaFisica.getAdotante()
+			preparedStatement.setString(5, pessoaFisica.getPessoa()
 					.getEmail());
 
 			int affectedRows = preparedStatement.executeUpdate();
@@ -156,9 +158,43 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 	
-	public int inserirPessoaFisica(PessoaFisica pessoaFisica, Connection con, int idAdotante){
+	public int inserirAdotante(Connection con, int idPessoa){
 		int id;
-		String query = "insert into pessoafisica (rg, cpf, genero, idAdotante) values (?, ?, ?, ?)";
+		String query = "insert into adotante (idPessoa) values (?)";
+		try{
+
+			PreparedStatement preparedStatement = (PreparedStatement) con
+					.prepareStatement(query);
+
+			preparedStatement.setInt(1, idPessoa);
+	
+
+			int affectedRows = preparedStatement.executeUpdate();
+
+			if (affectedRows == 0) {
+				throw new SQLException(
+						"Creating user failed, no rows affected.");
+			}
+
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					id = (int) generatedKeys.getLong(1);
+				} else {
+					throw new SQLException(
+							"Creating user failed, no ID obtained.");
+				}
+			}
+			preparedStatement.close();
+		
+		}catch (Exception ex) {
+			return -1;
+		}
+		return id;
+	}
+	
+	public int inserirPessoaFisica(PessoaFisica pessoaFisica, Connection con, int idPessoa){
+		int id;
+		String query = "insert into pessoafisica (rg, cpf, genero, idPessoa) values (?, ?, ?, ?)";
 		try{
 			
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
@@ -166,7 +202,7 @@ public class PessoaFisicaDAO {
 			preparedStatement.setString(1, pessoaFisica.getRg());
 			preparedStatement.setString(2, pessoaFisica.getCpf());
 			preparedStatement.setString(3, pessoaFisica.getGenero());
-			preparedStatement.setInt(4, idAdotante);
+			preparedStatement.setInt(4, idPessoa);
 
 			int affectedRows = preparedStatement.executeUpdate();
 

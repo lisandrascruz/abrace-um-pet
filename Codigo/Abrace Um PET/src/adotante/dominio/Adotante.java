@@ -2,46 +2,21 @@ package adotante.dominio;
 
 public class Adotante {
 	private int id;
-	private String nome;
-	private Endereco endereco;
-	private String telefoneFixo;
-	private String telefoneCelular;
-	private String email;
+	private Pessoa pessoa;
 	private boolean impedimento;
 	private String motivoImpedimento;
 	
 	public int getId() {
 		return id;
 	}
-	public String getNome() {
-		return nome;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	public String getTelefoneFixo() {
-		return telefoneFixo;
-	}
-	public void setTelefoneFixo(String telefoneFixo) {
-		this.telefoneFixo = telefoneFixo;
-	}
-	public String getTelefoneCelular() {
-		return telefoneCelular;
-	}
-	public void setTelefoneCelular(String telefoneCelular) {
-		this.telefoneCelular = telefoneCelular;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 	public boolean isImpedimento() {
 		return impedimento;
@@ -54,7 +29,5 @@ public class Adotante {
 	}
 	public void setMotivoImpedimento(String motivoImpedimento) {
 		this.motivoImpedimento = motivoImpedimento;
-	}
-	
-	
+	}	
 }
