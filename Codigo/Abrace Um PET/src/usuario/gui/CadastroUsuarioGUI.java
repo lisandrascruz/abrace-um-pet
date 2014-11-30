@@ -1,6 +1,6 @@
 package usuario.gui;
 
-import infraestrutura.service.Validacao;
+import infraestrutura.service.ValidacaoService;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -83,7 +83,7 @@ public class CadastroUsuarioGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				Usuario usuario = new Usuario();
-				Validacao validar = new Validacao();
+				ValidacaoService validar = new ValidacaoService();
 				UsuarioService usuarioService = new UsuarioService();
 
 				usuario.setLogin(textLogin.getText());
@@ -119,7 +119,7 @@ public class CadastroUsuarioGUI extends JFrame {
 			 * @param email
 			 * @param confirmacaoSenha
 			 */
-			public boolean validacaoDadosUsuario(Validacao validar, String login,
+			public boolean validacaoDadosUsuario(ValidacaoService validar, String login,
 					String senha, String email, String confirmacaoSenha) {
 				boolean valido;
 				if (validar.validarCadastro(login)) {

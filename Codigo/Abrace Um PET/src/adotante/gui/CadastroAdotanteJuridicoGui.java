@@ -1,6 +1,6 @@
 package adotante.gui;
 
-import infraestrutura.service.Validacao;
+import infraestrutura.service.ValidacaoService;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,9 +15,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import adotante.dominio.Adotante;
-import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
+import adotante.dominio.Endereco;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.service.PessoaJuridicaService;
@@ -25,7 +24,7 @@ import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 
 @SuppressWarnings("unused")
-public class CadastroAdotanteJuridicoGui extends JFrame {
+public class CadastroAdotanteJuridicoGUI extends JFrame {
 
 	/**
 	 * 
@@ -46,12 +45,11 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
 	private JTextField textMostraNomeResponsavel;
-	private PessoaFisica representante;
 
 	/**
 	 * Create the frame.
 	 */
-	public CadastroAdotanteJuridicoGui() {
+	public CadastroAdotanteJuridicoGUI() {
 		setTitle("Cadastro de Pessoa Juridica - Abrace um PET");
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
@@ -168,16 +166,15 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Validacao validar = new Validacao();
+				ValidacaoService validar = new ValidacaoService();
 				PessoaFisica pessoaFisica = new PessoaFisica();
-				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				pessoaFisica = pessoaJuridicaService.consultarRepresentante(textResponsavel.getText());
-						
-
+				Pessoa adotante = new Pessoa();
 				
-				if(validar.validarCpfResponsavelJuridico(pessoaFisica.getCpf())){
-					//textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
-					representante = pessoaFisica;
+				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
+				String cpf = pessoaFisica.getCpf();
+				
+				if((validar.validarCpfResponsavelJuridico(cpf))){
+					textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
 				}
 				else{
 					textMostraNomeResponsavel.setText("");
@@ -196,7 +193,6 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				Endereco endereco = new Endereco();
 				Pessoa pessoa = new Pessoa();
-				Adotante adotante = new Adotante();
 				
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
@@ -212,10 +208,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 				pessoa.setTelefoneCelular(textCelular.getText());
 				pessoa.setEndereco(endereco);
 
-				adotante.setPessoa(pessoa);
-
 				pessoaJuridica.setCnpj(textCNPJ.getText());
-				//pessoaJuridica.setResponsavel(representante);
 				pessoaJuridica.setPessoa(pessoa);
 				
 				String numero = endereco.getNumero();
@@ -260,7 +253,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 			 */
 			public boolean validarPessoaJuridica(PessoaJuridica pessoaJuridica, PessoaJuridicaService pessoaJuridicaService, String numero, String rua, String cep, String bairro,
 					String cidade, String estado, String nome, String telefoneFixo, String telefoneCelular, String cnpj, String email) {
-				Validacao validar = new Validacao();
+				ValidacaoService validar = new ValidacaoService();
 				boolean valido = false;
 				
 				if(validar.validarNome(nome)){
@@ -307,7 +300,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 			public boolean validarEndereco(String numero, String rua, String cep, String bairro,
 					String cidade, String estado) {
 				
-				Validacao validar = new Validacao();
+				ValidacaoService validar = new ValidacaoService();
 				boolean valido;
 				
 					if (validar.validarRua(rua)) {
@@ -437,7 +430,7 @@ public class CadastroAdotanteJuridicoGui extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotante c = new CadastroAdotante();
+				CadastroPessoaGUI c = new CadastroPessoaGUI();
 				c.setVisible(true);
 				dispose();
 			}

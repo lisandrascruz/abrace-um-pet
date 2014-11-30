@@ -1,6 +1,6 @@
 package adotante.gui;
 
-import infraestrutura.service.Validacao;
+import infraestrutura.service.ValidacaoService;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import usuario.gui.LoginGUI;
-import usuario.gui.TelaInicialGUI;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
@@ -161,8 +160,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
-				Pessoa pessoa = new Pessoa();
-				
+				Pessoa adotante = new Pessoa();
 				// endereco
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(textCEP.getText());
@@ -171,19 +169,20 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
-				
-				// pessoa
-				pessoa.setNome(textNomeFisico.getText());
-				pessoa.setEmail(textEmail.getText());
-				pessoa.setTelefoneFixo(textTelefoneFixo.getText());
-				pessoa.setTelefoneCelular(textCelular.getText());
-				pessoa.setEndereco(endereco);
-				
+				// adotante
+
+				adotante.setNome(textNomeFisico.getText());
+				adotante.setEmail(textEmail.getText());
+				adotante.setTelefoneFixo(textTelefoneFixo.getText());
+				adotante.setTelefoneCelular(textCelular.getText());
+				adotante.setEndereco(endereco);
+
 				// pessoa fisica
 				pessoaFisica.setCpf(textCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
-				pessoaFisica.setPessoa(pessoa);
+
+				pessoaFisica.setPessoa(adotante);
 
 				String nome = pessoaFisica.getPessoa().getNome();
 				String email = pessoaFisica.getPessoa().getEmail();
@@ -263,7 +262,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @return
 			 */
 			public boolean validacaoDadosPF(String nome, String genero, String telefoneFixo, String telefoneCelular, String cpf, String rg, String email) {
-				Validacao validar = new Validacao();
+				ValidacaoService validar = new ValidacaoService();
 				boolean valido = false;
 
 				if (validar.validarCadastroPf(cpf)) {
@@ -328,7 +327,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			}
 
 			public boolean validacaoDadosEndereco(String rua, String numero, String cep, String bairro, String cidade, String estado) {
-				Validacao validar = new Validacao();
+				ValidacaoService validar = new ValidacaoService();
 				boolean valido;
 
 				if (validar.validarRua(rua)) {
@@ -449,7 +448,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		JButton btnVoltar = new JButton("Cancelar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotante c = new CadastroAdotante();
+				CadastroPessoaGUI c = new CadastroPessoaGUI();
 				c.setVisible(true);
 				dispose();
 			}

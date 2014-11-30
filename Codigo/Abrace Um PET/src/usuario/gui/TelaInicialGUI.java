@@ -1,6 +1,6 @@
 package usuario.gui;
 
-import infraestrutura.gui.Imagens;
+import infraestrutura.gui.ImagensGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import adotante.gui.AdotanteGUI;
+import adotante.gui.PessoaGUI;
 
 public class TelaInicialGUI extends JFrame {
 
@@ -33,7 +33,7 @@ public class TelaInicialGUI extends JFrame {
 		JButton btnLogin = new JButton("Adotante");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdotanteGUI a = new AdotanteGUI();
+				PessoaGUI a = new PessoaGUI();
 				a.setVisible(true);
 				dispose();
 			}
@@ -77,7 +77,7 @@ public class TelaInicialGUI extends JFrame {
 			
 		});
 		
-		Imagens.imagemCadastroUsuario(button);
+		ImagensGUI.imagemCadastroUsuario(button);
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
 	}
