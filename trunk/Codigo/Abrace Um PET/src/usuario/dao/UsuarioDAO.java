@@ -11,7 +11,7 @@ import java.sql.Statement;
 import com.mysql.jdbc.PreparedStatement;
 
 import usuario.dominio.Usuario;
-import usuario.service.Criptografia;
+import usuario.service.CriptografiaService;
 
 public class UsuarioDAO {
 	/**
@@ -27,7 +27,7 @@ public class UsuarioDAO {
 			String senha = usuario.getSenha();
 			String email = usuario.getEmail();
 
-			Criptografia criptografia = new Criptografia();
+			CriptografiaService criptografia = new CriptografiaService();
 			senha = criptografia.criptografar(senha);
 
 			String query = "INSERT INTO usuario (login, senha, email) values (?, ?, ?)";

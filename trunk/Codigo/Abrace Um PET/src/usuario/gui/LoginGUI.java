@@ -1,6 +1,6 @@
 package usuario.gui;
 
-import infraestrutura.gui.Imagens;
+import infraestrutura.gui.ImagensGUI;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
-import usuario.service.Criptografia;
+import usuario.service.CriptografiaService;
 import usuario.service.UsuarioService;
 
 public class LoginGUI extends JFrame {
@@ -57,7 +57,7 @@ public class LoginGUI extends JFrame {
 		contentPane.add(lblSenha);
 
 		JLabel label = new JLabel("");
-		Imagens.imagemLogin(label);
+		ImagensGUI.imagemLogin(label);
 
 		label.setBounds(10, 116, 332, 265);
 		contentPane.add(label);
@@ -107,7 +107,7 @@ public class LoginGUI extends JFrame {
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
 
-		Criptografia criptografia = new Criptografia();
+		CriptografiaService criptografia = new CriptografiaService();
 		senha = criptografia.criptografar(senha);
 
 		if (usuarioService.consultarUsuarioService(login, senha)) {
