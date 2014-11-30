@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 30-Nov-2014 às 17:37
+-- Generation Time: 30-Nov-2014 às 21:55
 -- Versão do servidor: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -50,7 +50,15 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   `numero` varchar(45) DEFAULT NULL,
   `complemento` varchar(45) DEFAULT NULL,
   `cep` varchar(8) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Extraindo dados da tabela `endereco`
+--
+
+INSERT INTO `endereco` (`id`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`, `cep`) VALUES
+(3, 'PERNAMBUCO', 'RECIFE', 'VARZEA', 'RUA DEPUTADO ADALBERTO GUERRA', '83', 'CASA A', '50980615'),
+(4, 'PERNAMBUCO', 'RECIFE', 'CAXANGA', 'RUA 00', '2', '', '50987651');
 
 -- --------------------------------------------------------
 
@@ -67,7 +75,15 @@ CREATE TABLE IF NOT EXISTS `pessoa` (
   `email` varchar(90) DEFAULT NULL,
   `impedimento` tinyint(1) DEFAULT NULL,
   `motivoImpedimeto` text
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=74 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Extraindo dados da tabela `pessoa`
+--
+
+INSERT INTO `pessoa` (`id`, `nome`, `idEndereco`, `telefoneFixo`, `telefoneCelular`, `email`, `impedimento`, `motivoImpedimeto`) VALUES
+(3, 'LISANDRA CRUZ', 3, '08132713515', '08195209881', 'lisansouza@gmail.com', NULL, NULL),
+(4, 'LISA LTDA', 4, '08132713515', '08195209881', 'lisansouza@gmail.com', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -81,7 +97,14 @@ CREATE TABLE IF NOT EXISTS `pessoafisica` (
   `cpf` varchar(11) DEFAULT NULL,
   `genero` varchar(45) DEFAULT NULL,
   `idPessoa` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `pessoafisica`
+--
+
+INSERT INTO `pessoafisica` (`id`, `rg`, `cpf`, `genero`, `idPessoa`) VALUES
+(3, '9771388', '09791366441', 'F', 3);
 
 -- --------------------------------------------------------
 
@@ -94,7 +117,14 @@ CREATE TABLE IF NOT EXISTS `pessoajuridica` (
   `cnpj` varchar(45) DEFAULT NULL,
   `idResponsavel` tinyint(11) DEFAULT NULL,
   `idPessoa` tinyint(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `pessoajuridica`
+--
+
+INSERT INTO `pessoajuridica` (`id`, `cnpj`, `idResponsavel`, `idPessoa`) VALUES
+(1, '12345678901234', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -107,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `login` varchar(45) DEFAULT NULL,
   `senha` varchar(45) DEFAULT NULL,
   `email` varchar(90) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -164,27 +194,27 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=82;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `pessoafisica`
 --
 ALTER TABLE `pessoafisica`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `pessoajuridica`
 --
 ALTER TABLE `pessoajuridica`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

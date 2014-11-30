@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import adotante.dominio.PessoaFisica;
 
 public class Conexao {
 	private static Connection conexao = null;

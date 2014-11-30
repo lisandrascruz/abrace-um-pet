@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class CadastroAdotante extends JFrame {
+public class CadastroAdotanteGUI extends JFrame {
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class CadastroAdotante extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroAdotante frame = new CadastroAdotante();
+					CadastroAdotanteGUI frame = new CadastroAdotanteGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class CadastroAdotante extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroAdotante() {
+	public CadastroAdotanteGUI() {
 		setTitle("Abrace um PET - Cadastro de Usu\u00E1rio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
