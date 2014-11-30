@@ -17,7 +17,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import usuario.gui.LoginGUI;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
@@ -202,8 +201,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				if ((validacaoDadosPF(nome, genero, telefoneFixo, telefoneCelular, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, cep, bairro, cidade, estado)))) {
 					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
 						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-						LoginGUI login1 = new LoginGUI();
-						login1.setVisible(true);
+						CadastroAdotanteGUI cadastroAdotante = new CadastroAdotanteGUI();
+						cadastroAdotante.setVisible(true);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);

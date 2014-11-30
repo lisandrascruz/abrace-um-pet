@@ -13,6 +13,9 @@ public class Pessoa {
 	public int getId() {
 		return id;
 	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -43,7 +46,7 @@ public class Pessoa {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isImpedimento() {
+	public boolean getImpedimento() {
 		return impedimento;
 	}
 	public void setImpedimento(boolean impedimento) {

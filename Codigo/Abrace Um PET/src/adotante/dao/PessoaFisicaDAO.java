@@ -7,10 +7,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.mysql.jdbc.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 import adotante.dominio.PessoaFisica;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class PessoaFisicaDAO {
 	/**
@@ -19,7 +21,8 @@ public class PessoaFisicaDAO {
 	 * @param usuario
 	 * @return
 	 */
-	Conexao conexao = new Conexao();
+	Conexao	conexao	= new Conexao();
+
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) {
 		try {
 			int id;
@@ -56,7 +59,7 @@ public class PessoaFisicaDAO {
 			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
 			preparedStatement.setString(1, pessoaFisica.getPessoa().getNome());
-			preparedStatement.setInt   (2, id);
+			preparedStatement.setInt(2, id);
 			preparedStatement.setString(3, pessoaFisica.getPessoa().getTelefoneFixo());
 			preparedStatement.setString(4, pessoaFisica.getPessoa().getTelefoneCelular());
 			preparedStatement.setString(5, pessoaFisica.getPessoa().getEmail());
@@ -106,7 +109,6 @@ public class PessoaFisicaDAO {
 		}
 	}
 
-	
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
 	 * 
@@ -122,12 +124,47 @@ public class PessoaFisicaDAO {
 
 	/**
 	 * CONSULTA SE A PESSOA FISICA EXISTE NO BANCO ATRAVES DO CPF
+	 * 
 	 * @param cpf
 	 * @return
 	 */
 	public boolean consultarPessoaFisica(String cpf) {
 		String resultSet = ("select cpf from pessoafisica where cpf='" + cpf + "'");
 		return conexao.consultar(resultSet);
+	}
+	/**
+	 * RETORNA UMA LISTA DE PESSOAS FISICAS DO BANCO DE DADOS
+	 * @return
+	 */
+	public List<PessoaFisica> getListaPessoaFisica() {
+		Connection conexao = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			Conexao.abrirConceccaoMySQL();
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			statement = (Statement) conexao.createStatement();
+			resultSet = statement.executeQuery("select * from pessoafisica");
+			List<PessoaFisica> listPessoaFisica = new ArrayList<PessoaFisica>();
+
+			while (resultSet.next()) {
+				PessoaFisica pessoaFisica = new PessoaFisica();
+				
+				pessoaFisica.setId(resultSet.getInt("id"));
+				pessoaFisica.setCpf(resultSet.getString("cpf"));
+				pessoaFisica.setRg(resultSet.getString("rg"));
+				pessoaFisica.setGenero(resultSet.getString("genero"));
+				//pessoaFisica.setPessoa();
+
+				listPessoaFisica.add(pessoaFisica);
+			}
+			Conexao.fecharConecaoMySQL();
+			return listPessoaFisica;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 }

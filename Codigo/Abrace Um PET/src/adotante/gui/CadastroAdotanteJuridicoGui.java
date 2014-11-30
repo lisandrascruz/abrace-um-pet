@@ -15,12 +15,11 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import adotante.dominio.Pessoa;
 import adotante.dominio.Endereco;
+import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.service.PessoaJuridicaService;
-import usuario.gui.LoginGUI;
 
 public class CadastroAdotanteJuridicoGUI extends JFrame {
 
@@ -166,7 +165,6 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ValidacaoService validar = new ValidacaoService();
 				PessoaFisica pessoaFisica = new PessoaFisica();
-				Pessoa adotante = new Pessoa();
 				
 				pessoaFisica.setCpf(textMostraNomeResponsavel.getText());
 				String cpf = pessoaFisica.getCpf();
@@ -188,7 +186,6 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				PessoaJuridica pessoaJuridica = new PessoaJuridica();
 				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
 				
-				PessoaFisica pessoaFisica = new PessoaFisica();
 				Endereco endereco = new Endereco();
 				Pessoa pessoa = new Pessoa();
 				
@@ -226,8 +223,8 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 						&&	(validarEndereco(numero, rua, cep, bairro, cidade, estado))){
 					if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
 						JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
-						LoginGUI login1 = new LoginGUI();
-						login1.setVisible(true);
+						CadastroAdotanteGUI cadastroAdotante = new CadastroAdotanteGUI();
+						cadastroAdotante.setVisible(true);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "O cadastro do adotante juridico não pode ser realizado, tente novamente!", "ERROR", 0);

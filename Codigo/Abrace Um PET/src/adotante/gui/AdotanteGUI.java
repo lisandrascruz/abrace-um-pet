@@ -52,7 +52,7 @@ public class AdotanteGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotante ca = new CadastroAdotante();
+				CadastroAdotanteGUI ca = new CadastroAdotanteGUI();
 				ca.setVisible(true);
 				dispose();
 			}
