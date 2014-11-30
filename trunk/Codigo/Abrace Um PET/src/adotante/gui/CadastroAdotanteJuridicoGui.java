@@ -21,9 +21,7 @@ import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.service.PessoaJuridicaService;
 import usuario.gui.LoginGUI;
-import usuario.gui.TelaInicialGUI;
 
-@SuppressWarnings("unused")
 public class CadastroAdotanteJuridicoGUI extends JFrame {
 
 	/**
