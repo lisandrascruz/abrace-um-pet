@@ -62,7 +62,7 @@ public class CadastroPessoaGUI extends JFrame {
 		btnPessoaJurdica.setBounds(61, 222, 279, 39);
 		btnPessoaJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotanteJuridicoGUI cadastroPessoaJuridica = new CadastroAdotanteJuridicoGUI();
+				CadastroAdotanteJuridicoGui cadastroPessoaJuridica = new CadastroAdotanteJuridicoGui();
 				cadastroPessoaJuridica.setVisible(true);
 				dispose();
 			}

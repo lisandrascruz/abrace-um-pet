@@ -164,7 +164,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Digite um CEP válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);
-		//jFormattedTextCep.setBounds(150, 120, 100, 20);
 		jFormattedTextCep.setBounds(167, 288, 187, 20);
 		contentPane.add(jFormattedTextCep);
 
