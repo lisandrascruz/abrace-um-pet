@@ -5,6 +5,7 @@ import infraestrutura.service.ValidacaoService;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,12 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.service.PessoaJuridicaService;
+
+import javax.swing.JFormattedTextField;
 
 public class CadastroAdotanteJuridicoGUI extends JFrame {
 
@@ -37,7 +41,6 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField textEstado;
 	private JTextField textCEP;
 	private JTextField textComplemento;
-	private JTextField textResponsavel;
 	private JTextField textCelular;
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
@@ -353,12 +356,19 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		lblResponsavel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblResponsavel.setBounds(51, 184, 118, 14);
 		contentPane.add(lblResponsavel);
-
-		textResponsavel = new JTextField();
-		textResponsavel.setBounds(173, 182, 118, 20);
-		contentPane.add(textResponsavel);
-		textResponsavel.setColumns(10);
-
+		
+		MaskFormatter mascaraCpf = null;
+		JFormattedTextField jFormattedTextCPF = new JFormattedTextField();
+		try {
+			mascaraCpf = new MaskFormatter("###.###.###-##");
+		} catch (ParseException e1) {
+			System.err.println("Erro na formatação: " + e1.getMessage());
+            System.exit(-1);
+		}
+		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
+		jFormattedTextCpf.setBounds(173, 182, 118, 20);
+		contentPane.add(jFormattedTextCpf);
+		
 		JButton btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -372,7 +382,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				textEmail.setText("");
 				textEstado.setText("");
 				textNumero.setText("");
-				textResponsavel.setText("");
+				jFormattedTextCPF.setText("");
 				textRua.setText("");
 				textTelefoneFixo.setText("");
 				textCelular.setText("");
@@ -432,8 +442,5 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		});
 		btnCancelar.setBounds(393, 382, 89, 23);
 		contentPane.add(btnCancelar);
-		
-		
-
 	}
 }

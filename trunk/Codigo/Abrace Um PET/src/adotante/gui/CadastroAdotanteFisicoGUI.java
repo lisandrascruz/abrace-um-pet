@@ -5,6 +5,7 @@ import infraestrutura.service.ValidacaoService;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -16,11 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.service.PessoaFisicaService;
+
+import javax.swing.JFormattedTextField;
 
 public class CadastroAdotanteFisicoGUI extends JFrame {
 
@@ -30,15 +34,12 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNomeFisico;
-	private JTextField textCPF;
 	private JTextField textRua;
 	private JTextField textBairro;
 	private JTextField textNumero;
 	private JTextField textCidade;
 	private JTextField textEstado;
-	private JTextField textCEP;
 	private JTextField textComplemento;
-	private JTextField textCelular;
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
 	private JTextField textRG;
@@ -72,11 +73,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(textNomeFisico);
 		textNomeFisico.setColumns(10);
 
-		textCPF = new JTextField();
-		textCPF.setBounds(173, 147, 171, 20);
-		contentPane.add(textCPF);
-		textCPF.setColumns(10);
-
 		JLabel lblEnderecoEmpresarial = new JLabel("Endere\u00E7o:");
 		lblEnderecoEmpresarial.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblEnderecoEmpresarial.setBounds(25, 236, 114, 14);
@@ -97,6 +93,21 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCpf.setBounds(51, 149, 46, 14);
 		contentPane.add(lblCpf);
 
+		JFormattedTextField formattedTextFieldCPF = new JFormattedTextField();
+		MaskFormatter mascaraCpf = null;
+		try {
+			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraCpf.setPlaceholderCharacter('_');
+
+		} catch (ParseException e1) {
+			 System.err.println("Erro na formatação: " + e1.getMessage());
+		}
+		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);	
+		jFormattedTextCpf.setBounds(150,120,100,20);
+		
+		jFormattedTextCpf.setBounds(173, 147, 171, 20);
+		contentPane.add(jFormattedTextCpf);
+		
 		textRua = new JTextField();
 		textRua.setBounds(167, 259, 275, 20);
 		contentPane.add(textRua);
@@ -147,10 +158,56 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCep.setBounds(45, 295, 46, 14);
 		contentPane.add(lblCep);
 
-		textCEP = new JTextField();
-		textCEP.setBounds(167, 290, 187, 20);
-		contentPane.add(textCEP);
-		textCEP.setColumns(10);
+		
+		MaskFormatter mascaraCep = null;
+		JFormattedTextField formattedTextFieldCEP = new JFormattedTextField();
+		try {
+			mascaraCep = new MaskFormatter("###.###-###");
+			mascaraCep.setPlaceholderCharacter('_');
+		} catch (ParseException e1) {
+			 System.err.println("Erro na formatação: " + e1.getMessage());
+		}
+		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);	
+		jFormattedTextCep.setBounds(150,120,100,20);
+		jFormattedTextCep.setBounds(167, 288, 187, 20);
+		contentPane.add(jFormattedTextCep);
+		
+		
+		JLabel lblCelular = new JLabel("Celular:");
+		lblCelular.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblCelular.setBounds(364, 118, 65, 14);
+		contentPane.add(lblCelular);
+
+		
+		MaskFormatter mascaraTel = null;
+		 try {
+			mascaraTel = new MaskFormatter("(##)####-####");
+			mascaraTel.setPlaceholderCharacter('_');
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		JFormattedTextField jFormattedTextTeljFormattedTextTel = new JFormattedTextField(mascaraTel);
+		contentPane.add(jFormattedTextTeljFormattedTextTel);
+		jFormattedTextTeljFormattedTextTel.setBounds(420, 116, 151, 20);
+
+
+		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
+		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblTelefoneFixo.setBounds(51, 118, 122, 14);
+		contentPane.add(lblTelefoneFixo);
+
+
+
+		JLabel lblEmail = new JLabel("E-mail:");
+		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblEmail.setBounds(51, 180, 46, 14);
+		contentPane.add(lblEmail);
+
+		textEmail = new JTextField();
+		textEmail.setBounds(173, 178, 249, 20);
+		contentPane.add(textEmail);
+		textEmail.setColumns(10);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -162,7 +219,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				Pessoa adotante = new Pessoa();
 				// endereco
 				endereco.setBairro(textBairro.getText());
-				endereco.setCep(textCEP.getText());
+				endereco.setCep(formattedTextFieldCEP.getText());
 				endereco.setCidade(textCidade.getText());
 				endereco.setComplemento(textComplemento.getText());
 				endereco.setEstado(textEstado.getText());
@@ -173,11 +230,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				adotante.setNome(textNomeFisico.getText());
 				adotante.setEmail(textEmail.getText());
 				adotante.setTelefoneFixo(textTelefoneFixo.getText());
-				adotante.setTelefoneCelular(textCelular.getText());
+				adotante.setTelefoneCelular(jFormattedTextTeljFormattedTextTel.getText());
 				adotante.setEndereco(endereco);
 
 				// pessoa fisica
-				pessoaFisica.setCpf(textCPF.getText());
+				pessoaFisica.setCpf(formattedTextFieldCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
 
@@ -209,13 +266,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 					}
 				}
-				// JOptionPane.showMessageDialog(null,"Adotante Fisico cadastrado com sucesso!!");
-				/**
-				 * ajustar tela ao salvar
-				 */
-				// TelaInicialGUI ti = new TelaInicialGUI();
-				// ti.setVisible(true);
-				// dispose();
+		
 			}
 
 			// /**
@@ -268,8 +319,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					if (validar.validarNome(nome)) {
 						if (validar.validarSexoPessoaFisica(genero)) {
 							if (validar.validarTelefoneFixo(telefoneFixo)) {
-								if (validar.validarCelular(telefoneCelular)) {
-									if (validar.validarCpf(cpf)) {
+								//if (validar.validarCelular(telefoneCelular)) {
+								//	if (validar.validarCpf(cpf)) {
 										if (validar.validarRg(rg)) {
 											if (validar.validarEmail(email)) {
 												valido = true;
@@ -281,14 +332,14 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 											JOptionPane.showMessageDialog(null, "Por favor, digite um RG válido.", "ERROR", 0);
 											valido = false;
 										}
-									} else {
-										JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.", "ERROR", 0);
-										valido = false;
-									}
-								} else {
-									JOptionPane.showMessageDialog(null, "Por favor, digite um número de celular válido.", "ERROR", 0);
-									valido = false;
-								}
+//									} else {
+//										JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.", "ERROR", 0);
+//										valido = false;
+//									}
+//								} else {
+//									JOptionPane.showMessageDialog(null, "Por favor, digite um número de celular válido.", "ERROR", 0);
+//									valido = false;
+//								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Por favor, digite um número de telefone fixo válido.", "ERROR", 0);
 								valido = false;
@@ -306,16 +357,16 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "Pessoa já cadastrada! Tente outro.", "ERROR", 0);
 					textNomeFisico.setText("");
 					textBairro.setText("");
-					textCEP.setText("");
+					formattedTextFieldCEP.setText("");
 					textCidade.setText("");
-					textCPF.setText("");
+					jFormattedTextCpf.setText("");
 					textComplemento.setText("");
 					textEmail.setText("");
 					textEstado.setText("");
 					textNumero.setText("");
 					textRua.setText("");
 					textTelefoneFixo.setText("");
-					textCelular.setText("");
+					jFormattedTextTeljFormattedTextTel.setText("");
 					textRG.setText("");
 
 					textNomeFisico.requestFocus();
@@ -386,16 +437,16 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				textNomeFisico.setText("");
 				textBairro.setText("");
-				textCEP.setText("");
+				formattedTextFieldCEP.setText("");
 				textCidade.setText("");
-				textCPF.setText("");
+				jFormattedTextCpf.setText("");
 				textComplemento.setText("");
 				textEmail.setText("");
 				textEstado.setText("");
 				textNumero.setText("");
 				textRua.setText("");
 				textTelefoneFixo.setText("");
-				textCelular.setText("");
+				jFormattedTextTeljFormattedTextTel.setText("");
 				textRG.setText("");
 
 				textNomeFisico.requestFocus();
@@ -414,35 +465,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		btnSair.setBounds(472, 382, 102, 23);
 		contentPane.add(btnSair);
 
-		JLabel lblCelular = new JLabel("Celular:");
-		lblCelular.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCelular.setBounds(364, 118, 65, 14);
-		contentPane.add(lblCelular);
-
-		textCelular = new JTextField();
-		textCelular.setBounds(420, 116, 154, 20);
-		contentPane.add(textCelular);
-		textCelular.setColumns(10);
-
-		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
-		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblTelefoneFixo.setBounds(51, 118, 122, 14);
-		contentPane.add(lblTelefoneFixo);
-
-		textTelefoneFixo = new JTextField();
-		textTelefoneFixo.setBounds(173, 116, 171, 20);
-		contentPane.add(textTelefoneFixo);
-		textTelefoneFixo.setColumns(10);
-
-		JLabel lblEmail = new JLabel("E-mail:");
-		lblEmail.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblEmail.setBounds(51, 180, 46, 14);
-		contentPane.add(lblEmail);
-
-		textEmail = new JTextField();
-		textEmail.setBounds(173, 178, 249, 20);
-		contentPane.add(textEmail);
-		textEmail.setColumns(10);
+	
 
 		JButton btnVoltar = new JButton("Cancelar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -473,15 +496,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		comboGenero.setModel(new DefaultComboBoxModel<String>(new String[] { " ", "M", "F" }));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(173, 116, 171, 20);
+		contentPane.add(formattedTextField);
 
-		/*
-		 * JLabel lblGenero = new JLabel("Sexo:"); lblGenero.setFont(new
-		 * Font("Microsoft YaHei", Font.PLAIN, 12)); lblGenero.setBounds(472,
-		 * 82, 38, 14); lblGenero.add(lblGenero);
-		 * 
-		 * comboGenero = new JComboBox(); comboGenero.setModel(new
-		 * DefaultComboBoxModel(new String[] {"", "F", "M"}));
-		 * comboGenero.setBounds(521, 80, 53, 20); contentPane.add(comboGenero);
-		 */
+
 	}
 }
