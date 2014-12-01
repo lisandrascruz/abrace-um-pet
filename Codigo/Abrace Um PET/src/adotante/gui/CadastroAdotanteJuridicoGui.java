@@ -33,7 +33,6 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNomeJuridico;
-	private JTextField textCNPJ;
 	private JTextField textRua;
 	private JTextField textBairro;
 	private JTextField textNumero;
@@ -96,11 +95,17 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		lblCpf.setBounds(51, 149, 46, 14);
 		contentPane.add(lblCpf);
 
-		textCNPJ = new JTextField();
-		textCNPJ.setBounds(173, 147, 118, 20);
-		contentPane.add(textCNPJ);
-		textCNPJ.setColumns(10);
-
+		MaskFormatter mascaraCnpj = null;
+		try{
+			mascaraCnpj = new MaskFormatter("##.###.###/####-##");
+			mascaraCnpj.setPlaceholderCharacter('_');
+		}catch(Exception e1){
+			JOptionPane.showMessageDialog(null, "Digite um CNPJ válido!" + e1.getMessage(), "ERROR", 0);
+		}
+		JFormattedTextField formattedTextFieldCNPJ = new JFormattedTextField(mascaraCnpj);
+		contentPane.add(formattedTextFieldCNPJ);
+		formattedTextFieldCNPJ.setBounds(173, 147, 118, 20);
+		
 		textRua = new JTextField();
 		textRua.setBounds(175, 249, 275, 20);
 		contentPane.add(textRua);
@@ -206,7 +211,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				pessoa.setTelefoneCelular(textCelular.getText());
 				pessoa.setEndereco(endereco);
 
-				pessoaJuridica.setCnpj(textCNPJ.getText());
+				pessoaJuridica.setCnpj(formattedTextFieldCNPJ.getText());
 				pessoaJuridica.setPessoa(pessoa);
 				
 				String numero = endereco.getNumero();
@@ -358,12 +363,10 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblResponsavel);
 		
 		MaskFormatter mascaraCpf = null;
-		JFormattedTextField jFormattedTextCPF = new JFormattedTextField();
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e1) {
-			System.err.println("Erro na formatação: " + e1.getMessage());
-            System.exit(-1);
+			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);;
 		}
 		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
 		jFormattedTextCpf.setBounds(173, 182, 118, 20);
@@ -377,12 +380,12 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				textBairro.setText("");
 				textCEP.setText("");
 				textCidade.setText("");
-				textCNPJ.setText("");
+				formattedTextFieldCNPJ.setText("");
 				textComplemento.setText("");
 				textEmail.setText("");
 				textEstado.setText("");
 				textNumero.setText("");
-				jFormattedTextCPF.setText("");
+				jFormattedTextCpf.setText("");
 				textRua.setText("");
 				textTelefoneFixo.setText("");
 				textCelular.setText("");
@@ -442,5 +445,6 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		});
 		btnCancelar.setBounds(393, 382, 89, 23);
 		contentPane.add(btnCancelar);
+		
 	}
 }
