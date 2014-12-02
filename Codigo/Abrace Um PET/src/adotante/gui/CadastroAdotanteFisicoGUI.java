@@ -40,6 +40,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private JTextField			textCidade;
 	private JTextField			textEstado;
 	private JTextField			textComplemento;
+	// private JTextField textTelefoneFixo;
 	private JTextField			textEmail;
 	private JTextField			textRG;
 	private JComboBox<String>	comboGenero;
@@ -92,6 +93,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCpf.setBounds(51, 149, 46, 14);
 		contentPane.add(lblCpf);
 
+		JFormattedTextField formattedTextFieldCPF = new JFormattedTextField();
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
@@ -157,13 +159,16 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(lblCep);
 
 		MaskFormatter mascaraCep = null;
+		// JFormattedTextField formattedTextFieldCEP = new
+		// JFormattedTextField();
 		try {
-			mascaraCep = new MaskFormatter("##.###-###");
+			mascaraCep = new MaskFormatter("###.###-###");
 			mascaraCep.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um CEP válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);
+		jFormattedTextCep.setBounds(150, 120, 100, 20);
 		jFormattedTextCep.setBounds(167, 288, 187, 20);
 		contentPane.add(jFormattedTextCep);
 
@@ -172,16 +177,17 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCelular.setBounds(364, 118, 65, 14);
 		contentPane.add(lblCelular);
 
-		MaskFormatter mascaraCelular = null;
+		MaskFormatter mascaraTel = null;
 		try {
-			mascaraCelular = new MaskFormatter("(##)####-####");
-			mascaraCelular.setPlaceholderCharacter('_');
+			mascaraTel = new MaskFormatter("(##)####-####");
+			mascaraTel.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um telefone fixo válido!" + e1.getMessage(), "ERROR", 0);
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		JFormattedTextField jFormattedTextTeljFormattedTextCel = new JFormattedTextField(mascaraCelular);
-		contentPane.add(jFormattedTextTeljFormattedTextCel);
-		jFormattedTextTeljFormattedTextCel.setBounds(420, 116, 151, 20);
+		JFormattedTextField jFormattedTextTeljFormattedTextTel = new JFormattedTextField(mascaraTel);
+		contentPane.add(jFormattedTextTeljFormattedTextTel);
+		jFormattedTextTeljFormattedTextTel.setBounds(420, 116, 151, 20);
 
 		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
 		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -231,11 +237,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				adotante.setNome(textNomeFisico.getText());
 				adotante.setEmail(textEmail.getText());
 				adotante.setTelefoneFixo(formattedTextFieldTelefoneFixo.getText());
-				adotante.setTelefoneCelular(jFormattedTextTeljFormattedTextCel.getText());
+				adotante.setTelefoneCelular(jFormattedTextTeljFormattedTextTel.getText());
 				adotante.setEndereco(endereco);
 
 				// pessoa fisica
-				pessoaFisica.setCpf(jFormattedTextCpf.getText());
+				pessoaFisica.setCpf(formattedTextFieldCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
 
@@ -243,8 +249,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 				String nome = pessoaFisica.getPessoa().getNome();
 				String email = pessoaFisica.getPessoa().getEmail();
-				// String telefoneFixo =
-				// pessoaFisica.getPessoa().getTelefoneFixo();
+				String telefoneFixo = pessoaFisica.getPessoa().getTelefoneFixo();
 				String telefoneCelular = pessoaFisica.getPessoa().getTelefoneCelular();
 				String cpf = pessoaFisica.getCpf();
 				String rg = pessoaFisica.getRg();
@@ -257,11 +262,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
 
-				if ((validacaoDadosPF(nome, genero, telefoneCelular, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, cep, bairro, cidade,
-						estado)))) {
+				if ((validacaoDadosPF(nome, genero, telefoneFixo, telefoneCelular, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, cep,
+						bairro, cidade, estado)))) {
 					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
 						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-						CadastroAdotanteGUI cadastroAdotante = new CadastroAdotanteGUI();
+						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
 						cadastroAdotante.setVisible(true);
 						dispose();
 					} else {
@@ -271,6 +276,35 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				}
 
 			}
+
+			// /**
+			// * SETA OS DADOS PASSADOS PELO USUARIO
+			// */
+			// public void setarDadosAdotanteFisico() {
+			// PessoaFisica pessoaFisica = new PessoaFisica();
+			// PessoaFisicaService pessoaFisicaService = new
+			// PessoaFisicaService();
+			// Endereco endereco = new Endereco();
+			// pessoaFisica.setCpf(textCPF.getText());
+			// pessoaFisica.setRg(textRG.getText());
+			// pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
+			//
+			// endereco.setBairro(textBairro.getText());
+			// endereco.setCep(textCEP.getText());
+			// endereco.setCidade(textCidade.getText());
+			// endereco.setComplemento(textComplemento.getText());
+			// endereco.setEstado(textEstado.getText());
+			// endereco.setRua(textRua.getText());
+			// endereco.setNumero(textNumero.getText());
+			//
+			// pessoaFisica.getAdotante().setNome(textNomeFisico.getText());
+			// pessoaFisica.getAdotante().setEmail(textEmail.getText());
+			// pessoaFisica.getAdotante().setTelefoneFixo(textTelefoneFixo.getText());
+			// pessoaFisica.getAdotante().setTelefoneCelular(textCelular.getText());
+			// pessoaFisica.getAdotante().setEndereco(endereco);
+			//
+			// pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
+			// }
 
 			/**
 			 * VALIDAR DADOS DA PESSOA FISICA
@@ -285,26 +319,31 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @param email
 			 * @return
 			 */
-			public boolean validacaoDadosPF(String nome, String genero, String telefoneCelular, String cpf, String rg, String email) {
+			public boolean validacaoDadosPF(String nome, String genero, String telefoneFixo, String telefoneCelular, String cpf, String rg,
+					String email) {
 				ValidacaoService validar = new ValidacaoService();
 				boolean valido = false;
 
 				if (validar.validarCadastroPf(cpf)) {
 					if (validar.validarNome(nome)) {
 						if (validar.validarSexoPessoaFisica(genero)) {
-							if (validar.validarRg(rg)) {
-								if (validar.validarEmail(email)) {
-									valido = true;
+							if (validar.validarTelefoneFixo(telefoneFixo)) {
+								if (validar.validarRg(rg)) {
+									if (validar.validarEmail(email)) {
+										valido = true;
+									} else {
+										JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
+												"ERROR", 0);
+										valido = false;
+									}
 								} else {
-									JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
-											"ERROR", 0);
+									JOptionPane.showMessageDialog(null, "Por favor, digite um RG válido.", "ERROR", 0);
 									valido = false;
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Por favor, digite um RG válido.", "ERROR", 0);
+								JOptionPane.showMessageDialog(null, "Por favor, digite um número de telefone fixo válido.", "ERROR", 0);
 								valido = false;
 							}
-
 						} else {
 							JOptionPane.showMessageDialog(null, "Por favor, selecione um gênero.", "ERROR", 0);
 							valido = false;
@@ -327,7 +366,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 					textNumero.setText("");
 					textRua.setText("");
 					formattedTextFieldTelefoneFixo.setText("");
-					jFormattedTextTeljFormattedTextCel.setText("");
+					jFormattedTextTeljFormattedTextTel.setText("");
 					textRG.setText("");
 
 					textNomeFisico.requestFocus();
@@ -403,7 +442,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				textNumero.setText("");
 				textRua.setText("");
 				formattedTextFieldTelefoneFixo.setText("");
-				jFormattedTextTeljFormattedTextCel.setText("");
+				jFormattedTextTeljFormattedTextTel.setText("");
 				textRG.setText("");
 
 				textNomeFisico.requestFocus();
