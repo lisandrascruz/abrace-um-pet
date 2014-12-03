@@ -4,12 +4,14 @@ import infraestrutura.dao.Conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
-import adotante.dominio.Endereco;
+import javafx.scene.control.TableView.ResizeFeatures;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 
@@ -205,41 +207,55 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 
-	public PessoaFisica retornarPessoaFisica(String cpf) throws SQLException {
+
+	public List<PessoaFisica> retornarPessoaFisica(String cpf) throws SQLException {
 		Connection connection = Conexao.abrirConceccaoMySQL();
 		PreparedStatement statement = null;
 		ResultSet result = null;
 
 		try {
-			statement = connection.prepareStatement("SELECT * FROM pessoafisica WHERE cpf = ?");
+			statement = connection
+					.prepareStatement("SELECT pf.id, pf.cpf, pf.rg, pf.genero, pf.idPessoa FROM pessoafisica as pf INNER JOIN pessoa as p ON pf.idPessoa = p.id WHERE cpf = ?");
 			statement.setString(1, cpf);
 			result = statement.executeQuery();
-
+			List<PessoaFisica> listPessoaFisica = new ArrayList<PessoaFisica>();
+			
 			if (result.next()) {
-//				Endereco endereco = new Endereco();
-//				endereco.setId(result.getInt("id"));
-//				endereco.setBairro(result.getString("bairro"));
-//				endereco.setCep(result.getString("cep"));
-//
-//				Pessoa pessoa = new Pessoa();
-//				pessoa.setEndereco(endereco);
-//				pessoa.setEmail(result.getString("email"));
-
+				
 				PessoaFisica pessoaFisica = new PessoaFisica();
 				pessoaFisica.setId(result.getInt("id"));
 				pessoaFisica.setCpf(result.getString("cpf"));
+				pessoaFisica.setRg(result.getString("rg"));
 				pessoaFisica.setGenero(result.getString("genero"));
-			//	pessoaFisica.setPessoa(pessoa);
-
-				return pessoaFisica;
+				
+				pessoaFisica.getPessoa().setId(result.getInt("id"));
+				pessoaFisica.getPessoa().setNome(result.getString("nome"));
+				pessoaFisica.getPessoa().setEmail(result.getString("email"));
+				pessoaFisica.getPessoa().setTelefoneCelular(result.getString("telefoneCelular"));
+				pessoaFisica.getPessoa().setTelefoneFixo(result.getString("telefoneFixo"));
+				pessoaFisica.getPessoa().setImpedimento(result.getBoolean("impedimento"));
+				pessoaFisica.getPessoa().setMotivoImpedimento(result.getString("motivoImpedimento"));
+				
+				pessoaFisica.getPessoa().getEndereco().setRua(result.getString("rua"));
+				pessoaFisica.getPessoa().getEndereco().setBairro(result.getString("bairro"));
+				pessoaFisica.getPessoa().getEndereco().setNumero(result.getString("numero"));
+				pessoaFisica.getPessoa().getEndereco().setCidade(result.getString("cidade"));
+				pessoaFisica.getPessoa().getEndereco().setEstado(result.getString("estado"));
+				pessoaFisica.getPessoa().getEndereco().setCep(result.getString("cep"));
+				
+				
+				listPessoaFisica.add(pessoaFisica);
 			}
+			System.out.println(listPessoaFisica);
+			return listPessoaFisica;
 		} finally {
-			if (result != null)
-				result.close();
-			if (statement != null)
-				statement.close();
+			if (result != null){
+				result.close();}
+			if (statement != null){
+				statement.close();}
 		}
 
-		return null;
 	}
+	
+	
 }

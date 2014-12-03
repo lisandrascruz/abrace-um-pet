@@ -10,6 +10,7 @@ public class Pessoa {
 	private boolean impedimento;
 	private String motivoImpedimento;
 	
+
 	public int getId() {
 		return id;
 	}
