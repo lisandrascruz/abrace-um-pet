@@ -66,15 +66,23 @@ public class AdocaoGUI {
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(261, 41, 46, 14);
+		lblNewLabel.setBounds(331, 41, 46, 14);
 		frmAdoo.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(261, 83, 46, 14);
+		lblNewLabel_1.setBounds(331, 83, 46, 14);
 		frmAdoo.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnAdotar = new JButton("Adotar");
 		btnAdotar.setBounds(128, 124, 89, 23);
 		frmAdoo.getContentPane().add(btnAdotar);
+		
+		JButton btnConsultarCpf = new JButton("Consultar");
+		btnConsultarCpf.setBounds(227, 37, 80, 23);
+		frmAdoo.getContentPane().add(btnConsultarCpf);
+		
+		JButton btnConsultarRga = new JButton("Consultar");
+		btnConsultarRga.setBounds(227, 79, 80, 23);
+		frmAdoo.getContentPane().add(btnConsultarRga);
 	}
 }
