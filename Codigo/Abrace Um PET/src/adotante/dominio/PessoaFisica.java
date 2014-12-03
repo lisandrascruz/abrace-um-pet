@@ -6,7 +6,6 @@ public class PessoaFisica {
 	private String rg;
 	private String genero;
 	private Pessoa pessoa;
-
 	public int getId() {
 		return id;
 	}
