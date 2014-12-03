@@ -6,11 +6,11 @@ public class Animal {
 	
 	private int id;
 	private String nome;
-	private char tipo;
+	private String tipo;
 	private String rga;
-	private Date dataNascimento;	
+	private java.sql.Date dataNascimento;	
 	private Raca raca;
-	private char genero;
+	private String genero;
 	private String deficiencia;
 	private boolean vacinado;
 	private boolean castrado;
@@ -18,7 +18,7 @@ public class Animal {
 	private double peso;
 	private String temperamento;
 	private String observacao;
-	private Date dataResgate;
+	private java.sql.Date dataResgate;
 	
 	public String getNome() {
 		return nome;
@@ -26,10 +26,10 @@ public class Animal {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public char getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(char tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	public String getRga() {
@@ -38,10 +38,10 @@ public class Animal {
 	public void setRga(String rga) {
 		this.rga = rga;
 	}
-	public Date getDataNascimento() {
+	public java.sql.Date getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(java.sql.Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	public Raca getRaca() {
@@ -50,10 +50,10 @@ public class Animal {
 	public void setRaca(Raca raca) {
 		this.raca = raca;
 	}
-	public char getGenero() {
+	public String getGenero() {
 		return genero;
 	}
-	public void setGenero(char genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 	public String getDeficiencia() {
@@ -98,15 +98,23 @@ public class Animal {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public Date getDataResgate() {
+	public java.sql.Date getDataResgate() {
 		return dataResgate;
 	}
-	public void setDataResgate(Date dataResgate) {
+	public void setDataResgate(java.sql.Date dataResgate) {
 		this.dataResgate = dataResgate;
 	}
 	public int getId() {
 		return id;
 	}
+//	public void setDataResgate(java.sql.Date date) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	public void setDataNascimento(java.sql.Date date) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 	
 	
 }
