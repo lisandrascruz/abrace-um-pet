@@ -162,7 +162,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		// JFormattedTextField formattedTextFieldCEP = new
 		// JFormattedTextField();
 		try {
-			mascaraCep = new MaskFormatter("###.###-###");
+			mascaraCep = new MaskFormatter("##.###-###");
 			mascaraCep.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR", 0);
@@ -327,21 +327,16 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				if (validar.validarCadastroPf(cpf)) {
 					if (validar.validarNome(nome)) {
 						if (validar.validarSexoPessoaFisica(genero)) {
-							if (validar.validarTelefoneFixo(telefoneFixo)) {
-								if (validar.validarRg(rg)) {
-									if (validar.validarEmail(email)) {
-										valido = true;
-									} else {
-										JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
-												"ERROR", 0);
-										valido = false;
-									}
+							if (validar.validarRg(rg)) {
+								if (validar.validarEmail(email)) {
+									valido = true;
 								} else {
-									JOptionPane.showMessageDialog(null, "Por favor, digite um RG válido.", "ERROR", 0);
+									JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
+											"ERROR", 0);
 									valido = false;
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Por favor, digite um número de telefone fixo válido.", "ERROR", 0);
+								JOptionPane.showMessageDialog(null, "Por favor, digite um RG válido.", "ERROR", 0);
 								valido = false;
 							}
 						} else {
