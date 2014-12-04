@@ -29,8 +29,8 @@ public class e {
 		System.out.println("CPF : " + pessoaFisica.getCpf());
 		System.out.println("RG : " + pessoaFisica.getRg());
 		System.out.println("Genero : " + pessoaFisica.getGenero());
-		//System.out.println("Pessoa : " + pessoaFisica.getPessoa()+"\n\n");
-
+		System.out.println("Pessoa : " + pessoaFisica.getPessoa()+"\n\n");
+		System.out.println("Endereco: "+ pessoaFisica.getPessoa().getId());
 	}
 }
 	
