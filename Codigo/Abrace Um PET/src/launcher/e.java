@@ -40,13 +40,13 @@ public class e {
 		System.out.println("Bairro: " + pessoaFisica.getPessoa().getEndereco().getBairro());
 		System.out.println("Cep: " + pessoaFisica.getPessoa().getEndereco().getCep());
 		System.out.println("Cidade: " + pessoaFisica.getPessoa().getEndereco().getCidade());
-		System.out.println("Estado: " + pessoaFisica.getPessoa().getEndereco().getEstado());
+		System.out.println("Estado: " + pessoaFisica.getPessoa().getEndereco().getEstado()+"\n");
 		
 		System.out.println("Informações da tabela pessoa fisica");
 		System.out.println("ID: " + pessoaFisica.getId());
 		System.out.println("CPF : " + pessoaFisica.getCpf());
 		System.out.println("RG : " + pessoaFisica.getRg());
-		System.out.println("Genero : " + pessoaFisica.getGenero());
+		System.out.println("Genero : " + pessoaFisica.getGenero()+"\n");
 		
 	}
 }

@@ -270,7 +270,6 @@ public class PessoaFisicaDAO {
 					}
 				}
 			}
-			System.out.println(listPessoaFisica);
 			return listPessoaFisica;
 		} finally {
 			if (resultPessoaFisicaPessoa != null) {
