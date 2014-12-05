@@ -1,8 +1,5 @@
 package adotante.service;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import adotante.dao.PessoaFisicaDAO;
 import adotante.dominio.PessoaFisica;
 
