@@ -209,24 +209,24 @@ public class PessoaFisicaDAO {
 
 	public List<PessoaFisica> retornarPessoaFisica(String cpf) throws SQLException {
 		Connection connection = Conexao.abrirConceccaoMySQL();
-		PreparedStatement statementPessoaFisicaPessoa = null;
-		PreparedStatement statementPessoaEndereco = null;
+		PreparedStatement statementPessoaFisica = null;
+		PreparedStatement statementPessoa = null;
 		PreparedStatement statementEndereco = null;
-		ResultSet resultPessoaFisicaPessoa = null;
-		ResultSet resultPessoaEndereco = null;
+		ResultSet resultPessoaFisica = null;
+		ResultSet resultPessoa = null;
 		ResultSet resultEndereco = null;
 
 		try {
-			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.rg, pf.genero, pf.idPessoa FROM pessoafisica as"
+			String queryPessoaFisica = "SELECT pf.id, pf.cpf, pf.rg, pf.genero, pf.idPessoa FROM pessoafisica as"
 					+ " pf INNER JOIN pessoa as p ON pf.idPessoa = p.id WHERE cpf = ?";
-			statementPessoaFisicaPessoa = connection.prepareStatement(queryPessoaFisicaPessoa);
-			statementPessoaFisicaPessoa.setString(1, cpf);
-			resultPessoaFisicaPessoa = statementPessoaFisicaPessoa.executeQuery();
+			statementPessoaFisica = connection.prepareStatement(queryPessoaFisica);
+			statementPessoaFisica.setString(1, cpf);
+			resultPessoaFisica = statementPessoaFisica.executeQuery();
 
-			String queryPessoaEndereco = "SELECT p.id, p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoa as"
+			String queryPessoa = "SELECT p.id, p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoa as"
 					+ " p INNER JOIN endereco as ende ON p.idEndereco = ende.id";
-			statementPessoaEndereco = connection.prepareStatement(queryPessoaEndereco);
-			resultPessoaEndereco = statementPessoaEndereco.executeQuery();
+			statementPessoa = connection.prepareStatement(queryPessoa);
+			resultPessoa = statementPessoa.executeQuery();
 
 			String queryEndereco = "SELECT ende.id, ende.estado, ende.cidade, ende.bairro, ende.rua, ende.numero, ende.complemento, ende.cep FROM endereco as"
 					+ " ende INNER JOIN pessoa as p ON p.idEndereco = ende.id";
@@ -246,24 +246,24 @@ public class PessoaFisicaDAO {
 				endereco.setEstado(resultEndereco.getString("estado"));
 				endereco.setCep(resultEndereco.getString("cep"));
 
-				if (resultPessoaEndereco.next()) {
+				if (resultPessoa.next()) {
 
 					Pessoa pessoa = new Pessoa();
-					pessoa.setId(resultPessoaEndereco.getInt("id"));
-					pessoa.setNome(resultPessoaEndereco.getString("nome"));
-					pessoa.setEmail(resultPessoaEndereco.getString("email"));
-					pessoa.setTelefoneCelular(resultPessoaEndereco.getString("telefoneCelular"));
-					pessoa.setTelefoneFixo(resultPessoaEndereco.getString("telefoneFixo"));
+					pessoa.setId(resultPessoa.getInt("id"));
+					pessoa.setNome(resultPessoa.getString("nome"));
+					pessoa.setEmail(resultPessoa.getString("email"));
+					pessoa.setTelefoneCelular(resultPessoa.getString("telefoneCelular"));
+					pessoa.setTelefoneFixo(resultPessoa.getString("telefoneFixo"));
 					// pessoa.setImpedimento(resultPessoaEndereco.getBoolean("impedimento"));
 					// pessoa.setMotivoImpedimento(resultPessoaEndereco.getString("motivoImpedimento"));
 					pessoa.setEndereco(endereco);
-					if (resultPessoaFisicaPessoa.next()) {
+					if (resultPessoaFisica.next()) {
 
 						PessoaFisica pessoaFisica = new PessoaFisica();
-						pessoaFisica.setId(resultPessoaFisicaPessoa.getInt("id"));
-						pessoaFisica.setCpf(resultPessoaFisicaPessoa.getString("cpf"));
-						pessoaFisica.setRg(resultPessoaFisicaPessoa.getString("rg"));
-						pessoaFisica.setGenero(resultPessoaFisicaPessoa.getString("genero"));
+						pessoaFisica.setId(resultPessoaFisica.getInt("id"));
+						pessoaFisica.setCpf(resultPessoaFisica.getString("cpf"));
+						pessoaFisica.setRg(resultPessoaFisica.getString("rg"));
+						pessoaFisica.setGenero(resultPessoaFisica.getString("genero"));
 						pessoaFisica.setPessoa(pessoa);
 
 						listPessoaFisica.add(pessoaFisica);
@@ -272,11 +272,11 @@ public class PessoaFisicaDAO {
 			}
 			return listPessoaFisica;
 		} finally {
-			if (resultPessoaFisicaPessoa != null) {
-				resultPessoaFisicaPessoa.close();
+			if (resultPessoaFisica != null) {
+				resultPessoaFisica.close();
 			}
-			if (statementPessoaFisicaPessoa != null) {
-				statementPessoaFisicaPessoa.close();
+			if (statementPessoaFisica != null) {
+				statementPessoaFisica.close();
 			}
 		}
 
