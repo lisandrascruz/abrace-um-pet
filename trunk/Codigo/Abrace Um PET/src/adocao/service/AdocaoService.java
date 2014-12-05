@@ -3,6 +3,7 @@ package adocao.service;
 import adocao.dao.AdocaoDAO;
 import adocao.dominio.Adocao;
 import adotante.dao.AdotanteDAO;
+//import adotante.dao.AdotanteDAO;
 import adotante.dao.PessoaFisicaDAO;
 import adotante.dominio.Adotante;
 import adotante.dominio.Pessoa;

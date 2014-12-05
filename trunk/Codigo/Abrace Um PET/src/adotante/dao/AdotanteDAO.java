@@ -17,22 +17,19 @@ public class AdotanteDAO {
 		ResultSet resultAdotante = null;
 
 		try {
-			String queryAdotante = "SELECT pf.id, pf.idPessoa FROM adotante as"
-					+ " pf WHERE idPessoa = ?";
+			String queryAdotante = "SELECT pf.id, pf.idPessoa FROM adotante as pf WHERE idPessoa = ?";
 			statementAdotante = connection.prepareStatement(queryAdotante);
 			statementAdotante.setInt(1, pessoa.getId());
 			resultAdotante = statementAdotante.executeQuery();
 
 			Adotante adotante = new Adotante();
 			Pessoa pessoaadotante = new Pessoa();
-			
+
 			if (resultAdotante.next()) {
 
-				
 				adotante.setId(resultAdotante.getInt("id"));
 				pessoaadotante.setId(resultAdotante.getInt("idPessoa"));
 				adotante.setPessoa(pessoaadotante);
-
 
 			}
 			return adotante;
@@ -44,5 +41,5 @@ public class AdotanteDAO {
 				statementAdotante.close();
 			}
 		}
-}
+	}
 }
