@@ -12,15 +12,4 @@ public class PessoaFisicaService {
 	public boolean adicionarPessoaFisicaService(PessoaFisica pessoaFisica) {
 		return pessoaFisicaDAO.adicionarPessoaFisica(pessoaFisica);
 	}
-
-	public List<PessoaFisica> retornarPF(String cpf) {
-
-		try {
-			return pessoaFisicaDAO.retornarPessoaFisica(cpf);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
