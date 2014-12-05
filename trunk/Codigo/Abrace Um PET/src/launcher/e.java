@@ -40,7 +40,9 @@ public class e {
 		System.out.println("Bairro: " + pessoaFisica.getPessoa().getEndereco().getBairro());
 		System.out.println("Cep: " + pessoaFisica.getPessoa().getEndereco().getCep());
 		System.out.println("Cidade: " + pessoaFisica.getPessoa().getEndereco().getCidade());
-		System.out.println("Estado: " + pessoaFisica.getPessoa().getEndereco().getEstado()+"\n");
+		System.out.println("Estado: " + pessoaFisica.getPessoa().getEndereco().getEstado());
+		System.out.println("Impedimento: "+ pessoaFisica.getPessoa().getImpedimento());
+		System.out.println("Motivo do impedimento: "+ pessoaFisica.getPessoa().getMotivoImpedimento()+"\n");
 		
 		System.out.println("Informações da tabela pessoa fisica");
 		System.out.println("ID: " + pessoaFisica.getId());
