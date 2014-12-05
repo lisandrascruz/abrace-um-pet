@@ -1,10 +1,13 @@
 package adocao.dao;
 
 import infraestrutura.dao.Conexao;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import adocao.dominio.Adocao;
+import adotante.dominio.PessoaFisica;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -13,12 +16,22 @@ public class AdocaoDAO {
 
 	public boolean adicionarAdocao(Adocao adocao) {
 		try {
-			int id;
 			Connection con = Conexao.abrirConceccaoMySQL();
+			inserirAdocao(adocao, con);
+			Conexao.fecharConecaoMySQL();
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
 
-			String query = "insert into adocao (idAnimal, idAdotante) values (?, ?)";
+	public int inserirAdocao(Adocao adocao, Connection con) {
+		int id;
+		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
 
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+		try {
+			PreparedStatement preparedStatement = (PreparedStatement) con
+					.prepareStatement(query);
 
 			preparedStatement.setInt(1, adocao.getAdotante().getId());
 			preparedStatement.setInt(2, adocao.getAnimal().getId());
@@ -39,12 +52,10 @@ public class AdocaoDAO {
 				}
 			}
 			preparedStatement.close();
-
-			Conexao.fecharConecaoMySQL();
-			return true;
 		} catch (Exception ex) {
-			return false;
+			return -1;
 		}
+		return id;
 	}
 
 }

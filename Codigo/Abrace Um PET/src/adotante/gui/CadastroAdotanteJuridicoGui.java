@@ -44,7 +44,9 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField textCelular;
 	private JTextField textTelefoneFixo;
 	private JTextField textEmail;
-	private JTextField textMostraNomeResponsavel;
+	private JFormattedTextField jFormattedTextCpf;
+	private JLabel lblMostraNomeResponsavel;
+	private PessoaFisica pessoaFisica;
 
 	/**
 	 * Create the frame.
@@ -156,26 +158,19 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(textCEP);
 		textCEP.setColumns(10);
 		
-		textMostraNomeResponsavel = new JTextField();
-		textMostraNomeResponsavel.setEnabled(false);
-		textMostraNomeResponsavel.setEditable(false);
-		textMostraNomeResponsavel.setBounds(301, 182, 199, 20);
-		contentPane.add(textMostraNomeResponsavel);
-		textMostraNomeResponsavel.setColumns(10);
-		
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ValidacaoService validar = new ValidacaoService();
-				PessoaFisica pessoaFisica = new PessoaFisica();
+				pessoaFisica = new PessoaFisica();
 				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				pessoaFisica = pessoaJuridicaService.consultarRepresentante("520");
+				pessoaFisica = pessoaJuridicaService.consultarRepresentante(jFormattedTextCpf.getText());
 				
 				if((validar.validarCpfResponsavelJuridico(pessoaFisica.getCpf()))){
-					textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
+					lblMostraNomeResponsavel.setText(pessoaFisica.getPessoa().getNome());
 				}
 				else{
-					textMostraNomeResponsavel.setText("");
+					lblMostraNomeResponsavel.setText("");
 				}
 			}
 		});
@@ -206,8 +201,9 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				pessoa.setEndereco(endereco);
 
 				pessoaJuridica.setCnpj(textCNPJ.getText());
+				pessoaJuridica.setResponsavel(pessoaFisica);
 				pessoaJuridica.setPessoa(pessoa);
-				
+				System.out.println(pessoaJuridica.getResponsavel().getId());
 				String numero = endereco.getNumero();
 				String rua = endereco.getRua();
 				String cep = endereco.getCep();
@@ -357,14 +353,13 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblResponsavel);
 		
 		MaskFormatter mascaraCpf = null;
-		JFormattedTextField jFormattedTextCPF = new JFormattedTextField();
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e1) {
 			System.err.println("Erro na formatação: " + e1.getMessage());
             System.exit(-1);
 		}
-		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
+		jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
 		jFormattedTextCpf.setBounds(173, 182, 118, 20);
 		contentPane.add(jFormattedTextCpf);
 		
@@ -381,7 +376,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				textEmail.setText("");
 				textEstado.setText("");
 				textNumero.setText("");
-				jFormattedTextCPF.setText("");
+				jFormattedTextCpf.setText("");
 				textRua.setText("");
 				textTelefoneFixo.setText("");
 				textCelular.setText("");
@@ -441,5 +436,9 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		});
 		btnCancelar.setBounds(393, 382, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		lblMostraNomeResponsavel = new JLabel("");
+		lblMostraNomeResponsavel.setBounds(308, 185, 187, 14);
+		contentPane.add(lblMostraNomeResponsavel);
 	}
 }

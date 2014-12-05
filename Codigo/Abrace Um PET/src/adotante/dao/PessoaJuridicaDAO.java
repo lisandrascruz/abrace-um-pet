@@ -170,14 +170,14 @@ public class PessoaJuridicaDAO {
 	public int inserirPessoaJuridica(PessoaJuridica pessoaJuridica,
 			Connection con, int idPessoa) {
 		int id;
-		String query = "insert into pessoajuridica (cnpj, idPessoa) values (?, ?)";
+		String query = "insert into pessoajuridica (cnpj, idPessoa, idPessoaFisica) values (?, ?, ?)";
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con
 					.prepareStatement(query);
 
 			preparedStatement.setString(1, pessoaJuridica.getCnpj());
 			preparedStatement.setInt(2, idPessoa);
-			// preparedStatement.setInt (3, id);
+			preparedStatement.setInt (3, pessoaJuridica.getResponsavel().getId());
 
 			int affectedRows = preparedStatement.executeUpdate();
 
