@@ -52,7 +52,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	 */
 	public CadastroAdotanteFisicoGUI(){
 		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
-		setBounds(100, 100, 645, 455);
+		setBounds(100, 100, 647, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -100,7 +100,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			mascaraCpf.setPlaceholderCharacter('_');
 
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um numero válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
 		jFormattedTextCpf.setBounds(150, 120, 100, 20);
