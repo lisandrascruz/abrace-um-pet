@@ -159,8 +159,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		contentPane.add(lblCep);
 
 		MaskFormatter mascaraCep = null;
-		// JFormattedTextField formattedTextFieldCEP = new
-		// JFormattedTextField();
 		try {
 			mascaraCep = new MaskFormatter("##.###-###");
 			mascaraCep.setPlaceholderCharacter('_');
