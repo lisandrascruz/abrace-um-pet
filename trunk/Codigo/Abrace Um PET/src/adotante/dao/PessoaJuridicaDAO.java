@@ -5,11 +5,17 @@ import infraestrutura.dao.Conexao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
+import adotante.dominio.Endereco;
+import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 
-import com.mysql.jdbc.PreparedStatement;
 
 public class PessoaJuridicaDAO {
 	/**
@@ -194,4 +200,79 @@ public class PessoaJuridicaDAO {
 		}
 		return id;
 	}
+	public List<PessoaJuridica> retornarPessoaJuridica(String cpf) throws SQLException {
+		Connection connection = Conexao.abrirConceccaoMySQL();
+		PreparedStatement statementPessoaJuridicaPessoa = null;
+		PreparedStatement statementPessoaEndereco = null;
+		PreparedStatement statementEndereco = null;
+		ResultSet resultPessoaJuridicaPessoa = null;
+		ResultSet resultPessoaEndereco = null;
+		ResultSet resultEndereco = null;
+
+		try {
+			String queryPessoaJuridicaPessoa = "SELECT pj.id, pj.cnpj, pj.responsavel, pj.genero, pf.idPessoa FROM pessoajuridica as"
+					+ " pj INNER JOIN pessoa as p ON pj.idPessoa = p.id WHERE cpf = ?";
+			statementPessoaJuridicaPessoa = connection.prepareStatement(queryPessoaJuridicaPessoa);
+			statementPessoaJuridicaPessoa.setString(1, cpf);
+			resultPessoaJuridicaPessoa = statementPessoaJuridicaPessoa.executeQuery();
+
+			String queryPessoaEndereco = "SELECT p.id, p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoa as"
+					+ " p INNER JOIN endereco as ende ON p.idEndereco = ende.id";
+			statementPessoaEndereco = connection.prepareStatement(queryPessoaEndereco);
+			resultPessoaEndereco = statementPessoaEndereco.executeQuery();
+
+			String queryEndereco = "SELECT ende.id, ende.estado, ende.cidade, ende.bairro, ende.rua, ende.numero, ende.complemento, ende.cep FROM endereco as"
+					+ " ende INNER JOIN pessoa as p ON p.idEndereco = ende.id";
+			statementEndereco = connection.prepareStatement(queryEndereco);
+			resultEndereco = statementEndereco.executeQuery();
+
+			List<PessoaJuridica> listPessoaJuridica = new ArrayList<PessoaJuridica>();
+
+			if (resultEndereco.next()) {
+
+				Endereco endereco = new Endereco();
+				endereco.setId(resultEndereco.getInt("id"));
+				endereco.setRua(resultEndereco.getString("rua"));
+				endereco.setBairro(resultEndereco.getString("bairro"));
+				endereco.setNumero(resultEndereco.getString("numero"));
+				endereco.setCidade(resultEndereco.getString("cidade"));
+				endereco.setEstado(resultEndereco.getString("estado"));
+				endereco.setCep(resultEndereco.getString("cep"));
+
+				if (resultPessoaEndereco.next()) {
+
+					Pessoa pessoa = new Pessoa();
+					pessoa.setId(resultPessoaEndereco.getInt("id"));
+					pessoa.setNome(resultPessoaEndereco.getString("nome"));
+					pessoa.setEmail(resultPessoaEndereco.getString("email"));
+					pessoa.setTelefoneCelular(resultPessoaEndereco.getString("telefoneCelular"));
+					pessoa.setTelefoneFixo(resultPessoaEndereco.getString("telefoneFixo"));
+					// pessoa.setImpedimento(resultPessoaEndereco.getBoolean("impedimento"));
+					// pessoa.setMotivoImpedimento(resultPessoaEndereco.getString("motivoImpedimento"));
+					pessoa.setEndereco(endereco);
+					if (resultPessoaJuridicaPessoa.next()) {
+
+						PessoaJuridica pessoaJuridica = new PessoaJuridica();
+						pessoaJuridica.setId(resultPessoaJuridicaPessoa.getInt("id"));
+						pessoaJuridica.setCnpj(resultPessoaJuridicaPessoa.getString("cnpj"));
+						pessoaJuridica.setResponsavel(resultPessoaJuridicaPessoa.getString("responsavel"));
+						pessoaJuridica.setGenero(resultPessoaJuridicaPessoa.getString("genero"));
+						pessoaJuridica.setPessoa(pessoa);
+
+						listPessoaJuridica.add(pessoaJuridica);
+					}
+				}
+			}
+			return listPessoaJuridica;
+		} finally {
+			if (resultPessoaJuridicaPessoa != null) {
+				resultPessoaJuridicaPessoa.close();
+			}
+			if (statementPessoaJuridicaPessoa != null) {
+				statementPessoaJuridicaPessoa.close();
+			}
+		}
+
+	}
+
 }
