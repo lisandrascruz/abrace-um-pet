@@ -212,9 +212,11 @@ public class PessoaFisicaDAO {
 		PreparedStatement statementPessoaFisica = null;
 		PreparedStatement statementPessoa = null;
 		PreparedStatement statementEndereco = null;
+		PreparedStatement statementAdotante = null;
 		ResultSet resultPessoaFisica = null;
 		ResultSet resultPessoa = null;
 		ResultSet resultEndereco = null;
+		ResultSet resultAdotante = null;
 
 		try {
 			String queryPessoaFisica = "SELECT pf.id, pf.cpf, pf.rg, pf.genero, pf.idPessoa FROM pessoafisica as"
@@ -232,6 +234,11 @@ public class PessoaFisicaDAO {
 					+ " ende INNER JOIN pessoa as p ON p.idEndereco = ende.id";
 			statementEndereco = connection.prepareStatement(queryEndereco);
 			resultEndereco = statementEndereco.executeQuery();
+
+			String queryAdotante = "SELECT adot.impedimento, adot.motivoImpedimeto, adot.idPessoa FROM adotante as "
+					+ " adot INNER JOIN pessoa as p ON adot.idPessoa = p.id";
+			statementAdotante = connection.prepareStatement(queryAdotante);
+			resultAdotante = statementAdotante.executeQuery();
 
 			List<PessoaFisica> listPessoaFisica = new ArrayList<PessoaFisica>();
 
@@ -254,9 +261,12 @@ public class PessoaFisicaDAO {
 					pessoa.setEmail(resultPessoa.getString("email"));
 					pessoa.setTelefoneCelular(resultPessoa.getString("telefoneCelular"));
 					pessoa.setTelefoneFixo(resultPessoa.getString("telefoneFixo"));
-					// pessoa.setImpedimento(resultPessoaEndereco.getBoolean("impedimento"));
-					// pessoa.setMotivoImpedimento(resultPessoaEndereco.getString("motivoImpedimento"));
+					
 					pessoa.setEndereco(endereco);
+					if(resultAdotante.next()){
+						pessoa.setImpedimento(resultAdotante.getBoolean("impedimento"));
+						pessoa.setMotivoImpedimento(resultAdotante.getString("motivoImpedimeto"));
+					}
 					if (resultPessoaFisica.next()) {
 
 						PessoaFisica pessoaFisica = new PessoaFisica();
