@@ -12,14 +12,14 @@ import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaJuridica;
 
 public class PessoaJuridicaDAO {
-	/**
-	 * ADICIONAR USUARIO NO BANCO DE DADOS
-	 * 
-	 * @param usuario
-	 * @return
-	 */
 	Conexao	conexao	= new Conexao();
 
+	/**
+	 * ADICIONA PESSOA JURIDICA NO BANCO
+	 * 
+	 * @param pessoaJuridica
+	 * @return
+	 */
 	public boolean adicionarPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		try {
 			Connection con = Conexao.abrirConceccaoMySQL();
@@ -35,13 +35,26 @@ public class PessoaJuridicaDAO {
 		}
 	}
 
+	/**
+	 * CONSULTA PESSOA JURIDICA NO BANCO
+	 * 
+	 * @param cnpj
+	 * @return
+	 */
 	public boolean consultarPessoaJuridica(String cnpj) {
 		String resultSet = ("select cpf from pessoajuridica where cnpj='" + cnpj + "'");
 		return (conexao.consultar(resultSet));
 	}
 
+	/**
+	 * INSERE ENDERECO DA PESSOA JURIDICA
+	 * 
+	 * @param pessoaJuridica
+	 * @param con
+	 * @return
+	 */
 	public int inserirEndereco(PessoaJuridica pessoaJuridica, Connection con) {
-		int id;
+		int id = 0;
 		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
@@ -74,11 +87,20 @@ public class PessoaJuridicaDAO {
 			preparedStatement.close();
 
 		} catch (Exception ex) {
-			return -1;
+			ex.printStackTrace();
+			//return -1;
 		}
 		return id;
 	}
 
+	/**
+	 * INSERE PESSOA DA PESSOA JURIDICA
+	 * 
+	 * @param pessoaJuridica
+	 * @param con
+	 * @param idEndereco
+	 * @return
+	 */
 	public int inserirPessoa(PessoaJuridica pessoaJuridica, Connection con, int idEndereco) {
 		int id;
 		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
@@ -112,6 +134,13 @@ public class PessoaJuridicaDAO {
 
 	}
 
+	/**
+	 * INSERE ADOTANTE DA PESSOA JURIDICA
+	 * 
+	 * @param con
+	 * @param idPessoa
+	 * @return
+	 */
 	public int inserirAdotante(Connection con, int idPessoa) {
 		int id;
 		String query = "insert into adotante (idPessoa) values (?)";
@@ -142,8 +171,16 @@ public class PessoaJuridicaDAO {
 		return id;
 	}
 
+	/**
+	 * INSERE PESSOA JURIDICA
+	 * 
+	 * @param pessoaJuridica
+	 * @param con
+	 * @param idPessoa
+	 * @return
+	 */
 	public int inserirPessoaJuridica(PessoaJuridica pessoaJuridica, Connection con, int idPessoa) {
-		int id;
+		int id = 0;
 		String query = "insert into pessoajuridica (cnpj, idPessoa, idPessoaFisica) values (?, ?, ?)";
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
@@ -167,7 +204,7 @@ public class PessoaJuridicaDAO {
 			}
 			preparedStatement.close();
 		} catch (Exception ex) {
-			return -1;
+			ex.printStackTrace();
 		}
 		return id;
 	}

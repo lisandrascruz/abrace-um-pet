@@ -10,7 +10,13 @@ import adotante.dominio.Adotante;
 import adotante.dominio.Pessoa;
 
 public class AdotanteDAO {
-
+	/**
+	 * CONSULTA ADOTANTE PELO ID DA PESSOA
+	 * 
+	 * @param pessoa
+	 * @return
+	 * @throws SQLException
+	 */
 	public Adotante consultarAdotante(Pessoa pessoa) throws SQLException {
 		Connection connection = Conexao.abrirConceccaoMySQL();
 		PreparedStatement statementAdotante = null;

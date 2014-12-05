@@ -3,13 +3,9 @@ package adotante.dao;
 import infraestrutura.dao.Conexao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
@@ -25,7 +21,6 @@ public class PessoaFisicaDAO {
 	 * @param usuario
 	 * @return
 	 */
-
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) {
 		try {
 			Connection con = Conexao.abrirConceccaoMySQL();
@@ -42,33 +37,18 @@ public class PessoaFisicaDAO {
 		}
 	}
 
-	public boolean consultar(String query) {
-		Connection conexao = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		boolean usuario = false;
-		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			statement = (Statement) conexao.createStatement();
-			resultSet = statement.executeQuery(query);
-			if (resultSet.next()) {
-				usuario = true;
-			} else {
-				usuario = false;
-			}
-			Conexao.fecharConecaoMySQL();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return usuario;
-	}
-
-	public boolean consultarPessoaFisica(String cpf) {
+	public boolean consultarPessoaFisicaCPF(String cpf) {
 		String resultSet = ("select cpf from pessoaFisica where cpf='" + cpf + "'");
 		return (conexao.consultar(resultSet));
 	}
 
+	/**
+	 * INSERE ENDERECO DA PESSOA FISICA
+	 * 
+	 * @param pessoaFisica
+	 * @param con
+	 * @return
+	 */
 	public int inserirEndereco(PessoaFisica pessoaFisica, Connection con) {
 		int id;
 		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
@@ -104,6 +84,14 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 
+	/**
+	 * INSERE PESSOA NO BANCO
+	 * 
+	 * @param pessoaFisica
+	 * @param con
+	 * @param idEndereco
+	 * @return
+	 */
 	public int inserirPessoa(PessoaFisica pessoaFisica, Connection con, int idEndereco) {
 		int id;
 		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
@@ -137,6 +125,13 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 
+	/**
+	 * INSERE ADOTANTE NO BANCO DE DADOS
+	 * 
+	 * @param con
+	 * @param idPessoa
+	 * @return
+	 */
 	public int inserirAdotante(Connection con, int idPessoa) {
 		int id;
 		String query = "insert into adotante (idPessoa) values (?)";
@@ -167,6 +162,14 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 
+	/**
+	 * INSERE PESSOA FISICA
+	 * 
+	 * @param pessoaFisica
+	 * @param con
+	 * @param idPessoa
+	 * @return
+	 */
 	public int inserirPessoaFisica(PessoaFisica pessoaFisica, Connection con, int idPessoa) {
 		int id;
 		String query = "insert into pessoafisica (rg, cpf, genero, idPessoa) values (?, ?, ?, ?)";
@@ -200,7 +203,14 @@ public class PessoaFisicaDAO {
 		return id;
 	}
 
-	public PessoaFisica consultarRepresentante(String cpf) throws SQLException {
+	/**
+	 * CONSULTA PESSOA FISICA NO BD ATAVES DO CPF
+	 * 
+	 * @param cpf
+	 * @return
+	 * @throws SQLException
+	 */
+	public PessoaFisica consultarPessoaFisica(String cpf) throws SQLException {
 		Connection connection = Conexao.abrirConceccaoMySQL();
 		PreparedStatement statementPessoaFisicaPessoa = null;
 		PreparedStatement statementPessoaEndereco = null;
@@ -228,10 +238,9 @@ public class PessoaFisicaDAO {
 			Endereco endereco = new Endereco();
 			Pessoa pessoa = new Pessoa();
 			PessoaFisica pessoaFisica = new PessoaFisica();
-			
+
 			if (resultEndereco.next()) {
 
-				
 				endereco.setId(resultEndereco.getInt("id"));
 				endereco.setRua(resultEndereco.getString("rua"));
 				endereco.setBairro(resultEndereco.getString("bairro"));
@@ -242,7 +251,6 @@ public class PessoaFisicaDAO {
 
 				if (resultPessoaEndereco.next()) {
 
-					
 					pessoa.setId(resultPessoaEndereco.getInt("id"));
 					pessoa.setNome(resultPessoaEndereco.getString("nome"));
 					pessoa.setEmail(resultPessoaEndereco.getString("email"));
@@ -251,7 +259,6 @@ public class PessoaFisicaDAO {
 					pessoa.setEndereco(endereco);
 					if (resultPessoaFisicaPessoa.next()) {
 
-						
 						pessoaFisica.setId(resultPessoaFisicaPessoa.getInt("id"));
 						pessoaFisica.setCpf(resultPessoaFisicaPessoa.getString("cpf"));
 						pessoaFisica.setRg(resultPessoaFisicaPessoa.getString("rg"));

@@ -39,7 +39,7 @@ public class ValidacaoService {
 	public boolean validarCpfResponsavelJuridico(String cpf) {
 		boolean valido;
 		pessoaFisica.setCpf(cpf);
-		if (pessoaFisicaDao.consultarPessoaFisica(cpf)) {
+		if (pessoaFisicaDao.consultarPessoaFisicaCPF(cpf)) {
 			valido = true;
 		} else {
 			valido = false;
@@ -50,7 +50,7 @@ public class ValidacaoService {
 		boolean valido;
 		pessoaFisica.setCpf(cpf);
 		
-		if (pessoaFisicaDao.consultarPessoaFisica(cpf)){
+		if (pessoaFisicaDao.consultarPessoaFisicaCPF(cpf)){
 			valido = false;
 		} else {
 			valido = true;

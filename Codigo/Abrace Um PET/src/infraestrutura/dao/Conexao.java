@@ -15,15 +15,6 @@ public class Conexao {
 	public static ResultSet getResultSet() {
 		return resultSet;
 	}
-	
-	
-
-	/*public static PreparedStatement ConnectionStatement(String sql) {
-		PreparedStatement preparedStatement = (PreparedStatement) conexao.prepareStatement(sql);
-		return preparedStatement;
-	}*/
-
-
 
 	public static void setResultSet(ResultSet resultSet) {
 		Conexao.resultSet = resultSet;

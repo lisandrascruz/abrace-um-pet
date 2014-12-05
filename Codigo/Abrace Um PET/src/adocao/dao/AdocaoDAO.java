@@ -7,13 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import adocao.dominio.Adocao;
-import adotante.dominio.PessoaFisica;
 
 import com.mysql.jdbc.PreparedStatement;
 
 public class AdocaoDAO {
-	Conexao conexao = new Conexao();
+	Conexao	conexao	= new Conexao();
 
+	/**
+	 * ADICIONA PESSOA NO BANCO DE DADOS
+	 * 
+	 * @param adocao
+	 * @return
+	 */
 	public boolean adicionarAdocao(Adocao adocao) {
 		try {
 			Connection con = Conexao.abrirConceccaoMySQL();
@@ -25,13 +30,19 @@ public class AdocaoDAO {
 		}
 	}
 
+	/**
+	 * INSERE ADOCAO NO BANCO
+	 * 
+	 * @param adocao
+	 * @param con
+	 * @return
+	 */
 	public int inserirAdocao(Adocao adocao, Connection con) {
 		int id;
 		String query = "insert into adocao (idAdotante, idAnimal) values (?, ?)";
 
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con
-					.prepareStatement(query);
+			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
 			preparedStatement.setInt(1, adocao.getAdotante().getId());
 			preparedStatement.setInt(2, adocao.getAnimal().getId());
@@ -39,16 +50,14 @@ public class AdocaoDAO {
 			int affectedRows = preparedStatement.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new SQLException(
-						"Creating user failed, no rows affected.");
+				throw new SQLException("Creating user failed, no rows affected.");
 			}
 
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
 				} else {
-					throw new SQLException(
-							"Creating user failed, no ID obtained.");
+					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
 			preparedStatement.close();

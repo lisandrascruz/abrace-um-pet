@@ -22,7 +22,7 @@ public class AdocaoService {
 		PessoaFisica pessoaFisica = new PessoaFisica();
 		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 		try{
-		pessoaFisica = pessoaFisicaDAO.consultarRepresentante(cpf);
+		pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(cpf);
 		} catch (Exception ex) {
 			
 		}
