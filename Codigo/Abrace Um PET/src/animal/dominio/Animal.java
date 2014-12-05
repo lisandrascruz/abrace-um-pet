@@ -1,10 +1,12 @@
 package animal.dominio;
 
-import sun.util.calendar.BaseCalendar.Date;
 
 public class Animal {
 	
 	private int id;
+	public void setId(int id) {
+		this.id = id;
+	}
 	private String nome;
 	private String tipo;
 	private String rga;

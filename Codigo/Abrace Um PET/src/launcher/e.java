@@ -4,9 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import adotante.dao.PessoaFisicaDAO;
-import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
-import adotante.service.PessoaFisicaService;
 
 
 public class e {
