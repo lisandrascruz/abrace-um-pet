@@ -7,8 +7,6 @@ public class Pessoa {
 	private String telefoneFixo;
 	private String telefoneCelular;
 	private String email;
-	private boolean impedimento;
-	private String motivoImpedimento;
 	
 
 	public int getId() {
@@ -47,18 +45,5 @@ public class Pessoa {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean getImpedimento() {
-		return impedimento;
-	}
-	public void setImpedimento(boolean impedimento) {
-		this.impedimento = impedimento;
-	}
-	public String getMotivoImpedimento() {
-		return motivoImpedimento;
-	}
-	public void setMotivoImpedimento(String motivoImpedimento) {
-		this.motivoImpedimento = motivoImpedimento;
-	}
-	
 	
 }

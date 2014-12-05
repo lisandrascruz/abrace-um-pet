@@ -4,9 +4,6 @@ package animal.dominio;
 public class Animal {
 	
 	private int id;
-	public void setId(int id) {
-		this.id = id;
-	}
 	private String nome;
 	private String tipo;
 	private String rga;
@@ -22,6 +19,13 @@ public class Animal {
 	private String observacao;
 	private java.sql.Date dataResgate;
 	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -106,17 +110,8 @@ public class Animal {
 	public void setDataResgate(java.sql.Date dataResgate) {
 		this.dataResgate = dataResgate;
 	}
-	public int getId() {
-		return id;
-	}
-//	public void setDataResgate(java.sql.Date date) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//	public void setDataNascimento(java.sql.Date date) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	
+	
 	
 	
 }

@@ -27,7 +27,7 @@ public class AdocaoDAO {
 
 	public int inserirAdocao(Adocao adocao, Connection con) {
 		int id;
-		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
+		String query = "insert into adocao (idAdotante, idAnimal) values (?, ?)";
 
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con

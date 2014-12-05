@@ -3,9 +3,6 @@ package animal.dominio;
 public class Raca {
 	
 	private int id;
-	public void setId(int id) {
-		this.id = id;
-	}
 	private String nome;
 	private String origem;
 	private double tamanhoMax;
@@ -13,6 +10,19 @@ public class Raca {
 	private int expectativaVida;
 	private String temperamento;
 	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	public String getOrigem() {
 		return origem;
 	}
@@ -42,15 +52,6 @@ public class Raca {
 	}
 	public void setTemperamento(String temperamento) {
 		this.temperamento = temperamento;
-	}
-	public int getId() {
-		return id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 	
 	
