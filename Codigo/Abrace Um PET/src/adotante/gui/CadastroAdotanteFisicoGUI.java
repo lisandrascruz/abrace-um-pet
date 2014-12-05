@@ -40,7 +40,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	private JTextField			textCidade;
 	private JTextField			textEstado;
 	private JTextField			textComplemento;
-	// private JTextField textTelefoneFixo;
 	private JTextField			textEmail;
 	private JTextField			textRG;
 	private JComboBox<String>	comboGenero;
@@ -222,7 +221,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				Endereco endereco = new Endereco();
 				Pessoa adotante = new Pessoa();
-				// endereco
+				
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(jFormattedTextCep.getText());
 				endereco.setCidade(textCidade.getText());
@@ -230,25 +229,25 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
-				// adotante
-
+				
 				adotante.setNome(textNomeFisico.getText());
 				adotante.setEmail(textEmail.getText());
 				adotante.setTelefoneFixo(formattedTextFieldTelefoneFixo.getText());
 				adotante.setTelefoneCelular(jFormattedTextTeljFormattedTextTel.getText());
 				adotante.setEndereco(endereco);
 
-				// pessoa fisica
+				
 				pessoaFisica.setCpf(formattedTextFieldCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
 
 				pessoaFisica.setPessoa(adotante);
 
-				String nome = pessoaFisica.getPessoa().getNome();
-				String email = pessoaFisica.getPessoa().getEmail();
-				String telefoneFixo = pessoaFisica.getPessoa().getTelefoneFixo();
-				String telefoneCelular = pessoaFisica.getPessoa().getTelefoneCelular();
+				Pessoa pessoa = pessoaFisica.getPessoa();
+				String nome = pessoa.getNome();
+				String email = pessoa.getEmail();
+				String telefoneFixo = pessoa.getTelefoneFixo();
+				String telefoneCelular = pessoa.getTelefoneCelular();
 				String cpf = pessoaFisica.getCpf();
 				String rg = pessoaFisica.getRg();
 				String genero = pessoaFisica.getGenero();
@@ -274,36 +273,6 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				}
 
 			}
-
-			// /**
-			// * SETA OS DADOS PASSADOS PELO USUARIO
-			// */
-			// public void setarDadosAdotanteFisico() {
-			// PessoaFisica pessoaFisica = new PessoaFisica();
-			// PessoaFisicaService pessoaFisicaService = new
-			// PessoaFisicaService();
-			// Endereco endereco = new Endereco();
-			// pessoaFisica.setCpf(textCPF.getText());
-			// pessoaFisica.setRg(textRG.getText());
-			// pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
-			//
-			// endereco.setBairro(textBairro.getText());
-			// endereco.setCep(textCEP.getText());
-			// endereco.setCidade(textCidade.getText());
-			// endereco.setComplemento(textComplemento.getText());
-			// endereco.setEstado(textEstado.getText());
-			// endereco.setRua(textRua.getText());
-			// endereco.setNumero(textNumero.getText());
-			//
-			// pessoaFisica.getAdotante().setNome(textNomeFisico.getText());
-			// pessoaFisica.getAdotante().setEmail(textEmail.getText());
-			// pessoaFisica.getAdotante().setTelefoneFixo(textTelefoneFixo.getText());
-			// pessoaFisica.getAdotante().setTelefoneCelular(textCelular.getText());
-			// pessoaFisica.getAdotante().setEndereco(endereco);
-			//
-			// pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica);
-			// }
-
 			/**
 			 * VALIDAR DADOS DA PESSOA FISICA
 			 * 

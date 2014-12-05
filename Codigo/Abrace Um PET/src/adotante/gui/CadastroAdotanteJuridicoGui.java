@@ -41,6 +41,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField			textComplemento;
 	private JTextField			textEmail;
 	private JTextField			textMostraNomeResponsavel;
+	private JFormattedTextField jFormattedTextCpf;
 
 	/**
 	 * Create the frame.
@@ -196,16 +197,17 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ValidacaoService validar = new ValidacaoService();
-				PessoaFisica pessoaFisica = new PessoaFisica();
-				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				pessoaFisica = pessoaJuridicaService.consultarRepresentante("520");
+				
+					ValidacaoService validar = new ValidacaoService();
+					PessoaFisica pessoaFisica = new PessoaFisica();
+					PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+					pessoaFisica = pessoaJuridicaService.consultarRepresentante(jFormattedTextCpf.getText());
 
-				if ((validar.validarCpfResponsavelJuridico(pessoaFisica.getCpf()))) {
-					textMostraNomeResponsavel.setText("Aparecerá aqui o nome do usuario");
-				} else {
-					textMostraNomeResponsavel.setText("");
-				}
+					if ((validar.validarCpfResponsavelJuridico(pessoaFisica.getCpf()))) {
+						textMostraNomeResponsavel.setText(pessoaFisica.getPessoa().getNome());
+					} else {
+						textMostraNomeResponsavel.setText("");
+					}
 			}
 		});
 		btnConsultar.setBounds(507, 181, 112, 23);
@@ -239,19 +241,15 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 
 				String numero = endereco.getNumero();
 				String rua = endereco.getRua();
-				String cep = endereco.getCep();
 				String bairro = endereco.getBairro();
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
 
 				String nome = pessoaJuridica.getPessoa().getNome();
 				String email = pessoaJuridica.getPessoa().getEmail();
-				String telefoneFixo = pessoaJuridica.getPessoa().getTelefoneFixo();
-				String telefoneCelular = pessoaJuridica.getPessoa().getTelefoneCelular();
-				String cnpj = pessoaJuridica.getCnpj();
 
-				if ((validarPessoaJuridica(pessoaJuridica, pessoaJuridicaService, numero, rua, cep, bairro, cidade, estado, nome, telefoneFixo,
-						telefoneCelular, cnpj, email)) && (validarEndereco(numero, rua, cep, bairro, cidade, estado))) {
+				if ((validarPessoaJuridica(pessoaJuridica, pessoaJuridicaService, numero, rua, bairro, cidade, estado, nome, email))
+						&& (validarEndereco(numero, rua, bairro, cidade, estado))) {
 					if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
 						JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
 						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
@@ -278,8 +276,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			 * @param cnpj
 			 */
 			public boolean validarPessoaJuridica(PessoaJuridica pessoaJuridica, PessoaJuridicaService pessoaJuridicaService, String numero,
-					String rua, String cep, String bairro, String cidade, String estado, String nome, String telefoneFixo, String telefoneCelular,
-					String cnpj, String email) {
+					String rua, String bairro, String cidade, String estado, String nome, String email) {
 				ValidacaoService validar = new ValidacaoService();
 				boolean valido = false;
 
@@ -310,7 +307,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			 * @param estado
 			 * @return
 			 */
-			public boolean validarEndereco(String numero, String rua, String cep, String bairro, String cidade, String estado) {
+			public boolean validarEndereco(String numero, String rua, String bairro, String cidade, String estado) {
 
 				ValidacaoService validar = new ValidacaoService();
 				boolean valido;
@@ -369,14 +366,13 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblResponsavel);
 
 		MaskFormatter mascaraCpf = null;
-		JFormattedTextField jFormattedTextCPF = new JFormattedTextField();
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e1) {
 			System.err.println("Erro na formatação: " + e1.getMessage());
 			System.exit(-1);
 		}
-		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
+		jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
 		jFormattedTextCpf.setBounds(173, 182, 118, 20);
 		contentPane.add(jFormattedTextCpf);
 
@@ -393,7 +389,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				textEmail.setText("");
 				textEstado.setText("");
 				textNumero.setText("");
-				jFormattedTextCPF.setText("");
+				jFormattedTextCpf.setText("");
 				textRua.setText("");
 				formattedTextFieldTelefoneFixo.setText("");
 				jFormattedTextTeljFormattedTextTel.setText("");
