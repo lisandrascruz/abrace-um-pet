@@ -21,17 +21,13 @@ public class AnimalDAO {
 		try {
 			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero,"
 					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento,"
-					+ "a.observacao, a.dataResgate FROM animal as a INNER JOIN raca as r ON "
-					+ "a.idRaca = r.id WHERE rga = ?";
-			statementAnimal = (PreparedStatement) connection
-					.prepareStatement(queryAnimal);
+					+ "a.observacao, a.dataResgate FROM animal as a INNER JOIN raca as r ON " + "a.idRaca = r.id WHERE rga = ?";
+			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
 			resultAnimal = statementAnimal.executeQuery();
 
-			String queryRaca = "SELECT r.id, r.nome, r.expectativaVida, r.origem, r.tamanhoMax, "
-					+ "r.tamanhoMin, r.temperamento FROM raca as r";
-			statementRaca = (PreparedStatement) connection
-					.prepareStatement(queryRaca);
+			String queryRaca = "SELECT r.id, r.nome, r.expectativaVida, r.origem, r.tamanhoMax, " + "r.tamanhoMin, r.temperamento FROM raca as r";
+			statementRaca = (PreparedStatement) connection.prepareStatement(queryRaca);
 			resultRaca = statementRaca.executeQuery();
 			Animal animal = new Animal();
 			Raca raca = new Raca();
@@ -50,16 +46,14 @@ public class AnimalDAO {
 					animal.setNome(resultAnimal.getString("nome"));
 					animal.setTipo(resultAnimal.getString("tipo"));
 					animal.setRga(resultAnimal.getString("rga"));
-					animal.setDataNascimento(resultAnimal
-							.getDate("dataNascimento"));
+					animal.setDataNascimento(resultAnimal.getDate("dataNascimento"));
 					animal.setGenero(resultAnimal.getString("genero"));
 					animal.setDeficiencia(resultAnimal.getString("deficiencia"));
 					animal.setVacinado(resultAnimal.getBoolean("vacinado"));
 					animal.setCastrado(resultAnimal.getBoolean("castrado"));
 					animal.setTamanho(resultAnimal.getDouble("tamanho"));
 					animal.setPeso(resultAnimal.getDouble("peso"));
-					animal.setTemperamento(resultAnimal
-							.getString("temperamento"));
+					animal.setTemperamento(resultAnimal.getString("temperamento"));
 					animal.setObservacao(resultAnimal.getString("observacao"));
 					animal.setDataResgate(resultAnimal.getDate("dataResgate"));
 

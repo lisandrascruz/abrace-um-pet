@@ -42,6 +42,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField			textEmail;
 	private JTextField			textMostraNomeResponsavel;
 	private JFormattedTextField jFormattedTextCpf;
+	private PessoaFisica pessoaFisica;
 
 	/**
 	 * Create the frame.
@@ -199,7 +200,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 					ValidacaoService validar = new ValidacaoService();
-					PessoaFisica pessoaFisica = new PessoaFisica();
+					pessoaFisica = new PessoaFisica();
 					PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
 					pessoaFisica = pessoaJuridicaService.consultarRepresentante(jFormattedTextCpf.getText());
 
@@ -235,7 +236,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				pessoa.setTelefoneFixo(formattedTextFieldTelefoneFixo.getText());
 				pessoa.setTelefoneCelular(jFormattedTextTeljFormattedTextTel.getText());
 				pessoa.setEndereco(endereco);
-
+				pessoaJuridica.setResponsavel(pessoaFisica);
 				pessoaJuridica.setCnpj(formattedTextFieldCnpj.getText());
 				pessoaJuridica.setPessoa(pessoa);
 
