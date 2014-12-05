@@ -1,29 +1,34 @@
 package adocao.gui;
 
-import infraestrutura.gui.ImagensGUI;
-
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-
-import java.awt.GridLayout;
-
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
-import java.awt.Font;
-import java.text.ParseException;
+import adocao.dominio.Adocao;
+import adocao.service.AdocaoService;
+import adotante.dominio.Adotante;
+import adotante.dominio.PessoaFisica;
+import animal.dominio.Animal;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.MaskFormatter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class AdocaoGUI {
+public class AdocaoGUI extends JFrame {
 
-	private JFrame frmAdoo;
-	private JTextField textField_1;
+	private JPanel contentPane;
+	private JLabel lblMostrarNome;
+	private JLabel lblMostrarAnimal;
+	private JTextField textRga;
+	private JFormattedTextField formattedTextField;
+	private Animal animal;
+	private PessoaFisica pessoaFisica;
 
 	/**
 	 * Launch the application.
@@ -32,8 +37,8 @@ public class AdocaoGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdocaoGUI window = new AdocaoGUI();
-					window.frmAdoo.setVisible(true);
+					AdocaoGUI frame = new AdocaoGUI();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,79 +47,79 @@ public class AdocaoGUI {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public AdocaoGUI() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmAdoo = new JFrame();
-		frmAdoo.setTitle("Ado\u00E7\u00E3o");
-		frmAdoo.setBounds(100, 100, 647, 455);
-		frmAdoo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAdoo.getContentPane().setLayout(null);
+		setTitle("Ado\u00E7\u00E3o");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCpf.setBounds(29, 124, 46, 14);
-		frmAdoo.getContentPane().add(lblCpf);
+		JLabel lblNewLabel = new JLabel("CPF:");
+		lblNewLabel.setBounds(10, 63, 46, 14);
+		contentPane.add(lblNewLabel);
 		
-		JLabel lblRga = new JLabel("RGA");
-		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRga.setBounds(29, 245, 46, 14);
-		frmAdoo.getContentPane().add(lblRga);
+		JLabel lblNewLabel_1 = new JLabel("RGA:");
+		lblNewLabel_1.setBounds(10, 145, 46, 14);
+		contentPane.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(76, 243, 162, 20);
-		frmAdoo.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(66, 60, 193, 20);
+		contentPane.add(formattedTextField);
 		
-		JButton btnAdotar = new JButton("Adotar");
-		btnAdotar.setBounds(179, 382, 125, 23);
-		frmAdoo.getContentPane().add(btnAdotar);
+		textRga = new JTextField();
+		textRga.setBounds(68, 142, 191, 20);
+		contentPane.add(textRga);
+		textRga.setColumns(10);
 		
 		JButton btnConsultarCpf = new JButton("Consultar");
-		btnConsultarCpf.setBounds(257, 121, 89, 23);
-		frmAdoo.getContentPane().add(btnConsultarCpf);
+		btnConsultarCpf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pessoaFisica = new PessoaFisica();
+				AdocaoService adocaoService = new AdocaoService();
+				pessoaFisica = adocaoService.consultarRepresentante(formattedTextField.getText());
+				lblMostrarNome.setText(pessoaFisica.getPessoa().getNome());
+			}
+		});
+		btnConsultarCpf.setBounds(275, 59, 89, 23);
+		contentPane.add(btnConsultarCpf);
 		
 		JButton btnConsultarRga = new JButton("Consultar");
-		btnConsultarRga.setBounds(257, 242, 89, 23);
-		frmAdoo.getContentPane().add(btnConsultarRga);
+		btnConsultarRga.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				animal = new Animal();
+				AdocaoService adocaoService = new AdocaoService();
+				animal = adocaoService.consultarAnimal(textRga.getText());
+				lblMostrarAnimal.setText(animal.getNome());
+			}
+		});
+		btnConsultarRga.setBounds(275, 141, 89, 23);
+		contentPane.add(btnConsultarRga);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(314, 382, 89, 23);
-		frmAdoo.getContentPane().add(btnCancelar);
+		JButton btnAdotar = new JButton("Adotar");
+		btnAdotar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdocaoService adocaoService = new AdocaoService();
+				Adocao adocao = new Adocao();
+				Adotante adotante = new Adotante();
+				adotante = adocaoService.consultarAdotante(pessoaFisica.getPessoa());
+				adocao.setAnimal(animal);
+				adocao.setAdotante(adotante);
+				adocaoService.adicionarAdocaoService(adocao);
+			}
+		});
+		btnAdotar.setBounds(10, 216, 89, 23);
+		contentPane.add(btnAdotar);
 		
-		JLabel lblAdooPessoa = new JLabel("Ado\u00E7\u00E3o - Pessoa Fisica");
-		lblAdooPessoa.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAdooPessoa.setBounds(83, 50, 209, 14);
-		frmAdoo.getContentPane().add(lblAdooPessoa);
+		lblMostrarNome = new JLabel("");
+		lblMostrarNome.setBounds(66, 92, 193, 14);
+		contentPane.add(lblMostrarNome);
 		
-		JButton btnLimparCampos = new JButton("Limpar Campos");
-		btnLimparCampos.setBounds(29, 382, 140, 23);
-		frmAdoo.getContentPane().add(btnLimparCampos);
-		
-		JLabel label = new JLabel("");
-		//ImagensGUI.imagemAdocaoFisico(label);
-		
-		label.setIcon(new ImageIcon("C:\\Users\\Lisandra Cruz\\Desktop\\Nova pasta\\imagens\\gatoeducado.png"));
-		label.setBounds(363, 95, 258, 321);
-		frmAdoo.getContentPane().add(label);
-		
-		MaskFormatter mascaraCpf = null;
-		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##");
-			mascaraCpf.setPlaceholderCharacter('_');
-
-		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);
-		}
-		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
-		jFormattedTextCpf.setBounds(76, 122, 171, 20);
-		frmAdoo.getContentPane().add(jFormattedTextCpf);
+		lblMostrarAnimal = new JLabel("");
+		lblMostrarAnimal.setBounds(66, 188, 193, 14);
+		contentPane.add(lblMostrarAnimal);
 	}
 }

@@ -248,8 +248,6 @@ public class PessoaFisicaDAO {
 					pessoa.setEmail(resultPessoaEndereco.getString("email"));
 					pessoa.setTelefoneCelular(resultPessoaEndereco.getString("telefoneCelular"));
 					pessoa.setTelefoneFixo(resultPessoaEndereco.getString("telefoneFixo"));
-					// pessoa.setImpedimento(resultPessoaEndereco.getBoolean("impedimento"));
-					// pessoa.setMotivoImpedimento(resultPessoaEndereco.getString("motivoImpedimento"));
 					pessoa.setEndereco(endereco);
 					if (resultPessoaFisicaPessoa.next()) {
 
