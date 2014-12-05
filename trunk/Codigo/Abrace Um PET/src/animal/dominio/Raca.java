@@ -3,6 +3,9 @@ package animal.dominio;
 public class Raca {
 	
 	private int id;
+	public void setId(int id) {
+		this.id = id;
+	}
 	private String nome;
 	private String origem;
 	private double tamanhoMax;
