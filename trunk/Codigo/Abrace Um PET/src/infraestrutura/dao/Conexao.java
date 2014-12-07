@@ -83,22 +83,22 @@ public class Conexao {
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		boolean usuario = false;
+		boolean valido=true;
 		try {
 			Conexao.abrirConceccaoMySQL();
 			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
-				usuario = true;
+				valido = false;
 			} else {
-				usuario = false;
+				valido = true;
 			}
 			Conexao.fecharConecaoMySQL();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return usuario;
+		return valido;
 	}
 	
 	

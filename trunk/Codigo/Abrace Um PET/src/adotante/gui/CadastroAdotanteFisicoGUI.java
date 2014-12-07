@@ -10,6 +10,7 @@ import java.text.ParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,12 +20,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import adotante.dao.PessoaFisicaDAO;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
+import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
-
-import javax.swing.JFormattedTextField;
+import adotante.service.PessoaService;
 
 public class CadastroAdotanteFisicoGUI extends JFrame {
 
@@ -50,8 +52,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 	 * @return
 	 */
 	public CadastroAdotanteFisicoGUI(){
-		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
-		setBounds(100, 100, 647, 455);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,21 +92,21 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCpf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblCpf.setBounds(51, 149, 46, 14);
 		contentPane.add(lblCpf);
-
-		JFormattedTextField formattedTextFieldCPF = new JFormattedTextField();
-		MaskFormatter mascaraCpf = null;
+		
+		/**
+		 * MASCARA CPF
+		 */
+		MaskFormatter mascaraCPF = null;
 		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##");
-			mascaraCpf.setPlaceholderCharacter('_');
+			mascaraCPF = new MaskFormatter("###.###.###-##");
+			mascaraCPF.setPlaceholderCharacter('_');
 
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);
 		}
-		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
-		jFormattedTextCpf.setBounds(150, 120, 100, 20);
-
-		jFormattedTextCpf.setBounds(173, 147, 171, 20);
-		contentPane.add(jFormattedTextCpf);
+		JFormattedTextField jFormattedTextCPF = new JFormattedTextField(mascaraCPF);
+		jFormattedTextCPF.setBounds(173, 147, 171, 20);
+		contentPane.add(jFormattedTextCPF);
 
 		textRua = new JTextField();
 		textRua.setBounds(167, 259, 275, 20);
@@ -156,7 +157,10 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		lblCep.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblCep.setBounds(45, 295, 46, 14);
 		contentPane.add(lblCep);
-
+		
+		/**
+		 * MASCARA CEP
+		 */
 		MaskFormatter mascaraCep = null;
 		try {
 			mascaraCep = new MaskFormatter("##.###-###");
@@ -165,32 +169,25 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);
-		jFormattedTextCep.setBounds(150, 120, 100, 20);
 		jFormattedTextCep.setBounds(167, 288, 187, 20);
 		contentPane.add(jFormattedTextCep);
 
+		
 		JLabel lblCelular = new JLabel("Celular:");
 		lblCelular.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblCelular.setBounds(364, 118, 65, 14);
 		contentPane.add(lblCelular);
 
-		MaskFormatter mascaraTel = null;
-		try {
-			mascaraTel = new MaskFormatter("(##)####-####");
-			mascaraTel.setPlaceholderCharacter('_');
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		JFormattedTextField jFormattedTextTeljFormattedTextTel = new JFormattedTextField(mascaraTel);
-		contentPane.add(jFormattedTextTeljFormattedTextTel);
-		jFormattedTextTeljFormattedTextTel.setBounds(420, 116, 151, 20);
-
+		JFormattedTextField jFormattedTextTeljFormattedTextCelular = mascaraTelefoneCelular();
+		
 		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
 		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblTelefoneFixo.setBounds(51, 118, 122, 14);
 		contentPane.add(lblTelefoneFixo);
-
+		
+		/**
+		 * MASCARA TELEFONE FIXO
+		 */
 		MaskFormatter mascaraTelFixo = null;
 		try {
 			mascaraTelFixo = new MaskFormatter("(##)####-####");
@@ -217,11 +214,12 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				PessoaFisica pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+
+				PessoaFisica pessoaFisica = new PessoaFisica();
 				Endereco endereco = new Endereco();
-				Pessoa adotante = new Pessoa();
-				
+				Pessoa pessoa = new Pessoa();
+
 				endereco.setBairro(textBairro.getText());
 				endereco.setCep(jFormattedTextCep.getText());
 				endereco.setCidade(textCidade.getText());
@@ -229,25 +227,21 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				endereco.setEstado(textEstado.getText());
 				endereco.setRua(textRua.getText());
 				endereco.setNumero(textNumero.getText());
-				
-				adotante.setNome(textNomeFisico.getText());
-				adotante.setEmail(textEmail.getText());
-				adotante.setTelefoneFixo(formattedTextFieldTelefoneFixo.getText());
-				adotante.setTelefoneCelular(jFormattedTextTeljFormattedTextTel.getText());
-				adotante.setEndereco(endereco);
 
-				
-				pessoaFisica.setCpf(formattedTextFieldCPF.getText());
+				pessoa.setNome(textNomeFisico.getText());
+				pessoa.setEmail(textEmail.getText());
+				pessoa.setTelefoneFixo(formattedTextFieldTelefoneFixo.getText());
+				pessoa.setTelefoneCelular(jFormattedTextTeljFormattedTextCelular.getText());
+				pessoa.setEndereco(endereco);
+
+				pessoaFisica.setCpf(jFormattedTextCPF.getText());
 				pessoaFisica.setRg(textRG.getText());
 				pessoaFisica.setGenero(comboGenero.getSelectedItem().toString());
+				pessoaFisica.setPessoa(pessoa);
 
-				pessoaFisica.setPessoa(adotante);
+				String nome = pessoaFisica.getPessoa().getNome();
+				String email = pessoaFisica.getPessoa().getEmail();
 
-				Pessoa pessoa = pessoaFisica.getPessoa();
-				String nome = pessoa.getNome();
-				String email = pessoa.getEmail();
-				String telefoneFixo = pessoa.getTelefoneFixo();
-				String telefoneCelular = pessoa.getTelefoneCelular();
 				String cpf = pessoaFisica.getCpf();
 				String rg = pessoaFisica.getRg();
 				String genero = pessoaFisica.getGenero();
@@ -259,10 +253,9 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
 
-				if ((validacaoDadosPF(nome, genero, telefoneFixo, telefoneCelular, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, cep,
-						bairro, cidade, estado)))) {
+				if ((validacaoDadosPF(nome, genero, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, cep, bairro, cidade, estado)))) {
 					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
-						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+						JOptionPane.showMessageDialog(null, "Pessoa Fisica cadastrada com sucesso");
 						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
 						cadastroAdotante.setVisible(true);
 						dispose();
@@ -273,6 +266,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				}
 
 			}
+
 			/**
 			 * VALIDAR DADOS DA PESSOA FISICA
 			 * 
@@ -286,16 +280,16 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @param email
 			 * @return
 			 */
-			public boolean validacaoDadosPF(String nome, String genero, String telefoneFixo, String telefoneCelular, String cpf, String rg,
-					String email) {
+			public boolean validacaoDadosPF(String nome, String genero, String cpf, String rg, String email) {
 				ValidacaoService validar = new ValidacaoService();
+				PessoaFisicaDAO pfd = new PessoaFisicaDAO();
+				PessoaService ps = new PessoaService();
 				boolean valido = false;
-
-				if (validar.validarCadastroPf(cpf)) {
-					if (validar.validarNome(nome)) {
-						if (validar.validarSexoPessoaFisica(genero)) {
-							if (validar.validarRg(rg)) {
-								if (validar.validarEmail(email)) {
+				if (pfd.consultarPessoaFisicaCPF(cpf)) {
+					if (ps.validarNome(nome)) {
+						if (validar.validarSexo(genero)) {
+							if (ps.validarRg(rg)) {
+								if (ps.validarEmail(email)) {
 									valido = true;
 								} else {
 									JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
@@ -317,21 +311,21 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Pessoa já cadastrada! Tente outro.", "ERROR", 0);
-					textNomeFisico.setText("");
-					textBairro.setText("");
-					jFormattedTextCep.setText("");
-					textCidade.setText("");
-					jFormattedTextCpf.setText("");
-					textComplemento.setText("");
-					textEmail.setText("");
-					textEstado.setText("");
-					textNumero.setText("");
-					textRua.setText("");
-					formattedTextFieldTelefoneFixo.setText("");
-					jFormattedTextTeljFormattedTextTel.setText("");
-					textRG.setText("");
-
-					textNomeFisico.requestFocus();
+					// textNomeFisico.setText("");
+					// textBairro.setText("");
+					// jFormattedTextCep.setText("");
+					// textCidade.setText("");
+					// jFormattedTextCpf.setText("");
+					// textComplemento.setText("");
+					// textEmail.setText("");
+					// textEstado.setText("");
+					// textNumero.setText("");
+					// textRua.setText("");
+					// formattedTextFieldTelefoneFixo.setText("");
+					// jFormattedTextTeljFormattedTextTel.setText("");
+					// textRG.setText("");
+					//
+					// textNomeFisico.requestFocus();
 					valido = false;
 
 				}
@@ -339,14 +333,14 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			}
 
 			public boolean validacaoDadosEndereco(String rua, String numero, String cep, String bairro, String cidade, String estado) {
-				ValidacaoService validar = new ValidacaoService();
+				EnderecoService enderecoService = new EnderecoService();
 				boolean valido;
 
-				if (validar.validarRua(rua)) {
-					if (validar.validarNumero(numero)) {
-						if (validar.validarBairro(bairro)) {
-							if (validar.validarCidade(cidade)) {
-								if (validar.validarEstado(estado)) {
+				if (enderecoService.validarRua(rua)) {
+					if (enderecoService.validarNumero(numero)) {
+						if (enderecoService.validarBairro(bairro)) {
+							if (enderecoService.validarCidade(cidade)) {
+								if (enderecoService.validarEstado(estado)) {
 									valido = true;
 								} else {
 									JOptionPane.showMessageDialog(null, "Por favor, digite um estado válido.", "ERROR", 0);
@@ -397,14 +391,14 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				textBairro.setText("");
 				jFormattedTextCep.setText("");
 				textCidade.setText("");
-				jFormattedTextCpf.setText("");
+				jFormattedTextCPF.setText("");
 				textComplemento.setText("");
 				textEmail.setText("");
 				textEstado.setText("");
 				textNumero.setText("");
 				textRua.setText("");
 				formattedTextFieldTelefoneFixo.setText("");
-				jFormattedTextTeljFormattedTextTel.setText("");
+				jFormattedTextTeljFormattedTextCelular.setText("");
 				textRG.setText("");
 
 				textNomeFisico.requestFocus();
@@ -452,5 +446,29 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		comboGenero.setModel(new DefaultComboBoxModel<String>(new String[] { " ", "M", "F" }));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
+
+	}
+
+	/**
+	 * @return
+	 */
+	public JFormattedTextField mascaraTelefoneCelular() {
+		/**
+		 * MASCARA TELEFONE CELULAR
+		 */
+		MaskFormatter mascaraCelular = null;
+		try {
+			mascaraCelular = new MaskFormatter("(##)####-####");
+			mascaraCelular.setPlaceholderCharacter('_');
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		JFormattedTextField jFormattedTextTeljFormattedTextCelular = new JFormattedTextField(mascaraCelular);
+		contentPane.add(jFormattedTextTeljFormattedTextCelular);
+		jFormattedTextTeljFormattedTextCelular.setBounds(420, 116, 151, 20);
+
+		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
+		setBounds(100, 100, 647, 455);
+		return jFormattedTextTeljFormattedTextCelular;
 	}
 }

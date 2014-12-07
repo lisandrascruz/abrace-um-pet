@@ -15,23 +15,24 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import adotante.service.PessoaService;
 import usuario.dominio.Usuario;
 import usuario.service.UsuarioService;
 
 public class CadastroUsuarioGUI extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textLogin;
-	private JPasswordField textSenha;
-	private JPasswordField textConfirmarSenha;
-	private JTextField textEmail;
-	private String confirmarSenha;
+	private static final long	serialVersionUID	= 1L;
+	private JPanel				contentPane;
+	private JTextField			textLogin;
+	private JPasswordField		textSenha;
+	private JPasswordField		textConfirmarSenha;
+	private JTextField			textEmail;
+	private String				confirmarSenha;
 
 	/**
 	 * Create the frame.
 	 */
-	public CadastroUsuarioGUI() {
+	public CadastroUsuarioGUI(){
 		setTitle("Cadastro de Usuario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
@@ -96,14 +97,14 @@ public class CadastroUsuarioGUI extends JFrame {
 				String email = usuario.getEmail();
 				String confirmacaoSenha = getConfirmarSenha();
 
-				if(validacaoDadosUsuario(validar, login, senha, email,confirmacaoSenha)){
+				if (validacaoDadosUsuario(validar, login, senha, email, confirmacaoSenha)) {
 					if (usuarioService.adicionarUsuarioService(usuario)) {
 						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
 						LoginGUI login1 = new LoginGUI();
 						login1.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null,"O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
 						textLogin.setText("");
 						textSenha.setText("");
 						textEmail.setText("");
@@ -119,52 +120,52 @@ public class CadastroUsuarioGUI extends JFrame {
 			 * @param email
 			 * @param confirmacaoSenha
 			 */
-			public boolean validacaoDadosUsuario(ValidacaoService validar, String login,
-					String senha, String email, String confirmacaoSenha) {
+			public boolean validacaoDadosUsuario(ValidacaoService validar, String login, String senha, String email, String confirmacaoSenha) {
+				UsuarioService us = new UsuarioService();
+				PessoaService ps = new PessoaService();
 				boolean valido;
-				if (validar.validarCadastro(login)) {
-					if(validar.validarLogin(login)){
-						if(validar.validarSenha(senha)){
-							if(validar.validarConfirmacaoSenha(senha, confirmacaoSenha)){
-								if(validar.validarEmail(email)){
+				if (us.validarCadastroUsuario(login)) {
+					if (us.validarLogin(login)) {
+						if (us.validarSenha(senha)) {
+							if (us.validarConfirmacaoSenha(senha, confirmacaoSenha)) {
+								if (ps.validarEmail(email)) {
 									return valido = true;
-								}
-								else{
-									JOptionPane.showMessageDialog(null, "Por favor, digite um email Iválido, usar formato - exemplo@exemplo.com","ERROR", 0);
+								} else {
+									JOptionPane.showMessageDialog(null, "Por favor, digite um email Iválido, usar formato - exemplo@exemplo.com",
+											"ERROR", 0);
 									textEmail.requestFocus();
 									return valido = false;
 								}
-							}
-							else{
-								JOptionPane.showMessageDialog(null, "Senhas não conferem", "ERROR",0);
+							} else {
+								JOptionPane.showMessageDialog(null, "Senhas não conferem", "ERROR", 0);
 								textSenha.setText("");
 								textConfirmarSenha.setText("");
 								textSenha.requestFocus();
 								return valido = false;
 							}
-						}
-						else{
-							JOptionPane.showMessageDialog(null,"A senha deve conter no minimo 6 digitos e pelo menos 1 caracter especial", "ERROR", 0);
+						} else {
+							JOptionPane.showMessageDialog(null, "A senha deve conter no minimo 6 digitos e pelo menos 1 caracter especial", "ERROR",
+									0);
 							textSenha.setText("");
 							textConfirmarSenha.setText("");
 							textSenha.requestFocus();
 							return valido = false;
 						}
-					}else{
-						JOptionPane.showMessageDialog(null,"O login deve conter pelo menos 6 caracteres", "ERROR", 0);
+					} else {
+						JOptionPane.showMessageDialog(null, "O login deve conter pelo menos 6 caracteres", "ERROR", 0);
 						textLogin.requestFocus();
 						return valido = false;
-						}
-				}else {
-					JOptionPane.showMessageDialog(null,"Login já cadastrado! Tente outro.", "ERROR", 0);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Login já cadastrado! Tente outro.", "ERROR", 0);
 					valido = false;
 					textLogin.setText("");
 					textLogin.requestFocus();
-					}
+				}
 				return valido;
 			}
-			
-			});
+
+		});
 		btnCadastrar.setBounds(197, 315, 117, 23);
 		contentPane.add(btnCadastrar);
 
@@ -215,5 +216,4 @@ public class CadastroUsuarioGUI extends JFrame {
 		this.confirmarSenha = confirmarSenha;
 	}
 
-	
 }

@@ -31,6 +31,7 @@ public class PessoaJuridicaDAO {
 			Conexao.fecharConecaoMySQL();
 			return true;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -41,7 +42,7 @@ public class PessoaJuridicaDAO {
 	 * @param cnpj
 	 * @return
 	 */
-	public boolean consultarPessoaJuridica(String cnpj) {
+	public boolean consultarPessoaJuridicaCNPJ(String cnpj) {
 		String resultSet = ("select cpf from pessoajuridica where cnpj='" + cnpj + "'");
 		return (conexao.consultar(resultSet));
 	}
@@ -88,7 +89,6 @@ public class PessoaJuridicaDAO {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			//return -1;
 		}
 		return id;
 	}
@@ -102,7 +102,7 @@ public class PessoaJuridicaDAO {
 	 * @return
 	 */
 	public int inserirPessoa(PessoaJuridica pessoaJuridica, Connection con, int idEndereco) {
-		int id;
+		int id = 0;
 		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
@@ -128,7 +128,7 @@ public class PessoaJuridicaDAO {
 			}
 			preparedStatement.close();
 		} catch (Exception ex) {
-			return -1;
+			ex.printStackTrace();
 		}
 		return id;
 
@@ -142,7 +142,7 @@ public class PessoaJuridicaDAO {
 	 * @return
 	 */
 	public int inserirAdotante(Connection con, int idPessoa) {
-		int id;
+		int id=0;
 		String query = "insert into adotante (idPessoa) values (?)";
 		try {
 
@@ -166,7 +166,7 @@ public class PessoaJuridicaDAO {
 			preparedStatement.close();
 
 		} catch (Exception ex) {
-			return -1;
+			ex.printStackTrace();
 		}
 		return id;
 	}
