@@ -52,8 +52,8 @@ public class CadastroPessoaGUI extends JFrame {
 		btnPessoaFsica.setBounds(61, 154, 279, 39);
 		btnPessoaFsica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotanteFisicoGUI af = new CadastroAdotanteFisicoGUI();
-				af.setVisible(true);
+				CadastroAdotanteFisicoGUI cadastroFisico = new CadastroAdotanteFisicoGUI();
+				cadastroFisico.setVisible(true);
 				dispose();
 			}
 		});
