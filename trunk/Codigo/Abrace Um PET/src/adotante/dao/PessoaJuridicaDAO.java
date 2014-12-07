@@ -43,7 +43,7 @@ public class PessoaJuridicaDAO {
 	 * @return
 	 */
 	public boolean consultarPessoaJuridicaCNPJ(String cnpj) {
-		String resultSet = ("select cpf from pessoajuridica where cnpj='" + cnpj + "'");
+		String resultSet = ("select cnpj from pessoajuridica where cnpj='" + cnpj + "'");
 		return (conexao.consultar(resultSet));
 	}
 
