@@ -63,13 +63,14 @@ public class PessoaFisicaDAO {
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			
-			preparedStatement.setString(1, pessoaFisica.getPessoa().getEndereco().getEstado());
-			preparedStatement.setString(2, pessoaFisica.getPessoa().getEndereco().getCidade());
-			preparedStatement.setString(3, pessoaFisica.getPessoa().getEndereco().getBairro());
-			preparedStatement.setString(4, pessoaFisica.getPessoa().getEndereco().getRua());
-			preparedStatement.setString(5, pessoaFisica.getPessoa().getEndereco().getNumero());
-			preparedStatement.setString(6, pessoaFisica.getPessoa().getEndereco().getCep());
-			preparedStatement.setString(7, pessoaFisica.getPessoa().getEndereco().getComplemento());
+			Endereco endereco = pessoaFisica.getPessoa().getEndereco();
+			preparedStatement.setString(1, endereco.getEstado());
+			preparedStatement.setString(2, endereco.getCidade());
+			preparedStatement.setString(3, endereco.getBairro());
+			preparedStatement.setString(4, endereco.getRua());
+			preparedStatement.setString(5, endereco.getNumero());
+			preparedStatement.setString(6, endereco.getCep());
+			preparedStatement.setString(7, endereco.getComplemento());
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			

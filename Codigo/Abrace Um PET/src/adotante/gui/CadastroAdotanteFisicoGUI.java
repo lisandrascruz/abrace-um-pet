@@ -248,12 +248,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 
 				String numero = endereco.getNumero();
 				String rua = endereco.getRua();
-				String cep = endereco.getCep();
 				String bairro = endereco.getBairro();
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
 
-				if ((validacaoDadosPF(nome, genero, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, cep, bairro, cidade, estado)))) {
+				if ((validacaoDadosPessoaFisica(nome, genero, cpf, rg, email) && (validacaoDadosEndereco(rua, numero, bairro, cidade, estado)))) {
 					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
 						JOptionPane.showMessageDialog(null, "Pessoa Fisica cadastrada com sucesso");
 						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
@@ -280,7 +279,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @param email
 			 * @return
 			 */
-			public boolean validacaoDadosPF(String nome, String genero, String cpf, String rg, String email) {
+			public boolean validacaoDadosPessoaFisica(String nome, String genero, String cpf, String rg, String email) {
 				ValidacaoService validar = new ValidacaoService();
 				PessoaFisicaDAO pfd = new PessoaFisicaDAO();
 				PessoaService ps = new PessoaService();
@@ -332,7 +331,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				return valido;
 			}
 
-			public boolean validacaoDadosEndereco(String rua, String numero, String cep, String bairro, String cidade, String estado) {
+			public boolean validacaoDadosEndereco(String rua, String numero, String bairro, String cidade, String estado) {
 				EnderecoService enderecoService = new EnderecoService();
 				boolean valido;
 
