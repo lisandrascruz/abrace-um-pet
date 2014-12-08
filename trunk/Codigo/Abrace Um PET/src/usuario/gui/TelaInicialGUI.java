@@ -11,7 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import adocao.gui.AdocaoGUI;
+import adocao.gui.AdocaoPessoaFisicaGUI;
+import adocao.gui.AdocaoPessoaGUI;
 import adotante.gui.PessoaGUI;
 import animal.gui.AnimalGUI;
 import animal.gui.CadastroAnimalGUI;
@@ -82,8 +83,8 @@ public class TelaInicialGUI extends JFrame {
 		button.setToolTipText("CLIQUE AQUI PARA EFETUAR UMA ADOÇÃO");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 AdocaoGUI adocao = new AdocaoGUI();
-				 adocao.setVisible(true);
+				 AdocaoPessoaGUI adocaoPessoaGUI = new AdocaoPessoaGUI();
+				 adocaoPessoaGUI.setVisible(true);
 				 dispose();
 			}
 			

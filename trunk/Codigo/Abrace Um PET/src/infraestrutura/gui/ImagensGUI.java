@@ -39,5 +39,12 @@ public class ImagensGUI {
 			e1.printStackTrace();
 		}
 	}
+	public static void imagemAdocao(JLabel label) {
+		try {
+			label.setIcon(new ImageIcon(new File("imagens/cachorroEstiloso.png").getCanonicalPath()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 
 }
