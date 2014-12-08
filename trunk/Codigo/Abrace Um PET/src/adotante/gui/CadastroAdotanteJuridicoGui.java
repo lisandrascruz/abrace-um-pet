@@ -366,6 +366,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraCpf.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
 			System.err.println("Erro na formatação: " + e1.getMessage());
 			System.exit(-1);

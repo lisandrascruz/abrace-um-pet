@@ -1,4 +1,4 @@
-package adotante.gui;
+package animal.gui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -9,19 +9,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PessoaGUI extends JFrame {
-
+public class AnimalGUI extends JFrame {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-
+	private static final long	serialVersionUID	= 1L;
+	private JPanel	contentPane;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -29,7 +30,7 @@ public class PessoaGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PessoaGUI frame = new PessoaGUI();
+					AnimalGUI frame = new AnimalGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,65 +38,67 @@ public class PessoaGUI extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public PessoaGUI() {
+	public AnimalGUI(){
+		setTitle("Animal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
+		JLabel lblAnimal = new JLabel("Animal");
+		lblAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
+		lblAnimal.setBounds(29, 57, 129, 14);
+		contentPane.add(lblAnimal);
+		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroPessoaGUI ca = new CadastroPessoaGUI();
-				ca.setVisible(true);
+				CadastroAnimalGUI cadastroAnimalGUI = new CadastroAnimalGUI();
+				cadastroAnimalGUI.setVisible(true);
 				dispose();
 			}
 		});
-		btnCadastrar.setBounds(227, 121, 167, 23);
+		btnCadastrar.setBounds(220, 123,167, 23);
 		contentPane.add(btnCadastrar);
-
+		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(227, 184, 167, 23);
+		btnEditar.setBounds(220, 259, 167, 23);
 		contentPane.add(btnEditar);
-
-		JLabel lblAdotante = new JLabel("Adotante");
-		lblAdotante.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAdotante.setBounds(51, 45, 95, 14);
-		contentPane.add(lblAdotante);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBounds(220, 325,167, 23);
+		contentPane.add(btnExcluir);
 		
 		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(227, 249, 167, 23);
+		btnConsultar.setBounds(220, 190, 167, 23);
 		contentPane.add(btnConsultar);
-
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(227, 316, 167, 23);
-		contentPane.add(btnExcluir);
-
-
+		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnSair.setBounds(341, 382, 89, 23);
-		contentPane.add(btnSair);
-
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
+				LoginGUI loginGUI = new LoginGUI();
+				loginGUI.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(168, 382, 89, 23);
+		btnSair.setBounds(327, 382, 89, 23);
+		contentPane.add(btnSair);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
+				telaInicialGUI.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(181, 382, 89, 23);
 		contentPane.add(btnVoltar);
 	}
 }

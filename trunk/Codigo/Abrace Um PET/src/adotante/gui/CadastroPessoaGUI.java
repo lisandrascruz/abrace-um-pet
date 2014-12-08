@@ -79,7 +79,7 @@ public class CadastroPessoaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(285, 382, 89, 23);
+		btnVoltar.setBounds(251, 382, 89, 23);
 		contentPane.add(btnVoltar);
 
 		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Adotante");
