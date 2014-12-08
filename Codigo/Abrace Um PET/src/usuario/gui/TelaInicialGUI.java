@@ -1,15 +1,20 @@
 package usuario.gui;
 
 import infraestrutura.gui.ImagensGUI;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import adocao.gui.AdocaoGUI;
 import adotante.gui.PessoaGUI;
+import animal.gui.AnimalGUI;
+import animal.gui.CadastroAnimalGUI;
 
 public class TelaInicialGUI extends JFrame {
 
@@ -40,6 +45,13 @@ public class TelaInicialGUI extends JFrame {
 		telaInicialGUI.add(btnLogin);
 
 		JButton btnAnimal = new JButton("Animal");
+		btnAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnimalGUI AnimalGUI = new AnimalGUI();
+				AnimalGUI.setVisible(true);
+				dispose();
+			}
+		});
 		btnAnimal.setBounds(37, 359, 89, 23);
 		telaInicialGUI.add(btnAnimal);
 
