@@ -24,7 +24,7 @@ import adotante.dominio.Adotante;
 import adotante.dominio.PessoaFisica;
 import animal.dominio.Animal;
 
-public class AdocaoGUI extends JFrame {
+public class AdocaoPessoaFisicaGUI extends JFrame {
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class AdocaoGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdocaoGUI() {
+	public AdocaoPessoaFisicaGUI() {
 		setTitle("Ado\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);

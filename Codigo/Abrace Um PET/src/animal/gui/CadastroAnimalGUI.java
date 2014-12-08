@@ -99,7 +99,8 @@ public class CadastroAnimalGUI extends JFrame {
 		textFieldRGA.setColumns(10);
 		
 		JLabel lblRaa = new JLabel("Ra\u00E7a: ");
-		lblRaa.setBounds(240, 122, 31, 14);
+		lblRaa.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblRaa.setBounds(212, 121, 46, 14);
 		contentPane.add(lblRaa);
 		
 		JComboBox comboBoxRaca = new JComboBox();
@@ -108,12 +109,12 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblNewLabel.setBounds(10, 162, 126, 14);
+		lblNewLabel.setBounds(212, 207, 126, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblGnero = new JLabel("G\u00EAnero: ");
 		lblGnero.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblGnero.setBounds(476, 121, 55, 14);
+		lblGnero.setBounds(463, 121, 55, 14);
 		contentPane.add(lblGnero);
 		
 		JComboBox comboBoxGenero = new JComboBox();
@@ -123,12 +124,12 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		JLabel lblDeficiencia = new JLabel("Deficiencia: ");
 		lblDeficiencia.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblDeficiencia.setBounds(269, 162, 69, 14);
+		lblDeficiencia.setBounds(212, 162, 69, 14);
 		contentPane.add(lblDeficiencia);
 		
 		JComboBox comboBoxDeficiencia = new JComboBox();
 		comboBoxDeficiencia.setModel(new DefaultComboBoxModel(new String[] {"", "Nenhuma", "Auditiva", "Fisica", "Mental", "Visual"}));
-		comboBoxDeficiencia.setBounds(338, 160, 115, 20);
+		comboBoxDeficiencia.setBounds(281, 160, 149, 20);
 		contentPane.add(comboBoxDeficiencia);
 		
 		JLabel lblVacinadoa = new JLabel("Vacinado(a):");
@@ -143,17 +144,17 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		JLabel lblCastrado = new JLabel("Castrado: ");
 		lblCastrado.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCastrado.setBounds(10, 203, 69, 14);
+		lblCastrado.setBounds(10, 162, 69, 14);
 		contentPane.add(lblCastrado);
 		
 		JComboBox comboBoxCastrado = new JComboBox();
 		comboBoxCastrado.setModel(new DefaultComboBoxModel(new String[] {"", "Sim", "N\u00E3o"}));
-		comboBoxCastrado.setBounds(76, 201, 110, 20);
+		comboBoxCastrado.setBounds(76, 160, 110, 20);
 		contentPane.add(comboBoxCastrado);
 		
 		JLabel lblTamanho = new JLabel("Tamanho: ");
 		lblTamanho.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblTamanho.setBounds(212, 203, 69, 14);
+		lblTamanho.setBounds(10, 207, 69, 14);
 		contentPane.add(lblTamanho);
 		
 		MaskFormatter mascaraDataNascimento = null;
@@ -165,12 +166,12 @@ public class CadastroAnimalGUI extends JFrame {
 			System.exit(-1);
 		}
 		JFormattedTextField formattedTextFieldDataNascimento = new JFormattedTextField(mascaraDataNascimento);
-		formattedTextFieldDataNascimento.setBounds(146, 160, 63, 20);
+		formattedTextFieldDataNascimento.setBounds(350, 205, 63, 20);
 		contentPane.add(formattedTextFieldDataNascimento);
 		
 		JLabel lblPeso = new JLabel("Peso: ");
 		lblPeso.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblPeso.setBounds(469, 203, 38, 14);
+		lblPeso.setBounds(469, 207, 38, 14);
 		contentPane.add(lblPeso);
 		
 		MaskFormatter mascaraPeso = null;
@@ -182,17 +183,17 @@ public class CadastroAnimalGUI extends JFrame {
 			System.exit(-1);
 		}
 		JFormattedTextField formattedTextFieldPeso = new JFormattedTextField(mascaraPeso);
-		formattedTextFieldPeso.setBounds(517, 201, 63, 20);
+		formattedTextFieldPeso.setBounds(508, 205, 63, 20);
 		contentPane.add(formattedTextFieldPeso);
 		
 		JLabel lblKg = new JLabel("Quilos");
 		lblKg.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblKg.setBounds(581, 204, 38, 14);
+		lblKg.setBounds(581, 208, 38, 14);
 		contentPane.add(lblKg);
 		
 		JLabel lblM = new JLabel("Metros");
 		lblM.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblM.setBounds(375, 204, 55, 14);
+		lblM.setBounds(147, 208, 42, 14);
 		contentPane.add(lblM);
 		
 		JLabel lblTemperamento = new JLabel("Temperamento: ");
@@ -209,7 +210,7 @@ public class CadastroAnimalGUI extends JFrame {
 			System.exit(-1);
 		}
 		JFormattedTextField formattedTextFieldTamanho = new JFormattedTextField(mascaraTamanho);
-		formattedTextFieldTamanho.setBounds(298, 201, 69, 20);
+		formattedTextFieldTamanho.setBounds(76, 205, 69, 20);
 		contentPane.add(formattedTextFieldTamanho);
 		
 		JTextPane textPaneTemperamento = new JTextPane();
@@ -230,7 +231,7 @@ public class CadastroAnimalGUI extends JFrame {
 			System.exit(-1);
 		}
 		JFormattedTextField formattedTextFieldDataResgate = new JFormattedTextField(mascaraDataResgate);
-		formattedTextFieldDataResgate.setBounds(117, 241, 72, 20);
+		formattedTextFieldDataResgate.setBounds(116, 242, 86, 20);
 		contentPane.add(formattedTextFieldDataResgate);
 		
 		JLabel lblObservaes = new JLabel("Observa\u00E7\u00F5es: ");
@@ -279,12 +280,12 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		JLabel lblMesano = new JLabel("Mes/Ano");
 		lblMesano.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblMesano.setBounds(212, 163, 46, 14);
+		lblMesano.setBounds(419, 208, 46, 14);
 		contentPane.add(lblMesano);
 		
 		JLabel lblDiamesano = new JLabel("Dia/Mes/Ano");
 		lblDiamesano.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblDiamesano.setBounds(189, 245, 69, 14);
+		lblDiamesano.setBounds(212, 245, 69, 14);
 		contentPane.add(lblDiamesano);
 	}
 }
