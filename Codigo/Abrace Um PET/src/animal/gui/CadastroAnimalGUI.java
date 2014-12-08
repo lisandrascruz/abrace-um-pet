@@ -1,34 +1,32 @@
 package animal.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
-import animal.dominio.Animal;
-import animal.dominio.Raca;
 import usuario.gui.LoginGUI;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import animal.dominio.Raca;
 
 public class CadastroAnimalGUI extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
 	private JPanel	contentPane;
 	private JTextField textFieldNome;
 	private JLabel lblTipo;
@@ -82,8 +80,8 @@ public class CadastroAnimalGUI extends JFrame {
 		lblTipo.setBounds(10, 121, 46, 14);
 		contentPane.add(lblTipo);
 		
-		JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"", "Gato", "Cachorro"}));
+		JComboBox<String> comboBoxTipo = new JComboBox<String>();
+		comboBoxTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Gato", "Cachorro"}));
 		comboBoxTipo.setToolTipText("");
 		comboBoxTipo.setBounds(76, 119, 110, 20);
 		contentPane.add(comboBoxTipo);
@@ -103,7 +101,7 @@ public class CadastroAnimalGUI extends JFrame {
 		lblRaa.setBounds(212, 121, 46, 14);
 		contentPane.add(lblRaa);
 		
-		JComboBox comboBoxRaca = new JComboBox();
+		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca> ();
 		comboBoxRaca.setBounds(281, 119, 149, 20);
 		contentPane.add(comboBoxRaca);
 		
@@ -117,8 +115,8 @@ public class CadastroAnimalGUI extends JFrame {
 		lblGnero.setBounds(463, 121, 55, 14);
 		contentPane.add(lblGnero);
 		
-		JComboBox comboBoxGenero = new JComboBox();
-		comboBoxGenero.setModel(new DefaultComboBoxModel(new String[] {"", "Macho", "F\u00EAmea"}));
+		JComboBox<String> comboBoxGenero = new JComboBox<String>();
+		comboBoxGenero.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Macho", "F\u00EAmea"}));
 		comboBoxGenero.setBounds(541, 119, 78, 20);
 		contentPane.add(comboBoxGenero);
 		
@@ -127,8 +125,8 @@ public class CadastroAnimalGUI extends JFrame {
 		lblDeficiencia.setBounds(212, 162, 69, 14);
 		contentPane.add(lblDeficiencia);
 		
-		JComboBox comboBoxDeficiencia = new JComboBox();
-		comboBoxDeficiencia.setModel(new DefaultComboBoxModel(new String[] {"", "Nenhuma", "Auditiva", "Fisica", "Mental", "Visual"}));
+		JComboBox <String>comboBoxDeficiencia = new JComboBox<String>();
+		comboBoxDeficiencia.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Nenhuma", "Auditiva", "Fisica", "Mental", "Visual"}));
 		comboBoxDeficiencia.setBounds(281, 160, 149, 20);
 		contentPane.add(comboBoxDeficiencia);
 		
@@ -137,8 +135,8 @@ public class CadastroAnimalGUI extends JFrame {
 		lblVacinadoa.setBounds(463, 162, 78, 14);
 		contentPane.add(lblVacinadoa);
 		
-		JComboBox comboBoxVacinado = new JComboBox();
-		comboBoxVacinado.setModel(new DefaultComboBoxModel(new String[] {"", "Sim", "N\u00E3o"}));
+		JComboBox <String>comboBoxVacinado = new JComboBox<String>();
+		comboBoxVacinado.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Sim", "N\u00E3o"}));
 		comboBoxVacinado.setBounds(541, 160, 78, 20);
 		contentPane.add(comboBoxVacinado);
 		
@@ -147,8 +145,8 @@ public class CadastroAnimalGUI extends JFrame {
 		lblCastrado.setBounds(10, 162, 69, 14);
 		contentPane.add(lblCastrado);
 		
-		JComboBox comboBoxCastrado = new JComboBox();
-		comboBoxCastrado.setModel(new DefaultComboBoxModel(new String[] {"", "Sim", "N\u00E3o"}));
+		JComboBox <String>comboBoxCastrado = new JComboBox<String>();
+		comboBoxCastrado.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Sim", "N\u00E3o"}));
 		comboBoxCastrado.setBounds(76, 160, 110, 20);
 		contentPane.add(comboBoxCastrado);
 		
