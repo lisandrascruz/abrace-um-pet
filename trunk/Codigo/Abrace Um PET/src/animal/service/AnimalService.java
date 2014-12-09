@@ -7,13 +7,18 @@ import animal.dominio.Animal;
 
 public class AnimalService {
 	private AnimalDAO animalDAO = new AnimalDAO();
+	private Animal animal = new Animal();
 
-	public boolean consultarAnimalService(String rga) throws SQLException {
-		if (animalDAO.consultarAnimal(rga) != null) {
-			return true;
+	public boolean validarCadastroAnimal(String rga) throws SQLException {
+		boolean valido;
+		animal.setRga(rga);
+
+		if (animalDAO.consultarAnimalRGA(rga) == false) {
+			valido = true;
 		} else {
-			return false;
+			valido = false;
 		}
+		return valido;
 	}
 
 	public boolean adicionarAnimal(Animal animal) {
