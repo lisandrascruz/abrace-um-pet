@@ -12,6 +12,39 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 public class AnimalDAO {
+	
+	Conexao conexao = new Conexao();
+	
+	public boolean consultarAnimalRGA(String rga) throws SQLException {
+		boolean valido;
+		Connection connection = (Connection) Conexao.abrirConceccaoMySQL();
+		PreparedStatement statement= null;
+		java.sql.ResultSet result = null;
+
+		try {
+			String query = "SELECT rga FROM animal where rga= ?";
+			statement = (PreparedStatement) connection.prepareStatement(query);
+			statement.setString(1, rga);
+			result = statement.executeQuery();
+			
+			if (result.next() == true){
+				valido = true;
+			}
+			else{
+				valido = false;
+			}
+		return valido;
+		} finally {
+			if (result != null) {
+			result.close();
+			}
+			if (statement != null) {
+			statement.close();
+			}
+			}
+	}
+		
+		
 
 	public Animal consultarAnimal(String rga) throws SQLException {
 		Connection connection = (Connection) Conexao.abrirConceccaoMySQL();
@@ -35,8 +68,10 @@ public class AnimalDAO {
 			statementRaca = (PreparedStatement) connection
 					.prepareStatement(queryRaca);
 			resultRaca = statementRaca.executeQuery();
+			
 			Animal animal = new Animal();
 			Raca raca = new Raca();
+			
 			if (resultRaca.next()) {
 				raca.setId(resultRaca.getInt("id"));
 				raca.setExpectativaVida(resultRaca.getInt("expectativaVida"));
@@ -53,17 +88,17 @@ public class AnimalDAO {
 					animal.setTipo(resultAnimal.getString("tipo"));
 					animal.setRga(resultAnimal.getString("rga"));
 					animal.setDataNascimento(resultAnimal
-							.getDate("dataNascimento"));
+							.getString("dataNascimento"));
 					animal.setGenero(resultAnimal.getString("genero"));
 					animal.setDeficiencia(resultAnimal.getString("deficiencia"));
-					animal.setVacinado(resultAnimal.getBoolean("vacinado"));
-					animal.setCastrado(resultAnimal.getBoolean("castrado"));
-					animal.setTamanho(resultAnimal.getDouble("tamanho"));
-					animal.setPeso(resultAnimal.getDouble("peso"));
+					animal.setVacinado(resultAnimal.getString("vacinado"));
+					animal.setCastrado(resultAnimal.getString("castrado"));
+					animal.setTamanho(resultAnimal.getString("tamanho"));
+					animal.setPeso(resultAnimal.getString("peso"));
 					animal.setTemperamento(resultAnimal
 							.getString("temperamento"));
 					animal.setObservacao(resultAnimal.getString("observacao"));
-					animal.setDataResgate(resultAnimal.getDate("dataResgate"));
+					animal.setDataResgate(resultAnimal.getString("dataResgate"));
 
 					animal.setRaca(raca);
 
@@ -84,10 +119,8 @@ public class AnimalDAO {
 	public boolean adicionarAnimal(Animal animal) {
 		try {
 			Connection con = (Connection) Conexao.abrirConceccaoMySQL();
-
-			Raca raca = null;
-			int idRaca = inserirRaca(raca, con);
-			int idAnimal = inserirAnimal(animal, con, idRaca);
+			int idRaca = 1; // mudar isso
+			//Raca raca = null;
 			inserirAnimal(animal, con, idRaca);
 
 			Conexao.fecharConecaoMySQL();
@@ -97,10 +130,11 @@ public class AnimalDAO {
 		}
 	}
 
-	private int inserirAnimal(Animal animal, Connection con, int idRaca) {
-		int id;
-		String query = "insert into animal (nome, tipo, rga, dataNascimento,"
-				+ "idRaca, genero, deficiencia, vacinado, castrado, tamanho,"
+	private Animal inserirAnimal(Animal animal, Connection con, int idRaca) throws SQLException {
+		ResultSet resultAnimal= null;
+		
+			String query = "insert into animal (nome, tipo, rga, dataNascimento,"
+				+ " idRaca, genero, deficiencia, vacinado, castrado, tamanho,"
 				+ "peso, temperamento, observacao, dataResgate) "
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
@@ -111,79 +145,67 @@ public class AnimalDAO {
 			preparedStatement.setString(1, animal.getNome());
 			preparedStatement.setString(2, animal.getTipo());
 			preparedStatement.setString(3, animal.getRga());
-			preparedStatement.setDate(4, animal.getDataNascimento());
+			preparedStatement.setString(4, animal.getDataNascimento());
 			preparedStatement.setInt(5, idRaca);
-			preparedStatement.setString(6, animal.getGenero());
-			preparedStatement.setString(7, animal.getDeficiencia());
-			preparedStatement.setBoolean(8, animal.isCastrado());
-			preparedStatement.setBoolean(9, animal.isCastrado());
-			preparedStatement.setDouble(10, animal.getTamanho());
-			preparedStatement.setDouble(11, animal.getPeso());
+			preparedStatement.setString(5, animal.getGenero());
+			preparedStatement.setString(6, animal.getDeficiencia());
+			preparedStatement.setString(7, animal.getVacinado());
+			preparedStatement.setString(8, animal.getCastrado());
+			preparedStatement.setString(9, animal.getTamanho());
+			preparedStatement.setString(10, animal.getPeso());
+			preparedStatement.setString(11, animal.getTemperamento());
 			preparedStatement.setString(12, animal.getTemperamento());
-			preparedStatement.setString(13, animal.getTemperamento());
-			preparedStatement.setDate(14, animal.getDataResgate());
-
-			int affectedRows = preparedStatement.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException(
-						"Creating user failed, no rows affected.");
+			preparedStatement.setString(13, animal.getDataResgate());
+			
+			return animal;
+		} finally {
+			if (resultAnimal != null) {
+				resultAnimal.close();
 			}
-
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
-					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException(
-							"Creating user failed, no ID obtained.");
-				}
+			if (resultAnimal != null) {
+				resultAnimal.close();
 			}
-			System.out.println("Inseriu");
-			preparedStatement.close();
-
-		} catch (Exception ex) {
-			System.out.println("Não inseriu");
-			return -1;
 		}
-		return id;
+			
+		}
 	}
 
-	private int inserirRaca(Raca raca, Connection con) {
-		int id;
-		String query = "insert into raca (nome, origem, tamanhoMax, tamanhoMin, "
-				+ "expectativaVida, temperamento) values (?, ?, ?, ?, ?, ?)";
+//	private int inserirRaca(Raca raca, Connection con) {
+//		int id;
+//		String query = "insert into raca (nome, origem, tamanhoMax, tamanhoMin, "
+//				+ "expectativaVida, temperamento) values (?, ?, ?, ?, ?, ?)";
+//
+//		try {
+//			PreparedStatement preparedStatement = (PreparedStatement) con
+//					.prepareStatement(query);
+//
+//			preparedStatement.setString(1, raca.getNome());
+//			preparedStatement.setString(2, raca.getOrigem());
+//			preparedStatement.setDouble(3, raca.getTamanhoMax());
+//			preparedStatement.setDouble(4, raca.getTamanhoMin());
+//			preparedStatement.setInt(5, raca.getExpectativaVida());
+//			preparedStatement.setString(6, raca.getTemperamento());
+//
+//			int affectedRows = preparedStatement.executeUpdate();
+//
+//			if (affectedRows == 0) {
+//				throw new SQLException(
+//						"Creating user failed, no rows affected.");
+//			}
+//
+//			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+//				if (generatedKeys.next()) {
+//					id = (int) generatedKeys.getLong(1);
+//				} else {
+//					throw new SQLException(
+//							"Creating user failed, no ID obtained.");
+//				}
+//			}
+//			preparedStatement.close();
+//		} catch (Exception ex) {
+//			return -1;
+//		}
+//		return id;
+//	}
 
-		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con
-					.prepareStatement(query);
-
-			preparedStatement.setString(1, raca.getNome());
-			preparedStatement.setString(2, raca.getOrigem());
-			preparedStatement.setDouble(3, raca.getTamanhoMax());
-			preparedStatement.setDouble(4, raca.getTamanhoMin());
-			preparedStatement.setInt(5, raca.getExpectativaVida());
-			preparedStatement.setString(6, raca.getTemperamento());
-
-			int affectedRows = preparedStatement.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException(
-						"Creating user failed, no rows affected.");
-			}
-
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
-					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException(
-							"Creating user failed, no ID obtained.");
-				}
-			}
-			preparedStatement.close();
-		} catch (Exception ex) {
-			return -1;
-		}
-		return id;
-	}
-
-}
+	

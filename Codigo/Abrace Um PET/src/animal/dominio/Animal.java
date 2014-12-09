@@ -7,17 +7,17 @@ public class Animal {
 	private String nome;
 	private String tipo;
 	private String rga;
-	private java.sql.Date dataNascimento;	
+	private String dataNascimento;	
 	private Raca raca;
 	private String genero;
 	private String deficiencia;
-	private boolean vacinado;
-	private boolean castrado;
-	private double tamanho;
-	private double peso;
+	private String vacinado;
+	private String castrado;
+	private String tamanho;
+	private String peso;
 	private String temperamento;
 	private String observacao;
-	private java.sql.Date dataResgate;
+	private String dataResgate;
 	
 	
 	public int getId() {
@@ -44,10 +44,10 @@ public class Animal {
 	public void setRga(String rga) {
 		this.rga = rga;
 	}
-	public java.sql.Date getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(java.sql.Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	public Raca getRaca() {
@@ -68,28 +68,28 @@ public class Animal {
 	public void setDeficiencia(String deficiencia) {
 		this.deficiencia = deficiencia;
 	}
-	public boolean isVacinado() {
+	public String getVacinado() {
 		return vacinado;
 	}
-	public void setVacinado(boolean vacinado) {
+	public void setVacinado(String vacinado) {
 		this.vacinado = vacinado;
 	}
-	public boolean isCastrado() {
+	public String getCastrado() {
 		return castrado;
 	}
-	public void setCastrado(boolean castrado) {
+	public void setCastrado(String castrado) {
 		this.castrado = castrado;
 	}
-	public double getTamanho() {
+	public String getTamanho() {
 		return tamanho;
 	}
-	public void setTamanho(double tamanho) {
+	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
-	public double getPeso() {
+	public String getPeso() {
 		return peso;
 	}
-	public void setPeso(double peso) {
+	public void setPeso(String peso) {
 		this.peso = peso;
 	}
 	public String getTemperamento() {
@@ -104,10 +104,10 @@ public class Animal {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public java.sql.Date getDataResgate() {
+	public String getDataResgate() {
 		return dataResgate;
 	}
-	public void setDataResgate(java.sql.Date dataResgate) {
+	public void setDataResgate(String dataResgate) {
 		this.dataResgate = dataResgate;
 	}
 	
