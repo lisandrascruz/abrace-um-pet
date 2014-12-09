@@ -10,7 +10,7 @@ public class teste {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		RacaDAO racaDAO = new RacaDAO();
-		Raca raca = new Raca();
+//		Raca raca = new Raca();
 		try {
 			Raca listarRaca = racaDAO.listarRaca();
 			System.out.println(listarRaca.getId());

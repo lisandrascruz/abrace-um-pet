@@ -71,7 +71,6 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			mascaraTel = new MaskFormatter("(##)####-####");
 			mascaraTel.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		JFormattedTextField jFormattedTextTeljFormattedTextTel = new JFormattedTextField(mascaraTel);
