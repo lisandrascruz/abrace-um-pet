@@ -1,8 +1,10 @@
 package animal.gui;
 
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -289,7 +291,7 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
 				//animal.setRaca(comboBoxRaca.getSelectedItem().toString());
 				animal.setGenero(comboBoxGenero.getSelectedItem().toString());
-				animal.setCastrado(comboBoxCastrado.getSelectedItem().toString());
+				animal.setTamanho(comboBoxCastrado.getSelectedItem().toString());
 				animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
 				animal.setVacinado(comboBoxVacinado.getSelectedItem().toString());
 				animal.setTamanho(formattedTextFieldTamanho.getSelectedText());
@@ -301,17 +303,25 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				String rga = animal.getRga();
 				
-				if (animalService.validarCadastroAnimal(rga)) {
-					//System.out.println("PASSOU VALIDAR CADASTRO ANIMAL");
-					if (animalService.adicionarAnimal(animal)) {
-						JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
-						TelaInicialGUI telaInicialGui = new TelaInicialGUI();
-						telaInicialGui.setVisible(true);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
-						
+				try {
+					if (animalService.validarCadastroAnimal(rga)) {
+						//System.out.println("PASSOU VALIDAR CADASTRO ANIMAL");
+						if (animalService.adicionarAnimal(animal)) {
+							JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
+							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
+							telaInicialGui.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+							
+						}
 					}
+				} catch (HeadlessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
