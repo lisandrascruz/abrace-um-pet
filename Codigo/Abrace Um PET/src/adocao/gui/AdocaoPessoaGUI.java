@@ -54,6 +54,13 @@ public class AdocaoPessoaGUI extends JFrame {
 		contentPane.add(btnNewButtonPessoaFisica);
 		
 		JButton btnNewButtonPessoaJuridica = new JButton("Pessoa Juridica");
+		btnNewButtonPessoaJuridica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdocaoPessoaJuridica adocaoPessoaJuridica = new AdocaoPessoaJuridica();
+				adocaoPessoaJuridica.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButtonPessoaJuridica.setBounds(57, 237, 279, 39);
 		contentPane.add(btnNewButtonPessoaJuridica);
 		

@@ -13,7 +13,7 @@ public class AnimalService {
 		boolean valido;
 		animal.setRga(rga);
 
-		if (animalDAO.consultarAnimalRGA(rga) == false) {
+		if (animalDAO.consultarAnimal(rga) == null) {
 			valido = true;
 		} else {
 			valido = false;

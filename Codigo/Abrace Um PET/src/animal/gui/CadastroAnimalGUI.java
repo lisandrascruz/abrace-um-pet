@@ -291,12 +291,12 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
 				//animal.setRaca(comboBoxRaca.getSelectedItem().toString());
 				animal.setGenero(comboBoxGenero.getSelectedItem().toString());
-				animal.setTamanho(comboBoxCastrado.getSelectedItem().toString());
+				animal.setTamanho(Double.parseDouble(comboBoxCastrado.getSelectedItem().toString()));
 				animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
-				animal.setVacinado(comboBoxVacinado.getSelectedItem().toString());
-				animal.setTamanho(formattedTextFieldTamanho.getSelectedText());
-				animal.setDataNascimento(formattedTextFieldDataNascimento.getSelectedText());
-				animal.setPeso(formattedTextFieldPeso.getSelectedText());
+				//animal.setVacinado(comboBoxVacinado.getSelectedItem().toString());
+				//animal.setTamanho(formattedTextFieldTamanho.getSelectedText());
+				//animal.setDataNascimento(formattedTextFieldDataNascimento.getSelectedText());
+				//animal.setPeso(formattedTextFieldPeso.getSelectedText());
 				animal.setDataResgate(formattedTextFieldDataResgate.getSelectedText());
 				animal.setTemperamento(formattedTextFieldTamanho.getSelectedText());
 				animal.setObservacao(textPane.getText());
