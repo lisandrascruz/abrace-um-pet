@@ -128,7 +128,7 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 		
 		lblMostrarAnimal = new JLabel("");
 		lblMostrarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblMostrarAnimal.setBounds(84, 293, 193, 36);
+		lblMostrarAnimal.setBounds(84, 293, 193, 29);
 		contentPane.add(lblMostrarAnimal);
 		
 		JLabel lblAdooDePessoa = new JLabel("Ado\u00E7\u00E3o de Pessoa Fisica");

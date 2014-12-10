@@ -14,10 +14,6 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.gui.TelaInicialGUI;
 
-import javax.swing.ImageIcon;
-
-import adotante.dao.PessoaFisicaDAO;
-
 public class AdocaoPessoaGUI extends JFrame {
 	
 	/**
@@ -56,7 +52,7 @@ public class AdocaoPessoaGUI extends JFrame {
 		JButton btnNewButtonPessoaJuridica = new JButton("Pessoa Juridica");
 		btnNewButtonPessoaJuridica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdocaoPessoaJuridica adocaoPessoaJuridica = new AdocaoPessoaJuridica();
+				AdocaoPessoaJuridicaGUI adocaoPessoaJuridica = new AdocaoPessoaJuridicaGUI();
 				adocaoPessoaJuridica.setVisible(true);
 				dispose();
 			}
