@@ -289,23 +289,22 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setNome(textFieldNome.getText());
 				animal.setRga(textFieldRGA.getText());
 				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
-				//animal.setRaca(comboBoxRaca.getSelectedItem().toString());
+				//animal.setRaca(comboBoxRaca.getSelectedItem());
 				animal.setGenero(comboBoxGenero.getSelectedItem().toString());
 				animal.setTamanho(Double.parseDouble(comboBoxCastrado.getSelectedItem().toString()));
 				animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
-				//animal.setVacinado(comboBoxVacinado.getSelectedItem().toString());
-				//animal.setTamanho(formattedTextFieldTamanho.getSelectedText());
-				//animal.setDataNascimento(formattedTextFieldDataNascimento.getSelectedText());
-				//animal.setPeso(formattedTextFieldPeso.getSelectedText());
-				animal.setDataResgate(formattedTextFieldDataResgate.getSelectedText());
-				animal.setTemperamento(formattedTextFieldTamanho.getSelectedText());
+				//animal.setVacinado(comboBoxVacinado.getSelectedItem());
+				animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getSelectedText()));
+				animal.setDataNascimento(formattedTextFieldDataNascimento.getSelectedText());
+				animal.setPeso(Double.parseDouble(formattedTextFieldPeso.getText()));
+				animal.setDataResgate(formattedTextFieldDataResgate.getText());
+				animal.setTemperamento(formattedTextFieldTamanho.getText());
 				animal.setObservacao(textPane.getText());
 				
 				String rga = animal.getRga();
 				
 				try {
 					if (animalService.validarCadastroAnimal(rga)) {
-						//System.out.println("PASSOU VALIDAR CADASTRO ANIMAL");
 						if (animalService.adicionarAnimal(animal)) {
 							JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
 							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
