@@ -11,15 +11,15 @@ public class TesteAnimal {
 		Animal animal = new Animal();
 		Raca raca = new Raca();
 
-		raca.setNome("Siames Branco");
-		System.out.println(raca.getId());
+		raca.setNome("tem nao Branco");
+		//System.out.println(raca.getId());
 		raca.setOrigem("Coreano");
 		raca.setTamanhoMax(2.0);
 		raca.setTamanhoMin(1.5);
 		raca.setTemperamento("Variante");
 		raca.setExpectativaVida(15);
 		
-		animal.setNome("JULIANA");
+		animal.setNome("JANAINA");
 		animal.setTipo("DOG");
 		animal.setRga("12345");
 		animal.setDataNascimento("20/11/2222");
