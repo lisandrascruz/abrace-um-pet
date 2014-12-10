@@ -5,9 +5,11 @@ import adocao.dominio.Adocao;
 import adotante.dao.AdotanteDAO;
 //import adotante.dao.AdotanteDAO;
 import adotante.dao.PessoaFisicaDAO;
+import adotante.dao.PessoaJuridicaDAO;
 import adotante.dominio.Adotante;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
+import adotante.dominio.PessoaJuridica;
 import animal.dao.AnimalDAO;
 import animal.dominio.Animal;
 
@@ -27,6 +29,17 @@ public class AdocaoService {
 			
 		}
 		return pessoaFisica;
+	}
+	
+	public PessoaJuridica consultarPessoaJuridica(String cnpj){
+		PessoaJuridica pessoaJuridica = new PessoaJuridica();
+		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
+		try{
+			pessoaJuridica = pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
+			} catch (Exception ex) {
+				
+			}
+		return pessoaJuridica;
 	}
 	
 	public Animal consultarAnimal(String rga){
