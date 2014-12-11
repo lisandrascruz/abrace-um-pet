@@ -251,9 +251,9 @@ public class CadastroAnimalGUI extends JFrame {
 		lblObservaes.setBounds(10, 292, 102, 14);
 		contentPane.add(lblObservaes);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(106, 292, 513, 84);
-		contentPane.add(textPane);
+		JTextPane textPaneObservacoes = new JTextPane();
+		textPaneObservacoes.setBounds(106, 292, 513, 84);
+		contentPane.add(textPaneObservacoes);
 		
 		
 		JButton btnSair = new JButton("Sair");
@@ -284,22 +284,29 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
+				Raca raca = new Raca();
+				raca.setNome("ujhbKJ");
+				raca.setExpectativaVida(23);
+				raca.setOrigem("B");
+				raca.setTamanhoMin(1.1);
+				raca.setTamanhoMax(2);
+				raca.setTemperamento("zem");
 				
-				animal.setNome(textFieldNome.getText());
-				animal.setRga(textFieldRGA.getText());
-				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
-				animal.setGenero(comboBoxGenero.getSelectedItem().toString());
-				//animal.setTamanho(Double.parseDouble(comboBoxCastrado.getSelectedItem().toString()));
-				animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
-				//animal.setVacinado(comboBoxVacinado);
-				//animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getSelectedText()));
-				animal.setDataNascimento(formattedTextFieldDataNascimento.getSelectedText());
-				animal.setPeso(Double.parseDouble(formattedTextFieldPeso.getText()));
-				animal.setDataResgate(formattedTextFieldDataResgate.getText());
-				animal.setTemperamento(formattedTextFieldTamanho.getText());
-				animal.setObservacao(textPane.getText());
-				
-				String rga = animal.getRga();
+				animal.setNome(textFieldNome.toString());
+				animal.setTipo(comboBoxTipo.toString());
+				animal.setRga(textFieldRGA.toString());
+				animal.setDataNascimento(formattedTextFieldDataNascimento.toString());
+				animal.setRaca(raca);
+				animal.setGenero(comboBoxGenero.toString());
+				animal.setDeficiencia(comboBoxDeficiencia.toString());
+				//animal.setVacinado(true);
+				//animal.setCastrado(true);
+				//animal.setTamanho(formattedTextFieldTamanho);
+				//animal.setPeso(formattedTextFieldPeso);
+				animal.setTemperamento(textPaneTemperamento.toString());
+				animal.setObservacao(textPaneObservacoes.toString());
+				animal.setDataResgate(formattedTextFieldDataResgate.toString());
+					
 				animalService.adicionarAnimal(animal);
 //				try {
 //					if (animalService.validarCadastroAnimal(rga)) {
@@ -345,16 +352,6 @@ public class CadastroAnimalGUI extends JFrame {
 		lblDiamesano.setBounds(212, 245, 69, 14);
 		contentPane.add(lblDiamesano);
 		
-		JButton btnTeste = new JButton("TESTE");
-		btnTeste.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
-		btnTeste.setBounds(172, 150, 89, 23);
-		contentPane.add(btnTeste);
-		
 		
 	}
 
@@ -365,7 +362,7 @@ public class CadastroAnimalGUI extends JFrame {
 		RacaDAO racaDAO = new RacaDAO();
 		DefaultComboBoxModel<Raca> modelRacas = null;
 		try {
-			modelRacas = new DefaultComboBoxModel(racaDAO.getRaca().toArray());
+			modelRacas = new DefaultComboBoxModel(racaDAO.getRacaCachorro().toArray());
 			
 		} catch (SQLException e2) {
 			e2.printStackTrace();

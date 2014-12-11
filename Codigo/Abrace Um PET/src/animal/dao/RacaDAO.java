@@ -19,10 +19,10 @@ public class RacaDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<String> getRaca() throws SQLException {
+	public List<String> getRacaCachorro() throws SQLException {
 		
 		Connection conn = (Connection) Conexao.abrirConceccaoMySQL();
-		String query = "select * from raca";
+		String query = "select * from racacachorro";
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		statement = conn.prepareStatement(query);
