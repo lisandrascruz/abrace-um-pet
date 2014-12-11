@@ -3,6 +3,8 @@ package animal.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import animal.dominio.Animal;
 import animal.dominio.Raca;
@@ -12,16 +14,24 @@ import com.mysql.jdbc.Connection;
 import infraestrutura.dao.Conexao;
 
 public class RacaDAO {
-	public Raca listarRaca() throws SQLException {
-		Raca raca = new Raca();
+	/**
+	 * LISTA TODOS OS NOMES DAS RAÇAS DE CACHORRO EXISTENTES NO BANCO DE DADOS
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<String> getRaca() throws SQLException {
+		
 		Connection conn = (Connection) Conexao.abrirConceccaoMySQL();
 		String query = "select * from raca";
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-
 		statement = conn.prepareStatement(query);
 		resultSet = statement.executeQuery();
-		while(resultSet.next()){
+		
+		List<String> racas = new ArrayList<String>();
+		while (resultSet.next()) {
+			
+			Raca raca = new Raca();
 			raca.setId(resultSet.getInt("id"));
 			raca.setNome(resultSet.getString("nome"));
 			raca.setOrigem(resultSet.getString("origem"));
@@ -29,12 +39,18 @@ public class RacaDAO {
 			raca.setTamanhoMin(resultSet.getInt("tamanhoMin"));
 			raca.setExpectativaVida(resultSet.getInt("expectativaVida"));
 			raca.setTemperamento(resultSet.getString("temperamento"));
-		
-			
+			String nome = raca.getNome();
+			racas.add(nome);
 		}
-		return raca;
+		return racas;
 	}
 	
+	/**
+	 * INSERE RAÇA NO BANCO DE DADOS
+	 * @param animal
+	 * @param con
+	 * @return
+	 */
 	
 	public int inserirRaca(Animal animal, Connection con) {
 		int id = 0;
