@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
 
@@ -59,7 +61,7 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 	public AdocaoPessoaJuridicaGUI(){
 		setTitle("Ado\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 645,455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,19 +69,21 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 		
 		JLabel lblAdooPessoa = new JLabel("Ado\u00E7\u00E3o de Pessoa Juridica");
 		lblAdooPessoa.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAdooPessoa.setBounds(10, 36, 190, 27);
+		lblAdooPessoa.setBounds(10, 52, 190, 27);
 		contentPane.add(lblAdooPessoa);
 		
 		JLabel lblCpf = new JLabel("CNPJ:");
-		lblCpf.setBounds(10, 89, 46, 14);
+		lblCpf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblCpf.setBounds(39, 131, 46, 14);
 		contentPane.add(lblCpf);
 		
 		JLabel lblRga = new JLabel("RGA:");
-		lblRga.setBounds(10, 169, 46, 14);
+		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblRga.setBounds(39, 244, 46, 14);
 		contentPane.add(lblRga);
 		
 		textRGA = new JTextField();
-		textRGA.setBounds(57, 166, 152, 20);
+		textRGA.setBounds(117, 242, 152, 20);
 		contentPane.add(textRGA);
 		textRGA.setColumns(10);
 		
@@ -92,7 +96,7 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 				lblMostrarNome.setText(pessoaJuridica.getPessoa().getNome());
 			}
 		});
-		btnConsultarCnpj.setBounds(219, 85, 89, 23);
+		btnConsultarCnpj.setBounds(297, 128, 89, 23);
 		contentPane.add(btnConsultarCnpj);
 		
 		JButton btnConsultarRga = new JButton("Consultar");
@@ -104,7 +108,7 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 				lblMostrarAnimal.setText(animal.getNome());
 			}
 		});
-		btnConsultarRga.setBounds(219, 165, 89, 23);
+		btnConsultarRga.setBounds(297, 241, 89, 23);
 		contentPane.add(btnConsultarRga);
 		
 		JButton btnAdotar = new JButton("Adotar");
@@ -125,32 +129,40 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnAdotar.setBounds(184, 227, 89, 23);
+		btnAdotar.setBounds(162, 382, 89, 23);
 		contentPane.add(btnAdotar);
 		
 		JButton btnVotar = new JButton("Votar");
 		btnVotar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicialGUI tig = new TelaInicialGUI();
-				tig.setVisible(true);
+				TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
+				telaInicialGUI.setVisible(true);
 				dispose();
 			}
 		});
-		btnVotar.setBounds(291, 227, 89, 23);
+		btnVotar.setBounds(297, 382, 89, 23);
 		contentPane.add(btnVotar);
 		
-		jFormattedTextCnpj = new JFormattedTextField();
-		jFormattedTextCnpj.setBounds(57, 89, 152, 20);
+		MaskFormatter mascaraCnpj = null;
+		try {
+			mascaraCnpj = new MaskFormatter("##.###.###/####-##");
+			mascaraCnpj.setPlaceholderCharacter('_');
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		jFormattedTextCnpj = new JFormattedTextField(mascaraCnpj);
+		jFormattedTextCnpj.setBounds(117, 129, 152, 20);
 		contentPane.add(jFormattedTextCnpj);
 		
 		lblMostrarNome = new JLabel("");
-		lblMostrarNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblMostrarNome.setBounds(57, 123, 152, 14);
+		lblMostrarNome.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
+		lblMostrarNome.setBounds(117, 162, 152, 27);
 		contentPane.add(lblMostrarNome);
 		
 		lblMostrarAnimal = new JLabel("");
-		lblMostrarAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblMostrarAnimal.setBounds(57, 205, 152, 14);
+		lblMostrarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
+		lblMostrarAnimal.setBounds(117, 281, 152, 27);
 		contentPane.add(lblMostrarAnimal);
 	}
 }
