@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import raca.gui.RacaGUI;
 import adocao.gui.AdocaoPessoaFisicaGUI;
 import adocao.gui.AdocaoPessoaGUI;
 import adotante.gui.PessoaGUI;
@@ -67,17 +68,6 @@ public class TelaInicialGUI extends JFrame {
 		btnSair.setBounds(503, 359, 89, 23);
 		telaInicialGUI.add(btnSair);
 
-		JButton btnSobre = new JButton("Sobre");
-		btnSobre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SobreGUI sobre = new SobreGUI();
-				sobre.setVisible(true);
-				dispose();
-			}
-		});
-		btnSobre.setBounds(345, 359, 89, 23);
-		telaInicialGUI.add(btnSobre);
-
 		JButton button = new JButton("");
 		button.setVerticalAlignment(SwingConstants.BOTTOM);
 		button.setToolTipText("CLIQUE AQUI PARA EFETUAR UMA ADOÇÃO");
@@ -93,5 +83,16 @@ public class TelaInicialGUI extends JFrame {
 		ImagensGUI.imagemCadastroUsuario(button);
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
+		
+		JButton btnRaas = new JButton("Ra\u00E7as");
+		btnRaas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RacaGUI racaGUI = new RacaGUI();
+				racaGUI.setVisible(true);
+				dispose();
+			}
+		});
+		btnRaas.setBounds(353, 359, 89, 23);
+		telaInicialGUI.add(btnRaas);
 	}
 }
