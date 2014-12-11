@@ -1,4 +1,4 @@
-package animal.dao;
+package raca.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import raca.dominio.Raca;
 import animal.dominio.Animal;
-import animal.dominio.Raca;
 
 import com.mysql.jdbc.Connection;
 

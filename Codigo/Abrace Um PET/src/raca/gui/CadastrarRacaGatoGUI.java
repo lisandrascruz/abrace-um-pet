@@ -16,12 +16,16 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import raca.dominio.Raca;
 import raca.service.RacaService;
 import usuario.gui.TelaInicialGUI;
-import animal.dominio.Raca;
 
 public class CadastrarRacaGatoGUI extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
 	private JPanel	contentPane;
 	private JTextField textFieldNome;
 	private JTextField textFieldOrigem;
