@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import usuario.dominio.Usuario;
 import usuario.service.CriptografiaService;
 import usuario.service.UsuarioService;
+import javax.swing.ImageIcon;
 
 public class LoginGUI extends JFrame {
 
@@ -56,12 +57,6 @@ public class LoginGUI extends JFrame {
 		lblSenha.setBounds(279, 165, 63, 17);
 		contentPane.add(lblSenha);
 
-		JLabel label = new JLabel("");
-		ImagensGUI.imagemLogin(label);
-
-		label.setBounds(10, 116, 332, 265);
-		contentPane.add(label);
-
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
 
@@ -95,6 +90,22 @@ public class LoginGUI extends JFrame {
 		textSenha = new JPasswordField();
 		textSenha.setBounds(379, 165, 199, 20);
 		contentPane.add(textSenha);
+		
+		JButton button = new JButton("Sobre");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SobreGUI sobre = new SobreGUI();
+				sobre.setVisible(true);
+				dispose();
+			}
+		});
+		button.setBounds(10, 382, 89, 23);
+		contentPane.add(button);
+		
+		JLabel lblNewLabel = new JLabel("");
+		ImagensGUI.imagemLogin(lblNewLabel);
+		lblNewLabel.setBounds(10, 88, 359, 272);
+		contentPane.add(lblNewLabel);
 	}
 
 	public void login() {

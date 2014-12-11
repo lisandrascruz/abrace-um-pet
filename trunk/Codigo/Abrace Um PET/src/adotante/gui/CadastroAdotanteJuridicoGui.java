@@ -137,7 +137,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblCpf);
 		
 		textRua = new JTextField();
-		textRua.setBounds(175, 249, 275, 20);
+		textRua.setBounds(173, 249, 277, 20);
 		contentPane.add(textRua);
 		textRua.setColumns(10);
 		
@@ -167,7 +167,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblCidade);
 		
 		textCidade = new JTextField();
-		textCidade.setBounds(175, 310, 187, 20);
+		textCidade.setBounds(173, 310, 189, 20);
 		contentPane.add(textCidade);
 		textCidade.setColumns(10);
 		
@@ -349,7 +349,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblComplemento);
 		
 		textComplemento = new JTextField();
-		textComplemento.setBounds(175, 341, 407, 20);
+		textComplemento.setBounds(173, 341, 409, 20);
 		contentPane.add(textComplemento);
 		textComplemento.setColumns(10);
 		

@@ -165,8 +165,9 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 		try {
 			mascaraCep = new MaskFormatter("##.###-###");
 			mascaraCep.setPlaceholderCharacter('_');
-		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR", 0);
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "Digite um cpf válido!", "ERROR", 0);
+			e1.printStackTrace();
 		}
 		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);
 		jFormattedTextCep.setBounds(167, 288, 187, 20);

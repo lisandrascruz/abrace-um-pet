@@ -36,12 +36,12 @@ public class SobreGUI extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicialGUI tl = new TelaInicialGUI();
-				tl.setVisible(true);
+				LoginGUI loginGUI = new LoginGUI();
+				loginGUI.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(391, 360, 89, 23);
+		btnVoltar.setBounds(489, 360, 89, 23);
 		contentPane.add(btnVoltar);
 
 		JTextPane txtpnEsseSoftware = new JTextPane();
@@ -58,14 +58,5 @@ public class SobreGUI extends JFrame {
 		lblSobre.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblSobre.setBounds(70, 42, 70, 14);
 		contentPane.add(lblSobre);
-
-		JButton btnSair = new JButton("Sair");
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnSair.setBounds(489, 360, 89, 23);
-		contentPane.add(btnSair);
 	}
 }
