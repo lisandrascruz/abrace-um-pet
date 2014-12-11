@@ -1,7 +1,7 @@
 package launcher;
 
+import raca.dominio.Raca;
 import animal.dominio.Animal;
-import animal.dominio.Raca;
 import animal.service.AnimalService;
 
 public class TesteAnimal {

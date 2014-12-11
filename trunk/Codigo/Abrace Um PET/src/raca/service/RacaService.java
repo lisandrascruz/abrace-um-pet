@@ -1,7 +1,7 @@
 package raca.service;
 
-import animal.dao.RacaDAO;
-import animal.dominio.Raca;
+import raca.dao.RacaDAO;
+import raca.dominio.Raca;
 
 
 public class RacaService {

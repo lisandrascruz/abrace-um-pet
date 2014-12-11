@@ -5,8 +5,9 @@ import infraestrutura.dao.Conexao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import raca.dao.RacaDAO;
+import raca.dominio.Raca;
 import animal.dominio.Animal;
-import animal.dominio.Raca;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;

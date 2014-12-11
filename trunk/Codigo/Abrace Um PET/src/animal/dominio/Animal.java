@@ -1,5 +1,7 @@
 package animal.dominio;
 
+import raca.dominio.Raca;
+
 
 public class Animal {
 	

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,11 +22,14 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import com.mysql.jdbc.EscapeTokenizer;
+
+import raca.dao.RacaDAO;
+import raca.dominio.Raca;
+import raca.service.RacaService;
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
-import animal.dao.RacaDAO;
 import animal.dominio.Animal;
-import animal.dominio.Raca;
 import animal.service.AnimalService;
 
 public class CadastroAnimalGUI extends JFrame {
@@ -86,6 +90,11 @@ public class CadastroAnimalGUI extends JFrame {
 		lblTipo.setBounds(10, 121, 46, 14);
 		contentPane.add(lblTipo);
 		
+		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
+		comboBoxRaca.setBounds(281, 119, 149, 20);
+		contentPane.add(comboBoxRaca);
+		listaRacasGato(comboBoxRaca);
+		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblRga.setBounds(375, 79, 38, 14);
@@ -100,17 +109,15 @@ public class CadastroAnimalGUI extends JFrame {
 		lblRaa.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblRaa.setBounds(212, 121, 46, 14);
 		contentPane.add(lblRaa);
-		
-		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
-		comboBoxRaca.setBounds(281, 119, 149, 20);
-		contentPane.add(comboBoxRaca);
-		listaRacas(comboBoxRaca);
+
 		
 		JComboBox<String> comboBoxTipo = new JComboBox<String>();
 		comboBoxTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Gato", "Cachorro" }));
 		comboBoxTipo.setToolTipText("");
 		comboBoxTipo.setBounds(76, 119, 110, 20);
 		contentPane.add(comboBoxTipo);
+
+			
 		
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
@@ -284,19 +291,14 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
-				Raca raca = new Raca();
-				raca.setNome("ujhbKJ");
-				raca.setExpectativaVida(23);
-				raca.setOrigem("B");
-				raca.setTamanhoMin(1.1);
-				raca.setTamanhoMax(2);
-				raca.setTemperamento("zem");
+				
 				
 				animal.setNome(textFieldNome.toString());
 				animal.setTipo(comboBoxTipo.toString());
+
 				animal.setRga(textFieldRGA.toString());
 				animal.setDataNascimento(formattedTextFieldDataNascimento.toString());
-				animal.setRaca(raca);
+				//animal.setRaca(raca);
 				animal.setGenero(comboBoxGenero.toString());
 				animal.setDeficiencia(comboBoxDeficiencia.toString());
 				//animal.setVacinado(true);
@@ -351,18 +353,51 @@ public class CadastroAnimalGUI extends JFrame {
 		lblDiamesano.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblDiamesano.setBounds(212, 245, 69, 14);
 		contentPane.add(lblDiamesano);
-		
-		
+	}
+
+	/**
+	 * 
+	 */
+	public void setRacaCachorro() {
+		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
+		comboBoxRaca.setBounds(281, 119, 149, 20);
+		contentPane.add(comboBoxRaca);
+		listaRacasCachorro(comboBoxRaca);
+	}
+	
+	/**
+	 * 
+	 */
+	public void setRacaGato() {
+		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
+		comboBoxRaca.setBounds(281, 119, 149, 20);
+		contentPane.add(comboBoxRaca);
+		listaRacasGato(comboBoxRaca);
 	}
 
 	/**
 	 * @param comboBoxRaca
 	 */
-	public void listaRacas(JComboBox<Raca> comboBoxRaca) {
+	public void listaRacasCachorro(JComboBox<Raca> comboBoxRaca) {
 		RacaDAO racaDAO = new RacaDAO();
 		DefaultComboBoxModel<Raca> modelRacas = null;
 		try {
 			modelRacas = new DefaultComboBoxModel(racaDAO.getRacaCachorro().toArray());
+			
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		comboBoxRaca.setModel(modelRacas);
+	}
+
+	/**
+	 * @param comboBoxRaca
+	 */
+	public void listaRacasGato(JComboBox<Raca> comboBoxRaca) {
+		RacaDAO racaDAO = new RacaDAO();
+		DefaultComboBoxModel<Raca> modelRacas = null;
+		try {
+			modelRacas = new DefaultComboBoxModel(racaDAO.getRacaGato().toArray());
 			
 		} catch (SQLException e2) {
 			e2.printStackTrace();

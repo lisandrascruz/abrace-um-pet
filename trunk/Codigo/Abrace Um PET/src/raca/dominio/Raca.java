@@ -1,4 +1,4 @@
-package animal.dominio;
+package raca.dominio;
 
 public class Raca {
 	
