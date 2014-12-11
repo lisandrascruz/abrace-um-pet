@@ -1,26 +1,41 @@
 package adocao.gui;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+
+import java.awt.Font;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFormattedTextField;
+
+import usuario.gui.TelaInicialGUI;
+import adocao.dominio.Adocao;
+import adocao.service.AdocaoService;
+import adotante.dominio.Adotante;
+import adotante.dominio.PessoaFisica;
+import adotante.dominio.PessoaJuridica;
+import animal.dominio.Animal;
 
 public class AdocaoPessoaJuridicaGUI extends JFrame {
 	
-	/**
-	 * 
-	 */
-	private static final long	serialVersionUID	= 1L;
 	private JPanel	contentPane;
-	private JTextField textRga;
+	private JTextField textRGA;
+	private JFormattedTextField jFormattedTextCnpj;
+	private JLabel lblMostrarNome;
+	private JLabel lblMostrarAnimal;
+	private Animal animal;
+	private PessoaJuridica pessoaJuridica;
 	
 	/**
 	 * Launch the application.
@@ -42,66 +57,100 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AdocaoPessoaJuridicaGUI(){
+		setTitle("Ado\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 645, 455);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblAdooDePessoa = new JLabel("Ado\u00E7\u00E3o de Pessoa Juridica");
-		lblAdooDePessoa.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAdooDePessoa.setBounds(27, 50, 193, 14);
-		contentPane.add(lblAdooDePessoa);
+		JLabel lblAdooPessoa = new JLabel("Ado\u00E7\u00E3o de Pessoa Juridica");
+		lblAdooPessoa.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
+		lblAdooPessoa.setBounds(10, 36, 190, 27);
+		contentPane.add(lblAdooPessoa);
 		
-		JLabel lblCnpj = new JLabel("CNPJ:");
-		lblCnpj.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCnpj.setBounds(27, 133, 46, 14);
-		contentPane.add(lblCnpj);
+		JLabel lblCpf = new JLabel("CNPJ:");
+		lblCpf.setBounds(10, 89, 46, 14);
+		contentPane.add(lblCpf);
 		
-		JFormattedTextField formattedTextFieldCNPJ = new JFormattedTextField();
-		formattedTextFieldCNPJ.setBounds(83, 131, 188, 20);
-		contentPane.add(formattedTextFieldCNPJ);
+		JLabel lblRga = new JLabel("RGA:");
+		lblRga.setBounds(10, 169, 46, 14);
+		contentPane.add(lblRga);
 		
-		JButton buttonConsultarCNPJ = new JButton("Consultar");
-		buttonConsultarCNPJ.setBounds(281, 130, 89, 23);
-		contentPane.add(buttonConsultarCNPJ);
+		textRGA = new JTextField();
+		textRGA.setBounds(57, 166, 152, 20);
+		contentPane.add(textRGA);
+		textRGA.setColumns(10);
 		
-		JLabel label = new JLabel("RGA:");
-		label.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		label.setBounds(27, 255, 46, 14);
-		contentPane.add(label);
-		
-		textRga = new JTextField();
-		textRga.setColumns(10);
-		textRga.setBounds(83, 253, 191, 20);
-		contentPane.add(textRga);
-		
-		JButton buttonConsultarRGA = new JButton("Consultar");
-		buttonConsultarRGA.addActionListener(new ActionListener() {
+		JButton btnConsultarCnpj = new JButton("Consultar");
+		btnConsultarCnpj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				pessoaJuridica = new PessoaJuridica();
+				AdocaoService adocaoService = new AdocaoService();
+				pessoaJuridica = adocaoService.consultarPessoaJuridica(jFormattedTextCnpj.getText());
+				lblMostrarNome.setText(pessoaJuridica.getPessoa().getNome());
 			}
 		});
-		buttonConsultarRGA.setBounds(281, 252, 89, 23);
-		contentPane.add(buttonConsultarRGA);
+		btnConsultarCnpj.setBounds(219, 85, 89, 23);
+		contentPane.add(btnConsultarCnpj);
 		
-		JLabel lblMostrarAnimal = new JLabel("");
-		lblMostrarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblMostrarAnimal.setBounds(83, 284, 193, 36);
-		contentPane.add(lblMostrarAnimal);
+		JButton btnConsultarRga = new JButton("Consultar");
+		btnConsultarRga.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				animal = new Animal();
+				AdocaoService adocaoService = new AdocaoService();
+				animal = adocaoService.consultarAnimal(textRGA.getText());
+				lblMostrarAnimal.setText(animal.getNome());
+			}
+		});
+		btnConsultarRga.setBounds(219, 165, 89, 23);
+		contentPane.add(btnConsultarRga);
 		
-		JButton button_1 = new JButton("Adotar");
-		button_1.setBounds(182, 382, 89, 23);
-		contentPane.add(button_1);
+		JButton btnAdotar = new JButton("Adotar");
+		btnAdotar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdocaoService adocaoService = new AdocaoService();
+				Adocao adocao = new Adocao();
+				Adotante adotante = new Adotante();
+				adotante = adocaoService.consultarAdotante(pessoaJuridica.getPessoa());
+				adocao.setAnimal(animal);
+				adocao.setAdotante(adotante);
+				adocaoService.adicionarAdocaoService(adocao);
+				
+				JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
+				
+				TelaInicialGUI ti = new TelaInicialGUI();
+				ti.setVisible(true);
+				dispose();
+			}
+		});
+		btnAdotar.setBounds(184, 227, 89, 23);
+		contentPane.add(btnAdotar);
 		
-		JButton button_2 = new JButton("Voltar");
-		button_2.setBounds(281, 382, 89, 23);
-		contentPane.add(button_2);
+		JButton btnVotar = new JButton("Votar");
+		btnVotar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicialGUI tig = new TelaInicialGUI();
+				tig.setVisible(true);
+				dispose();
+			}
+		});
+		btnVotar.setBounds(291, 227, 89, 23);
+		contentPane.add(btnVotar);
 		
-		JLabel lblMostrarNome = new JLabel("");
-		lblMostrarNome.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblMostrarNome.setBounds(83, 167, 193, 23);
+		jFormattedTextCnpj = new JFormattedTextField();
+		jFormattedTextCnpj.setBounds(57, 89, 152, 20);
+		contentPane.add(jFormattedTextCnpj);
+		
+		lblMostrarNome = new JLabel("");
+		lblMostrarNome.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMostrarNome.setBounds(57, 123, 152, 14);
 		contentPane.add(lblMostrarNome);
+		
+		lblMostrarAnimal = new JLabel("");
+		lblMostrarAnimal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMostrarAnimal.setBounds(57, 205, 152, 14);
+		contentPane.add(lblMostrarAnimal);
 	}
 }
