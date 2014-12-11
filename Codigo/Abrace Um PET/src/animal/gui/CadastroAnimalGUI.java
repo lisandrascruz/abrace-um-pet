@@ -1,5 +1,6 @@
 package animal.gui;
 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -22,12 +23,12 @@ import javax.swing.text.MaskFormatter;
 
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
+import animal.dao.RacaDAO;
 import animal.dominio.Animal;
 import animal.dominio.Raca;
 import animal.service.AnimalService;
 
 public class CadastroAnimalGUI extends JFrame {
-	
 	/**
 	 * 
 	 */
@@ -40,18 +41,18 @@ public class CadastroAnimalGUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CadastroAnimalGUI frame = new CadastroAnimalGUI();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CadastroAnimalGUI frame = new CadastroAnimalGUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	
 	/**
 	 * Create the frame.
@@ -85,12 +86,6 @@ public class CadastroAnimalGUI extends JFrame {
 		lblTipo.setBounds(10, 121, 46, 14);
 		contentPane.add(lblTipo);
 		
-		JComboBox<String> comboBoxTipo = new JComboBox<String>();
-		comboBoxTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Gato", "Cachorro" }));
-		comboBoxTipo.setToolTipText("");
-		comboBoxTipo.setBounds(76, 119, 110, 20);
-		contentPane.add(comboBoxTipo);
-		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblRga.setBounds(375, 79, 38, 14);
@@ -109,6 +104,14 @@ public class CadastroAnimalGUI extends JFrame {
 		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
 		comboBoxRaca.setBounds(281, 119, 149, 20);
 		contentPane.add(comboBoxRaca);
+		listaRacas(comboBoxRaca);
+		
+		JComboBox<String> comboBoxTipo = new JComboBox<String>();
+		comboBoxTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Gato", "Cachorro" }));
+		comboBoxTipo.setToolTipText("");
+		comboBoxTipo.setBounds(76, 119, 110, 20);
+		contentPane.add(comboBoxTipo);
+		
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -158,9 +161,9 @@ public class CadastroAnimalGUI extends JFrame {
 		JComboBox<String> comboBoxCastrado = new JComboBox<String>();
 		comboBoxCastrado.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Sim", "N\u00E3o" }));
 		if (comboBoxCastrado.equals("Sim")) {
-			comboBoxCastrado.setSelectedIndex(1);
-		} else {
 			comboBoxCastrado.setSelectedIndex(0);
+		} if(comboBoxCastrado.equals("N\u00E3o")) {
+			comboBoxCastrado.setSelectedIndex(1);
 		}
 		comboBoxCastrado.setBounds(76, 160, 110, 20);
 		contentPane.add(comboBoxCastrado);
@@ -175,8 +178,7 @@ public class CadastroAnimalGUI extends JFrame {
 			mascaraDataNascimento = new MaskFormatter("##/####");
 			mascaraDataNascimento.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			System.err.println("Erro na formatação: " + e1.getMessage());
-			System.exit(-1);
+			e1.printStackTrace();
 		}
 		JFormattedTextField formattedTextFieldDataNascimento = new JFormattedTextField(mascaraDataNascimento);
 		formattedTextFieldDataNascimento.setBounds(350, 205, 63, 20);
@@ -192,8 +194,7 @@ public class CadastroAnimalGUI extends JFrame {
 			mascaraPeso = new MaskFormatter("##.##");
 			mascaraDataNascimento.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			System.err.println("Erro na formatação: " + e1.getMessage());
-			System.exit(-1);
+			e1.printStackTrace();
 		}
 		JFormattedTextField formattedTextFieldPeso = new JFormattedTextField(mascaraPeso);
 		formattedTextFieldPeso.setBounds(508, 205, 63, 20);
@@ -219,8 +220,7 @@ public class CadastroAnimalGUI extends JFrame {
 			mascaraTamanho = new MaskFormatter("##.##");
 			mascaraTamanho.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			System.err.println("Erro na formatação: " + e1.getMessage());
-			System.exit(-1);
+			e1.printStackTrace();
 		}
 		JFormattedTextField formattedTextFieldTamanho = new JFormattedTextField(mascaraTamanho);
 		formattedTextFieldTamanho.setBounds(76, 205, 69, 20);
@@ -240,8 +240,7 @@ public class CadastroAnimalGUI extends JFrame {
 			mascaraDataResgate = new MaskFormatter("##/##/####");
 			mascaraDataResgate.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			System.err.println("Erro na formatação: " + e1.getMessage());
-			System.exit(-1);
+			e1.printStackTrace();
 		}
 		JFormattedTextField formattedTextFieldDataResgate = new JFormattedTextField(mascaraDataResgate);
 		formattedTextFieldDataResgate.setBounds(116, 242, 86, 20);
@@ -256,6 +255,7 @@ public class CadastroAnimalGUI extends JFrame {
 		textPane.setBounds(106, 292, 513, 84);
 		contentPane.add(textPane);
 		
+		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -266,7 +266,7 @@ public class CadastroAnimalGUI extends JFrame {
 		});
 		btnSair.setBounds(509, 387, 110, 23);
 		contentPane.add(btnSair);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -284,17 +284,15 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
-				Raca raca = new Raca();
 				
 				animal.setNome(textFieldNome.getText());
 				animal.setRga(textFieldRGA.getText());
 				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
-				//animal.setRaca(comboBoxRaca.getSelectedItem());
 				animal.setGenero(comboBoxGenero.getSelectedItem().toString());
-				animal.setTamanho(Double.parseDouble(comboBoxCastrado.getSelectedItem().toString()));
+				//animal.setTamanho(Double.parseDouble(comboBoxCastrado.getSelectedItem().toString()));
 				animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
-				//animal.setVacinado(comboBoxVacinado.getSelectedItem());
-				animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getSelectedText()));
+				//animal.setVacinado(comboBoxVacinado);
+				//animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getSelectedText()));
 				animal.setDataNascimento(formattedTextFieldDataNascimento.getSelectedText());
 				animal.setPeso(Double.parseDouble(formattedTextFieldPeso.getText()));
 				animal.setDataResgate(formattedTextFieldDataResgate.getText());
@@ -302,26 +300,26 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setObservacao(textPane.getText());
 				
 				String rga = animal.getRga();
-				
-				try {
-					if (animalService.validarCadastroAnimal(rga)) {
-						if (animalService.adicionarAnimal(animal)) {
-							JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
-							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
-							telaInicialGui.setVisible(true);
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
-							
-						}
-					}
-				} catch (HeadlessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				animalService.adicionarAnimal(animal);
+//				try {
+//					if (animalService.validarCadastroAnimal(rga)) {
+//						if (animalService.adicionarAnimal(animal)) {
+//							JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
+//							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
+//							telaInicialGui.setVisible(true);
+//							dispose();
+//						} else {
+//							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+//							
+//						}
+//					}
+//				} catch (HeadlessException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 		});
 		btnCadastrar.setBounds(262, 387, 110, 23);
@@ -333,6 +331,7 @@ public class CadastroAnimalGUI extends JFrame {
 				
 			}
 		});
+		
 		btnLimparCampos.setBounds(106, 387, 134, 23);
 		contentPane.add(btnLimparCampos);
 		
@@ -345,5 +344,33 @@ public class CadastroAnimalGUI extends JFrame {
 		lblDiamesano.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblDiamesano.setBounds(212, 245, 69, 14);
 		contentPane.add(lblDiamesano);
+		
+		JButton btnTeste = new JButton("TESTE");
+		btnTeste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		btnTeste.setBounds(172, 150, 89, 23);
+		contentPane.add(btnTeste);
+		
+		
 	}
+
+	/**
+	 * @param comboBoxRaca
+	 */
+	public void listaRacas(JComboBox<Raca> comboBoxRaca) {
+		RacaDAO racaDAO = new RacaDAO();
+		DefaultComboBoxModel<Raca> modelRacas = null;
+		try {
+			modelRacas = new DefaultComboBoxModel(racaDAO.getRaca().toArray());
+			
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		comboBoxRaca.setModel(modelRacas);
+	}
+
 }
