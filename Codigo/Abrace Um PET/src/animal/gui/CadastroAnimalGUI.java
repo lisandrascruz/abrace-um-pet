@@ -3,8 +3,11 @@ package animal.gui;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -60,8 +63,9 @@ public class CadastroAnimalGUI extends JFrame {
 	
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public CadastroAnimalGUI(){
+	public CadastroAnimalGUI() throws SQLException{
 		setTitle("Cadastro de Animal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
@@ -90,10 +94,9 @@ public class CadastroAnimalGUI extends JFrame {
 		lblTipo.setBounds(10, 121, 46, 14);
 		contentPane.add(lblTipo);
 		
-		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
+		JComboBox<String> comboBoxRaca = new JComboBox<String>();
 		comboBoxRaca.setBounds(281, 119, 149, 20);
 		contentPane.add(comboBoxRaca);
-		listaRacasGato(comboBoxRaca);
 		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -116,7 +119,33 @@ public class CadastroAnimalGUI extends JFrame {
 		comboBoxTipo.setToolTipText("");
 		comboBoxTipo.setBounds(76, 119, 110, 20);
 		contentPane.add(comboBoxTipo);
-
+		ItemListener itemListener = new ItemListener() {
+		      public void itemStateChanged(ItemEvent itemEvent) {
+		        int state = itemEvent.getStateChange();
+		        System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
+		        System.out.println("Item: " + itemEvent.getItem());
+		        ItemSelectable is = itemEvent.getItemSelectable();
+		        if(selectedString(is).equals("Gato")){
+		   
+						try {
+							setRacaGato();
+							listaRacasGato(comboBoxRaca);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+		        }
+		        if(selectedString(is).equals("Cachorro")){
+				      
+		        	setRacaCachorro();
+		        	listaRacasCachorro(comboBoxRaca);
+		        	
+		        }
+		        
+		      }
+		    };
+		    comboBoxTipo.addItemListener(itemListener);
 			
 		
 		
@@ -152,11 +181,6 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		JComboBox<String> comboBoxVacinado = new JComboBox<String>();
 		comboBoxVacinado.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Sim", "N\u00E3o" }));
-		if (comboBoxVacinado.equals("Sim")) {
-			comboBoxVacinado.setSelectedIndex(1);
-		} else {
-			comboBoxVacinado.setSelectedIndex(0);
-		}
 		comboBoxVacinado.setBounds(541, 160, 78, 20);
 		contentPane.add(comboBoxVacinado);
 		
@@ -167,11 +191,6 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		JComboBox<String> comboBoxCastrado = new JComboBox<String>();
 		comboBoxCastrado.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Sim", "N\u00E3o" }));
-		if (comboBoxCastrado.equals("Sim")) {
-			comboBoxCastrado.setSelectedIndex(0);
-		} if(comboBoxCastrado.equals("N\u00E3o")) {
-			comboBoxCastrado.setSelectedIndex(1);
-		}
 		comboBoxCastrado.setBounds(76, 160, 110, 20);
 		contentPane.add(comboBoxCastrado);
 		
@@ -291,27 +310,33 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
+				Raca raca = new Raca();
+				raca.setNome(comboBoxRaca.toString());
+	
 				
 				
-				animal.setNome(textFieldNome.toString());
+				animal.setNome(textFieldNome.getText());
 				animal.setTipo(comboBoxTipo.toString());
 
-				animal.setRga(textFieldRGA.toString());
-				animal.setDataNascimento(formattedTextFieldDataNascimento.toString());
-				//animal.setRaca(raca);
+				animal.setRga(textFieldRGA.getText());
+				animal.setDataNascimento(formattedTextFieldDataNascimento.getText());
+				animal.setRaca(raca);
 				animal.setGenero(comboBoxGenero.toString());
 				animal.setDeficiencia(comboBoxDeficiencia.toString());
-				//animal.setVacinado(true);
-				//animal.setCastrado(true);
-				//animal.setTamanho(formattedTextFieldTamanho);
-				//animal.setPeso(formattedTextFieldPeso);
+				animal.setVacinado(comboBoxVacinado.toString());
+				animal.setCastrado(comboBoxCastrado.toString());
+		
+				animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getText()));
+				animal.setPeso(Double.parseDouble(formattedTextFieldPeso.getText()));
 				animal.setTemperamento(textPaneTemperamento.toString());
 				animal.setObservacao(textPaneObservacoes.toString());
-				animal.setDataResgate(formattedTextFieldDataResgate.toString());
+				animal.setDataResgate(formattedTextFieldDataResgate.getText());
 					
-				animalService.adicionarAnimal(animal);
-//				try {
-//					if (animalService.validarCadastroAnimal(rga)) {
+	
+				try {
+					
+					if (animalService.validarCadastroAnimal(textFieldRGA.getText())) {
+						System.out.println("passei");
 //						if (animalService.adicionarAnimal(animal)) {
 //							JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
 //							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
@@ -321,14 +346,14 @@ public class CadastroAnimalGUI extends JFrame {
 //							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
 //							
 //						}
-//					}
-//				} catch (HeadlessException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+					}
+				} catch (HeadlessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnCadastrar.setBounds(262, 387, 110, 23);
@@ -359,17 +384,18 @@ public class CadastroAnimalGUI extends JFrame {
 	 * 
 	 */
 	public void setRacaCachorro() {
-		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
+		JComboBox<String> comboBoxRaca = new JComboBox<String>();
 		comboBoxRaca.setBounds(281, 119, 149, 20);
 		contentPane.add(comboBoxRaca);
 		listaRacasCachorro(comboBoxRaca);
 	}
 	
 	/**
+	 * @throws SQLException 
 	 * 
 	 */
-	public void setRacaGato() {
-		JComboBox<Raca> comboBoxRaca = new JComboBox<Raca>();
+	public void setRacaGato() throws SQLException {
+		JComboBox<String> comboBoxRaca = new JComboBox<String>();
 		comboBoxRaca.setBounds(281, 119, 149, 20);
 		contentPane.add(comboBoxRaca);
 		listaRacasGato(comboBoxRaca);
@@ -378,11 +404,11 @@ public class CadastroAnimalGUI extends JFrame {
 	/**
 	 * @param comboBoxRaca
 	 */
-	public void listaRacasCachorro(JComboBox<Raca> comboBoxRaca) {
-		RacaDAO racaDAO = new RacaDAO();
-		DefaultComboBoxModel<Raca> modelRacas = null;
+	public void listaRacasCachorro(JComboBox<String> comboBoxRaca) {
+		AnimalService service = new AnimalService();
+		DefaultComboBoxModel<String> modelRacas = null;
 		try {
-			modelRacas = new DefaultComboBoxModel(racaDAO.getRacaCachorro().toArray());
+			modelRacas = new DefaultComboBoxModel(service.getRacaCachorro().toArray());
 			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -392,17 +418,22 @@ public class CadastroAnimalGUI extends JFrame {
 
 	/**
 	 * @param comboBoxRaca
+	 * @throws SQLException 
 	 */
-	public void listaRacasGato(JComboBox<Raca> comboBoxRaca) {
-		RacaDAO racaDAO = new RacaDAO();
-		DefaultComboBoxModel<Raca> modelRacas = null;
+	public void listaRacasGato(JComboBox<String> comboBoxRaca) throws SQLException {
+		AnimalService service = new AnimalService ();
+		service.getRacaGato();
+		DefaultComboBoxModel<String> modelRacas = null;
 		try {
-			modelRacas = new DefaultComboBoxModel(racaDAO.getRacaGato().toArray());
+			modelRacas = new DefaultComboBoxModel(service.getRacaGato().toArray());
 			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 		comboBoxRaca.setModel(modelRacas);
 	}
-
+	static private String selectedString(ItemSelectable is) {
+	    Object selected[] = is.getSelectedObjects();
+	    return ((selected.length == 0) ? "null" : (String) selected[0]);
+	  }
 }

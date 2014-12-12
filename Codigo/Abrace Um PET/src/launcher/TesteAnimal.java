@@ -26,8 +26,8 @@ public class TesteAnimal {
 		animal.setRaca(raca);
 		animal.setGenero("Macho");
 		animal.setDeficiencia("Nenhuma deficiência");
-		animal.setVacinado(true);
-		animal.setCastrado(true);
+		animal.setVacinado("Sim");
+		animal.setCastrado("Sim");
 		animal.setTamanho(1.7);
 		animal.setPeso(3.0);
 		animal.setTemperamento("Manhoso");

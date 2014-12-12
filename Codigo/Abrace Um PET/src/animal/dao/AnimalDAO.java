@@ -52,8 +52,8 @@ public class AnimalDAO {
 					animal.setDataNascimento(resultAnimal.getString("dataNascimento"));
 					animal.setGenero(resultAnimal.getString("genero"));
 					animal.setDeficiencia(resultAnimal.getString("deficiencia"));
-					animal.setVacinado(resultAnimal.getBoolean("vacinado"));
-					animal.setCastrado(resultAnimal.getBoolean("castrado"));
+					animal.setVacinado(resultAnimal.getString("vacinado"));
+					animal.setCastrado(resultAnimal.getString("castrado"));
 					animal.setTamanho(resultAnimal.getDouble("tamanho"));
 					animal.setPeso(resultAnimal.getDouble("peso"));
 					animal.setTemperamento(resultAnimal.getString("temperamento"));
@@ -64,7 +64,6 @@ public class AnimalDAO {
 					
 				}
 			}
-			
 			return animal;
 		} finally {
 			if (resultAnimal != null) {
@@ -106,8 +105,8 @@ public class AnimalDAO {
 			preparedStatement.setInt(5, idRaca);
 			preparedStatement.setString(6, animal.getGenero());
 			preparedStatement.setString(7, animal.getDeficiencia());
-			preparedStatement.setBoolean(8, animal.getVacinado());
-			preparedStatement.setBoolean(9, animal.getCastrado());
+			preparedStatement.setString(8, animal.getVacinado());
+			preparedStatement.setString(9, animal.getCastrado());
 			preparedStatement.setDouble(10, animal.getTamanho());
 			preparedStatement.setDouble(11, animal.getPeso());
 			preparedStatement.setString(12, animal.getTemperamento());
@@ -134,5 +133,6 @@ public class AnimalDAO {
 		}
 		return id;
 	}
+	
 	
 }
