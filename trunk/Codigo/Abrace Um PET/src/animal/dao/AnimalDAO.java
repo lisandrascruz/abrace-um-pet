@@ -5,8 +5,6 @@ import infraestrutura.dao.Conexao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import raca.dao.RacaDAO;
-import raca.dominio.Raca;
 import animal.dominio.Animal;
 
 import com.mysql.jdbc.Connection;
@@ -22,22 +20,13 @@ public class AnimalDAO {
 		try {
 			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero, "
 					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, "
-					+ "a.observacao, a.dataResgate, r.nome, r.origem, r.tamanhoMax, r.tamanhoMin, r.expectativaVida, r.temperamento "
-					+ "FROM animal as a INNER JOIN raca as r ON a.idRaca = r.id WHERE rga = ?";
+					+ "a.observacao, a.dataResgate "
+					+ "FROM animal as a WHERE rga = ?";
 			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
 			resultAnimal = statementAnimal.executeQuery();
 			Animal animal = new Animal();
-			Raca raca = new Raca();
 			if (resultAnimal.next()) {
-				//Raca
-				raca.setId(resultAnimal.getInt("idRaca"));
-				raca.setExpectativaVida(resultAnimal.getInt("expectativaVida"));
-				raca.setNome(resultAnimal.getString("r.nome"));
-				raca.setOrigem(resultAnimal.getString("origem"));
-				raca.setTamanhoMax(resultAnimal.getDouble("tamanhoMax"));
-				raca.setTamanhoMin(resultAnimal.getDouble("tamanhoMin"));
-				raca.setTemperamento(resultAnimal.getString("r.temperamento"));
 				//Animal
 				animal.setId(resultAnimal.getInt("id"));
 				animal.setNome(resultAnimal.getString("a.nome"));
@@ -53,7 +42,6 @@ public class AnimalDAO {
 				animal.setTemperamento(resultAnimal.getString("a.temperamento"));
 				animal.setObservacao(resultAnimal.getString("observacao"));
 				animal.setDataResgate(resultAnimal.getString("dataResgate"));
-				animal.setRaca(raca);
 				
 			}
 			return animal;
@@ -70,9 +58,7 @@ public class AnimalDAO {
 	public boolean adicionarAnimal(Animal animal) {
 		try {
 			Connection con = (Connection) Conexao.abrirConceccaoMySQL();
-			RacaDAO racaDAO = new RacaDAO();
-			int idRaca = racaDAO.inserirRaca(animal, con);
-			inserirAnimal(animal, con, idRaca);
+			inserirAnimal(animal, con);
 			
 			Conexao.fecharConecaoMySQL();
 			return true;
@@ -82,10 +68,11 @@ public class AnimalDAO {
 		}
 	}
 	
-	private int inserirAnimal(Animal animal, Connection con, int idRaca) {
+	private int inserirAnimal(Animal animal, Connection con) {
 		int id = 0;
-		String query = "insert into animal (nome, tipo, rga, dataNascimento, idRaca, genero, deficiencia, vacinado, castrado, tamanho,"
-				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "insert into animal (nome, tipo, rga, dataNascimento, genero, deficiencia, vacinado,"
+				+ " castrado, tamanho,"
+				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
@@ -94,16 +81,15 @@ public class AnimalDAO {
 			preparedStatement.setString(2, animal.getTipo());
 			preparedStatement.setString(3, animal.getRga());
 			preparedStatement.setString(4, animal.getDataNascimento());
-			preparedStatement.setInt(5, idRaca);
-			preparedStatement.setString(6, animal.getGenero());
-			preparedStatement.setString(7, animal.getDeficiencia());
-			preparedStatement.setString(8, animal.getVacinado());
-			preparedStatement.setString(9, animal.getCastrado());
-			preparedStatement.setDouble(10, animal.getTamanho());
-			preparedStatement.setDouble(11, animal.getPeso());
-			preparedStatement.setString(12, animal.getTemperamento());
-			preparedStatement.setString(13, animal.getObservacao());
-			preparedStatement.setString(14, animal.getDataResgate());
+			preparedStatement.setString(5, animal.getGenero());
+			preparedStatement.setString(6, animal.getDeficiencia());
+			preparedStatement.setString(7, animal.getVacinado());
+			preparedStatement.setString(8, animal.getCastrado());
+			preparedStatement.setDouble(9, animal.getTamanho());
+			preparedStatement.setDouble(10, animal.getPeso());
+			preparedStatement.setString(11, animal.getTemperamento());
+			preparedStatement.setString(12, animal.getObservacao());
+			preparedStatement.setString(13, animal.getDataResgate());
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			

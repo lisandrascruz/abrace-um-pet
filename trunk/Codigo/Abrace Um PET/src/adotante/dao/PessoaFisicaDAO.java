@@ -221,63 +221,35 @@ public class PessoaFisicaDAO {
 	public PessoaFisica consultarPessoaFisica(String cpf) throws SQLException {
 		Connection connection = Conexao.abrirConceccaoMySQL();
 		PreparedStatement statementPessoaFisica = null;
-		PreparedStatement statementPessoa = null;
-		PreparedStatement statementEndereco = null;
-		
 		ResultSet resultPessoaFisica = null;
-		ResultSet resultPessoa = null;
-		ResultSet resultEndereco = null;
+
 		
 		try {
-			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.rg, pf.genero, pf.idPessoa FROM pessoafisica as"
-					+ " pf INNER JOIN pessoa as p ON pf.idPessoa = p.id WHERE cpf = ?";
+			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.idPessoa, pf.rg, pf.genero, p.id,  p.nome, "
+					+ "p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoafisica as "
+					+ "pf INNER JOIN pessoa as p ON pf.idPessoa = p.id WHERE cpf = ?";
 			statementPessoaFisica = connection.prepareStatement(queryPessoaFisicaPessoa);
 			statementPessoaFisica.setString(1, cpf);
 			resultPessoaFisica = statementPessoaFisica.executeQuery();
 			
-			String queryPessoaEndereco = "SELECT p.id, p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoa as"
-					+ " p INNER JOIN endereco as ende ON p.idEndereco = ende.id";
-			statementPessoa = connection.prepareStatement(queryPessoaEndereco);
-			resultPessoa = statementPessoa.executeQuery();
-			
-			String queryEndereco = "SELECT ende.id, ende.estado, ende.cidade, ende.bairro, ende.rua, ende.numero, ende.complemento, ende.cep FROM endereco as"
-					+ " ende INNER JOIN pessoa as p ON p.idEndereco = ende.id";
-			statementEndereco = connection.prepareStatement(queryEndereco);
-			resultEndereco = statementEndereco.executeQuery();
-			
-			Endereco endereco = new Endereco();
 			Pessoa pessoa = new Pessoa();
 			PessoaFisica pessoaFisica = new PessoaFisica();
 			
-			if (resultEndereco.next()) {
+			if (resultPessoaFisica.next()) {
 				
-				endereco.setId(resultEndereco.getInt("id"));
-				endereco.setRua(resultEndereco.getString("rua"));
-				endereco.setBairro(resultEndereco.getString("bairro"));
-				endereco.setNumero(resultEndereco.getString("numero"));
-				endereco.setCidade(resultEndereco.getString("cidade"));
-				endereco.setEstado(resultEndereco.getString("estado"));
-				endereco.setCep(resultEndereco.getString("cep"));
+				pessoa.setId(resultPessoaFisica.getInt("p.id"));
+				pessoa.setNome(resultPessoaFisica.getString("p.nome"));
+				pessoa.setEmail(resultPessoaFisica.getString("email"));
+				pessoa.setTelefoneCelular(resultPessoaFisica.getString("telefoneCelular"));
+				pessoa.setTelefoneFixo(resultPessoaFisica.getString("telefoneFixo"));
+				pessoaFisica.setId(resultPessoaFisica.getInt("pf.id"));
+				pessoaFisica.setCpf(resultPessoaFisica.getString("cpf"));
+				pessoaFisica.setRg(resultPessoaFisica.getString("rg"));
+				pessoaFisica.setGenero(resultPessoaFisica.getString("genero"));
+				pessoaFisica.setPessoa(pessoa);
 				
-				if (resultPessoa.next()) {
-					
-					pessoa.setId(resultPessoa.getInt("id"));
-					pessoa.setNome(resultPessoa.getString("nome"));
-					pessoa.setEmail(resultPessoa.getString("email"));
-					pessoa.setTelefoneCelular(resultPessoa.getString("telefoneCelular"));
-					pessoa.setTelefoneFixo(resultPessoa.getString("telefoneFixo"));
-					pessoa.setEndereco(endereco);
-					if (resultPessoaFisica.next()) {
-						
-						pessoaFisica.setId(resultPessoaFisica.getInt("id"));
-						pessoaFisica.setCpf(resultPessoaFisica.getString("cpf"));
-						pessoaFisica.setRg(resultPessoaFisica.getString("rg"));
-						pessoaFisica.setGenero(resultPessoaFisica.getString("genero"));
-						pessoaFisica.setPessoa(pessoa);
-						
-					}
-				}
 			}
+			
 			return pessoaFisica;
 		} finally {
 			if (resultPessoaFisica != null) {

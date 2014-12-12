@@ -27,9 +27,6 @@ import javax.swing.text.MaskFormatter;
 
 import com.mysql.jdbc.EscapeTokenizer;
 
-import raca.dao.RacaDAO;
-import raca.dominio.Raca;
-import raca.service.RacaService;
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 import animal.dominio.Animal;
@@ -44,22 +41,8 @@ public class CadastroAnimalGUI extends JFrame {
 	private JTextField			textFieldNome;
 	private JLabel				lblTipo;
 	private JTextField			textFieldRGA;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroAnimalGUI frame = new CadastroAnimalGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField texTemperamento;
+	private JTextField textObservacao;
 	
 	/**
 	 * Create the frame.
@@ -94,10 +77,6 @@ public class CadastroAnimalGUI extends JFrame {
 		lblTipo.setBounds(10, 121, 46, 14);
 		contentPane.add(lblTipo);
 		
-		JComboBox<String> comboBoxRaca = new JComboBox<String>();
-		comboBoxRaca.setBounds(281, 119, 149, 20);
-		contentPane.add(comboBoxRaca);
-		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblRga.setBounds(375, 79, 38, 14);
@@ -107,11 +86,6 @@ public class CadastroAnimalGUI extends JFrame {
 		textFieldRGA.setBounds(419, 77, 200, 20);
 		contentPane.add(textFieldRGA);
 		textFieldRGA.setColumns(10);
-		
-		JLabel lblRaa = new JLabel("Ra\u00E7a: ");
-		lblRaa.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRaa.setBounds(212, 121, 46, 14);
-		contentPane.add(lblRaa);
 
 		
 		JComboBox<String> comboBoxTipo = new JComboBox<String>();
@@ -119,35 +93,6 @@ public class CadastroAnimalGUI extends JFrame {
 		comboBoxTipo.setToolTipText("");
 		comboBoxTipo.setBounds(76, 119, 110, 20);
 		contentPane.add(comboBoxTipo);
-		ItemListener itemListener = new ItemListener() {
-		      public void itemStateChanged(ItemEvent itemEvent) {
-		        int state = itemEvent.getStateChange();
-		        System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
-		        System.out.println("Item: " + itemEvent.getItem());
-		        ItemSelectable is = itemEvent.getItemSelectable();
-		        if(selectedString(is).equals("Gato")){
-		   
-						try {
-							setRacaGato();
-							listaRacasGato(comboBoxRaca);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-		        }
-		        if(selectedString(is).equals("Cachorro")){
-				      
-		        	setRacaCachorro();
-		        	listaRacasCachorro(comboBoxRaca);
-		        	
-		        }
-		        
-		      }
-		    };
-		    comboBoxTipo.addItemListener(itemListener);
-			
-		
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -243,7 +188,7 @@ public class CadastroAnimalGUI extends JFrame {
 		
 		MaskFormatter mascaraTamanho = null;
 		try {
-			mascaraTamanho = new MaskFormatter("##.##");
+			mascaraTamanho = new MaskFormatter("#.##");
 			mascaraTamanho.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -251,10 +196,6 @@ public class CadastroAnimalGUI extends JFrame {
 		JFormattedTextField formattedTextFieldTamanho = new JFormattedTextField(mascaraTamanho);
 		formattedTextFieldTamanho.setBounds(76, 205, 69, 20);
 		contentPane.add(formattedTextFieldTamanho);
-		
-		JTextPane textPaneTemperamento = new JTextPane();
-		textPaneTemperamento.setBounds(403, 244, 216, 30);
-		contentPane.add(textPaneTemperamento);
 		
 		JLabel lblResgate = new JLabel("Data de Resgate: ");
 		lblResgate.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -276,10 +217,6 @@ public class CadastroAnimalGUI extends JFrame {
 		lblObservaes.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		lblObservaes.setBounds(10, 292, 102, 14);
 		contentPane.add(lblObservaes);
-		
-		JTextPane textPaneObservacoes = new JTextPane();
-		textPaneObservacoes.setBounds(106, 292, 513, 84);
-		contentPane.add(textPaneObservacoes);
 		
 		
 		JButton btnSair = new JButton("Sair");
@@ -310,42 +247,36 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
-				Raca raca = new Raca();
-				raca.setNome(comboBoxRaca.toString());
 	
-				
-				
 				animal.setNome(textFieldNome.getText());
-				animal.setTipo(comboBoxTipo.toString());
+				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
 
 				animal.setRga(textFieldRGA.getText());
 				animal.setDataNascimento(formattedTextFieldDataNascimento.getText());
-				animal.setRaca(raca);
-				animal.setGenero(comboBoxGenero.toString());
-				animal.setDeficiencia(comboBoxDeficiencia.toString());
-				animal.setVacinado(comboBoxVacinado.toString());
-				animal.setCastrado(comboBoxCastrado.toString());
+				animal.setGenero(comboBoxGenero.getSelectedItem().toString());
+				
+				animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
+				animal.setVacinado(comboBoxVacinado.getSelectedItem().toString());
+				animal.setCastrado(comboBoxCastrado.getSelectedItem().toString());
 		
 				animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getText()));
 				animal.setPeso(Double.parseDouble(formattedTextFieldPeso.getText()));
-				animal.setTemperamento(textPaneTemperamento.toString());
-				animal.setObservacao(textPaneObservacoes.toString());
+				animal.setTemperamento(texTemperamento.getText());
+				animal.setObservacao(textObservacao.getText());
 				animal.setDataResgate(formattedTextFieldDataResgate.getText());
 					
-	
 				try {
 					
 					if (animalService.validarCadastroAnimal(textFieldRGA.getText())) {
-						System.out.println("passei");
-//						if (animalService.adicionarAnimal(animal)) {
-//							JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
-//							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
-//							telaInicialGui.setVisible(true);
-//							dispose();
-//						} else {
-//							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
-//							
-//						}
+						if (animalService.adicionarAnimal(animal)) {
+						JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
+							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
+							telaInicialGui.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+							
+						}
 					}
 				} catch (HeadlessException e) {
 					// TODO Auto-generated catch block
@@ -378,62 +309,18 @@ public class CadastroAnimalGUI extends JFrame {
 		lblDiamesano.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblDiamesano.setBounds(212, 245, 69, 14);
 		contentPane.add(lblDiamesano);
+		
+		texTemperamento = new JTextField();
+		texTemperamento.setBounds(421, 242, 198, 20);
+		contentPane.add(texTemperamento);
+		texTemperamento.setColumns(10);
+		
+		textObservacao = new JTextField();
+		textObservacao.setBounds(116, 290, 503, 20);
+		contentPane.add(textObservacao);
+		textObservacao.setColumns(10);
 	}
 
-	/**
-	 * 
-	 */
-	public void setRacaCachorro() {
-		JComboBox<String> comboBoxRaca = new JComboBox<String>();
-		comboBoxRaca.setBounds(281, 119, 149, 20);
-		contentPane.add(comboBoxRaca);
-		listaRacasCachorro(comboBoxRaca);
-	}
-	
-	/**
-	 * @throws SQLException 
-	 * 
-	 */
-	public void setRacaGato() throws SQLException {
-		JComboBox<String> comboBoxRaca = new JComboBox<String>();
-		comboBoxRaca.setBounds(281, 119, 149, 20);
-		contentPane.add(comboBoxRaca);
-		listaRacasGato(comboBoxRaca);
-	}
 
-	/**
-	 * @param comboBoxRaca
-	 */
-	public void listaRacasCachorro(JComboBox<String> comboBoxRaca) {
-		AnimalService service = new AnimalService();
-		DefaultComboBoxModel<String> modelRacas = null;
-		try {
-			modelRacas = new DefaultComboBoxModel(service.getRacaCachorro().toArray());
-			
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-		comboBoxRaca.setModel(modelRacas);
-	}
 
-	/**
-	 * @param comboBoxRaca
-	 * @throws SQLException 
-	 */
-	public void listaRacasGato(JComboBox<String> comboBoxRaca) throws SQLException {
-		AnimalService service = new AnimalService ();
-		service.getRacaGato();
-		DefaultComboBoxModel<String> modelRacas = null;
-		try {
-			modelRacas = new DefaultComboBoxModel(service.getRacaGato().toArray());
-			
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-		comboBoxRaca.setModel(modelRacas);
-	}
-	static private String selectedString(ItemSelectable is) {
-	    Object selected[] = is.getSelectedObjects();
-	    return ((selected.length == 0) ? "null" : (String) selected[0]);
-	  }
 }

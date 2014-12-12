@@ -28,4 +28,15 @@ public class PessoaFisicaService {
 		}
 		return valido;
 	}
+	
+	public PessoaFisica consultarRepresentante(String cpf) {
+		PessoaFisica pessoaFisica = new PessoaFisica();
+		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+		try {
+			pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(cpf);
+		} catch (Exception ex) {
+			ex.getMessage();
+		}
+		return pessoaFisica;
+	}
 }

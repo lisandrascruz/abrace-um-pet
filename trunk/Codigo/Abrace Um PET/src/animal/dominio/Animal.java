@@ -1,7 +1,5 @@
 package animal.dominio;
 
-import raca.dominio.Raca;
-
 
 public class Animal {
 	
@@ -10,7 +8,6 @@ public class Animal {
 	private String tipo;
 	private String rga;
 	private String dataNascimento;	
-	private Raca raca;
 	private String genero;
 	private String deficiencia;
 	private String vacinado;
@@ -51,12 +48,6 @@ public class Animal {
 	}
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-	public Raca getRaca() {
-		return raca;
-	}
-	public void setRaca(Raca raca) {
-		this.raca = raca;
 	}
 	public String getGenero() {
 		return genero;

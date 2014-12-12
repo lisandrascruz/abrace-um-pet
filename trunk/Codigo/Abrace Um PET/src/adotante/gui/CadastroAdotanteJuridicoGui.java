@@ -21,6 +21,7 @@ import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.service.EnderecoService;
+import adotante.service.PessoaFisicaService;
 import adotante.service.PessoaJuridicaService;
 import adotante.service.PessoaService;
 
@@ -39,9 +40,9 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField			textEstado;
 	private JTextField			textComplemento;
 	private JTextField			textEmail;
-	private JTextField			textMostraNomeResponsavel;
 	private JFormattedTextField	jFormattedTextCpf;
 	private PessoaFisica		pessoaFisica;
+	private JLabel lblMostrarRepresentante;
 	
 	/**
 	 * Create the frame.
@@ -186,26 +187,19 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		lblCep.setBounds(53, 285, 46, 14);
 		contentPane.add(lblCep);
 		
-		textMostraNomeResponsavel = new JTextField();
-		textMostraNomeResponsavel.setEnabled(false);
-		textMostraNomeResponsavel.setEditable(false);
-		textMostraNomeResponsavel.setBounds(301, 182, 172, 20);
-		contentPane.add(textMostraNomeResponsavel);
-		textMostraNomeResponsavel.setColumns(10);
-		
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				PessoaJuridicaService pjs = new PessoaJuridicaService();
 				pessoaFisica = new PessoaFisica();
-				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				pessoaFisica = pessoaJuridicaService.consultarRepresentante(jFormattedTextCpf.getText());
+				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
 				
 				if ((pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf()))) {
-					textMostraNomeResponsavel.setText(pessoaFisica.getPessoa().getNome());
+					lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
 				} else {
-					textMostraNomeResponsavel.setText("");
+					lblMostrarRepresentante.setText("");
 				}
 			}
 		});
@@ -436,6 +430,11 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		});
 		btnCancelar.setBounds(393, 382, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		lblMostrarRepresentante = new JLabel("");
+		lblMostrarRepresentante.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMostrarRepresentante.setBounds(316, 185, 152, 14);
+		contentPane.add(lblMostrarRepresentante);
 		
 	}
 }

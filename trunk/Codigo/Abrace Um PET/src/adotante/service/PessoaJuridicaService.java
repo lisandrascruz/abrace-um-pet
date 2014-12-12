@@ -15,15 +15,16 @@ public class PessoaJuridicaService {
 		return pessoaJuridicaDAO.adicionarPessoaJuridica(pessoaJuridica);
 	}
 	
-	public PessoaFisica consultarRepresentante(String cpf) {
-		PessoaFisica pessoaFisica = new PessoaFisica();
-		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-		try {
-			pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(cpf);
-		} catch (Exception ex) {
-			ex.getMessage();
-		}
-		return pessoaFisica;
+	
+	public PessoaJuridica consultarPessoaJuridica(String cnpj){
+		PessoaJuridica pessoaJuridica = new PessoaJuridica();
+		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
+		try{
+			pessoaJuridica = pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
+			} catch (Exception ex) {
+				
+			}
+		return pessoaJuridica;
 	}
 	
 	public boolean validarCpfResponsavelJuridico(String cpf) {

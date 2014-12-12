@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import raca.gui.RacaGUI;
 import adocao.gui.AdocaoPessoaFisicaGUI;
 import adocao.gui.AdocaoPessoaGUI;
 import adotante.gui.PessoaGUI;
@@ -43,7 +42,7 @@ public class TelaInicialGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnLogin.setBounds(195, 359, 89, 23);
+		btnLogin.setBounds(277, 359, 89, 23);
 		telaInicialGUI.add(btnLogin);
 
 		JButton btnAnimal = new JButton("Animal");
@@ -84,15 +83,6 @@ public class TelaInicialGUI extends JFrame {
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
 		
-		JButton btnRaas = new JButton("Ra\u00E7as");
-		btnRaas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RacaGUI racaGUI = new RacaGUI();
-				racaGUI.setVisible(true);
-				dispose();
-			}
-		});
-		btnRaas.setBounds(353, 359, 89, 23);
-		telaInicialGUI.add(btnRaas);
+
 	}
 }
