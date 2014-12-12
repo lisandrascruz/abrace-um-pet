@@ -17,52 +17,43 @@ public class AnimalDAO {
 	public Animal consultarAnimal(String rga) throws SQLException {
 		Connection connection = (Connection) Conexao.abrirConceccaoMySQL();
 		PreparedStatement statementAnimal = null;
-		PreparedStatement statementRaca = null;
 		java.sql.ResultSet resultAnimal = null;
-		ResultSet resultRaca = null;
 		
 		try {
 			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero,"
 					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento,"
-					+ "a.observacao, a.dataResgate FROM animal as a INNER JOIN raca as r ON " + "a.idRaca = r.id WHERE rga = ?";
+					+ "a.observacao, a.dataResgate, r.nome, r.origem, r.tamanhoMax, r.tamanhoMin, r.expectativaVida  "
+					+ "FROM animal as a INNER JOIN raca as r ON a.idRaca = r.id WHERE rga = ?";
 			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
 			resultAnimal = statementAnimal.executeQuery();
-			
-			String queryRaca = "SELECT r.id, r.nome, r.expectativaVida, r.origem, r.tamanhoMax, " + "r.tamanhoMin, r.temperamento FROM raca as r";
-			statementRaca = (PreparedStatement) connection.prepareStatement(queryRaca);
-			resultRaca = statementRaca.executeQuery();
 			Animal animal = new Animal();
 			Raca raca = new Raca();
-			if (resultRaca.next()) {
-				raca.setId(resultRaca.getInt("id"));
-				raca.setExpectativaVida(resultRaca.getInt("expectativaVida"));
-				raca.setNome(resultRaca.getString("nome"));
-				raca.setOrigem(resultRaca.getString("origem"));
-				raca.setTamanhoMax(resultRaca.getDouble("tamanhoMax"));
-				raca.setTamanhoMin(resultRaca.getDouble("tamanhoMin"));
-				raca.setTemperamento(resultRaca.getString("temperamento"));
+			if (resultAnimal.next()) {
+				//Raca
+				raca.setId(resultAnimal.getInt("idRaca"));
+				raca.setExpectativaVida(resultAnimal.getInt("expectativaVida"));
+				raca.setNome(resultAnimal.getString("nome"));
+				raca.setOrigem(resultAnimal.getString("origem"));
+				raca.setTamanhoMax(resultAnimal.getDouble("tamanhoMax"));
+				raca.setTamanhoMin(resultAnimal.getDouble("tamanhoMin"));
+				//Animal
+				animal.setId(resultAnimal.getInt("id"));
+				animal.setNome(resultAnimal.getString("nome"));
+				animal.setTipo(resultAnimal.getString("tipo"));
+				animal.setRga(resultAnimal.getString("rga"));
+				animal.setDataNascimento(resultAnimal.getString("dataNascimento"));
+				animal.setGenero(resultAnimal.getString("genero"));
+				animal.setDeficiencia(resultAnimal.getString("deficiencia"));
+				animal.setVacinado(resultAnimal.getString("vacinado"));
+				animal.setCastrado(resultAnimal.getString("castrado"));
+				animal.setTamanho(resultAnimal.getDouble("tamanho"));
+				animal.setPeso(resultAnimal.getDouble("peso"));
+				animal.setTemperamento(resultAnimal.getString("temperamento"));
+				animal.setObservacao(resultAnimal.getString("observacao"));
+				animal.setDataResgate(resultAnimal.getString("dataResgate"));
+				animal.setRaca(raca);
 				
-				if (resultAnimal.next()) {
-					
-					animal.setId(resultAnimal.getInt("id"));
-					animal.setNome(resultAnimal.getString("nome"));
-					animal.setTipo(resultAnimal.getString("tipo"));
-					animal.setRga(resultAnimal.getString("rga"));
-					animal.setDataNascimento(resultAnimal.getString("dataNascimento"));
-					animal.setGenero(resultAnimal.getString("genero"));
-					animal.setDeficiencia(resultAnimal.getString("deficiencia"));
-					animal.setVacinado(resultAnimal.getString("vacinado"));
-					animal.setCastrado(resultAnimal.getString("castrado"));
-					animal.setTamanho(resultAnimal.getDouble("tamanho"));
-					animal.setPeso(resultAnimal.getDouble("peso"));
-					animal.setTemperamento(resultAnimal.getString("temperamento"));
-					animal.setObservacao(resultAnimal.getString("observacao"));
-					animal.setDataResgate(resultAnimal.getString("dataResgate"));
-					
-					animal.setRaca(raca);
-					
-				}
 			}
 			return animal;
 		} finally {
@@ -133,6 +124,5 @@ public class AnimalDAO {
 		}
 		return id;
 	}
-	
 	
 }
