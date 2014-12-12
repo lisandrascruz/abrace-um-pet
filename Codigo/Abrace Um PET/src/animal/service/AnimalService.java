@@ -1,10 +1,7 @@
 package animal.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import raca.dao.RacaDAO;
 import animal.dao.AnimalDAO;
 import animal.dominio.Animal;
 
@@ -13,7 +10,7 @@ public class AnimalService {
 
 	public boolean validarCadastroAnimal(String rga) throws SQLException {
 		boolean valido;
-		 Animal animal =animalDAO.consultarAnimal(rga);
+		 Animal animal = animalDAO.consultarAnimal(rga);
 		if (animal.getRga() == null) {
 			valido = true;
 		} else {
@@ -26,14 +23,18 @@ public class AnimalService {
 	public boolean adicionarAnimal(Animal animal) {
 		return animalDAO.adicionarAnimal(animal);
 	}
-	public List<String> getRacaCachorro() throws SQLException{
-		RacaDAO dao = new RacaDAO();
+	
+	//MUDAR PARA O ANIMALSERVICE
+		public Animal consultarAnimal(String rga){
+			Animal animal = null;
+			AnimalDAO AnimalDAO = new AnimalDAO();
+			try{
+				animal = AnimalDAO.consultarAnimal(rga);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				//mostrar o erro na gui
+			}
+			return animal;
+		}
 
-		return dao.getRacaCachorro();
-	}
-	public List<String> getRacaGato() throws SQLException{
-		RacaDAO dao = new RacaDAO();
-
-		return dao.getRacaGato();
-	}
 }

@@ -22,7 +22,9 @@ import adocao.dominio.Adocao;
 import adocao.service.AdocaoService;
 import adotante.dominio.Adotante;
 import adotante.dominio.PessoaFisica;
+import adotante.service.PessoaFisicaService;
 import animal.dominio.Animal;
+import animal.service.AnimalService;
 
 public class AdocaoPessoaFisicaGUI extends JFrame {
 
@@ -80,8 +82,8 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 		btnConsultarCpf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pessoaFisica = new PessoaFisica();
-				AdocaoService adocaoService = new AdocaoService();
-				pessoaFisica = adocaoService.consultarRepresentante(jFormattedTextCpf.getText());
+				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
 				lblMostrarNome.setText(pessoaFisica.getPessoa().getNome());
 			}
 		});
@@ -92,8 +94,8 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 		btnConsultarRga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				animal = new Animal();
-				AdocaoService adocaoService = new AdocaoService();
-				animal = adocaoService.consultarAnimal(textRga.getText());
+				AnimalService animalService = new AnimalService();
+				animal = animalService.consultarAnimal(textRga.getText());
 				lblMostrarAnimal.setText(animal.getNome());
 			}
 		});
