@@ -14,6 +14,7 @@ import usuario.gui.TelaInicialGUI;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class AnimalGUI extends JFrame {
 	
@@ -59,9 +60,16 @@ public class AnimalGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAnimalGUI cadastroAnimalGUI = new CadastroAnimalGUI();
-				cadastroAnimalGUI.setVisible(true);
-				dispose();
+				CadastroAnimalGUI cadastroAnimalGUI;
+				try {
+					cadastroAnimalGUI = new CadastroAnimalGUI();
+					cadastroAnimalGUI.setVisible(true);
+					dispose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		btnCadastrar.setBounds(220, 123,167, 23);

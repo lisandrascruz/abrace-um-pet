@@ -13,8 +13,8 @@ public class Animal {
 	private Raca raca;
 	private String genero;
 	private String deficiencia;
-	private boolean vacinado;
-	private boolean castrado;
+	private String vacinado;
+	private String castrado;
 	private double tamanho;
 	private double peso;
 	private String temperamento;
@@ -70,16 +70,16 @@ public class Animal {
 	public void setDeficiencia(String deficiencia) {
 		this.deficiencia = deficiencia;
 	}
-	public boolean getVacinado() {
+	public String getVacinado() {
 		return vacinado;
 	}
-	public void setVacinado(boolean vacinado) {
+	public void setVacinado(String vacinado) {
 		this.vacinado = vacinado;
 	}
-	public boolean getCastrado() {
+	public String getCastrado() {
 		return castrado;
 	}
-	public void setCastrado(boolean castrado) {
+	public void setCastrado(String castrado) {
 		this.castrado = castrado;
 	}
 	public double getTamanho() {

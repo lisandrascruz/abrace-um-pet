@@ -33,13 +33,7 @@ public class RacaDAO {
 		while (resultSet.next()) {
 			
 			Raca raca = new Raca();
-			raca.setId(resultSet.getInt("id"));
 			raca.setNome(resultSet.getString("nome"));
-			raca.setOrigem(resultSet.getString("origem"));
-			raca.setTamanhoMax(resultSet.getInt("tamanhoMax"));
-			raca.setTamanhoMin(resultSet.getInt("tamanhoMin"));
-			raca.setExpectativaVida(resultSet.getInt("expectativaVida"));
-			raca.setTemperamento(resultSet.getString("temperamento"));
 			String nome = raca.getNome();
 			racas.add(nome);
 		}
@@ -65,13 +59,7 @@ public class RacaDAO {
 		while (resultSet.next()) {
 			
 			Raca raca = new Raca();
-			raca.setId(resultSet.getInt("id"));
 			raca.setNome(resultSet.getString("nome"));
-			raca.setOrigem(resultSet.getString("origem"));
-			raca.setTamanhoMax(resultSet.getInt("tamanhoMax"));
-			raca.setTamanhoMin(resultSet.getInt("tamanhoMin"));
-			raca.setExpectativaVida(resultSet.getInt("expectativaVida"));
-			raca.setTemperamento(resultSet.getString("temperamento"));
 			String nome = raca.getNome();
 			racas.add(nome);
 		}
