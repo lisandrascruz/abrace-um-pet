@@ -20,9 +20,9 @@ public class AnimalDAO {
 		java.sql.ResultSet resultAnimal = null;
 		
 		try {
-			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero,"
-					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento,"
-					+ "a.observacao, a.dataResgate, r.nome, r.origem, r.tamanhoMax, r.tamanhoMin, r.expectativaVida  "
+			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero, "
+					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, "
+					+ "a.observacao, a.dataResgate, r.nome, r.origem, r.tamanhoMax, r.tamanhoMin, r.expectativaVida, r.temperamento "
 					+ "FROM animal as a INNER JOIN raca as r ON a.idRaca = r.id WHERE rga = ?";
 			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
@@ -33,13 +33,14 @@ public class AnimalDAO {
 				//Raca
 				raca.setId(resultAnimal.getInt("idRaca"));
 				raca.setExpectativaVida(resultAnimal.getInt("expectativaVida"));
-				raca.setNome(resultAnimal.getString("nome"));
+				raca.setNome(resultAnimal.getString("r.nome"));
 				raca.setOrigem(resultAnimal.getString("origem"));
 				raca.setTamanhoMax(resultAnimal.getDouble("tamanhoMax"));
 				raca.setTamanhoMin(resultAnimal.getDouble("tamanhoMin"));
+				raca.setTemperamento(resultAnimal.getString("r.temperamento"));
 				//Animal
 				animal.setId(resultAnimal.getInt("id"));
-				animal.setNome(resultAnimal.getString("nome"));
+				animal.setNome(resultAnimal.getString("a.nome"));
 				animal.setTipo(resultAnimal.getString("tipo"));
 				animal.setRga(resultAnimal.getString("rga"));
 				animal.setDataNascimento(resultAnimal.getString("dataNascimento"));
@@ -49,7 +50,7 @@ public class AnimalDAO {
 				animal.setCastrado(resultAnimal.getString("castrado"));
 				animal.setTamanho(resultAnimal.getDouble("tamanho"));
 				animal.setPeso(resultAnimal.getDouble("peso"));
-				animal.setTemperamento(resultAnimal.getString("temperamento"));
+				animal.setTemperamento(resultAnimal.getString("a.temperamento"));
 				animal.setObservacao(resultAnimal.getString("observacao"));
 				animal.setDataResgate(resultAnimal.getString("dataResgate"));
 				animal.setRaca(raca);
