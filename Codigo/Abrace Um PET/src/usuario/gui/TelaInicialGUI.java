@@ -16,6 +16,7 @@ import adocao.gui.AdocaoPessoaGUI;
 import adotante.gui.PessoaGUI;
 import animal.gui.AnimalGUI;
 import animal.gui.CadastroAnimalGUI;
+import animal.raca.gui.RacaGUI;
 
 public class TelaInicialGUI extends JFrame {
 
@@ -42,7 +43,7 @@ public class TelaInicialGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnLogin.setBounds(277, 359, 89, 23);
+		btnLogin.setBounds(193, 359, 89, 23);
 		telaInicialGUI.add(btnLogin);
 
 		JButton btnAnimal = new JButton("Animal");
@@ -82,6 +83,17 @@ public class TelaInicialGUI extends JFrame {
 		ImagensGUI.imagemCadastroUsuario(button);
 		button.setBounds(37, 73, 555, 275);
 		telaInicialGUI.add(button);
+		
+		JButton btnRaa = new JButton("Ra\u00E7a");
+		btnRaa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RacaGUI racaGUI = new RacaGUI();
+				racaGUI.setVisible(true);
+				dispose();
+			}
+		});
+		btnRaa.setBounds(343, 359, 89, 23);
+		telaInicialGUI.add(btnRaa);
 		
 
 	}
