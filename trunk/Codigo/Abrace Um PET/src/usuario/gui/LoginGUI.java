@@ -17,7 +17,9 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
 import usuario.service.CriptografiaService;
+import usuario.service.SessaoUsuario;
 import usuario.service.UsuarioService;
+
 import javax.swing.ImageIcon;
 
 public class LoginGUI extends JFrame {
@@ -122,6 +124,8 @@ public class LoginGUI extends JFrame {
 		senha = criptografia.criptografar(senha);
 
 		if (usuarioService.consultarUsuarioService(login, senha)) {
+			SessaoUsuario sessao = SessaoUsuario.getInstancia();
+			sessao.setUsuarioLogado(usuario);
 			TelaInicialGUI tl = new TelaInicialGUI();
 			tl.setVisible(true);
 			dispose();

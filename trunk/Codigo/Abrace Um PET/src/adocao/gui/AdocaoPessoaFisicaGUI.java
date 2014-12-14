@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import usuario.gui.TelaInicialGUI;
+import usuario.service.SessaoUsuario;
 import adocao.dominio.Adocao;
 import adocao.service.AdocaoService;
 import adotante.dominio.Adotante;
@@ -112,6 +113,8 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				adocao.setAnimal(animal);
 				adocao.setAdotante(adotante);
 				adocaoService.adicionarAdocaoService(adocao);
+				SessaoUsuario sessao = SessaoUsuario.getInstancia();
+				sessao.setAdocao(adocao);
 				
 				JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
 				

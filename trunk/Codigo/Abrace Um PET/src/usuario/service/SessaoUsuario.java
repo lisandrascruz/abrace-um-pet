@@ -1,9 +1,11 @@
 package usuario.service;
 
+import adocao.dominio.Adocao;
 import usuario.dominio.Usuario;
 
 
 public class SessaoUsuario {
+	Adocao adocao;
 	Usuario usuarioLogado;
 	private static SessaoUsuario instancia = new SessaoUsuario();
 	private SessaoUsuario(){}
@@ -13,5 +15,8 @@ public class SessaoUsuario {
 	
 	public void setUsuarioLogado(Usuario usuario) {
 		this.usuarioLogado = usuario;
+	}
+	public void setAdocao(Adocao adocao){
+		this.adocao=adocao;
 	}
 }
