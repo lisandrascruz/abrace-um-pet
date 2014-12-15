@@ -2,6 +2,7 @@ package usuario.gui;
 
 import infraestrutura.gui.ImagensGUI;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,9 @@ import usuario.service.SessaoUsuario;
 import usuario.service.UsuarioService;
 
 import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
+
+import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 public class LoginGUI extends JFrame {
 
@@ -33,6 +37,8 @@ public class LoginGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField textLogin;
 	private JPasswordField textSenha;
+	private JLabel lblStatus;
+	private JTextPane panelStatus;
 
 	/**
 	 * Create the frame.
@@ -40,7 +46,7 @@ public class LoginGUI extends JFrame {
 	public LoginGUI() {
 		setTitle("Login - Abrace Um PET");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 645, 455);
+		setBounds(100, 100, 645, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,7 +61,7 @@ public class LoginGUI extends JFrame {
 		textLogin.setBounds(379, 88, 199, 20);
 		contentPane.add(textLogin);
 		textLogin.setColumns(10);
-
+		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
 		lblSenha.setBounds(279, 165, 63, 17);
@@ -110,8 +116,18 @@ public class LoginGUI extends JFrame {
 		ImagensGUI.imagemLogin(lblNewLabel);
 		lblNewLabel.setBounds(10, 88, 359, 272);
 		contentPane.add(lblNewLabel);
+        panelStatus= new JTextPane();
+		panelStatus.setEditable(false);
+		panelStatus.setBounds(0, 416, 629, 20);
+		contentPane.add(panelStatus);
+		criarStatus();
+		}
+	private void criarStatus(){
+		lblStatus = new JLabel("");
+		lblStatus.setBounds(10,416,609, 20);
+		panelStatus.add(lblStatus);
+		
 	}
-
 	public void login() {
 		Usuario usuario = new Usuario();
 		UsuarioService usuarioService = new UsuarioService();
@@ -141,7 +157,8 @@ public class LoginGUI extends JFrame {
 			
 		}
 		if (!(usuarioService.consultarUsuarioService(login, senha))) {
-			JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);
+			panelStatus.setText("Dados inválidos");
+			panelStatus.setForeground(Color.RED);
 			textLogin.setText("");
 			textSenha.setText("");
 			textLogin.requestFocus();
