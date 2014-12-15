@@ -1,6 +1,7 @@
 package usuario.dao;
 
 import infraestrutura.dao.Conexao;
+import infraestrutura.dao.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +11,9 @@ import java.sql.Statement;
 
 import usuario.dominio.Usuario;
 import usuario.service.CriptografiaService;
+import usuario.service.SessaoUsuario;
+import adotante.dominio.Adotante;
+import adotante.dominio.Pessoa;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -90,6 +94,7 @@ public class UsuarioDAO {
 		return usuario;
 	}
 	
+	
 	/**
 	 * CONSULTA O USUARIO NO BANCO DE DADOS, USADO NO LOGIN
 	 * 
@@ -111,5 +116,31 @@ public class UsuarioDAO {
 		String resultSet = ("select login from usuario where login='" + login + "'");
 		return consultar(resultSet);
 	}
-	
+	public int getIdUsuario(Usuario usuario) throws SQLException {
+		Connection connection = Conexao.abrirConceccaoMySQL();
+		PreparedStatement statement = null;
+		ResultSet resultAdotante = null;
+		int id =-1;
+		String login = usuario.getLogin();
+		String senha =usuario.getSenha();
+
+		try {
+			String resultSet = ("select id from usuario where login='" + login + "'and senha='" + senha + "'");
+			statement = (PreparedStatement) connection.prepareStatement(resultSet);
+			resultAdotante = statement.executeQuery();
+
+			if (resultAdotante.next()) {
+
+			usuario.setId(resultAdotante.getInt("id"));
+			}
+			return usuario.getId();
+		} finally {
+			if (resultAdotante != null) {
+				resultAdotante.close();
+			}
+			if (statement != null) {
+				statement.close();
+			}
+		}
+	}
 }
