@@ -1,85 +1,87 @@
-CREATE DATABASE  IF NOT EXISTS `abrace_um_pet` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `abrace_um_pet`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- phpMyAdmin SQL Dump
+-- version 4.2.7.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: abrace_um_pet
--- ------------------------------------------------------
--- Server version	5.6.12-log
+-- Host: 127.0.0.1
+-- Generation Time: 15-Dez-2014 às 02:23
+-- Versão do servidor: 5.6.20
+-- PHP Version: 5.5.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `adocao`
+-- Database: `abrace_um_pet`
 --
 
-DROP TABLE IF EXISTS `adocao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `adocao` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `adocao`
+--
+
+CREATE TABLE IF NOT EXISTS `adocao` (
+`id` int(11) NOT NULL,
   `idAnimal` int(11) DEFAULT NULL,
   `idAdotante` int(11) DEFAULT NULL,
   `dataAdocao` timestamp NULL DEFAULT NULL,
   `dataDevolucao` timestamp NULL DEFAULT NULL,
-  `idUsuario` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idUsuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `adocao`
+-- Extraindo dados da tabela `adocao`
 --
 
-LOCK TABLES `adocao` WRITE;
-/*!40000 ALTER TABLE `adocao` DISABLE KEYS */;
-INSERT INTO `adocao` VALUES (1,1,18,NULL,NULL,NULL),(2,1,19,NULL,NULL,NULL),(3,1,19,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `adocao` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `adocao` (`id`, `idAnimal`, `idAdotante`, `dataAdocao`, `dataDevolucao`, `idUsuario`) VALUES
+(1, 1, 18, NULL, NULL, NULL),
+(2, 1, 19, NULL, NULL, NULL),
+(3, 1, 19, NULL, NULL, NULL),
+(4, 1, 23, NULL, NULL, NULL),
+(5, 1, 23, NULL, NULL, NULL),
+(6, 1, 23, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `adotante`
+-- Estrutura da tabela `adotante`
 --
 
-DROP TABLE IF EXISTS `adotante`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `adotante` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `adotante` (
+`id` int(11) NOT NULL,
   `impedimento` tinyint(1) DEFAULT NULL,
   `motivoImpedimeto` text,
-  `idPessoa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idPessoa` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
--- Dumping data for table `adotante`
+-- Extraindo dados da tabela `adotante`
 --
 
-LOCK TABLES `adotante` WRITE;
-/*!40000 ALTER TABLE `adotante` DISABLE KEYS */;
-INSERT INTO `adotante` VALUES (18,NULL,NULL,3),(19,NULL,NULL,4),(20,NULL,NULL,5),(21,NULL,NULL,6),(22,NULL,NULL,7),(23,NULL,NULL,8);
-/*!40000 ALTER TABLE `adotante` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `adotante` (`id`, `impedimento`, `motivoImpedimeto`, `idPessoa`) VALUES
+(18, NULL, NULL, 3),
+(19, NULL, NULL, 4),
+(20, NULL, NULL, 5),
+(21, NULL, NULL, 6),
+(22, NULL, NULL, 7),
+(23, NULL, NULL, 8),
+(24, NULL, NULL, 0),
+(25, NULL, NULL, 0);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `animal`
+-- Estrutura da tabela `animal`
 --
 
-DROP TABLE IF EXISTS `animal`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `animal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `animal` (
+`id` int(11) NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `tipo` varchar(120) DEFAULT NULL,
   `rga` varchar(45) DEFAULT NULL,
@@ -93,194 +95,289 @@ CREATE TABLE `animal` (
   `peso` double DEFAULT NULL,
   `temperamento` text,
   `observacao` text,
-  `dataResgate` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `dataResgate` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `animal`
+-- Extraindo dados da tabela `animal`
 --
 
-LOCK TABLES `animal` WRITE;
-/*!40000 ALTER TABLE `animal` DISABLE KEYS */;
-INSERT INTO `animal` VALUES (1,'Cat','gato','7921',NULL,1,'M',NULL,'1','1',1,20,NULL,NULL,NULL),(2,'rwtretr','gato','rrrrr','11/1111',NULL,'','','1','1',11.11,1.22,'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4d15aaeb,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@bb54828,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@bb54828}]','javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4d15aaeb,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@668aca93,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@668aca93}]','11/11/1111'),(3,'dsfsdf','Gato','dsfsdf','22/2222',NULL,'','','1','1',22.22,1.22,'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@6c6c80f1,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@1a4764e,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@1a4764e}]','javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@6c6c80f1,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@5eb4ee36,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@5eb4ee36}]','22/22/2222'),(4,'adsff','Gato','222222222222222','22/2222',NULL,'Macho','Auditiva','Sim','Sim',22.22,1.22,'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@3692c09,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@2669822f,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@2669822f}]','javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@3692c09,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@42963634,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@42963634}]','22/22/2222'),(5,'asdsa','Gato','sadsadsa','11/1111',NULL,'Macho','Auditiva','Não','Sim',11.11,11.11,'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4b3356a6,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@14738413,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@14738413}]','javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4b3356a6,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@6e938623,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@6e938623}]','11/11/1111'),(6,'wewqe','Cachorro','errrrrrrrrrrrr','22/2222',NULL,'Macho','Fisica','Não','Sim',22.22,22.22,NULL,'javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@bd10581,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@33ab9440,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@33ab9440}]','22/22/2222'),(7,'ewwrer','Gato','111','11/1111',NULL,'Fêmea','Auditiva','Não','Sim',11.11,11.11,'1111111111111','1111','11/11/1111'),(8,'Gatinho','Gato','4443','11/1111',NULL,'Macho','Auditiva','Sim','Sim',11.11,11.11,'ruim','nenhuma','11/11/1111');
-/*!40000 ALTER TABLE `animal` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `animal` (`id`, `nome`, `tipo`, `rga`, `dataNascimento`, `idRaca`, `genero`, `deficiencia`, `vacinado`, `castrado`, `tamanho`, `peso`, `temperamento`, `observacao`, `dataResgate`) VALUES
+(1, 'Cat', 'gato', '7921', NULL, 1, 'M', NULL, '1', '1', 1, 20, NULL, NULL, NULL),
+(2, 'rwtretr', 'gato', 'rrrrr', '11/1111', NULL, '', '', '1', '1', 11.11, 1.22, 'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4d15aaeb,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@bb54828,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@bb54828}]', 'javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4d15aaeb,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@668aca93,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@668aca93}]', '11/11/1111'),
+(3, 'dsfsdf', 'Gato', 'dsfsdf', '22/2222', NULL, '', '', '1', '1', 22.22, 1.22, 'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@6c6c80f1,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@1a4764e,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@1a4764e}]', 'javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@6c6c80f1,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@5eb4ee36,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@5eb4ee36}]', '22/22/2222'),
+(4, 'adsff', 'Gato', '222222222222222', '22/2222', NULL, 'Macho', 'Auditiva', 'Sim', 'Sim', 22.22, 1.22, 'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@3692c09,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@2669822f,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@2669822f}]', 'javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@3692c09,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@42963634,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@42963634}]', '22/22/2222'),
+(5, 'asdsa', 'Gato', 'sadsadsa', '11/1111', NULL, 'Macho', 'Auditiva', 'Não', 'Sim', 11.11, 11.11, 'javax.swing.JTextPane[,403,244,216x30,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4b3356a6,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@14738413,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@14738413}]', 'javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@4b3356a6,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@6e938623,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@6e938623}]', '11/11/1111'),
+(6, 'wewqe', 'Cachorro', 'errrrrrrrrrrrr', '22/2222', NULL, 'Macho', 'Fisica', 'Não', 'Sim', 22.22, 22.22, NULL, 'javax.swing.JTextPane[,106,292,513x84,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.basic.BasicBorders$MarginBorder@bd10581,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=3,left=3,bottom=3,right=3],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],kit=javax.swing.text.StyledEditorKit@33ab9440,typeHandlers={text/plain=javax.swing.text.StyledEditorKit@33ab9440}]', '22/22/2222'),
+(7, 'ewwrer', 'Gato', '111', '11/1111', NULL, 'Fêmea', 'Auditiva', 'Não', 'Sim', 11.11, 11.11, '1111111111111', '1111', '11/11/1111'),
+(8, 'Gatinho', 'Gato', '4443', '11/1111', NULL, 'Macho', 'Auditiva', 'Sim', 'Sim', 11.11, 11.11, 'ruim', 'nenhuma', '11/11/1111'),
+(9, 'ioooooooooo', 'Gato', '00000000000000', '33/3333', NULL, 'Macho', 'Nenhuma', 'Sim', 'Sim', 33.33, 33.33, '0000000000', '000000000000000000', '33/33/3333'),
+(10, 'LULU', 'Cachorro', '3333', '09/2010', NULL, 'Fêmea', 'Nenhuma', 'Sim', 'Sim', 1, 22, 'CALMA', ' ', '21/10/2013');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `endereco`
+-- Estrutura da tabela `endereco`
 --
 
-DROP TABLE IF EXISTS `endereco`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `endereco` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `endereco` (
+`id` int(11) NOT NULL,
   `estado` varchar(45) DEFAULT NULL,
   `cidade` varchar(45) DEFAULT NULL,
   `bairro` varchar(45) DEFAULT NULL,
   `rua` varchar(45) DEFAULT NULL,
   `numero` varchar(45) DEFAULT NULL,
   `complemento` varchar(45) DEFAULT NULL,
-  `cep` varchar(8) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `cep` varchar(8) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
--- Dumping data for table `endereco`
+-- Extraindo dados da tabela `endereco`
 --
 
-LOCK TABLES `endereco` WRITE;
-/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
-INSERT INTO `endereco` VALUES (3,'PERNAMBUCO','RECIFE','VARZEA','RUA DEPUTADO ADALBERTO GUERRA','83','CASA A','50980615'),(4,'PERNAMBUCO','RECIFE','CAXANGA','RUA 00','2','','50987651'),(24,'Kanto','Tokyo','Shibuya','chigachi','87','BA','52030100'),(25,'Kanto','Tokyo','Shinjuku','choujichi','63','B2','52030100'),(26,'PE','Recife','Arruda','Rua 3','45','A33','52030100'),(27,'fsdf','sdfsdf','fsd','sfsdfsdf','sdfsd','sdf','52030100'),(28,'erw','wer','wer','rw','wer','ewr','52030100'),(29,'London','London','Hammersmith','London street','458','A34','52030100');
-/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `endereco` (`id`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`, `cep`) VALUES
+(3, 'PERNAMBUCO', 'RECIFE', 'VARZEA', 'RUA DEPUTADO ADALBERTO GUERRA', '83', 'CASA A', '50980615'),
+(4, 'PERNAMBUCO', 'RECIFE', 'CAXANGA', 'RUA 00', '2', '', '50987651'),
+(24, 'Kanto', 'Tokyo', 'Shibuya', 'chigachi', '87', 'BA', '52030100'),
+(25, 'Kanto', 'Tokyo', 'Shinjuku', 'choujichi', '63', 'B2', '52030100'),
+(26, 'PE', 'Recife', 'Arruda', 'Rua 3', '45', 'A33', '52030100'),
+(27, 'fsdf', 'sdfsdf', 'fsd', 'sfsdfsdf', 'sdfsd', 'sdf', '52030100'),
+(28, 'erw', 'wer', 'wer', 'rw', 'wer', 'ewr', '52030100'),
+(29, 'London', 'London', 'Hammersmith', 'London street', '458', 'A34', '52030100');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `pessoa`
+-- Estrutura da tabela `pessoa`
 --
 
-DROP TABLE IF EXISTS `pessoa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `pessoa` (
+`id` int(11) NOT NULL,
   `nome` varchar(90) DEFAULT NULL,
   `idEndereco` int(11) DEFAULT NULL,
   `telefoneFixo` varchar(11) DEFAULT NULL,
   `telefoneCelular` varchar(11) DEFAULT NULL,
-  `email` varchar(90) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `email` varchar(90) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `pessoa`
+-- Extraindo dados da tabela `pessoa`
 --
 
-LOCK TABLES `pessoa` WRITE;
-/*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
-INSERT INTO `pessoa` VALUES (3,'Yukito Ayatsuji',24,'08199652341','08134445678','ayatsuji@mail.com'),(4,'JBC',25,'08134445896','08134445896','contato@jbc.com'),(5,'Prorenc',26,'08134446471','08134446471','pro@mail.com'),(6,'dfafsd',27,'08134446471','08134446471','dfs@h.com'),(7,'qewqewreqw',28,'08134446471','08134446471','asd@dw.com'),(8,'Oxford',29,'08134446471','08134446471','oxford@oxford.com');
-/*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `pessoa` (`id`, `nome`, `idEndereco`, `telefoneFixo`, `telefoneCelular`, `email`) VALUES
+(3, 'Yukito Ayatsuji', 24, '08199652341', '08134445678', 'ayatsuji@mail.com'),
+(4, 'JBC', 25, '08134445896', '08134445896', 'contato@jbc.com'),
+(5, 'Prorenc', 26, '08134446471', '08134446471', 'pro@mail.com'),
+(6, 'dfafsd', 27, '08134446471', '08134446471', 'dfs@h.com'),
+(7, 'qewqewreqw', 28, '08134446471', '08134446471', 'asd@dw.com'),
+(8, 'Oxford', 29, '08134446471', '08134446471', 'oxford@oxford.com');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `pessoafisica`
+-- Estrutura da tabela `pessoafisica`
 --
 
-DROP TABLE IF EXISTS `pessoafisica`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoafisica` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `pessoafisica` (
+`id` int(11) NOT NULL,
   `rg` varchar(11) DEFAULT NULL,
   `cpf` varchar(14) DEFAULT NULL,
   `genero` varchar(45) DEFAULT NULL,
-  `idPessoa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idPessoa` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `pessoafisica`
+-- Extraindo dados da tabela `pessoafisica`
 --
 
-LOCK TABLES `pessoafisica` WRITE;
-/*!40000 ALTER TABLE `pessoafisica` DISABLE KEYS */;
-INSERT INTO `pessoafisica` VALUES (10,'7852413','082.323.444-40','M',3);
-/*!40000 ALTER TABLE `pessoafisica` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `pessoafisica` (`id`, `rg`, `cpf`, `genero`, `idPessoa`) VALUES
+(10, '7852413', '082.323.444-40', 'M', 3),
+(11, '0000000', '000.000.000-00', 'M', 6);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `pessoajuridica`
+-- Estrutura da tabela `pessoajuridica`
 --
 
-DROP TABLE IF EXISTS `pessoajuridica`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoajuridica` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `pessoajuridica` (
+`id` int(11) NOT NULL,
   `cnpj` varchar(45) DEFAULT NULL,
   `idPessoa` int(11) DEFAULT NULL,
-  `idPessoaFisica` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idPessoaFisica` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `pessoajuridica`
+-- Extraindo dados da tabela `pessoajuridica`
 --
 
-LOCK TABLES `pessoajuridica` WRITE;
-/*!40000 ALTER TABLE `pessoajuridica` DISABLE KEYS */;
-INSERT INTO `pessoajuridica` VALUES (2,'01.234.567/8998-74',4,NULL),(3,'01.234.567/8912-34',8,10);
-/*!40000 ALTER TABLE `pessoajuridica` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `pessoajuridica` (`id`, `cnpj`, `idPessoa`, `idPessoaFisica`) VALUES
+(3, '01.234.567/8912-34', 8, 10);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `raca`
+-- Estrutura da tabela `raca`
 --
 
-DROP TABLE IF EXISTS `raca`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `raca` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `raca` (
+`id` int(11) NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `origem` varchar(45) DEFAULT NULL,
   `tamanhoMax` double DEFAULT NULL,
   `tamanhoMin` double DEFAULT NULL,
   `expectativaVida` int(11) DEFAULT NULL,
   `temperamento` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `tipo` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `raca`
+-- Extraindo dados da tabela `raca`
 --
 
-LOCK TABLES `raca` WRITE;
-/*!40000 ALTER TABLE `raca` DISABLE KEYS */;
-INSERT INTO `raca` VALUES (1,'Persa','Oriente',45,30,5,NULL);
-/*!40000 ALTER TABLE `raca` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `raca` (`id`, `nome`, `origem`, `tamanhoMax`, `tamanhoMin`, `expectativaVida`, `temperamento`, `tipo`) VALUES
+(1, 'Persa', 'Oriente', 45, 30, 5, NULL, NULL),
+(2, 'JUJU', 'BRASIL', 2.22, 2.22, 22, '', NULL),
+(3, 'jiji', 'brasil', 2.11, 0, 33, 'e', NULL);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estrutura da tabela `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `usuario` (
+`id` int(11) NOT NULL,
   `login` varchar(45) DEFAULT NULL,
   `senha` varchar(45) DEFAULT NULL,
-  `email` varchar(90) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `email` varchar(90) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `usuario`
+-- Extraindo dados da tabela `usuario`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'mushi','202cb962ac59075b964b07152d234b70',NULL),(2,'mikaru','123',NULL),(3,'paulo','202cb962ac59075b964b07152d234b70','paulo@d.com'),(4,'paulo','202cb962ac59075b964b07152d234b70','paulo@d.com'),(5,'cristoforetti','a85d63d01bd61ccd5d2798bcb6bc4c99','cristoforetti@nasa.com'),(6,'marcos','a85d63d01bd61ccd5d2798bcb6bc4c99','marcos@hotmail.com'),(7,'joel','a85d63d01bd61ccd5d2798bcb6bc4c99','joel@mail.com'),(8,'Charles','a85d63d01bd61ccd5d2798bcb6bc4c99','charles@mail.com'),(9,'paulao','a85d63d01bd61ccd5d2798bcb6bc4c99','paulao@mail.com'),(10,'jorginho','a85d63d01bd61ccd5d2798bcb6bc4c99','jorginho@mail.com'),(11,'jorge','a85d63d01bd61ccd5d2798bcb6bc4c99','jorge@mail.com');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `usuario` (`id`, `login`, `senha`, `email`) VALUES
+(1, 'mushi', '202cb962ac59075b964b07152d234b70', NULL),
+(2, 'mikaru', '123', NULL),
+(3, 'paulo', '202cb962ac59075b964b07152d234b70', 'paulo@d.com'),
+(4, 'paulo', '202cb962ac59075b964b07152d234b70', 'paulo@d.com'),
+(5, 'cristoforetti', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'cristoforetti@nasa.com'),
+(6, 'marcos', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'marcos@hotmail.com'),
+(7, 'joel', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'joel@mail.com'),
+(8, 'Charles', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'charles@mail.com'),
+(9, 'paulao', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'paulao@mail.com'),
+(10, 'jorginho', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'jorginho@mail.com'),
+(11, 'jorge', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'jorge@mail.com'),
+(12, 'usuario', '2cbe7f341eb6aca638a32b77ddedfd4c', 'usua@gmail.com');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `adocao`
+--
+ALTER TABLE `adocao`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adotante`
+--
+ALTER TABLE `adotante`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `animal`
+--
+ALTER TABLE `animal`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `endereco`
+--
+ALTER TABLE `endereco`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pessoa`
+--
+ALTER TABLE `pessoa`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pessoafisica`
+--
+ALTER TABLE `pessoafisica`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pessoajuridica`
+--
+ALTER TABLE `pessoajuridica`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `raca`
+--
+ALTER TABLE `raca`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `adocao`
+--
+ALTER TABLE `adocao`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `adotante`
+--
+ALTER TABLE `adotante`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `animal`
+--
+ALTER TABLE `animal`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `endereco`
+--
+ALTER TABLE `endereco`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `pessoa`
+--
+ALTER TABLE `pessoa`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `pessoafisica`
+--
+ALTER TABLE `pessoafisica`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `pessoajuridica`
+--
+ALTER TABLE `pessoajuridica`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `raca`
+--
+ALTER TABLE `raca`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-12-12  5:42:44
