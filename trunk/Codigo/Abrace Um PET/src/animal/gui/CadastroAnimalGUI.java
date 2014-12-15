@@ -1,17 +1,12 @@
 package animal.gui;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.HeadlessException;
-import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,11 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
-import com.mysql.jdbc.EscapeTokenizer;
 
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
@@ -266,7 +258,6 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setDataResgate(formattedTextFieldDataResgate.getText());
 					
 				try {
-					
 					if (animalService.validarCadastroAnimal(textFieldRGA.getText())) {
 						if (animalService.adicionarAnimal(animal)) {
 						JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");

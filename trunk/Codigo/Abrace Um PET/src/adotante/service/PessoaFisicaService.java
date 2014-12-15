@@ -35,7 +35,7 @@ public class PessoaFisicaService {
 		try {
 			pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(cpf);
 		} catch (Exception ex) {
-			ex.getMessage();
+			ex.printStackTrace();
 		}
 		return pessoaFisica;
 	}

@@ -19,15 +19,14 @@ public class AnimalDAO {
 		
 		try {
 			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero, "
-					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, "
-					+ "a.observacao, a.dataResgate "
+					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, " + "a.observacao, a.dataResgate "
 					+ "FROM animal as a WHERE rga = ?";
 			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
 			resultAnimal = statementAnimal.executeQuery();
 			Animal animal = new Animal();
 			if (resultAnimal.next()) {
-				//Animal
+				// Animal
 				animal.setId(resultAnimal.getInt("id"));
 				animal.setNome(resultAnimal.getString("a.nome"));
 				animal.setTipo(resultAnimal.getString("tipo"));
@@ -70,8 +69,7 @@ public class AnimalDAO {
 	
 	private int inserirAnimal(Animal animal, Connection con) {
 		int id = 0;
-		String query = "insert into animal (nome, tipo, rga, dataNascimento, genero, deficiencia, vacinado,"
-				+ " castrado, tamanho,"
+		String query = "insert into animal (nome, tipo, rga, dataNascimento, genero, deficiencia, vacinado," + " castrado, tamanho,"
 				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			

@@ -4,7 +4,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -18,15 +20,17 @@ import javax.swing.text.MaskFormatter;
 import usuario.gui.TelaInicialGUI;
 import animal.raca.dominio.Raca;
 import animal.raca.service.RacaService;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import animal.service.Validacoes;
 
 public class CadastrarRacaGUI extends JFrame {
 	
 	private static final long	serialVersionUID	= 1L;
-	private JPanel	contentPane;
-	private JTextField textFieldNome;
-	private JTextField textFieldOrigem;
+	Validacoes					validacoes			= new Validacoes();
+	RacaService					racaService			= new RacaService();
+	Raca						raca				= new Raca();
+	private JPanel				contentPane;
+	private JTextField			textFieldNome;
+	private JTextField			textFieldOrigem;
 	
 	/**
 	 * Create the frame.
@@ -80,10 +84,10 @@ public class CadastrarRacaGUI extends JFrame {
 		textFieldOrigem.setColumns(10);
 		
 		MaskFormatter mascaraTamanho = null;
-		try{
-			mascaraTamanho =  new MaskFormatter("#.##");
+		try {
+			mascaraTamanho = new MaskFormatter("#.##");
 			mascaraTamanho.setPlaceholderCharacter('_');
-		}catch(Exception e){
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Tamanho inválido!", "ERROR", 0);
 			e.printStackTrace();
 		}
@@ -97,10 +101,10 @@ public class CadastrarRacaGUI extends JFrame {
 		contentPane.add(formattedTextFieldTamanhoMinimo);
 		
 		MaskFormatter mascaraExpectativaVida = null;
-		try{
-			mascaraExpectativaVida =  new MaskFormatter("##");
+		try {
+			mascaraExpectativaVida = new MaskFormatter("##");
 			mascaraExpectativaVida.setPlaceholderCharacter('_');
-		}catch(Exception e){
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Tamanho inválido!", "ERROR", 0);
 			e.printStackTrace();
 		}
@@ -110,7 +114,7 @@ public class CadastrarRacaGUI extends JFrame {
 		contentPane.add(formattedTextFieldExpectativaDeVida);
 		
 		JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"", "Gato", "Cachorro"}));
+		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] { "", "Gato", "Cachorro" }));
 		comboBoxTipo.setBounds(76, 194, 101, 20);
 		contentPane.add(comboBoxTipo);
 		
@@ -126,8 +130,6 @@ public class CadastrarRacaGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RacaService racaService = new RacaService();
-				Raca raca = new Raca();
 				
 				raca.setNome(textFieldNome.getText());
 				raca.setOrigem(textFieldOrigem.getText());
@@ -135,24 +137,67 @@ public class CadastrarRacaGUI extends JFrame {
 				raca.setTamanhoMin(Double.parseDouble(formattedTextFieldTamanhoMinimo.getText()));
 				raca.setExpectativaVida(Integer.parseInt(formattedTextFieldExpectativaDeVida.getText()));
 				raca.setTipo(comboBoxTipo.getSelectedItem().toString());
-				raca.setTemperamento(editorPane.getText());
+				raca.setTemperamento(editorPane.getText().toString());
 				
+				String nome = raca.getNome().toString();
+				String origem = raca.getOrigem().toString();
+				String tipo = raca.getTipo().toString();
 				
-				if(racaService.adicionarRaca(raca)){
-					JOptionPane.showMessageDialog(null, "Raça adicionada com sucesso!");
-					TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
-					telaInicialGUI.setVisible(true);
-					dispose();
-				}else{
-					JOptionPane.showMessageDialog(null, "Raça não cadastrada! Tente Novamente");
-					raca.setNome("");
-					raca.setOrigem("");
-					raca.setTamanhoMax(0);
-					raca.setTamanhoMin(0);
-					raca.setExpectativaVida(0);
-					raca.setTemperamento("");
-					textFieldNome.requestFocus();
+				if (validacaoDadosRaca(nome, origem, tipo)) {
+					if (racaService.adicionarRaca(raca)) {
+						JOptionPane.showMessageDialog(null, "Raça adicionada com sucesso!");
+						TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
+						telaInicialGUI.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Raça não cadastrada! Tente Novamente");
+						raca.setNome("");
+						raca.setOrigem("");
+						raca.setTamanhoMax(0);
+						raca.setTamanhoMin(0);
+						raca.setExpectativaVida(0);
+						raca.setTemperamento("");
+						textFieldNome.requestFocus();
+					}
 				}
+				
+			}
+			
+			/**
+			 * @param nome
+			 * @param origem
+			 * @param tipo
+			 * @param temperamento
+			 * @return
+			 */
+			public boolean validacaoDadosRaca(String nome, String origem, String tipo) {
+				boolean valido = true;
+				try {
+					racaService.validarRaca(nome);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e);
+					valido = false;
+				}
+				try {
+					validacoes.verificarVazio(nome, "Por favor, digite o nome da raça");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1);
+					valido = false;
+				}
+				try {
+					validacoes.verificarVazio(origem, "Por favor, digite a origem da raça");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1);
+					valido = false;
+				}
+				try {
+					validacoes.verificarVazio(tipo, "Por favor, escolha o tipo da raça");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1);
+					valido = false;
+				}
+				return valido;
+				
 			}
 		});
 		btnCadastrar.setBounds(445, 382, 101, 23);
