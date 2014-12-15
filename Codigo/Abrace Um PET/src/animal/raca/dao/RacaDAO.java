@@ -13,6 +13,7 @@ import animal.raca.dominio.Raca;
 import com.mysql.jdbc.Connection;
 
 public class RacaDAO {
+	Conexao conexao = new Conexao();
 	/**
 	 * RETORNA OS OBJETOS DE RAÇAS EXISTENTES NO BANCO DE DADOS
 	 * 
@@ -52,7 +53,7 @@ public class RacaDAO {
 	 */
 	public int inserirRaca(Raca raca, Connection con) {
 		int id = 0;
-		String query = "INSERT INTO raca(nome, origem, tamanhoMax, tamanhoMin, expectativaVida, temperamento) values (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO raca(nome, origem, tamanhoMax, tamanhoMin, expectativaVida, temperamento,tipo) values (?, ?, ?, ?, ?, ?,?)";
 		
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
@@ -63,6 +64,7 @@ public class RacaDAO {
 			preparedStatement.setDouble(4, raca.getTamanhoMin());
 			preparedStatement.setInt(5, raca.getExpectativaVida());
 			preparedStatement.setString(6, raca.getTemperamento());
+			preparedStatement.setString(7, raca.getTipo());
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
@@ -104,4 +106,13 @@ public class RacaDAO {
 		}
 	}
 	
+	/**
+	 * 	
+	 * @param nome
+	 * @return
+	 */
+	public boolean consultarRaca(String nome) throws Exception {
+		String query = ("SELECT nome FROM raca where nome='" + nome + "'");
+		return (conexao.consultar(query));
+	}
 }
