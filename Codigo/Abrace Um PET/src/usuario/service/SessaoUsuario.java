@@ -19,4 +19,7 @@ public class SessaoUsuario {
 	public void setAdocao(Adocao adocao){
 		this.adocao=adocao;
 	}
+	public Usuario getUsuarioLogado(){
+		return usuarioLogado;
+	}
 }

@@ -5,6 +5,8 @@ import infraestrutura.gui.ImagensGUI;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -124,11 +126,19 @@ public class LoginGUI extends JFrame {
 		senha = criptografia.criptografar(senha);
 
 		if (usuarioService.consultarUsuarioService(login, senha)) {
-			SessaoUsuario sessao = SessaoUsuario.getInstancia();
-			sessao.setUsuarioLogado(usuario);
-			TelaInicialGUI tl = new TelaInicialGUI();
-			tl.setVisible(true);
-			dispose();
+			try {
+				usuario.setSenha(senha);
+				int id =usuarioService.getIdUsuario(usuario);
+				SessaoUsuario sessao = SessaoUsuario.getInstancia();
+				sessao.setUsuarioLogado(usuario);
+				TelaInicialGUI tl = new TelaInicialGUI();
+				tl.setVisible(true);
+				dispose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		if (!(usuarioService.consultarUsuarioService(login, senha))) {
 			JOptionPane.showMessageDialog(null, "Dados inválidos", "ERRO", 0);

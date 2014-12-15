@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usuario.service.SessaoUsuario;
 import adocao.dominio.Adocao;
 
 import com.mysql.jdbc.PreparedStatement;
 
 public class AdocaoDAO {
 	Conexao	conexao	= new Conexao();
+	SessaoUsuario sessao =SessaoUsuario.getInstancia();
 
 	/**
 	 * ADICIONA PESSOA NO BANCO DE DADOS
@@ -39,13 +41,15 @@ public class AdocaoDAO {
 	 */
 	public int inserirAdocao(Adocao adocao, Connection con) {
 		int id;
-		String query = "insert into adocao (idAdotante, idAnimal) values (?, ?)";
+		String query = "insert into adocao (idAdotante, idAnimal,idUsuario) values (?, ?,?)";
 
 		try {
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 
 			preparedStatement.setInt(1, adocao.getAdotante().getId());
 			preparedStatement.setInt(2, adocao.getAnimal().getId());
+			preparedStatement.setInt(3, sessao.getUsuarioLogado().getId());
+
 
 			int affectedRows = preparedStatement.executeUpdate();
 
