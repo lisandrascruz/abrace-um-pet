@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import adotante.gui.cadastroGUI.CadastroPessoaGUI;
+import adotante.gui.consultaGUI.ConsultarAdotanteFisicoCPFGUI;
+import adotante.gui.consultaGUI.ConsultarPessoaGUI;
 import usuario.gui.TelaInicialGUI;
 
 import java.awt.event.ActionListener;
@@ -70,6 +73,14 @@ public class PessoaGUI extends JFrame {
 		contentPane.add(lblAdotante);
 		
 		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarPessoaGUI consultarPessoa = new ConsultarPessoaGUI();
+				consultarPessoa.setVisible(true);
+				dispose();
+				
+			}
+		});
 		btnConsultar.setBounds(227, 249, 167, 23);
 		contentPane.add(btnConsultar);
 
