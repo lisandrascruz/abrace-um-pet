@@ -1,11 +1,15 @@
 package adocao.gui;
 
+import infraestrutura.dominio.Date;
 import infraestrutura.gui.ImagensGUI;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -106,18 +110,37 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 		JButton btnAdotar = new JButton("Adotar");
 		btnAdotar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Calendar calobj = Calendar.getInstance();
+				String dataAdocao = df.format(calobj.getTime());
+				
+				Adocao adocao;
 				AdocaoService adocaoService = new AdocaoService();
-				Adocao adocao = new Adocao();
-				Adotante adotante = new Adotante();
-				adotante = adocaoService.consultarAdotante(pessoaFisica.getPessoa());
-				adocao.setAnimal(animal);
-				adocao.setAdotante(adotante);
-				adocaoService.adicionarAdocaoService(adocao);
-				SessaoUsuario sessao = SessaoUsuario.getInstancia();
-				sessao.setAdocao(adocao);
+				adocao = adocaoService.consultarAdocao(jFormattedTextCpf.getText(), textRga.getText());
 				
-				JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
-				
+				if (adocao.getId() == 0){
+					adocao = new Adocao();
+					Adotante adotante = new Adotante();
+					adotante = adocaoService.consultarAdotante(pessoaFisica.getPessoa());
+					adocao.setAnimal(animal);
+					adocao.setAdotante(adotante);
+					adocao.setDataAdocao(dataAdocao);
+					adocaoService.adicionarAdocaoService(adocao);
+					SessaoUsuario sessao = SessaoUsuario.getInstancia();
+					sessao.setAdocao(adocao);
+					JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
+				}
+				else if (adocao.getDataDevolucao() == null)
+				{
+					adocao.setDataDevolucao(dataAdocao);
+					adocaoService.editarAdocao(adocao);
+					JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
+				}
+				else if (adocao.getDataDevolucao() != null) {
+					JOptionPane.showMessageDialog(null, "O animal não pode mais ser adotado por esta pessoa!!");
+				}
+
 				TelaInicialGUI ti = new TelaInicialGUI();
 				ti.setVisible(true);
 				dispose();
