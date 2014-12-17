@@ -14,13 +14,40 @@ public class AdocaoService {
 	}
 	
 	public Adotante consultarAdotante(Pessoa pessoa){
-		Adotante adotante = new Adotante();
-		AdotanteDAO AdotanteDAO = new AdotanteDAO();
+		Adotante adotante = null;
+		AdotanteDAO adotanteDAO = new AdotanteDAO();
 		try{
-			adotante = AdotanteDAO.consultarAdotante(pessoa);
+			adotante = adotanteDAO.consultarAdotante(pessoa);
 		} catch (Exception ex) {
 			
 		}
 		return adotante;
+	}
+	
+	public Adocao consultarAdocao(String cpf, String rga){
+		Adocao adocao = null;
+		AdocaoDAO adocaoDAO = new AdocaoDAO();
+		try{
+			adocao = adocaoDAO.consultarAdocao(cpf, rga);
+		} catch (Exception ex) {
+			
+		}
+		return adocao;
+	}
+	
+	public Adocao consultarAdocaoJuridica(String cnpj, String rga){
+		Adocao adocao = null;
+		AdocaoDAO adocaoDAO = new AdocaoDAO();
+		try{
+			adocao = adocaoDAO.consultarAdocaoJuridica(cnpj, rga);
+		} catch (Exception ex) {
+			
+		}
+		return adocao;
+	}
+	
+	public boolean editarAdocao(Adocao adocao){
+		AdocaoDAO adocaoDAO = new AdocaoDAO();
+		return adocaoDAO.editarAdocao(adocao);
 	}
 }
