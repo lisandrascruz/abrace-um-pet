@@ -1,4 +1,4 @@
-package adotante.gui;
+package adotante.gui.consultaGUI;
 
 import infraestrutura.gui.ImagensGUI;
 
@@ -13,7 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class CadastroPessoaGUI extends JFrame {
+import adotante.gui.PessoaGUI;
+
+public class ConsultarPessoaGUI extends JFrame {
 
 	/**
 	 * 
@@ -28,7 +30,7 @@ public class CadastroPessoaGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroPessoaGUI frame = new CadastroPessoaGUI();
+					ConsultarPessoaGUI frame = new ConsultarPessoaGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,8 +42,8 @@ public class CadastroPessoaGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroPessoaGUI() {
-		setTitle("Abrace um PET - Cadastro de Usu\u00E1rio");
+	public ConsultarPessoaGUI() {
+		setTitle("Abrace um PET - Consulta de Usu\u00E1rio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
@@ -52,8 +54,8 @@ public class CadastroPessoaGUI extends JFrame {
 		btnPessoaFsica.setBounds(61, 154, 279, 39);
 		btnPessoaFsica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotanteFisicoGUI cadastroFisico = new CadastroAdotanteFisicoGUI();
-				cadastroFisico.setVisible(true);
+				ConsultarAdotanteFisicoCPFGUI consulta = new ConsultarAdotanteFisicoCPFGUI();
+				consulta.setVisible(true);
 				dispose();
 			}
 		});
@@ -62,9 +64,7 @@ public class CadastroPessoaGUI extends JFrame {
 		btnPessoaJurdica.setBounds(61, 222, 279, 39);
 		btnPessoaJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAdotanteJuridicoGUI cadastroPessoaJuridica = new CadastroAdotanteJuridicoGUI();
-				cadastroPessoaJuridica.setVisible(true);
-				dispose();
+
 			}
 		});
 		contentPane.setLayout(null);
@@ -82,10 +82,10 @@ public class CadastroPessoaGUI extends JFrame {
 		btnVoltar.setBounds(251, 382, 89, 23);
 		contentPane.add(btnVoltar);
 
-		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Adotante");
-		lblCadastroDeUsurio.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblCadastroDeUsurio.setBounds(44, 37, 214, 39);
-		contentPane.add(lblCadastroDeUsurio);
+		JLabel lblConsultsDeUsurio = new JLabel("Consulta de Adotante");
+		lblConsultsDeUsurio.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
+		lblConsultsDeUsurio.setBounds(44, 37, 214, 39);
+		contentPane.add(lblConsultsDeUsurio);
 
 		JLabel label = new JLabel("");
 		ImagensGUI.imagemCadastroAdotante(label);

@@ -1,4 +1,4 @@
-package adotante.gui;
+package adotante.gui.consultaGUI;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -20,12 +20,13 @@ import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
+import adotante.gui.cadastroGUI.CadastroPessoaGUI;
 import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
 import adotante.service.PessoaJuridicaService;
 import adotante.service.PessoaService;
 
-public class CadastroAdotanteJuridicoGUI extends JFrame {
+public class ConsultarAdotanteJuridicoGUI extends JFrame {
 	
 	/**
 	 * 
@@ -47,7 +48,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroAdotanteJuridicoGUI(){
+	public ConsultarAdotanteJuridicoGUI(){
 		setTitle("Cadastro de Pessoa Juridica - Abrace um PET");
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();

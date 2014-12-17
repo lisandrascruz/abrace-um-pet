@@ -25,7 +25,6 @@ public class PessoaJuridicaDAO {
 		try {
 			Connection con = Conexao.abrirConceccaoMySQL();
 			int idEndereco = inserirEndereco(pessoaJuridica, con);
-			System.out.println(idEndereco);
 			int idPessoa = inserirPessoa(pessoaJuridica, con, idEndereco);
 			inserirPessoaJuridica(pessoaJuridica, con, idPessoa);
 			inserirAdotante(con, idPessoa);
