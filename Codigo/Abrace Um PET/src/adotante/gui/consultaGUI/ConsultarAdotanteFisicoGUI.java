@@ -49,6 +49,9 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 	 */
 	public ConsultarAdotanteFisicoGUI(){
 		
+		
+		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
+		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -182,6 +185,20 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		lblCelular.setBounds(364, 118, 65, 14);
 		contentPane.add(lblCelular);
 		
+		MaskFormatter mascaraCelular = null;
+		try {
+			mascaraCelular = new MaskFormatter("(##)####-####");
+			mascaraCelular.setPlaceholderCharacter('_');
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(null, "Telefone celular inválido!", "ERROR", 0);
+			e1.printStackTrace();
+		}
+		jFormattedTextTeljFormattedTextCelular = new JFormattedTextField(mascaraCelular);
+		jFormattedTextTeljFormattedTextCelular.setEditable(false);
+		jFormattedTextTeljFormattedTextCelular.setBounds(420, 116, 151, 20);
+		contentPane.add(jFormattedTextTeljFormattedTextCelular);
+
+		
 		// JFormattedTextField jFormattedTextTeljFormattedTextCelular =
 		// mascaraTelefoneCelular();
 		
@@ -278,24 +295,24 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 	/**
 	 * @return
 	 */
-	public JFormattedTextField mascaraTelefoneCelular() {
-		/**
-		 * MASCARA TELEFONE CELULAR
-		 */
-		MaskFormatter mascaraCelular = null;
-		try {
-			mascaraCelular = new MaskFormatter("(##)####-####");
-			mascaraCelular.setPlaceholderCharacter('_');
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		jFormattedTextTeljFormattedTextCelular = new JFormattedTextField(mascaraCelular);
-		jFormattedTextTeljFormattedTextCelular.setEditable(false);
-		contentPane.add(jFormattedTextTeljFormattedTextCelular);
-		jFormattedTextTeljFormattedTextCelular.setBounds(420, 116, 151, 20);
-		
-		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
-		setBounds(100, 100, 645, 455);
-		return jFormattedTextTeljFormattedTextCelular;
-	}
+//	public JFormattedTextField mascaraTelefoneCelular() {
+//		/**
+//		 * MASCARA TELEFONE CELULAR
+//		 */
+//		MaskFormatter mascaraCelular = null;
+//		try {
+//			mascaraCelular = new MaskFormatter("(##)####-####");
+//			mascaraCelular.setPlaceholderCharacter('_');
+//		} catch (ParseException e1) {
+//			e1.printStackTrace();
+//		}
+//		jFormattedTextTeljFormattedTextCelular = new JFormattedTextField(mascaraCelular);
+//		jFormattedTextTeljFormattedTextCelular.setEditable(false);
+//		contentPane.add(jFormattedTextTeljFormattedTextCelular);
+//		jFormattedTextTeljFormattedTextCelular.setBounds(420, 116, 151, 20);
+//		
+//		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
+//		setBounds(100, 100, 645, 455);
+//		return jFormattedTextTeljFormattedTextCelular;
+//	}
 }

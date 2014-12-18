@@ -1,6 +1,25 @@
 package adotante.service;
 
+import java.sql.SQLException;
+
+import adotante.dao.PessoaFisicaDAO;
+import adotante.dominio.Endereco;
+
 public class EnderecoService {
+	
+	
+	public Endereco consultarEndereco(int id){
+		Endereco endereco = new Endereco();
+		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+		try {
+			endereco = pessoaFisicaDAO.consultarEndereco(id);
+		} catch (SQLException e) {
+			System.out.println("Erro ServiceEndereco");
+			e.printStackTrace();
+		}
+		return endereco;
+		
+	}
 	/**
 	 * VALIDAR RUA DO ENDERECO
 	 * 
