@@ -25,22 +25,22 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long	serialVersionUID	= 1L;
-	private JPanel				contentPane;
-	protected JTextField		textNomeFisico;
-	protected JTextField		textRua;
-	protected JTextField		textBairro;
-	protected JTextField		textNumero;
-	protected JTextField		textCidade;
-	protected JTextField		textEstado;
-	protected JTextField		textComplemento;
-	protected JTextField		textEmail;
-	protected JTextField		textRG;
-	protected JComboBox<String>	comboGenero;
-	protected JFormattedTextField jFormattedTextCPF;
-	protected JFormattedTextField jFormattedTextCep;
-	protected JFormattedTextField formattedTextFieldTelefoneFixo;
-	protected JFormattedTextField jFormattedTextTeljFormattedTextCelular;
+	private static final long		serialVersionUID	= 1L;
+	private JPanel					contentPane;
+	protected JTextField			textNomeFisico;
+	protected JTextField			textRua;
+	protected JTextField			textBairro;
+	protected JTextField			textNumero;
+	protected JTextField			textCidade;
+	protected JTextField			textEstado;
+	protected JTextField			textComplemento;
+	protected JTextField			textEmail;
+	protected JTextField			textRG;
+	protected JComboBox < String>	comboGenero;
+	protected JFormattedTextField	jFormattedTextCPF;
+	protected JFormattedTextField	jFormattedTextCep;
+	protected JFormattedTextField	formattedTextFieldTelefoneFixo;
+	protected JFormattedTextField	jFormattedTextTeljFormattedTextCelular;
 	
 	/**
 	 * Create the frame.
@@ -48,7 +48,6 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 	 * @return
 	 */
 	public ConsultarAdotanteFisicoGUI(){
-		
 		
 		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
 		setBounds(100, 100, 645, 455);
@@ -102,7 +101,8 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 			mascaraCPF.setPlaceholderCharacter('_');
 			
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR",
+					0);
 		}
 		jFormattedTextCPF = new JFormattedTextField(mascaraCPF);
 		jFormattedTextCPF.setEditable(false);
@@ -184,7 +184,9 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		lblCelular.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblCelular.setBounds(364, 118, 65, 14);
 		contentPane.add(lblCelular);
-		
+		/**
+		 * MASCARA PARA TELEFONE CELULAR
+		 */
 		MaskFormatter mascaraCelular = null;
 		try {
 			mascaraCelular = new MaskFormatter("(##)####-####");
@@ -197,10 +199,6 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		jFormattedTextTeljFormattedTextCelular.setEditable(false);
 		jFormattedTextTeljFormattedTextCelular.setBounds(420, 116, 151, 20);
 		contentPane.add(jFormattedTextTeljFormattedTextCelular);
-
-		
-		// JFormattedTextField jFormattedTextTeljFormattedTextCelular =
-		// mascaraTelefoneCelular();
 		
 		JLabel lblTelefoneFixo = new JLabel("Telefone Fixo:");
 		lblTelefoneFixo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -215,7 +213,8 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 			mascaraTelFixo = new MaskFormatter("(##)####-####");
 			mascaraTelFixo.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um telefone fixo válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null,
+					"Digite um telefone fixo válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		
 		formattedTextFieldTelefoneFixo = new JFormattedTextField(mascaraTelFixo);
@@ -284,35 +283,12 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		lblGenero.setBounds(479, 83, 46, 14);
 		contentPane.add(lblGenero);
 		
-		comboGenero = new JComboBox<String>();
+		comboGenero = new JComboBox < String>();
 		comboGenero.setEnabled(false);
-		comboGenero.setModel(new DefaultComboBoxModel<String>(new String[] { " ", "M", "F" }));
+		comboGenero.setModel(new DefaultComboBoxModel <String>(new String[] { " ", "M", "F" }));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
 		
 	}
 	
-	/**
-	 * @return
-	 */
-//	public JFormattedTextField mascaraTelefoneCelular() {
-//		/**
-//		 * MASCARA TELEFONE CELULAR
-//		 */
-//		MaskFormatter mascaraCelular = null;
-//		try {
-//			mascaraCelular = new MaskFormatter("(##)####-####");
-//			mascaraCelular.setPlaceholderCharacter('_');
-//		} catch (ParseException e1) {
-//			e1.printStackTrace();
-//		}
-//		jFormattedTextTeljFormattedTextCelular = new JFormattedTextField(mascaraCelular);
-//		jFormattedTextTeljFormattedTextCelular.setEditable(false);
-//		contentPane.add(jFormattedTextTeljFormattedTextCelular);
-//		jFormattedTextTeljFormattedTextCelular.setBounds(420, 116, 151, 20);
-//		
-//		setTitle("Cadastro de Pessoa Fisica - Abrace um PET");
-//		setBounds(100, 100, 645, 455);
-//		return jFormattedTextTeljFormattedTextCelular;
-//	}
 }

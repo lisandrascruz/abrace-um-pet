@@ -37,9 +37,9 @@ public class AdocaoDAO {
 		}
 	}
 	
-	public boolean editarAdocao(Adocao adocao){
+	public boolean editarAdocao(Adocao adocao) {
 		String query = "update adocao set dataDevolucao = ? where id = ?";
-		try{
+		try {
 			Connection con = Conexao.abrirConceccaoMySQL();
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			preparedStatement.setString(1, adocao.getDataDevolucao());
@@ -98,9 +98,16 @@ public class AdocaoDAO {
 		
 		try {
 			String queryAdocao = "SELECT a.id, a.idAnimal, a.idAdotante, a.dataAdocao, a.dataDevolucao, "
-					+ "b.id, b.nome, tipo, b.rga, b.dataNascimento, b.genero, " + "c.id, c.idPessoa, " + "d.id, d.nome, d.email, " + "e.id, e.cpf, e.idPessoa "
-					+ "FROM abrace_um_pet.adocao as a " + "inner join animal as b " + "inner join adotante as c " + "inner join pessoa as d "
-					+ "inner join pessoafisica as e " + "where a.idAnimal = b.id and a.idAdotante = c.id and c.idPessoa = d.id and e.idPessoa = d.id "
+					+ "b.id, b.nome, tipo, b.rga, b.dataNascimento, b.genero, "
+					+ "c.id, c.idPessoa, "
+					+ "d.id, d.nome, d.email, "
+					+ "e.id, e.cpf, e.idPessoa "
+					+ "FROM abrace_um_pet.adocao as a "
+					+ "inner join animal as b "
+					+ "inner join adotante as c "
+					+ "inner join pessoa as d "
+					+ "inner join pessoafisica as e "
+					+ "where a.idAnimal = b.id and a.idAdotante = c.id and c.idPessoa = d.id and e.idPessoa = d.id "
 					+ "and e.cpf = ? and b.rga = ? ";
 			
 			statementAdocao = connection.prepareStatement(queryAdocao);
@@ -156,9 +163,16 @@ public class AdocaoDAO {
 		
 		try {
 			String queryAdocao = "SELECT a.id, a.idAnimal, a.idAdotante, a.dataAdocao, a.dataDevolucao, "
-					+ "b.id, b.nome, tipo, b.rga, b.dataNascimento, b.genero, " + "c.id, c.idPessoa, " + "d.id, d.nome, d.email, " + "e.id, e.cnpj, e.idPessoa "
-					+ "FROM abrace_um_pet.adocao as a " + "inner join animal as b " + "inner join adotante as c " + "inner join pessoa as d "
-					+ "inner join pessoajuridica as e " + "where a.idAnimal = b.id and a.idAdotante = c.id and c.idPessoa = d.id and e.idPessoa = d.id  "
+					+ "b.id, b.nome, tipo, b.rga, b.dataNascimento, b.genero, "
+					+ "c.id, c.idPessoa, "
+					+ "d.id, d.nome, d.email, "
+					+ "e.id, e.cnpj, e.idPessoa "
+					+ "FROM abrace_um_pet.adocao as a "
+					+ "inner join animal as b "
+					+ "inner join adotante as c "
+					+ "inner join pessoa as d "
+					+ "inner join pessoajuridica as e "
+					+ "where a.idAnimal = b.id and a.idAdotante = c.id and c.idPessoa = d.id and e.idPessoa = d.id  "
 					+ "and e.cnpj = ? and b.rga = ? ";
 			
 			statementAdocao = connection.prepareStatement(queryAdocao);

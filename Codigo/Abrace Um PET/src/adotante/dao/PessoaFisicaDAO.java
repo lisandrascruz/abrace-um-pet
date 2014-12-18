@@ -7,9 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import adocao.dominio.Adocao;
+import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
+import adotante.dominio.PessoaJuridica;
+import animal.dominio.Animal;
 
 public class PessoaFisicaDAO {
 	
@@ -224,16 +228,17 @@ public class PessoaFisicaDAO {
 		ResultSet resultPessoaFisica = null;
 		
 		try {
-			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.idPessoa, pf.rg, pf.genero, p.id,  p.nome, "
-					+ "p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoafisica as "
-					+ "pf INNER JOIN pessoa as p ON pf.idPessoa = p.id WHERE cpf = ?";
+			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.idPessoa, pf.rg, pf.genero,"
+					+ "p.id,  p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email "
+					+ "FROM pessoafisica as pf " + "INNER JOIN pessoa as p "
+					+ "ON pf.idPessoa = p.id " + "WHERE cpf = ?";
 			statementPessoaFisica = connection.prepareStatement(queryPessoaFisicaPessoa);
 			statementPessoaFisica.setString(1, cpf);
 			resultPessoaFisica = statementPessoaFisica.executeQuery();
 			
 			Pessoa pessoa = new Pessoa();
 			PessoaFisica pessoaFisica = new PessoaFisica();
-			
+			Endereco endereco = new Endereco();
 			if (resultPessoaFisica.next()) {
 				
 				pessoa.setId(resultPessoaFisica.getInt("p.id"));
@@ -245,8 +250,9 @@ public class PessoaFisicaDAO {
 				pessoaFisica.setCpf(resultPessoaFisica.getString("cpf"));
 				pessoaFisica.setRg(resultPessoaFisica.getString("rg"));
 				pessoaFisica.setGenero(resultPessoaFisica.getString("genero"));
+				endereco.setId(resultPessoaFisica.getInt("idEndereco"));
 				pessoaFisica.setPessoa(pessoa);
-				
+				pessoa.setEndereco(endereco);
 			}
 			
 			return pessoaFisica;
@@ -256,54 +262,6 @@ public class PessoaFisicaDAO {
 			}
 			if (statementPessoaFisica != null) {
 				statementPessoaFisica.close();
-			}
-		}
-		
-	}
-	
-	/**
-	 * COSULTA ENDERECO NO BANCO DE DADOS ATRAVÉS DO ID
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SQLException
-	 */
-	public Endereco consultarEndereco(int id) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
-		PreparedStatement statementEndereco = null;
-		ResultSet resultEndereco = null;
-		
-		try {
-			
-			String queryEndereco = "SELECT id, rua, bairro, numero, cidade,estado, cep, complemento FROM endereco where id='"
-					+ id + "'";
-			statementEndereco = connection.prepareStatement(queryEndereco);
-			resultEndereco = statementEndereco.executeQuery();
-			
-			Pessoa pessoa = new Pessoa();
-			Endereco endereco = new Endereco();
-			
-			if (resultEndereco.next()) {
-				
-				endereco.setId(resultEndereco.getInt("id"));
-				endereco.setRua(resultEndereco.getString("rua"));
-				endereco.setNumero(resultEndereco.getString("numero"));
-				endereco.setEstado(resultEndereco.getString("estado"));
-				endereco.setComplemento(resultEndereco.getString("complemento"));
-				endereco.setCidade(resultEndereco.getString("complemento"));
-				endereco.setCep(resultEndereco.getString("cep"));
-				endereco.setBairro(resultEndereco.getString("bairro"));
-				pessoa.setEndereco(endereco);
-				
-			}
-			
-			return endereco;
-		} finally {
-			if (resultEndereco != null) {
-				resultEndereco.close();
-			}
-			if (statementEndereco != null) {
-				statementEndereco.close();
 			}
 		}
 		

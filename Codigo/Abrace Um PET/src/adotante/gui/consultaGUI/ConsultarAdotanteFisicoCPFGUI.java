@@ -22,7 +22,6 @@ import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
 import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
-import animal.dominio.Animal;
 
 public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 	
@@ -66,6 +65,14 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 		JButton btnConsultarCpf = new JButton("Consultar");
 		btnConsultarCpf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				consultaAdotanteFisico(jFormattedTextCpf);
+				
+			}
+
+			/**
+			 * @param jFormattedTextCpf
+			 */
+			public void consultaAdotanteFisico(JFormattedTextField jFormattedTextCpf) {
 				ConsultarAdotanteFisicoGUI consulta = new ConsultarAdotanteFisicoGUI();
 				consulta.setVisible(true);
 				dispose();
@@ -74,8 +81,9 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 				EnderecoService enderecoService = new EnderecoService();
 				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
 				Pessoa pessoa = pessoaFisica.getPessoa();
+				Endereco endereco = new Endereco();
 				int idEndereco = pessoaFisica.getPessoa().getEndereco().getId();
-				Endereco endereco = enderecoService.consultarEndereco(35);
+				endereco = enderecoService.consultarEndereco(idEndereco);
 				
 				consulta.textNomeFisico.setText(pessoa.getNome());
 				consulta.textEmail.setText(pessoa.getEmail());
@@ -93,7 +101,6 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 				consulta.jFormattedTextCep.setText(endereco.getCep());
 				consulta.textNumero.setText(endereco.getNumero());
 				pessoa.setEndereco(endereco);
-				
 			}
 		});
 		btnConsultarCpf.setBounds(282, 199, 89, 23);
