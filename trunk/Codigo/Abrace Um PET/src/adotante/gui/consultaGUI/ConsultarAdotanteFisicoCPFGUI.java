@@ -20,6 +20,7 @@ import usuario.gui.TelaInicialGUI;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
+import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
 import animal.dominio.Animal;
 
@@ -69,11 +70,13 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 				consulta.setVisible(true);
 				dispose();
 				
-				pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+				EnderecoService enderecoService = new EnderecoService();
 				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
-				
 				Pessoa pessoa = pessoaFisica.getPessoa();
+				int idEndereco = pessoaFisica.getPessoa().getEndereco().getId();
+				Endereco endereco = enderecoService.consultarEndereco(35);
+				
 				consulta.textNomeFisico.setText(pessoa.getNome());
 				consulta.textEmail.setText(pessoa.getEmail());
 				consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
@@ -83,14 +86,13 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 				consulta.jFormattedTextCPF.setText(pessoaFisica.getCpf());
 				consulta.textRG.setText(pessoaFisica.getRg());
 				
-				Endereco endereco = pessoa.getEndereco();
 				consulta.textRua.setText(endereco.getRua());
 				consulta.textBairro.setText(endereco.getBairro());
 				consulta.textCidade.setText(endereco.getCidade());
 				consulta.textEstado.setText(endereco.getEstado());
 				consulta.jFormattedTextCep.setText(endereco.getCep());
 				consulta.textNumero.setText(endereco.getNumero());
-				
+				pessoa.setEndereco(endereco);
 				
 			}
 		});

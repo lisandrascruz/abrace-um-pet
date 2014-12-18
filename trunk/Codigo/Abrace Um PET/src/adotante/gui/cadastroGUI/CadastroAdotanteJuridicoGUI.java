@@ -42,7 +42,7 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 	private JTextField			textEmail;
 	private JFormattedTextField	jFormattedTextCpf;
 	private PessoaFisica		pessoaFisica;
-	private JLabel lblMostrarRepresentante;
+	private JLabel				lblMostrarRepresentante;
 	
 	/**
 	 * Create the frame.
@@ -241,17 +241,17 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				String email = pessoaJuridica.getPessoa().getEmail();
 				String cnpj = pessoaJuridica.getCnpj();
 				
-				if ((validarEndereco(numero, rua, bairro, cidade, estado)&&(validarPessoaJuridica(nome, email, cnpj)))) {
-						if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
-							JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
-							CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
-							cadastroAdotante.setVisible(true);
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "O cadastro do adotante juridico não pode ser realizado, tente novamente!(Endereco)",
-									"ERROR", 0);
-						}
-					} 
+				if ((validarEndereco(numero, rua, bairro, cidade, estado) && (validarPessoaJuridica(nome, email, cnpj)))) {
+					if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
+						JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
+						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
+						cadastroAdotante.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "O cadastro do adotante juridico não pode ser realizado, tente novamente!(Endereco)",
+								"ERROR", 0);
+					}
+				}
 			}
 			
 			/**
