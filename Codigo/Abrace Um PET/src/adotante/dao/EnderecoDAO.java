@@ -13,7 +13,6 @@ import adotante.dominio.Pessoa;
 public class EnderecoDAO {
 	/**
 	 * COSULTA ENDERECO NO BANCO DE DADOS ATRAVÉS DO ID
-	 * 
 	 * @param id
 	 * @return
 	 * @throws SQLException
@@ -25,7 +24,7 @@ public class EnderecoDAO {
 		
 		try {
 			
-			String queryEndereco = "SELECT id, rua, bairro, numero, cidade,estado, cep, complemento FROM endereco where id='"
+			String queryEndereco = "SELECT id, rua, bairro, numero, cidade,estado, cep, complemento FROM endereco WHERE id='"
 					+ id + "'";
 			statementEndereco = connection.prepareStatement(queryEndereco);
 			resultEndereco = statementEndereco.executeQuery();

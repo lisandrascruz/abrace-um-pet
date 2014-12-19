@@ -31,25 +31,29 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long	serialVersionUID	= 1L;
-	private JPanel				contentPane;
-	private JTextField			textNomeJuridico;
-	private JTextField			textRua;
-	private JTextField			textBairro;
-	private JTextField			textNumero;
-	private JTextField			textCidade;
-	private JTextField			textEstado;
-	private JTextField			textComplemento;
-	private JTextField			textEmail;
-	private JFormattedTextField	jFormattedTextCpf;
-	private PessoaFisica		pessoaFisica;
-	private JLabel lblMostrarRepresentante;
+	protected static final long	serialVersionUID	= 1L;
+	protected JPanel				contentPane;
+	protected JTextField			textNomeJuridico;
+	protected JTextField			textRua;
+	protected JTextField			textBairro;
+	protected JTextField			textNumero;
+	protected JTextField			textCidade;
+	protected JTextField			textEstado;
+	protected JTextField			textComplemento;
+	protected JTextField			textEmail;
+	protected JFormattedTextField	jFormattedTextCpf;
+	protected PessoaFisica		pessoaFisica;
+	protected JLabel lblMostrarRepresentante;
+	protected JFormattedTextField formattedTextFieldTelefoneFixo ;
+	protected JFormattedTextField jFormattedTextTeljFormattedTextCelular;
+	protected JFormattedTextField formattedTextFieldCnpj;
+	protected JFormattedTextField jFormattedTextCep;
 	
 	/**
 	 * Create the frame.
 	 */
 	public ConsultarAdotanteJuridicoGUI(){
-		setTitle("Cadastro de Pessoa Juridica - Abrace um PET");
+		setTitle("Consulta de Pessoa Juridica - Abrace um PET");
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,20 +68,22 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Digite um telefone fixo válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		
-		JFormattedTextField formattedTextFieldTelefoneFixo = new JFormattedTextField(mascaraTelFixo);
+		formattedTextFieldTelefoneFixo = new JFormattedTextField(mascaraTelFixo);
+		formattedTextFieldTelefoneFixo.setEditable(false);
 		contentPane.add(formattedTextFieldTelefoneFixo);
 		formattedTextFieldTelefoneFixo.setBounds(173, 116, 118, 20);
 		
-		MaskFormatter mascaraTel = null;
+		MaskFormatter mascaraCelular = null;
 		try {
-			mascaraTel = new MaskFormatter("(##)####-####");
-			mascaraTel.setPlaceholderCharacter('_');
+			mascaraCelular = new MaskFormatter("(##)####-####");
+			mascaraCelular.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		JFormattedTextField jFormattedTextTeljFormattedTextTel = new JFormattedTextField(mascaraTel);
-		contentPane.add(jFormattedTextTeljFormattedTextTel);
-		jFormattedTextTeljFormattedTextTel.setBounds(364, 116, 104, 20);
+		jFormattedTextTeljFormattedTextCelular = new JFormattedTextField(mascaraCelular);
+		jFormattedTextTeljFormattedTextCelular.setEditable(false);
+		contentPane.add(jFormattedTextTeljFormattedTextCelular);
+		jFormattedTextTeljFormattedTextCelular.setBounds(364, 116, 104, 20);
 		
 		MaskFormatter mascaraCnpj = null;
 		try {
@@ -88,7 +94,8 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		JFormattedTextField formattedTextFieldCnpj = new JFormattedTextField(mascaraCnpj);
+		formattedTextFieldCnpj = new JFormattedTextField(mascaraCnpj);
+		formattedTextFieldCnpj.setEditable(false);
 		formattedTextFieldCnpj.setBounds(173, 147, 118, 20);
 		contentPane.add(formattedTextFieldCnpj);
 		
@@ -99,11 +106,14 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR", 0);
 		}
-		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);
+
+
+		jFormattedTextCep = new JFormattedTextField(mascaraCep);
+		jFormattedTextCep.setEditable(false);
 		jFormattedTextCep.setBounds(173, 280, 189, 20);
 		contentPane.add(jFormattedTextCep);
 		
-		JLabel lblCadastroDeUsurioJuridico = new JLabel("Cadastro de Usu\u00E1rio Jur\u00EDdico");
+		JLabel lblCadastroDeUsurioJuridico = new JLabel("Consulta");
 		lblCadastroDeUsurioJuridico.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblCadastroDeUsurioJuridico.setBounds(9, 16, 225, 14);
 		contentPane.add(lblCadastroDeUsurioJuridico);
@@ -114,6 +124,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblNomeJuridico);
 		
 		textNomeJuridico = new JTextField();
+		textNomeJuridico.setEditable(false);
 		textNomeJuridico.setBounds(173, 80, 409, 20);
 		contentPane.add(textNomeJuridico);
 		textNomeJuridico.setColumns(10);
@@ -139,6 +150,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblCpf);
 		
 		textRua = new JTextField();
+		textRua.setEditable(false);
 		textRua.setBounds(173, 249, 277, 20);
 		contentPane.add(textRua);
 		textRua.setColumns(10);
@@ -149,6 +161,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblBairro);
 		
 		textBairro = new JTextField();
+		textBairro.setEditable(false);
 		textBairro.setBounds(440, 283, 142, 20);
 		contentPane.add(textBairro);
 		textBairro.setColumns(10);
@@ -159,6 +172,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblNumero);
 		
 		textNumero = new JTextField();
+		textNumero.setEditable(false);
 		textNumero.setBounds(518, 249, 65, 20);
 		contentPane.add(textNumero);
 		textNumero.setColumns(10);
@@ -169,6 +183,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblCidade);
 		
 		textCidade = new JTextField();
+		textCidade.setEditable(false);
 		textCidade.setBounds(173, 310, 189, 20);
 		contentPane.add(textCidade);
 		textCidade.setColumns(10);
@@ -179,6 +194,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblEstado);
 		
 		textEstado = new JTextField();
+		textEstado.setEditable(false);
 		textEstado.setBounds(440, 310, 143, 20);
 		contentPane.add(textEstado);
 		textEstado.setColumns(10);
@@ -188,162 +204,13 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		lblCep.setBounds(53, 285, 46, 14);
 		contentPane.add(lblCep);
 		
-		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				PessoaJuridicaService pjs = new PessoaJuridicaService();
-				pessoaFisica = new PessoaFisica();
-				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
-				
-				if ((pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf()))) {
-					lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
-				} else {
-					lblMostrarRepresentante.setText("");
-				}
-			}
-		});
-		btnConsultar.setBounds(483, 181, 99, 23);
-		contentPane.add(btnConsultar);
-		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				
-				PessoaJuridica pessoaJuridica = new PessoaJuridica();
-				Endereco endereco = new Endereco();
-				Pessoa pessoa = new Pessoa();
-				
-				endereco.setRua(textRua.getText());
-				endereco.setNumero(textNumero.getText());
-				endereco.setBairro(textBairro.getText());
-				endereco.setCep(jFormattedTextCep.getText());
-				endereco.setCidade(textCidade.getText());
-				endereco.setEstado(textEstado.getText());
-				endereco.setComplemento(textComplemento.getText());
-				
-				pessoa.setNome(textNomeJuridico.getText());
-				pessoa.setEmail(textEmail.getText());
-				pessoa.setTelefoneFixo(formattedTextFieldTelefoneFixo.getText());
-				pessoa.setTelefoneCelular(jFormattedTextTeljFormattedTextTel.getText());
-				pessoa.setEndereco(endereco);
-				pessoaJuridica.setResponsavel(pessoaFisica);
-				pessoaJuridica.setCnpj(formattedTextFieldCnpj.getText());
-				pessoaJuridica.setPessoa(pessoa);
-				
-				String numero = endereco.getNumero();
-				String rua = endereco.getRua();
-				String bairro = endereco.getBairro();
-				String cidade = endereco.getCidade();
-				String estado = endereco.getEstado();
-				String nome = pessoaJuridica.getPessoa().getNome();
-				String email = pessoaJuridica.getPessoa().getEmail();
-				String cnpj = pessoaJuridica.getCnpj();
-				
-				if ((validarEndereco(numero, rua, bairro, cidade, estado)&&(validarPessoaJuridica(nome, email, cnpj)))) {
-						if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
-							JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
-							CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
-							cadastroAdotante.setVisible(true);
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "O cadastro do adotante juridico não pode ser realizado, tente novamente!(Endereco)",
-									"ERROR", 0);
-						}
-					} 
-			}
-			
-			/**
-			 * 
-			 * @param nome
-			 * @param email
-			 * @param cnpj
-			 */
-			
-			public boolean validarPessoaJuridica(String nome, String email, String cnpj) {
-				PessoaService pessoaService = new PessoaService();
-				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				
-				boolean valido = false;
-				
-				if (pessoaJuridicaService.validarCadastroPessoaJuridica(cnpj) == false) {
-					if (pessoaService.validarNome(nome)) {
-						if (pessoaService.validarEmail(email)) {
-							valido = true;
-						} else {
-							JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com", "ERROR", 0);
-							valido = false;
-						}
-						
-					} else {
-						JOptionPane.showMessageDialog(null, "Por favor, digite o nome", "ERROR", 0);
-						valido = false;
-					}
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "CNPJ já cadastrado", "ERROR", 0);
-					valido = false;
-				}
-				return valido;
-			}
-			
-			/**
-			 * @param pessoaJuridica
-			 * @param pessoaJuridicaService
-			 * @param numero
-			 * @param rua
-			 * @param cep
-			 * @param bairro
-			 * @param cidade
-			 * @param estado
-			 * @return
-			 */
-			public boolean validarEndereco(String numero, String rua, String bairro, String cidade, String estado) {
-				EnderecoService enderecoService = new EnderecoService();
-				boolean valido;
-				
-				if (enderecoService.validarRua(rua)) {
-					if (enderecoService.validarNumero(numero)) {
-						if (enderecoService.validarBairro(bairro)) {
-							if (enderecoService.validarCidade(cidade)) {
-								if (enderecoService.validarEstado(estado)) {
-									valido = true;
-								} else {
-									JOptionPane.showMessageDialog(null, "Por favor, digite um estado válido.", "ERROR", 0);
-									valido = false;
-								}
-							} else {
-								JOptionPane.showMessageDialog(null, "Por favor, digite uma cidade válida.", "ERROR", 0);
-								valido = false;
-							}
-						} else {
-							JOptionPane.showMessageDialog(null, "Por favor, digite um bairro válido.", "ERROR", 0);
-							valido = false;
-						}
-						
-					} else {
-						JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.", "ERROR", 0);
-						valido = false;
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Por favor, digite uma rua válida.", "ERROR", 0);
-					valido = false;
-				}
-				return valido;
-			}
-			
-		});
-		btnCadastrar.setBounds(273, 382, 110, 23);
-		contentPane.add(btnCadastrar);
-		
 		JLabel lblComplemento = new JLabel("Complemento:");
 		lblComplemento.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblComplemento.setBounds(53, 341, 89, 14);
 		contentPane.add(lblComplemento);
 		
 		textComplemento = new JTextField();
+		textComplemento.setEditable(false);
 		textComplemento.setBounds(173, 341, 409, 20);
 		contentPane.add(textComplemento);
 		textComplemento.setColumns(10);
@@ -366,40 +233,9 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 			System.exit(-1);
 		}
 		jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
+		jFormattedTextCpf.setEditable(false);
 		jFormattedTextCpf.setBounds(173, 182, 118, 20);
 		contentPane.add(jFormattedTextCpf);
-		
-		JButton btnLimparCampos = new JButton("Limpar Campos");
-		btnLimparCampos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				textNomeJuridico.setText("");
-				textBairro.setText("");
-				jFormattedTextCep.setText("");
-				textCidade.setText("");
-				formattedTextFieldCnpj.setText("");
-				textComplemento.setText("");
-				textEmail.setText("");
-				textEstado.setText("");
-				textNumero.setText("");
-				jFormattedTextCpf.setText("");
-				textRua.setText("");
-				formattedTextFieldTelefoneFixo.setText("");
-				jFormattedTextTeljFormattedTextTel.setText("");
-				textNomeJuridico.requestFocus();
-			}
-		});
-		btnLimparCampos.setBounds(129, 382, 134, 23);
-		contentPane.add(btnLimparCampos);
-		
-		JButton btnSair = new JButton("Sair");
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnSair.setBounds(492, 382, 89, 23);
-		contentPane.add(btnSair);
 		
 		JLabel lblTelefoneJuridico2 = new JLabel("Celular:");
 		lblTelefoneJuridico2.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -417,6 +253,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblEmail);
 		
 		textEmail = new JTextField();
+		textEmail.setEditable(false);
 		textEmail.setBounds(364, 147, 217, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
@@ -429,13 +266,21 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(393, 382, 89, 23);
+		btnCancelar.setBounds(493, 382, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		lblMostrarRepresentante = new JLabel("");
-		lblMostrarRepresentante.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblMostrarRepresentante.setBounds(316, 185, 152, 14);
+		lblMostrarRepresentante.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
+		lblMostrarRepresentante.setBounds(364, 184, 218, 14);
 		contentPane.add(lblMostrarRepresentante);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBounds(394, 382, 89, 23);
+		contentPane.add(btnEditar);
+		
+		JButton btnAdotar = new JButton("Adotar");
+		btnAdotar.setBounds(286, 382, 89, 23);
+		contentPane.add(btnAdotar);
 		
 	}
 }

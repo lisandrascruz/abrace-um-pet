@@ -24,10 +24,7 @@ import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
 
 public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
-	
-	/**
-	 * 
-	 */
+
 	private static final long	serialVersionUID	= 1L;
 	private JPanel				contentPane;
 	private JLabel				lblMostrarNome;
@@ -66,10 +63,10 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 		btnConsultarCpf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consultaAdotanteFisico(jFormattedTextCpf);
-				
 			}
 
 			/**
+			 * EFETUA A CONSULTA DE UMA ADOTANTE FISICO ATRAVÉS DO CPF E SETA NA GUI 
 			 * @param jFormattedTextCpf
 			 */
 			public void consultaAdotanteFisico(JFormattedTextField jFormattedTextCpf) {
@@ -101,6 +98,7 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 				consulta.jFormattedTextCep.setText(endereco.getCep());
 				consulta.textNumero.setText(endereco.getNumero());
 				pessoa.setEndereco(endereco);
+				
 			}
 		});
 		btnConsultarCpf.setBounds(282, 199, 89, 23);
@@ -119,9 +117,9 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicialGUI tig = new TelaInicialGUI();
-				tig.setVisible(true);
-				dispose();
+				ConsultarPessoaGUI consultaPessoa = new ConsultarPessoaGUI();
+				consultaPessoa.setVisible(true);
+				dispose();;
 			}
 		});
 		btnVoltar.setBounds(282, 382, 89, 23);

@@ -74,7 +74,7 @@ public class Conexao {
 		return x;
 	}
 	/**
-	 * GERAL PARA CONSULTA
+	 * GERAL PARA CONSULTA COM RETORNO BOOLEAN
 	 * 
 	 * @param query
 	 * @return
