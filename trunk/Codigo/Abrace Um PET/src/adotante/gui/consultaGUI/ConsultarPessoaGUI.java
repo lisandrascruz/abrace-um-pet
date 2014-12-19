@@ -64,7 +64,9 @@ public class ConsultarPessoaGUI extends JFrame {
 		btnPessoaJurdica.setBounds(61, 222, 279, 39);
 		btnPessoaJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				ConsultaPessoaJuridicaCNPJGUI consultaCNPJGUI = new ConsultaPessoaJuridicaCNPJGUI();
+				consultaCNPJGUI.setVisible(true);
+				dispose();
 			}
 		});
 		contentPane.setLayout(null);

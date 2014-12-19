@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
@@ -37,7 +39,7 @@ public class PessoaJuridicaDAO {
 	}
 	
 	/**
-	 * CONSULTA PESSOA JURIDICA NO BANCO
+	 * CONSULTA A EXISTENCIA DE PESSOA JURIDICA NO BANCO
 	 * 
 	 * @param cnpj
 	 * @return
@@ -209,11 +211,17 @@ public class PessoaJuridicaDAO {
 		return id;
 	}
 	
+	/**
+	 * CONSULTA PESSOA JURIDICA ATRAVEZ DO CNPJ E RETORNA VALORES
+	 * 
+	 * @param cnpj
+	 * @return
+	 * @throws SQLException
+	 */
 	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws SQLException {
 		Connection connection = Conexao.abrirConceccaoMySQL();
 		PreparedStatement statementPessoaJuridica = null;
 		ResultSet resultPessoaJuridica = null;
-
 		
 		try {
 			String queryPessoaJuridicaPessoa = "SELECT pj.id, pj.cnpj, pj.idPessoa, pj.idPessoaFisica, p.nome, "
@@ -225,17 +233,27 @@ public class PessoaJuridicaDAO {
 			
 			Pessoa pessoa = new Pessoa();
 			PessoaJuridica pessoaJuridica = new PessoaJuridica();
-			
+			Endereco endereco = new Endereco();
+			PessoaFisica pessoaFisica = new PessoaFisica();
 			if (resultPessoaJuridica.next()) {
+				
 				pessoa.setId(resultPessoaJuridica.getInt("idPessoa"));
 				pessoa.setNome(resultPessoaJuridica.getString("nome"));
 				pessoa.setEmail(resultPessoaJuridica.getString("email"));
 				pessoa.setTelefoneCelular(resultPessoaJuridica.getString("telefoneCelular"));
 				pessoa.setTelefoneFixo(resultPessoaJuridica.getString("telefoneFixo"));
+				
 				pessoaJuridica.setId(resultPessoaJuridica.getInt("id"));
 				pessoaJuridica.setCnpj(resultPessoaJuridica.getString("cnpj"));
-				pessoaJuridica.setPessoa(pessoa);
 				
+				endereco.setId(resultPessoaJuridica.getInt("idEndereco"));
+				
+				pessoaFisica.setId(resultPessoaJuridica.getInt("idPessoaFisica"));
+				pessoaJuridica.setResponsavel(pessoaFisica);
+				
+				pessoaJuridica.setPessoa(pessoa);
+				pessoaJuridica.setResponsavel(pessoaFisica);
+				pessoaJuridica.getPessoa().setEndereco(endereco);
 			}
 			
 			return pessoaJuridica;

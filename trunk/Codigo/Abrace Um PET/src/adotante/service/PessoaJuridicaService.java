@@ -22,7 +22,7 @@ public class PessoaJuridicaService {
 		try{
 			pessoaJuridica = pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
 			} catch (Exception ex) {
-				
+				ex.printStackTrace();
 			}
 		return pessoaJuridica;
 	}

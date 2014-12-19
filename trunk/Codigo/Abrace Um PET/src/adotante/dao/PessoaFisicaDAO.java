@@ -54,7 +54,7 @@ public class PessoaFisicaDAO {
 	}
 	
 	/**
-	 * INSERE ENDERECO DA PESSOA FISICA
+	 * INSERE ENDERECO DA PESSOA FISICA NO BANCO DE DADOS
 	 * 
 	 * @param pessoaFisica
 	 * @param con
@@ -175,7 +175,7 @@ public class PessoaFisicaDAO {
 	}
 	
 	/**
-	 * INSERE PESSOA FISICA
+	 * INSERE PESSOA FISICA NO BANCO DE DADOS
 	 * 
 	 * @param pessoaFisica
 	 * @param con
@@ -230,8 +230,8 @@ public class PessoaFisicaDAO {
 		try {
 			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.idPessoa, pf.rg, pf.genero,"
 					+ "p.id,  p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email "
-					+ "FROM pessoafisica as pf " + "INNER JOIN pessoa as p "
-					+ "ON pf.idPessoa = p.id " + "WHERE cpf = ?";
+					+ "FROM pessoafisica as pf INNER JOIN pessoa as p "
+					+ "ON pf.idPessoa = p.id WHERE cpf = ?";
 			statementPessoaFisica = connection.prepareStatement(queryPessoaFisicaPessoa);
 			statementPessoaFisica.setString(1, cpf);
 			resultPessoaFisica = statementPessoaFisica.executeQuery();
@@ -267,4 +267,55 @@ public class PessoaFisicaDAO {
 		
 	}
 	
+	/**
+	 * CONSULTA PESSOA FISICA NO BD ATAVES DO id
+	 * 
+	 * @param cpf
+	 * @return
+	 * @throws SQLException
+	 */
+	public PessoaFisica consultarPessoaFisica(int id) throws SQLException {
+		Connection connection = Conexao.abrirConceccaoMySQL();
+		PreparedStatement statementPessoaFisica = null;
+		ResultSet resultPessoaFisica = null;
+		
+		try {
+			String queryPessoaFisicaPessoa = "SELECT pf.id, pf.cpf, pf.idPessoa, pf.rg, pf.genero,"
+					+ "p.id,  p.nome, p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email "
+					+ "FROM pessoafisica as pf INNER JOIN pessoa as p "
+					+ "ON pf.idPessoa = p.id WHERE pf.id = ?";
+			statementPessoaFisica = connection.prepareStatement(queryPessoaFisicaPessoa);
+			statementPessoaFisica.setInt(1, id);
+			resultPessoaFisica = statementPessoaFisica.executeQuery();
+			
+			Pessoa pessoa = new Pessoa();
+			PessoaFisica pessoaFisica = new PessoaFisica();
+			Endereco endereco = new Endereco();
+			if (resultPessoaFisica.next()) {
+				
+				pessoa.setId(resultPessoaFisica.getInt("p.id"));
+				pessoa.setNome(resultPessoaFisica.getString("p.nome"));
+				pessoa.setEmail(resultPessoaFisica.getString("email"));
+				pessoa.setTelefoneCelular(resultPessoaFisica.getString("telefoneCelular"));
+				pessoa.setTelefoneFixo(resultPessoaFisica.getString("telefoneFixo"));
+				pessoaFisica.setId(resultPessoaFisica.getInt("pf.id"));
+				pessoaFisica.setCpf(resultPessoaFisica.getString("cpf"));
+				pessoaFisica.setRg(resultPessoaFisica.getString("rg"));
+				pessoaFisica.setGenero(resultPessoaFisica.getString("genero"));
+				endereco.setId(resultPessoaFisica.getInt("idEndereco"));
+				pessoaFisica.setPessoa(pessoa);
+				pessoa.setEndereco(endereco);
+			}
+			
+			return pessoaFisica;
+		} finally {
+			if (resultPessoaFisica != null) {
+				resultPessoaFisica.close();
+			}
+			if (statementPessoaFisica != null) {
+				statementPessoaFisica.close();
+			}
+		}
+		
+	}
 }

@@ -39,5 +39,14 @@ public class PessoaFisicaService {
 		}
 		return pessoaFisica;
 	}
-	
+	public PessoaFisica consultarPessoaFisica(int id){
+		PessoaFisica pessoaFisica = new PessoaFisica();
+		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+		try {
+			pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(id);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return pessoaFisica;
+	}
 }

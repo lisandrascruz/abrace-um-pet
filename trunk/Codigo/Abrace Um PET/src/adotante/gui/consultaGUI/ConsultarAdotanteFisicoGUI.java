@@ -248,24 +248,15 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		separator.setBounds(11, 217, 563, 14);
 		contentPane.add(separator);
 		
-		JButton btnSair = new JButton("Sair");
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnSair.setBounds(472, 382, 102, 23);
-		contentPane.add(btnSair);
-		
 		JButton btnVoltar = new JButton("Cancelar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroPessoaGUI c = new CadastroPessoaGUI();
+				ConsultarPessoaGUI c = new ConsultarPessoaGUI();
 				c.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(335, 382, 113, 23);
+		btnVoltar.setBounds(479, 382, 95, 23);
 		contentPane.add(btnVoltar);
 		
 		JLabel lblRg = new JLabel("RG: ");
@@ -288,6 +279,14 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		comboGenero.setModel(new DefaultComboBoxModel <String>(new String[] { " ", "M", "F" }));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBounds(376, 382, 89, 23);
+		contentPane.add(btnEditar);
+		
+		JButton btnAdotar = new JButton("Adotar");
+		btnAdotar.setBounds(277, 382, 89, 23);
+		contentPane.add(btnAdotar);
 		
 	}
 	
