@@ -35,9 +35,9 @@ public class UsuarioService {
 		usuario.setLogin(login);
 
 		if (usuarioDao.consultarUsuario(login)) {
-			valido = true;
-		} else {
 			valido = false;
+		} else {
+			valido = true;
 		}
 		return valido;
 	}
