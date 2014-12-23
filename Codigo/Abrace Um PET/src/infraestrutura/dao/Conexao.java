@@ -15,8 +15,8 @@ public class Conexao {
 		return getResultSet();
 	}
 
-	public void setResultSet(ResultSet resultSet) {
-		this.resultSet = resultSet;
+	public static void setResultSet(ResultSet resultSet) {
+		resultSet = resultSet;
 	}
 
 	/**
@@ -90,7 +90,8 @@ public class Conexao {
 	public static long comandoMySQL(String comando) {
 		long x = -1;
 		try {
-			statement = (Statement) conexao.createStatement();
+			Connection conexao = null;
+			Statement statement = (Statement) conexao.createStatement();
 			statement.execute(comando);
 		} catch (Exception erro) {
 			System.out.println("MYSQL Erro: " + erro);
@@ -109,15 +110,15 @@ public class Conexao {
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		boolean valido = true;
+		boolean valido = false;
 		try {
 			conexao = Conexao.abrir();
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
-				valido = false;
-			} else {
 				valido = true;
+			} else {
+				valido = false;
 			}
 		} catch (SQLException e) {
 			throw new Exception("Erro ao consultar os registros no banco de dados", e);

@@ -20,9 +20,15 @@ public class AnimalService {
 		return valido;
 	}
 
-	public boolean adicionarAnimal(Animal animal) {
-		return animalDAO.adicionarAnimal(animal);
-	}
+	public boolean adicionarAnimal(Animal animal) throws Exception {
+		int id;
+		boolean valido = false;
+		id = animalDAO.inserirAnimal(animal);
+		if (id != -1){
+			valido = true;
+		}
+		return valido;
+		}
 	
 	//MUDAR PARA O ANIMALSERVICE
 		public Animal consultarAnimal(String rga){

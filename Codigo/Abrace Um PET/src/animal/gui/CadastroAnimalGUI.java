@@ -257,25 +257,27 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setObservacao(textObservacao.getText());
 				animal.setDataResgate(formattedTextFieldDataResgate.getText());
 					
-				try {
-					if (animalService.validarCadastroAnimal(textFieldRGA.getText())) {
-						if (animalService.adicionarAnimal(animal)) {
-						JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
-							TelaInicialGUI telaInicialGui = new TelaInicialGUI();
-							telaInicialGui.setVisible(true);
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
-							
+					try {
+						if (animalService.validarCadastroAnimal(textFieldRGA.getText())) {
+							try {
+								if (animalService.adicionarAnimal(animal)) {
+								JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
+									TelaInicialGUI telaInicialGui = new TelaInicialGUI();
+									telaInicialGui.setVisible(true);
+									dispose();
+								} else {
+									JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+									
+								}
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				} catch (HeadlessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		});
 		btnCadastrar.setBounds(262, 387, 110, 23);

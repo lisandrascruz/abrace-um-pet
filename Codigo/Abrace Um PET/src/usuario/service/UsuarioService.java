@@ -15,8 +15,14 @@ public class UsuarioService {
 		return usuarioDao.consultarLogin(login, senha);
 	}
 
-	public int adicionarUsuarioService(Usuario usuario) throws Exception {
-		return usuarioDao.adicionarUsuario(usuario);
+	public boolean adicionarUsuarioService(Usuario usuario) throws Exception {
+		int id;
+		boolean valido = false;
+		id = usuarioDao.adicionarUsuario(usuario);
+		if (id != -1){
+			valido = true;
+		}
+		return valido;
 	}
 	/**
 	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
@@ -29,9 +35,9 @@ public class UsuarioService {
 		usuario.setLogin(login);
 
 		if (usuarioDao.consultarUsuario(login)) {
-			valido = false;
-		} else {
 			valido = true;
+		} else {
+			valido = false;
 		}
 		return valido;
 	}
@@ -103,7 +109,7 @@ public class UsuarioService {
 		return valido;
 	}
 
-	public int getIdUsuario(Usuario usuario) throws SQLException{
-		return usuarioDao.getIdUsuario(usuario);
-	}
+//	public int getIdUsuario(Usuario usuario) throws SQLException{
+//		return usuarioDao.getIdUsuario(usuario);
+//	}
 }

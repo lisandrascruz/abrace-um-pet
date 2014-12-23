@@ -20,8 +20,8 @@ public class AnimalDAO {
 		
 		try {
 			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero, "
-					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, " + "a.observacao, a.dataResgate "
-					+ "FROM animal as a WHERE rga = ?";
+					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, "
+					+ "a.observacao, a.dataResgate " + "FROM animal as a WHERE rga = ?";
 			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
 			resultAnimal = statementAnimal.executeQuery();
@@ -54,25 +54,31 @@ public class AnimalDAO {
 		}
 	}
 	
-	public boolean adicionarAnimal(Animal animal) {
-		try {
-			Connection con = (Connection) Conexao.abrir();
-			inserirAnimal(animal, con);
-			return true;
-		} catch (SQLException e) {
-			throw new Exception("Erro ao adicionar animal no banco de dados", e);
-		} finally {
-			Conexao.fechar(con,statement,resultSet);
-		}
-	}
+	// public boolean adicionarAnimal(Animal animal) {
+	// try {
+	// Connection con = (Connection) Conexao.abrir();
+	// inserirAnimal(animal, con);
+	// return true;
+	// } catch (SQLException e) {
+	// throw new Exception("Erro ao adicionar animal no banco de dados", e);
+	// } finally {
+	// Conexao.fechar(con,statement,resultSet);
+	// }
+	// }
 	
-	private int inserirAnimal(Animal animal, Connection con) {
-		int id = 0;
-		String query = "insert into animal (nome, tipo, rga, dataNascimento, genero, deficiencia, vacinado," + " castrado, tamanho,"
+	public int inserirAnimal(Animal animal) throws Exception {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		int id = -1;
+		
+		String query = "insert into animal (nome, tipo, rga, dataNascimento, genero, deficiencia, vacinado,"
+				+ " castrado, tamanho,"
 				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
-			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			con = (Connection) Conexao.abrir();
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, animal.getNome());
 			preparedStatement.setString(2, animal.getTipo());
@@ -90,21 +96,18 @@ public class AnimalDAO {
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o animal", e);
+		} finally {
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 	}
