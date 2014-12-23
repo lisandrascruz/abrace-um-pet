@@ -6,27 +6,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import usuario.dominio.Usuario;
 import usuario.service.CriptografiaService;
 import usuario.service.SessaoUsuario;
 import usuario.service.UsuarioService;
-
-import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-
-import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 public class LoginGUI extends JFrame {
 
@@ -70,8 +63,13 @@ public class LoginGUI extends JFrame {
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				login();
+			public void actionPerformed(ActionEvent e) { //TRATAR EXCECAO
+				try {
+					login();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnAcessar.setBounds(489, 216, 89, 23);
@@ -128,7 +126,7 @@ public class LoginGUI extends JFrame {
 		panelStatus.add(lblStatus);
 		
 	}
-	public void login() {
+	public void login() throws Exception {
 		Usuario usuario = new Usuario();
 		UsuarioService usuarioService = new UsuarioService();
 
@@ -142,18 +140,13 @@ public class LoginGUI extends JFrame {
 		senha = criptografia.criptografar(senha);
 
 		if (usuarioService.consultarUsuarioService(login, senha)) {
-			try {
-				usuario.setSenha(senha);
-				int id =usuarioService.getIdUsuario(usuario);
-				SessaoUsuario sessao = SessaoUsuario.getInstancia();
-				sessao.setUsuarioLogado(usuario);
-				TelaInicialGUI tl = new TelaInicialGUI();
-				tl.setVisible(true);
-				dispose();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			usuario.setSenha(senha);
+			//int id = usuarioService.getIdUsuario(usuario);
+			SessaoUsuario sessao = SessaoUsuario.getInstancia();
+			sessao.setUsuarioLogado(usuario);
+			TelaInicialGUI tl = new TelaInicialGUI();
+			tl.setVisible(true);
+			dispose();
 			
 		}
 		if (!(usuarioService.consultarUsuarioService(login, senha))) {

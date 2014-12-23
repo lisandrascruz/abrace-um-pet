@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import usuario.gui.TelaInicialGUI;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;

@@ -18,8 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import adotante.gui.cadastroGUI.CadastroPessoaGUI;
-
 public class ConsultarAdotanteFisicoGUI extends JFrame {
 	
 	/**

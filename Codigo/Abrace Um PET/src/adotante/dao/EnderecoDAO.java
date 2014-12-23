@@ -18,7 +18,7 @@ public class EnderecoDAO {
 	 * @throws SQLException
 	 */
 	public Endereco consultarEndereco(int id) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementEndereco = null;
 		ResultSet resultEndereco = null;
 		

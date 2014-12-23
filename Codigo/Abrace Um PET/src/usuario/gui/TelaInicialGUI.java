@@ -11,11 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import adocao.gui.AdocaoPessoaFisicaGUI;
 import adocao.gui.AdocaoPessoaGUI;
 import adotante.gui.PessoaGUI;
 import animal.gui.AnimalGUI;
-import animal.gui.CadastroAnimalGUI;
 import animal.raca.gui.RacaGUI;
 
 public class TelaInicialGUI extends JFrame {

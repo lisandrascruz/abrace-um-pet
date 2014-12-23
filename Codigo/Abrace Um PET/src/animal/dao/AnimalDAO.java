@@ -9,11 +9,12 @@ import animal.dominio.Animal;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 public class AnimalDAO {
 	
 	public Animal consultarAnimal(String rga) throws SQLException {
-		Connection connection = (Connection) Conexao.abrirConceccaoMySQL();
+		Connection connection = (Connection) Conexao.abrir();
 		PreparedStatement statementAnimal = null;
 		java.sql.ResultSet resultAnimal = null;
 		
@@ -26,7 +27,6 @@ public class AnimalDAO {
 			resultAnimal = statementAnimal.executeQuery();
 			Animal animal = new Animal();
 			if (resultAnimal.next()) {
-				// Animal
 				animal.setId(resultAnimal.getInt("id"));
 				animal.setNome(resultAnimal.getString("a.nome"));
 				animal.setTipo(resultAnimal.getString("tipo"));
@@ -56,14 +56,13 @@ public class AnimalDAO {
 	
 	public boolean adicionarAnimal(Animal animal) {
 		try {
-			Connection con = (Connection) Conexao.abrirConceccaoMySQL();
+			Connection con = (Connection) Conexao.abrir();
 			inserirAnimal(animal, con);
-			
-			Conexao.fecharConecaoMySQL();
 			return true;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
+		} catch (SQLException e) {
+			throw new Exception("Erro ao adicionar animal no banco de dados", e);
+		} finally {
+			Conexao.fechar(con,statement,resultSet);
 		}
 	}
 	
@@ -73,7 +72,7 @@ public class AnimalDAO {
 				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, animal.getNome());
 			preparedStatement.setString(2, animal.getTipo());
