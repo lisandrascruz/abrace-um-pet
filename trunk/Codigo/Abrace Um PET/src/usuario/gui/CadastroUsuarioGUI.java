@@ -3,6 +3,7 @@ package usuario.gui;
 import infraestrutura.service.ValidacaoService;
 
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -97,19 +98,27 @@ public class CadastroUsuarioGUI extends JFrame {
 				String email = usuario.getEmail();
 				String confirmacaoSenha = getConfirmarSenha();
 
-				if (validacaoDadosUsuario(validar, login, senha, email, confirmacaoSenha)) {
-					if (usuarioService.adicionarUsuarioService(usuario)) {
-						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-						LoginGUI login1 = new LoginGUI();
-						login1.setVisible(true);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
-						textLogin.setText("");
-						textSenha.setText("");
-						textEmail.setText("");
-						textConfirmarSenha.setText("");
+				try {
+					if (validacaoDadosUsuario(validar, login, senha, email, confirmacaoSenha)) {
+						if (usuarioService.adicionarUsuarioService(usuario)) {
+							JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+							LoginGUI login1 = new LoginGUI();
+							login1.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+							textLogin.setText("");
+							textSenha.setText("");
+							textEmail.setText("");
+							textConfirmarSenha.setText("");
+						}
 					}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 
@@ -119,8 +128,10 @@ public class CadastroUsuarioGUI extends JFrame {
 			 * @param senha
 			 * @param email
 			 * @param confirmacaoSenha
+			 * @throws Exception 
+			 * @throws HeadlessException 
 			 */
-			public boolean validacaoDadosUsuario(ValidacaoService validar, String login, String senha, String email, String confirmacaoSenha) {
+			public boolean validacaoDadosUsuario(ValidacaoService validar, String login, String senha, String email, String confirmacaoSenha) throws HeadlessException, Exception {
 				UsuarioService us = new UsuarioService();
 				PessoaService ps = new PessoaService();
 				boolean valido;

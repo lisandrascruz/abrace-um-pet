@@ -3,6 +3,7 @@ package adotante.gui.cadastroGUI;
 import infraestrutura.service.ValidacaoService;
 
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -254,18 +255,26 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
 				
-				if ((validacaoDadosPessoaFisica(nome, genero, cpf, rg, email) && (validacaoDadosEndereco(
-						rua, numero, bairro, cidade, estado)))) {
-					if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
-						JOptionPane.showMessageDialog(null, "Pessoa Fisica cadastrada com sucesso");
-						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
-						cadastroAdotante.setVisible(true);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null,
-								"O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
-						
+				try {
+					if ((validacaoDadosPessoaFisica(nome, genero, cpf, rg, email) && (validacaoDadosEndereco(
+							rua, numero, bairro, cidade, estado)))) {
+						if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
+							JOptionPane.showMessageDialog(null, "Pessoa Fisica cadastrada com sucesso");
+							CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
+							cadastroAdotante.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+							
+						}
 					}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				
 			}
@@ -282,9 +291,11 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @param rg
 			 * @param email
 			 * @return
+			 * @throws Exception 
+			 * @throws HeadlessException 
 			 */
 			public boolean validacaoDadosPessoaFisica(String nome, String genero, String cpf,
-					String rg, String email) {
+					String rg, String email) throws HeadlessException, Exception {
 				ValidacaoService validar = new ValidacaoService();
 				PessoaFisicaDAO pfd = new PessoaFisicaDAO();
 				PessoaService ps = new PessoaService();
