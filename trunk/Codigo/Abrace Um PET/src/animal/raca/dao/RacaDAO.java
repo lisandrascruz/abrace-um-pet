@@ -22,7 +22,7 @@ public class RacaDAO {
 	 */
 	public List<Raca> getRaca() throws SQLException {
 		
-		Connection conn = (Connection) Conexao.abrirConceccaoMySQL();
+		Connection conn = (Connection) Conexao.abrir();
 		PreparedStatement statement = conn.prepareStatement("select * from raca");
 		ResultSet resultSet = statement.executeQuery();
 		
@@ -96,9 +96,9 @@ public class RacaDAO {
 	public boolean adicionarRaca(Raca raca) {
 		RacaDAO racaDAO = new RacaDAO();
 		try {
-			Connection con = (Connection) Conexao.abrirConceccaoMySQL();
+			Connection con = (Connection) Conexao.abrir();
 			racaDAO.inserirRaca(raca, con);
-			Conexao.fecharConecaoMySQL();
+			Conexao.fechar();
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -28,9 +28,9 @@ public class AdocaoDAO {
 	 */
 	public boolean adicionarAdocao(Adocao adocao) {
 		try {
-			Connection con = Conexao.abrirConceccaoMySQL();
+			Connection con = Conexao.abrir();
 			inserirAdocao(adocao, con);
-			Conexao.fecharConecaoMySQL();
+			Conexao.fechar();
 			return true;
 		} catch (Exception ex) {
 			return false;
@@ -40,7 +40,7 @@ public class AdocaoDAO {
 	public boolean editarAdocao(Adocao adocao) {
 		String query = "update adocao set dataDevolucao = ? where id = ?";
 		try {
-			Connection con = Conexao.abrirConceccaoMySQL();
+			Connection con = Conexao.abrir();
 			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			preparedStatement.setString(1, adocao.getDataDevolucao());
 			preparedStatement.setInt(2, adocao.getId());
@@ -92,7 +92,7 @@ public class AdocaoDAO {
 	}
 	
 	public Adocao consultarAdocao(String cpf, String rga) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementAdocao = null;
 		ResultSet resultAdocao = null;
 		
@@ -157,7 +157,7 @@ public class AdocaoDAO {
 	}
 	
 	public Adocao consultarAdocaoJuridica(String cnpj, String rga) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementAdocao = null;
 		ResultSet resultAdocao = null;
 		

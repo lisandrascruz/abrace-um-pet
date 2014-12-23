@@ -2,6 +2,8 @@ package adotante.gui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,13 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import adotante.gui.cadastroGUI.CadastroPessoaGUI;
-import adotante.gui.consultaGUI.ConsultarAdotanteFisicoCPFGUI;
-import adotante.gui.consultaGUI.ConsultarPessoaGUI;
 import usuario.gui.TelaInicialGUI;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import adotante.gui.cadastroGUI.CadastroPessoaGUI;
+import adotante.gui.consultaGUI.ConsultarPessoaGUI;
 
 public class PessoaGUI extends JFrame {
 

@@ -18,7 +18,7 @@ public class AdotanteDAO {
 	 * @throws SQLException
 	 */
 	public Adotante consultarAdotante(Pessoa pessoa) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementAdotante = null;
 		ResultSet resultAdotante = null;
 

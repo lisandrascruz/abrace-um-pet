@@ -16,15 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import adotante.dominio.Endereco;
-import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
-import adotante.dominio.PessoaJuridica;
 import adotante.gui.cadastroGUI.CadastroPessoaGUI;
-import adotante.service.EnderecoService;
-import adotante.service.PessoaFisicaService;
-import adotante.service.PessoaJuridicaService;
-import adotante.service.PessoaService;
 
 public class ConsultarAdotanteJuridicoGUI extends JFrame {
 	

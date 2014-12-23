@@ -6,48 +6,73 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Conexao {
-	private static Connection conexao = null;
-	private static Statement statement;
-	private static ResultSet resultSet = null;
-	private static String stringSQL = null;
+//AQUI TINHA OS ATRIBUTOS MAS ELE PAGOU PQ DISSE PARA TRANSFORMAR OS METODOS ABAIXO STATICOS POR ASSIM
+//EU PODERIA CHAMA-LOS SEM PRECISAR CRIAR OBJETO, ISSO Q EU ENTENDI
 
+public class Conexao {
+	
 	public static ResultSet getResultSet() {
-		return resultSet;
+		return getResultSet();
 	}
 
-	public static void setResultSet(ResultSet resultSet) {
-		Conexao.resultSet = resultSet;
+	public void setResultSet(ResultSet resultSet) {
+		this.resultSet = resultSet;
 	}
 
 	/**
 	 * ABRE CONEXÃO COM COM BANCO
 	 */
-	public static Connection abrirConceccaoMySQL() throws SQLException{
+	public static Connection abrir() throws SQLException{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			return conexao = DriverManager.getConnection(
+			Connection result = DriverManager.getConnection(
 					"jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			result.setAutoCommit(false);// NAO ADICIONA ATE Q CHAME ESSE COMMIT
+			return result;
 		}  catch (ClassNotFoundException e) {    
-            throw new SQLException(e.getMessage());  
+            throw new RuntimeException(e.getMessage());  
 		}
 	}
 
 	/**
 	 * FECHA CONEXÃO COM COM BANCO
 	 */
-	public static void fecharConecaoMySQL() {
-		try {
-			conexao.close();
-		} catch (Exception erro) {
-			System.out.println("MYSQL Erro(fechar): " + erro);
+	public static void fechar(Connection conn, Statement stmt, ResultSet rs) { //MUDOU ISSO
+		RuntimeException erro = null;
+		if (rs!=null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				erro = new RuntimeException(e);
+			}
+		}
+		if (stmt!=null) {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				erro = new RuntimeException(e);
+			}
+		}
+		if (conn!=null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				erro = new RuntimeException(e);
+			}
+		} 
+		if (erro != null) {
+			throw erro;
 		}
 	}
 
 	/**
 	 * RESULTADO DA CONSULTA NO BANCO
+	 * @throws Exception 
 	 */
-	public static ResultSet queryMySQL(String qry) {
+	public static ResultSet queryMySQL(String qry) throws Exception {
+		Connection conexao = null;
+		Statement statement = null;
+		String stringSQL;
 		try {
 			statement = conexao.createStatement();
 			stringSQL = qry;
@@ -55,8 +80,7 @@ public class Conexao {
 			getResultSet().first();
 			return getResultSet();
 		} catch (Exception erro) {
-			System.out.println("MYSQL Erro: " + erro);
-			return null;
+			throw new Exception("Erro ao retornar os registros do banco de dados", erro);
 		}
 	}
 
@@ -66,27 +90,28 @@ public class Conexao {
 	public static long comandoMySQL(String comando) {
 		long x = -1;
 		try {
-			statement = conexao.createStatement();
+			statement = (Statement) conexao.createStatement();
 			statement.execute(comando);
 		} catch (Exception erro) {
 			System.out.println("MYSQL Erro: " + erro);
 		}
 		return x;
 	}
+	
 	/**
 	 * GERAL PARA CONSULTA COM RETORNO BOOLEAN
 	 * 
 	 * @param query
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean consultar(String query) {
+	public static boolean consultar(String query) throws Exception { //TEM QUE SER ASSIM
 		Connection conexao = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		boolean valido=true;
+		boolean valido = true;
 		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
+			conexao = Conexao.abrir();
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
@@ -94,9 +119,10 @@ public class Conexao {
 			} else {
 				valido = true;
 			}
-			Conexao.fecharConecaoMySQL();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception("Erro ao consultar os registros no banco de dados", e);
+		} finally {
+			Conexao.fechar(conexao,statement,resultSet);
 		}
 		return valido;
 	}

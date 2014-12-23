@@ -1,6 +1,5 @@
 package adocao.gui;
 
-import infraestrutura.dominio.Date;
 import infraestrutura.gui.ImagensGUI;
 
 import java.awt.Font;

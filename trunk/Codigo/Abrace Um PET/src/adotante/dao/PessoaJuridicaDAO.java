@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
@@ -25,16 +23,17 @@ public class PessoaJuridicaDAO {
 	 */
 	public boolean adicionarPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		try {
-			Connection con = Conexao.abrirConceccaoMySQL();
+			Connection con = Conexao.abrir();
 			int idEndereco = inserirEndereco(pessoaJuridica, con);
 			int idPessoa = inserirPessoa(pessoaJuridica, con, idEndereco);
 			inserirPessoaJuridica(pessoaJuridica, con, idPessoa);
 			inserirAdotante(con, idPessoa);
-			Conexao.fecharConecaoMySQL();
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
+		} finally {
+			Conexao.fechar(con, );
 		}
 	}
 	
@@ -43,8 +42,10 @@ public class PessoaJuridicaDAO {
 	 * 
 	 * @param cnpj
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean consultarPessoaJuridicaCNPJ(String cnpj) {
+	@SuppressWarnings ("static-access" )
+	public boolean consultarPessoaJuridicaCNPJ(String cnpj) throws Exception {
 		String resultSet = ("select cnpj from pessoajuridica where cnpj='" + cnpj + "'");
 		return (conexao.consultar(resultSet));
 	}
@@ -219,7 +220,7 @@ public class PessoaJuridicaDAO {
 	 * @throws SQLException
 	 */
 	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementPessoaJuridica = null;
 		ResultSet resultPessoaJuridica = null;
 		

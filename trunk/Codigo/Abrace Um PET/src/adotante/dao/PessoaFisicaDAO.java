@@ -7,13 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import adocao.dominio.Adocao;
-import adotante.dominio.Adotante;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
-import adotante.dominio.PessoaJuridica;
-import animal.dominio.Animal;
 
 public class PessoaFisicaDAO {
 	
@@ -24,21 +20,22 @@ public class PessoaFisicaDAO {
 	 * 
 	 * @param usuario
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) {
+	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) throws Exception {
+		Connection con = null;
 		try {
-			Connection con = Conexao.abrirConceccaoMySQL();
+			con = Conexao.abrir();
 			
 			int idEndereco = inserirEndereco(pessoaFisica, con);
 			int idPessoa = inserirPessoa(pessoaFisica, con, idEndereco);
 			inserirPessoaFisica(pessoaFisica, con, idPessoa);
 			inserirAdotante(con, idPessoa);
-			
-			Conexao.fecharConecaoMySQL();
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
+			throw new Exception("Erro ao adicionar pessoa física no banco de dados", ex);
+		}finally{
+			Conexao.fechar(con, null, null);
 		}
 	}
 	

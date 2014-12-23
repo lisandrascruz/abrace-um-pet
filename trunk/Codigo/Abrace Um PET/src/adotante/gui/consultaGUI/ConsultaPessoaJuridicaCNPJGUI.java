@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import adotante.dao.PessoaJuridicaDAO;
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
@@ -21,7 +20,6 @@ import adotante.dominio.PessoaJuridica;
 import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
 import adotante.service.PessoaJuridicaService;
-import usuario.gui.TelaInicialGUI;
 
 public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 

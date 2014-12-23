@@ -1,19 +1,14 @@
 package usuario.dao;
 
 import infraestrutura.dao.Conexao;
-import infraestrutura.dao.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import usuario.dominio.Usuario;
 import usuario.service.CriptografiaService;
-import usuario.service.SessaoUsuario;
-import adotante.dominio.Adotante;
-import adotante.dominio.Pessoa;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -24,9 +19,14 @@ public class UsuarioDAO {
 	 * @param usuario
 	 * @return
 	 */
-	public boolean adicionarUsuario(Usuario usuario) {
+	public int adicionarUsuario(Usuario usuario) throws Exception { //METODO CORRETO TB	
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		int result = -1;
 		try {
-			Connection con = Conexao.abrirConceccaoMySQL();
+			con = Conexao.abrir();
+			
 			String login = usuario.getLogin();
 			String senha = usuario.getSenha();
 			String email = usuario.getEmail();
@@ -36,63 +36,31 @@ public class UsuarioDAO {
 			
 			String query = "INSERT INTO usuario (login, senha, email) values (?, ?, ?)";
 			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, login);
 			preparedStatement.setString(2, senha);
 			preparedStatement.setString(3, email);
-			// preparedStatement.execute();
-			// preparedStatement.close();
 			
-			int id;
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
-					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
+					result = (int) generatedKeys.getLong(1);
 				}
 			}
-			preparedStatement.close();
-			
-			Conexao.fecharConecaoMySQL();
-			return true;
+			con.commit();//IMPORTANTE POIS SEM ISSO NAO INSERE NO BANCO
 		} catch (Exception ex) {
-			return false;
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o usuário",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);//IMPORTANTE FECHAR A CONEXAO DPS
 		}
+		return result;
 	}
 	
-	/**
-	 * EXECULTA CONSULTA A PARTIR DA QUERY
-	 * @param query
-	 * @return
-	 */
-	public boolean consultar(String query) {
-		Connection conexao = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		boolean usuario = false;
-		try {
-			Conexao.abrirConceccaoMySQL();
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/abrace_um_pet", "root", "");
-			statement = (Statement) conexao.createStatement();
-			resultSet = statement.executeQuery(query);
-			if (resultSet.next()) {
-				usuario = true;
-			} else {
-				usuario = false;
-			}
-			Conexao.fecharConecaoMySQL();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return usuario;
-	}
+	
 	
 	
 	/**
@@ -101,28 +69,29 @@ public class UsuarioDAO {
 	 * @param login
 	 * @param senha
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean consultarLogin(String login, String senha) {
+	public boolean consultarLogin(String login, String senha) throws Exception {
 		String resultSet = ("select login, senha from usuario where login='" + login + "'and senha='" + senha + "'");
-		
-		return consultar(resultSet);
+		return Conexao.consultar(resultSet);
 	}
 	
 	/**
 	 * @param login
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean consultarUsuario(String login) {
+	public boolean consultarUsuario(String login) throws Exception {
 		String resultSet = ("select login from usuario where login='" + login + "'");
-		return consultar(resultSet);
+		return Conexao.consultar(resultSet);
 	}
 	public int getIdUsuario(Usuario usuario) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statement = null;
 		ResultSet resultAdotante = null;
-		int id =-1;
+//        int id =-1;
 		String login = usuario.getLogin();
-		String senha =usuario.getSenha();
+		String senha = usuario.getSenha();
 
 		try {
 			String resultSet = ("select id from usuario where login='" + login + "'and senha='" + senha + "'");

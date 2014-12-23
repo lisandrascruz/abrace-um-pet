@@ -1,6 +1,5 @@
 package usuario.service;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usuario.dao.UsuarioDAO;
@@ -12,19 +11,20 @@ public class UsuarioService {
 	CadastroUsuarioGUI cadastroUsuario = new CadastroUsuarioGUI();
 	Usuario usuario = new Usuario();
 	
-	public boolean consultarUsuarioService(String login, String senha) {
+	public boolean consultarUsuarioService(String login, String senha) throws Exception {
 		return usuarioDao.consultarLogin(login, senha);
 	}
 
-	public boolean adicionarUsuarioService(Usuario usuario) {
+	public int adicionarUsuarioService(Usuario usuario) throws Exception {
 		return usuarioDao.adicionarUsuario(usuario);
 	}
 	/**
 	 * VALIDAR SE LOGIN JA EXISTE NO BANCO DE DADOS
 	 * @param login
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean validarCadastroUsuario(String login) {
+	public boolean validarCadastroUsuario(String login) throws Exception {
 		boolean valido;
 		usuario.setLogin(login);
 
