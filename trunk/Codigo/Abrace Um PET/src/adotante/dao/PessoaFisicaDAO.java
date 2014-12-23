@@ -315,4 +315,13 @@ public class PessoaFisicaDAO {
 		}
 		
 	}
+	
+	public void editarPessoa() throws SQLException{
+		Connection connection = Conexao.abrirConceccaoMySQL();
+		PreparedStatement statementPessoaFisica = null;
+		ResultSet resultPessoaFisica = null;
+		String query = "UPDATE pessoafisica SET nome = ?, telefoneCelular = ?, telefoneFixo = ?, email = ?";
+		
+	}
+
 }

@@ -94,15 +94,19 @@ public class RacaDAO {
 	 * @return
 	 */
 	public boolean adicionarRaca(Raca raca) {
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		Connection con = null;
 		RacaDAO racaDAO = new RacaDAO();
 		try {
-			Connection con = (Connection) Conexao.abrir();
+			con = (Connection) Conexao.abrir();
 			racaDAO.inserirRaca(raca, con);
-			Conexao.fechar();
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
+		} finally{
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 	}
 	
