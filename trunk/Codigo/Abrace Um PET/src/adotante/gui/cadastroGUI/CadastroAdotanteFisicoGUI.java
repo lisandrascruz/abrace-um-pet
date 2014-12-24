@@ -258,14 +258,16 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				try {
 					if ((validacaoDadosPessoaFisica(nome, genero, cpf, rg, email) && (validacaoDadosEndereco(
 							rua, numero, bairro, cidade, estado)))) {
-						if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica)) {
-							JOptionPane.showMessageDialog(null, "Pessoa Fisica cadastrada com sucesso");
+						if (pessoaFisicaService.adicionarPessoaFisicaService(pessoaFisica) == true) {
+							JOptionPane.showMessageDialog(null,
+									"Pessoa Fisica cadastrada com sucesso");
 							CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
 							cadastroAdotante.setVisible(true);
 							dispose();
 						} else {
 							JOptionPane.showMessageDialog(null,
-									"O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+									"O cadastro não pode ser realizado, tente novamente!", "ERROR",
+									0);
 							
 						}
 					}
@@ -291,8 +293,8 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 			 * @param rg
 			 * @param email
 			 * @return
-			 * @throws Exception 
-			 * @throws HeadlessException 
+			 * @throws Exception
+			 * @throws HeadlessException
 			 */
 			public boolean validacaoDadosPessoaFisica(String nome, String genero, String cpf,
 					String rg, String email) throws HeadlessException, Exception {
@@ -300,7 +302,7 @@ public class CadastroAdotanteFisicoGUI extends JFrame {
 				PessoaFisicaDAO pfd = new PessoaFisicaDAO();
 				PessoaService ps = new PessoaService();
 				boolean valido = false;
-				if (pfd.consultarPessoaFisicaCPF(cpf)) {
+				if (pfd.consultarPessoaFisicaCPF(cpf) == false) {
 					if (ps.validarNome(nome)) {
 						if (validar.validarSexo(genero)) {
 							if (ps.validarRg(rg)) {

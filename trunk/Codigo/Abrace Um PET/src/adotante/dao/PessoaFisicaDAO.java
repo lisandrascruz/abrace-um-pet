@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.Statement;
+
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
 import adotante.dominio.PessoaFisica;
@@ -20,26 +22,30 @@ public class PessoaFisicaDAO {
 	 * 
 	 * @param usuario
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) throws Exception {
-		Connection con = null;
 		boolean valido = false;
+
+		Connection con = null;
+		PreparedStatement preparedStatement=null;
+		ResultSet generatedKeys = null;
+				
 		try {
 			Conexao.abrir();
 			
-			int idEndereco = inserirEndereco(pessoaFisica, con);
-			int idPessoa = inserirPessoa(pessoaFisica, con, idEndereco);
+			int idEndereco = inserirEndereco(pessoaFisica);
+			int idPessoa = inserirPessoa(pessoaFisica, idEndereco);
 			
-			inserirPessoaFisica(pessoaFisica, con, idPessoa);
-			inserirAdotante(con, idPessoa);
+			inserirPessoaFisica(pessoaFisica, idPessoa);
+			inserirAdotante(idPessoa);
 			
 			valido = true;
 		} catch (Exception ex) {
 			valido = false;
 			throw new Exception("Erro ao adicionar pessoa física no banco de dados", ex);
-		}finally{
-			Conexao.fechar(con, null, null);
+		} finally {
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return valido;
 	}
@@ -49,7 +55,7 @@ public class PessoaFisicaDAO {
 	 * 
 	 * @param cpf
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean consultarPessoaFisicaCPF(String cpf) throws Exception {
 		String query = ("SELECT cpf FROM pessoafisica where cpf='" + cpf + "'");
@@ -62,14 +68,19 @@ public class PessoaFisicaDAO {
 	 * @param pessoaFisica
 	 * @param con
 	 * @return
+	 * @throws Exception 
 	 */
-	public int inserirEndereco(PessoaFisica pessoaFisica, Connection con) {
+	public int inserirEndereco(PessoaFisica pessoaFisica) throws Exception {
 		int id = 0;
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+
 		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
-		
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			Endereco endereco = pessoaFisica.getPessoa().getEndereco();
 			preparedStatement.setString(1, endereco.getEstado());
 			preparedStatement.setString(2, endereco.getCidade());
@@ -81,20 +92,18 @@ public class PessoaFisicaDAO {
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			throw new Exception("Erro ao cadastrar endereço", e);
+		} finally {
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 	}
@@ -106,13 +115,18 @@ public class PessoaFisicaDAO {
 	 * @param con
 	 * @param idEndereco
 	 * @return
+	 * @throws Exception 
 	 */
-	public int inserirPessoa(PessoaFisica pessoaFisica, Connection con, int idEndereco) {
+	public int inserirPessoa(PessoaFisica pessoaFisica, int idEndereco) throws Exception {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
 		int id = 0;
 		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
 		try {
 			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			
 			preparedStatement.setString(1, pessoaFisica.getPessoa().getNome());
 			preparedStatement.setInt(2, idEndereco);
@@ -122,20 +136,18 @@ public class PessoaFisicaDAO {
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			throw new Exception("Erro ao inserir pessoa", e);
+		} finally {
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 	}
@@ -146,33 +158,34 @@ public class PessoaFisicaDAO {
 	 * @param con
 	 * @param idPessoa
 	 * @return
+	 * @throws Exception 
 	 */
-	public int inserirAdotante(Connection con, int idPessoa) {
+	public int inserirAdotante(int idPessoa) throws Exception {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
 		int id = 0;
 		String query = "insert into adotante (idPessoa) values (?)";
 		try {
 			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
-			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			preparedStatement.setInt(1, idPessoa);
-			
+
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			throw new Exception("Erro ao cadastrar adotante", e);
+		} finally {
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 	}
@@ -184,13 +197,17 @@ public class PessoaFisicaDAO {
 	 * @param con
 	 * @param idPessoa
 	 * @return
+	 * @throws Exception 
 	 */
-	public int inserirPessoaFisica(PessoaFisica pessoaFisica, Connection con, int idPessoa) {
+	public int inserirPessoaFisica(PessoaFisica pessoaFisica, int idPessoa) throws Exception {
 		int id = 0;
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		String query = "insert into pessoafisica (rg, cpf, genero, idPessoa) values (?, ?, ?, ?)";
 		try {
 			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query);
 			
 			preparedStatement.setString(1, pessoaFisica.getRg());
 			preparedStatement.setString(2, pessoaFisica.getCpf());
@@ -199,21 +216,18 @@ public class PessoaFisicaDAO {
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			throw new Exception("Erro ao inserir pessoa fisica", e);
+		} finally {
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 	}
@@ -312,12 +326,12 @@ public class PessoaFisicaDAO {
 		
 	}
 	
-	public void editarPessoa() throws SQLException{
+	public void editarPessoa() throws SQLException {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statementPessoaFisica = null;
 		ResultSet resultPessoaFisica = null;
 		String query = "UPDATE pessoafisica SET nome = ?, telefoneCelular = ?, telefoneFixo = ?, email = ?";
 		
 	}
-
+	
 }

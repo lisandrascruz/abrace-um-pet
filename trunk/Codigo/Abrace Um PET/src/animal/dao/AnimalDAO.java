@@ -45,12 +45,7 @@ public class AnimalDAO {
 			}
 			return animal;
 		} finally {
-			if (resultAnimal != null) {
-				resultAnimal.close();
-			}
-			if (statementAnimal != null) {
-				statementAnimal.close();
-			}
+			Conexao.fechar(connection, statementAnimal, resultAnimal);
 		}
 	}
 	

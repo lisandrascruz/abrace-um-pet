@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 15-Dez-2014 às 02:23
+-- Generation Time: 24-Dez-2014 às 01:37
 -- Versão do servidor: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -33,19 +33,20 @@ CREATE TABLE IF NOT EXISTS `adocao` (
   `dataAdocao` timestamp NULL DEFAULT NULL,
   `dataDevolucao` timestamp NULL DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Extraindo dados da tabela `adocao`
 --
 
 INSERT INTO `adocao` (`id`, `idAnimal`, `idAdotante`, `dataAdocao`, `dataDevolucao`, `idUsuario`) VALUES
-(1, 1, 18, NULL, NULL, NULL),
+(1, 1, 18, NULL, '2014-12-17 16:09:05', NULL),
 (2, 1, 19, NULL, NULL, NULL),
 (3, 1, 19, NULL, NULL, NULL),
 (4, 1, 23, NULL, NULL, NULL),
 (5, 1, 23, NULL, NULL, NULL),
-(6, 1, 23, NULL, NULL, NULL);
+(6, 1, 23, NULL, NULL, NULL),
+(7, 1, 32, '2014-12-18 12:51:51', NULL, 9);
 
 -- --------------------------------------------------------
 
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `adotante` (
   `impedimento` tinyint(1) DEFAULT NULL,
   `motivoImpedimeto` text,
   `idPessoa` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Extraindo dados da tabela `adotante`
@@ -72,7 +73,18 @@ INSERT INTO `adotante` (`id`, `impedimento`, `motivoImpedimeto`, `idPessoa`) VAL
 (22, NULL, NULL, 7),
 (23, NULL, NULL, 8),
 (24, NULL, NULL, 0),
-(25, NULL, NULL, 0);
+(25, NULL, NULL, 0),
+(26, NULL, NULL, 0),
+(27, NULL, NULL, 0),
+(28, NULL, NULL, 0),
+(29, NULL, NULL, 0),
+(30, NULL, NULL, 0),
+(31, NULL, NULL, 0),
+(32, NULL, NULL, 9),
+(33, NULL, NULL, 10),
+(34, NULL, NULL, 11),
+(35, NULL, NULL, 12),
+(36, NULL, NULL, 13);
 
 -- --------------------------------------------------------
 
@@ -128,8 +140,8 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   `rua` varchar(45) DEFAULT NULL,
   `numero` varchar(45) DEFAULT NULL,
   `complemento` varchar(45) DEFAULT NULL,
-  `cep` varchar(8) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+  `cep` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Extraindo dados da tabela `endereco`
@@ -143,7 +155,12 @@ INSERT INTO `endereco` (`id`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `co
 (26, 'PE', 'Recife', 'Arruda', 'Rua 3', '45', 'A33', '52030100'),
 (27, 'fsdf', 'sdfsdf', 'fsd', 'sfsdfsdf', 'sdfsd', 'sdf', '52030100'),
 (28, 'erw', 'wer', 'wer', 'rw', 'wer', 'ewr', '52030100'),
-(29, 'London', 'London', 'Hammersmith', 'London street', '458', 'A34', '52030100');
+(29, 'London', 'London', 'Hammersmith', 'London street', '458', 'A34', '52030100'),
+(30, 'Pernambuco', 'Recife', 'Pina', 'rua antonio feire', '99', '', '99.999-999'),
+(31, 'pe', 'racife', 'pina', '001', '00', 's', '22.222-222'),
+(32, '12121', '121212', '121212', '21212121212', '12', '', '12.121-212'),
+(33, 'pernambuco', 'recife', 'varzea', 'doutor guilherme', '2', 'kkk', '93.939-399'),
+(34, 'pernambuuco', 'recife', 'varzea', 'doutor pedro', '33', 'd', '34.543-575');
 
 -- --------------------------------------------------------
 
@@ -155,10 +172,10 @@ CREATE TABLE IF NOT EXISTS `pessoa` (
 `id` int(11) NOT NULL,
   `nome` varchar(90) DEFAULT NULL,
   `idEndereco` int(11) DEFAULT NULL,
-  `telefoneFixo` varchar(11) DEFAULT NULL,
-  `telefoneCelular` varchar(11) DEFAULT NULL,
+  `telefoneFixo` varchar(15) DEFAULT NULL,
+  `telefoneCelular` varchar(15) DEFAULT NULL,
   `email` varchar(90) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Extraindo dados da tabela `pessoa`
@@ -170,7 +187,12 @@ INSERT INTO `pessoa` (`id`, `nome`, `idEndereco`, `telefoneFixo`, `telefoneCelul
 (5, 'Prorenc', 26, '08134446471', '08134446471', 'pro@mail.com'),
 (6, 'dfafsd', 27, '08134446471', '08134446471', 'dfs@h.com'),
 (7, 'qewqewreqw', 28, '08134446471', '08134446471', 'asd@dw.com'),
-(8, 'Oxford', 29, '08134446471', '08134446471', 'oxford@oxford.com');
+(8, 'Oxford', 29, '08134446471', '08134446471', 'oxford@oxford.com'),
+(9, 'LISA CRUZ', 31, '(22)2222-2222', '(44)4444-4444', 'd@g.com'),
+(10, 'AAAAAAA', 0, '(23)3333-3333', '(55)5555-5555', 'D@g.com'),
+(11, '1212121212121', 32, '(56)6666-6666', '(12)1212-1212', '12@g.com'),
+(12, 'LUCAS CRUZ', 33, '(92)8470-3294', '(28)8349-2730', 'lucas@g.com'),
+(13, 'JONAS LTDA', 34, '(24)3543-6346', '(35)3456-3446', 'D#@df.com');
 
 -- --------------------------------------------------------
 
@@ -184,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `pessoafisica` (
   `cpf` varchar(14) DEFAULT NULL,
   `genero` varchar(45) DEFAULT NULL,
   `idPessoa` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Extraindo dados da tabela `pessoafisica`
@@ -192,7 +214,16 @@ CREATE TABLE IF NOT EXISTS `pessoafisica` (
 
 INSERT INTO `pessoafisica` (`id`, `rg`, `cpf`, `genero`, `idPessoa`) VALUES
 (10, '7852413', '082.323.444-40', 'M', 3),
-(11, '0000000', '000.000.000-00', 'M', 6);
+(11, '0000000', '000.000.000-00', 'M', 6),
+(12, '9887654', '097.913.666-66', 'F', 0),
+(13, '3333333', '333.333.333-33', 'M', 0),
+(14, '3333333', '097.913.666-61', 'M', 0),
+(15, '1212121', '121.212.121-21', 'M', 0),
+(16, '2009877', '097.913.662-22', 'F', 0),
+(17, '1223432', '098.888.888-88', 'M', 9),
+(18, '6666666', '666.666.666-66', 'M', 10),
+(19, '1212121', '321.321.321-32', 'M', 11),
+(20, '0948583', '097.777.777-77', 'M', 12);
 
 -- --------------------------------------------------------
 
@@ -205,14 +236,16 @@ CREATE TABLE IF NOT EXISTS `pessoajuridica` (
   `cnpj` varchar(45) DEFAULT NULL,
   `idPessoa` int(11) DEFAULT NULL,
   `idPessoaFisica` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Extraindo dados da tabela `pessoajuridica`
 --
 
 INSERT INTO `pessoajuridica` (`id`, `cnpj`, `idPessoa`, `idPessoaFisica`) VALUES
-(3, '01.234.567/8912-34', 8, 10);
+(3, '01.234.567/8912-34', 8, 10),
+(4, '29.299.999/9999-99', 0, 10),
+(5, '11.111.111/1111-12', 13, 20);
 
 -- --------------------------------------------------------
 
@@ -229,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `raca` (
   `expectativaVida` int(11) DEFAULT NULL,
   `temperamento` text,
   `tipo` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Extraindo dados da tabela `raca`
@@ -251,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `login` varchar(45) DEFAULT NULL,
   `senha` varchar(45) DEFAULT NULL,
   `email` varchar(90) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -269,7 +302,11 @@ INSERT INTO `usuario` (`id`, `login`, `senha`, `email`) VALUES
 (9, 'paulao', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'paulao@mail.com'),
 (10, 'jorginho', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'jorginho@mail.com'),
 (11, 'jorge', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'jorge@mail.com'),
-(12, 'usuario', '2cbe7f341eb6aca638a32b77ddedfd4c', 'usua@gmail.com');
+(12, 'usuario', '2cbe7f341eb6aca638a32b77ddedfd4c', 'usua@gmail.com'),
+(13, 'lisandra', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'l@g.com'),
+(14, 'rodolfo', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'l@g.com'),
+(15, 'paulo', '98a9c12a85dc1dfe303bb0c000855e97', 'O\\W2!!@v.com'),
+(16, 'juca', 'a85d63d01bd61ccd5d2798bcb6bc4c99', 'd@f.com');
 
 --
 -- Indexes for dumped tables
@@ -337,12 +374,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `adocao`
 --
 ALTER TABLE `adocao`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `adotante`
 --
 ALTER TABLE `adotante`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `animal`
 --
@@ -352,32 +389,32 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 -- AUTO_INCREMENT for table `endereco`
 --
 ALTER TABLE `endereco`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `pessoafisica`
 --
 ALTER TABLE `pessoafisica`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `pessoajuridica`
 --
 ALTER TABLE `pessoajuridica`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `raca`
 --
 ALTER TABLE `raca`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
