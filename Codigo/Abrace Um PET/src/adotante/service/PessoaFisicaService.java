@@ -7,7 +7,7 @@ public class PessoaFisicaService {
 	PessoaFisicaDAO	pessoaFisicaDAO	= new PessoaFisicaDAO();
 	PessoaFisica pessoaFisica = new PessoaFisica();
 	
-	public boolean adicionarPessoaFisicaService(PessoaFisica pessoaFisica) {
+	public boolean adicionarPessoaFisicaService(PessoaFisica pessoaFisica) throws Exception {
 		return pessoaFisicaDAO.adicionarPessoaFisica(pessoaFisica);
 	}
 	
@@ -16,8 +16,9 @@ public class PessoaFisicaService {
 	 * 
 	 * @param cpf
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean validarCadastroPessoaFisica(String cpf) {
+	public boolean validarCadastroPessoaFisica(String cpf) throws Exception {
 		boolean valido;
 		pessoaFisica.setCpf(cpf);
 
