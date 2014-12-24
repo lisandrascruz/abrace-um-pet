@@ -1,7 +1,5 @@
 package usuario.service;
 
-import java.sql.SQLException;
-
 import usuario.dao.UsuarioDAO;
 import usuario.dominio.Usuario;
 import usuario.gui.CadastroUsuarioGUI;
@@ -109,7 +107,4 @@ public class UsuarioService {
 		return valido;
 	}
 
-//	public int getIdUsuario(Usuario usuario) throws SQLException{
-//		return usuarioDao.getIdUsuario(usuario);
-//	}
 }
