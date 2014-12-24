@@ -11,6 +11,7 @@ import java.util.List;
 import animal.raca.dominio.Raca;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 public class RacaDAO {
 	Conexao conexao = new Conexao();
@@ -50,13 +51,19 @@ public class RacaDAO {
 	 * @param raca
 	 * @param con
 	 * @return
+	 * @throws Exception 
 	 */
-	public int inserirRaca(Raca raca, Connection con) {
+	public int inserirRaca(Raca raca) throws Exception {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		int id = 0;
 		String query = "INSERT INTO raca(nome, origem, tamanhoMax, tamanhoMin, expectativaVida, temperamento,tipo) values (?, ?, ?, ?, ?, ?,?)";
 		
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			con = (Connection) Conexao.abrir();
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, raca.getNome());
 			preparedStatement.setString(2, raca.getOrigem());
@@ -68,20 +75,16 @@ public class RacaDAO {
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
+			con.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.rollback();
+			throw new Exception("Erro ao cadastrar a raça", ex);
 		}
 		return id;
 	}
@@ -100,7 +103,7 @@ public class RacaDAO {
 		RacaDAO racaDAO = new RacaDAO();
 		try {
 			con = (Connection) Conexao.abrir();
-			racaDAO.inserirRaca(raca, con);
+			racaDAO.inserirRaca(raca);
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -117,6 +120,6 @@ public class RacaDAO {
 	 */
 	public boolean consultarRaca(String nome) throws Exception {
 		String query = ("SELECT nome FROM raca where nome='" + nome + "'");
-		return (conexao.consultar(query));
+		return (Conexao.consultar(query));
 	}
 }

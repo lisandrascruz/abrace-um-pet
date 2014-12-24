@@ -24,19 +24,24 @@ public class PessoaFisicaDAO {
 	 */
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) throws Exception {
 		Connection con = null;
+		boolean valido = false;
 		try {
-			con = Conexao.abrir();
+			Conexao.abrir();
 			
 			int idEndereco = inserirEndereco(pessoaFisica, con);
 			int idPessoa = inserirPessoa(pessoaFisica, con, idEndereco);
+			
 			inserirPessoaFisica(pessoaFisica, con, idPessoa);
 			inserirAdotante(con, idPessoa);
-			return true;
+			
+			valido = true;
 		} catch (Exception ex) {
+			valido = false;
 			throw new Exception("Erro ao adicionar pessoa física no banco de dados", ex);
 		}finally{
 			Conexao.fechar(con, null, null);
 		}
+		return valido;
 	}
 	
 	/**
@@ -44,10 +49,11 @@ public class PessoaFisicaDAO {
 	 * 
 	 * @param cpf
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean consultarPessoaFisicaCPF(String cpf) {
+	public boolean consultarPessoaFisicaCPF(String cpf) throws Exception {
 		String query = ("SELECT cpf FROM pessoafisica where cpf='" + cpf + "'");
-		return (conexao.consultar(query));
+		return (Conexao.consultar(query));
 	}
 	
 	/**
@@ -220,7 +226,7 @@ public class PessoaFisicaDAO {
 	 * @throws SQLException
 	 */
 	public PessoaFisica consultarPessoaFisica(String cpf) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementPessoaFisica = null;
 		ResultSet resultPessoaFisica = null;
 		
@@ -254,12 +260,7 @@ public class PessoaFisicaDAO {
 			
 			return pessoaFisica;
 		} finally {
-			if (resultPessoaFisica != null) {
-				resultPessoaFisica.close();
-			}
-			if (statementPessoaFisica != null) {
-				statementPessoaFisica.close();
-			}
+			Conexao.fechar(connection, statementPessoaFisica, resultPessoaFisica);
 		}
 		
 	}
@@ -272,7 +273,7 @@ public class PessoaFisicaDAO {
 	 * @throws SQLException
 	 */
 	public PessoaFisica consultarPessoaFisica(int id) throws SQLException {
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementPessoaFisica = null;
 		ResultSet resultPessoaFisica = null;
 		
@@ -306,18 +307,13 @@ public class PessoaFisicaDAO {
 			
 			return pessoaFisica;
 		} finally {
-			if (resultPessoaFisica != null) {
-				resultPessoaFisica.close();
-			}
-			if (statementPessoaFisica != null) {
-				statementPessoaFisica.close();
-			}
+			Conexao.fechar(connection, statementPessoaFisica, resultPessoaFisica);
 		}
 		
 	}
 	
 	public void editarPessoa() throws SQLException{
-		Connection connection = Conexao.abrirConceccaoMySQL();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementPessoaFisica = null;
 		ResultSet resultPessoaFisica = null;
 		String query = "UPDATE pessoafisica SET nome = ?, telefoneCelular = ?, telefoneFixo = ?, email = ?";
