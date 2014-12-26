@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import adotante.dominio.Endereco;
 import adotante.dominio.Pessoa;
@@ -21,19 +22,15 @@ public class PessoaJuridicaDAO {
 	 * @param pessoaJuridica
 	 * @return
 	 */
-	public boolean adicionarPessoaJuridica(PessoaJuridica pessoaJuridica) {
+	public boolean adicionarPessoaJuridica(PessoaJuridica pessoaJuridica) throws Exception{
 		try {
-			Connection con = Conexao.abrir();
-			int idEndereco = inserirEndereco(pessoaJuridica, con);
-			int idPessoa = inserirPessoa(pessoaJuridica, con, idEndereco);
-			inserirPessoaJuridica(pessoaJuridica, con, idPessoa);
-			inserirAdotante(con, idPessoa);
+			int idEndereco = inserirEndereco(pessoaJuridica);
+			int idPessoa = inserirPessoa(pessoaJuridica, idEndereco);
+			inserirPessoaJuridica(pessoaJuridica, idPessoa);
+			inserirAdotante(idPessoa);
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
-		} finally {
-			Conexao.fechar(con, );
+			throw new Exception(ex);
 		}
 	}
 	
@@ -57,41 +54,54 @@ public class PessoaJuridicaDAO {
 	 * @param con
 	 * @return
 	 */
-	public int inserirEndereco(PessoaJuridica pessoaJuridica, Connection con) {
+	public int inserirEndereco(PessoaJuridica pessoaJuridica) throws Exception{
+		
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		int id = 0;
-		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			con = Conexao.abrir();
 			
 			Pessoa pessoa = pessoaJuridica.getPessoa();
 			Endereco endereco = pessoa.getEndereco();
-			preparedStatement.setString(1, endereco.getEstado());
-			preparedStatement.setString(2, endereco.getCidade());
-			preparedStatement.setString(3, endereco.getBairro());
-			preparedStatement.setString(4, endereco.getRua());
-			preparedStatement.setString(5, endereco.getNumero());
-			preparedStatement.setString(6, endereco.getCep());
-			preparedStatement.setString(7, endereco.getComplemento());
+			
+			String estado = endereco.getEstado();
+			String cidade = endereco.getCidade();
+			String bairro = endereco.getBairro();
+			String rua = endereco.getRua();
+			String numero = endereco.getNumero();
+			String cep = endereco.getCep();
+			String complemento = endereco.getComplemento();
+			
+			String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			
+			preparedStatement.setString(1, estado);
+			preparedStatement.setString(2, cidade);
+			preparedStatement.setString(3, bairro);
+			preparedStatement.setString(4, rua);
+			preparedStatement.setString(5, numero);
+			preparedStatement.setString(6, cep);
+			preparedStatement.setString(7, complemento);
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			
-			preparedStatement.close();
-			
+			con.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o endereço",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
 		}
 		return id;
 	}
@@ -104,34 +114,45 @@ public class PessoaJuridicaDAO {
 	 * @param idEndereco
 	 * @return
 	 */
-	public int inserirPessoa(PessoaJuridica pessoaJuridica, Connection con, int idEndereco) {
+	public int inserirPessoa(PessoaJuridica pessoaJuridica, int idEndereco) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		int id = 0;
-		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
+		
+		
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			con = Conexao.abrir();
 			
-			preparedStatement.setString(1, pessoaJuridica.getPessoa().getNome());
+			String nome = pessoaJuridica.getPessoa().getNome();
+			String telefoneFixo = pessoaJuridica.getPessoa().getTelefoneFixo();
+			String telefoneCelular = pessoaJuridica.getPessoa().getTelefoneCelular();
+			String email = pessoaJuridica.getPessoa().getEmail();
+			
+			String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setString(1, nome);
 			preparedStatement.setInt(2, idEndereco);
-			preparedStatement.setString(3, pessoaJuridica.getPessoa().getTelefoneFixo());
-			preparedStatement.setString(4, pessoaJuridica.getPessoa().getTelefoneCelular());
-			preparedStatement.setString(5, pessoaJuridica.getPessoa().getEmail());
+			preparedStatement.setString(3, telefoneFixo);
+			preparedStatement.setString(4, telefoneCelular);
+			preparedStatement.setString(5, email);
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
+			con.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o pessoa",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
 		}
 		return id;
 		
@@ -144,32 +165,35 @@ public class PessoaJuridicaDAO {
 	 * @param idPessoa
 	 * @return
 	 */
-	public int inserirAdotante(Connection con, int idPessoa) {
+	public int inserirAdotante(int idPessoa) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		int id = 0;
-		String query = "insert into adotante (idPessoa) values (?)";
+		
 		try {
+			con = Conexao.abrir();
 			
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			String query = "insert into adotante (idPessoa) values (?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setInt(1, idPessoa);
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
-			
+			con.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o adotante",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
 		}
 		return id;
 	}
@@ -182,32 +206,40 @@ public class PessoaJuridicaDAO {
 	 * @param idPessoa
 	 * @return
 	 */
-	public int inserirPessoaJuridica(PessoaJuridica pessoaJuridica, Connection con, int idPessoa) {
+	public int inserirPessoaJuridica(PessoaJuridica pessoaJuridica, int idPessoa) throws Exception {
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		int id = 0;
-		String query = "insert into pessoajuridica (cnpj, idPessoa, idPessoaFisica) values (?, ?, ?)";
+		
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			con = Conexao.abrir();
 			
-			preparedStatement.setString(1, pessoaJuridica.getCnpj());
+			String cnpj = pessoaJuridica.getCnpj();
+			int idResponavel = pessoaJuridica.getResponsavel().getId();
+			
+			String query = "insert into pessoajuridica (cnpj, idPessoa, idPessoaFisica) values (?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setString(1, cnpj);
 			preparedStatement.setInt(2, idPessoa);
-			preparedStatement.setInt(3, pessoaJuridica.getResponsavel().getId());
+			preparedStatement.setInt(3, idResponavel);
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
+			con.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o pessoa jurídica", ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
 		}
 		return id;
 	}

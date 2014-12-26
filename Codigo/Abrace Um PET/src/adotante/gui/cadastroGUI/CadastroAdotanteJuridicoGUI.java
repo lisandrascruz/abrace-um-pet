@@ -196,11 +196,18 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
 				
-				if ((pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf()))) {
-					lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
-				} else {
-					lblMostrarRepresentante.setText("");
+				try{
+					//boolean validade = pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf());
+					if(true)
+					{
+						lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
+					}else {
+						lblMostrarRepresentante.setText("");
+					}
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
+					
 			}
 		});
 		btnConsultar.setBounds(483, 181, 99, 23);
@@ -241,16 +248,20 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				String email = pessoaJuridica.getPessoa().getEmail();
 				String cnpj = pessoaJuridica.getCnpj();
 				
-				if ((validarEndereco(numero, rua, bairro, cidade, estado) && (validarPessoaJuridica(nome, email, cnpj)))) {
-					if (pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica)) {
-						JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
-						CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
-						cadastroAdotante.setVisible(true);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "O cadastro do adotante juridico não pode ser realizado, tente novamente!(Endereco)",
-								"ERROR", 0);
+				if ((validarEndereco(numero, rua, bairro, cidade, estado) )) {
+					try{
+						boolean validade = pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
+						
+						if (validade) {
+							JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
+							CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
+							cadastroAdotante.setVisible(true);
+							dispose();
+						} 
+					}catch(Exception ex){
+						JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 					}
+					
 				}
 			}
 			
@@ -267,24 +278,32 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				
 				boolean valido = false;
 				
-				if (pessoaJuridicaService.validarCadastroPessoaJuridica(cnpj) == false) {
-					if (pessoaService.validarNome(nome)) {
-						if (pessoaService.validarEmail(email)) {
-							valido = true;
+				try{
+					boolean validade = pessoaJuridicaService.validarCadastroPessoaJuridica(cnpj);
+					
+					if ( validade == false) {
+						if (pessoaService.validarNome(nome)) {
+							if (pessoaService.validarEmail(email)) {
+								valido = true;
+							} else {
+								JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com", "ERROR", 0);
+								valido = false;
+							}
+							
 						} else {
-							JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com", "ERROR", 0);
+							JOptionPane.showMessageDialog(null, "Por favor, digite o nome", "ERROR", 0);
 							valido = false;
 						}
 						
 					} else {
-						JOptionPane.showMessageDialog(null, "Por favor, digite o nome", "ERROR", 0);
+						JOptionPane.showMessageDialog(null, "CNPJ já cadastrado", "ERROR", 0);
 						valido = false;
 					}
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "CNPJ já cadastrado", "ERROR", 0);
-					valido = false;
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
+				
+				
 				return valido;
 			}
 			

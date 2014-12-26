@@ -5,6 +5,7 @@ import infraestrutura.dao.Conexao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import usuario.service.SessaoUsuario;
 import adocao.dominio.Adocao;
@@ -26,14 +27,12 @@ public class AdocaoDAO {
 	 * @param adocao
 	 * @return
 	 */
-	public boolean adicionarAdocao(Adocao adocao) {
+	public boolean adicionarAdocao(Adocao adocao) throws Exception{
 		try {
-			Connection con = Conexao.abrir();
-			inserirAdocao(adocao, con);
-			Conexao.fechar();
+			inserirAdocao(adocao);
 			return true;
 		} catch (Exception ex) {
-			return false;
+			throw new Exception(ex);
 		}
 	}
 	
@@ -59,34 +58,43 @@ public class AdocaoDAO {
 	 * @param con
 	 * @return
 	 */
-	public int inserirAdocao(Adocao adocao, Connection con) {
-		int id;
-		String query = "insert into adocao (idAdotante, idAnimal,idUsuario, dataAdocao) values (?, ?, ?, ?)";
-		
+	public int inserirAdocao(Adocao adocao) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		int id = 0;
+
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			con = Conexao.abrir();
 			
-			preparedStatement.setInt(1, adocao.getAdotante().getId());
-			preparedStatement.setInt(2, adocao.getAnimal().getId());
-			preparedStatement.setInt(3, sessao.getUsuarioLogado().getId());
-			preparedStatement.setString(4, adocao.getDataAdocao());
+			int idAdotante = adocao.getAdotante().getId();
+			int idAnimal = adocao.getAnimal().getId();
+			int idUsuario = sessao.getUsuarioLogado().getId();
+			String dataAdocao = adocao.getDataAdocao();
+			
+			String query = "insert into adocao (idAdotante, idAnimal,idUsuario, dataAdocao) values (?, ?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setInt(1, idAdotante);
+			preparedStatement.setInt(2, idAnimal);
+			preparedStatement.setInt(3, idUsuario);
+			preparedStatement.setString(4, dataAdocao);
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
-			}
-			
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			if (affectedRows != 0) {
+				generatedKeys = preparedStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					id = (int) generatedKeys.getLong(1);
-				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
 				}
 			}
-			preparedStatement.close();
+			con.commit();//IMPORTANTE POIS SEM ISSO NAO INSERE NO BANCO
 		} catch (Exception ex) {
-			return -1;
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o usuário",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);//IMPORTANTE FECHAR A CONEXAO DPS
 		}
 		return id;
 	}

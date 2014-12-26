@@ -11,7 +11,7 @@ public class PessoaJuridicaService {
 	PessoaFisica				pessoaFisica		= new PessoaFisica();
 	PessoaJuridica				pessoaJuridica		= new PessoaJuridica();
 	
-	public boolean adicionarPessoaJuridicaService(PessoaJuridica pessoaJuridica) {
+	public boolean adicionarPessoaJuridicaService(PessoaJuridica pessoaJuridica) throws Exception{
 		return pessoaJuridicaDAO.adicionarPessoaJuridica(pessoaJuridica);
 	}
 	
@@ -27,7 +27,7 @@ public class PessoaJuridicaService {
 		return pessoaJuridica;
 	}
 	
-	public boolean validarCpfResponsavelJuridico(String cpf) {
+	public boolean validarCpfResponsavelJuridico(String cpf) throws Exception{
 		boolean valido;
 		pessoaFisica.setCpf(cpf);
 		if (pessoaFisicaDao.consultarPessoaFisicaCPF(cpf)) {
@@ -43,7 +43,7 @@ public class PessoaJuridicaService {
 	 * @param cnpj
 	 * @return
 	 */
-	public boolean validarCadastroPessoaJuridica(String cnpj) {
+	public boolean validarCadastroPessoaJuridica(String cnpj) throws Exception{
 		boolean valido;
 		pessoaJuridica.setCnpj(cnpj);
 		
