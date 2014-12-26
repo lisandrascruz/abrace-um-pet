@@ -68,11 +68,14 @@ public class PessoaFisicaDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
 
-		String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
+		
 		try {
+			con = Conexao.abrir();
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query,
-					Statement.RETURN_GENERATED_KEYS);
+			String query = "insert into endereco (estado, cidade, bairro, rua, numero, cep, complemento) values (?, ?, ?, ?, ?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
 			Endereco endereco = pessoaFisica.getPessoa().getEndereco();
 			preparedStatement.setString(1, endereco.getEstado());
 			preparedStatement.setString(2, endereco.getCidade());
@@ -115,10 +118,13 @@ public class PessoaFisicaDAO {
 		ResultSet generatedKeys = null;
 		
 		int id = 0;
-		String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
+		
 		try {
+			con = Conexao.abrir();
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			String query = "insert into pessoa (nome, idEndereco, telefoneFixo, telefoneCelular, email) values (?, ?, ?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, pessoaFisica.getPessoa().getNome());
 			preparedStatement.setInt(2, idEndereco);
@@ -158,10 +164,14 @@ public class PessoaFisicaDAO {
 		ResultSet generatedKeys = null;
 		
 		int id = 0;
-		String query = "insert into adotante (idPessoa) values (?)";
+		
 		try {
+			con = Conexao.abrir();
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			String query = "insert into adotante (idPessoa) values (?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
 			preparedStatement.setInt(1, idPessoa);
 
 			int affectedRows = preparedStatement.executeUpdate();
@@ -196,10 +206,13 @@ public class PessoaFisicaDAO {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
-		String query = "insert into pessoafisica (rg, cpf, genero, idPessoa) values (?, ?, ?, ?)";
+		
 		try {
+			con = Conexao.abrir();
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query);
+			String query = "insert into pessoafisica (rg, cpf, genero, idPessoa) values (?, ?, ?, ?)";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, pessoaFisica.getRg());
 			preparedStatement.setString(2, pessoaFisica.getCpf());
