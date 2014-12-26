@@ -125,7 +125,11 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 					adocao.setAnimal(animal);
 					adocao.setAdotante(adotante);
 					adocao.setDataAdocao(dataAdocao);
-					adocaoService.adicionarAdocaoService(adocao);
+					try{
+						adocaoService.adicionarAdocaoService(adocao);
+					}catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+					}
 					SessaoUsuario sessao = SessaoUsuario.getInstancia();
 					sessao.setAdocao(adocao);
 					JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");

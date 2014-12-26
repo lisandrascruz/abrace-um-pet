@@ -9,7 +9,7 @@ import adotante.dominio.Pessoa;
 public class AdocaoService {
 	private AdocaoDAO adocaoDAO = new AdocaoDAO();
 
-	public boolean adicionarAdocaoService(Adocao adocao) {
+	public boolean adicionarAdocaoService(Adocao adocao) throws Exception{
 		return adocaoDAO.adicionarAdocao(adocao);
 	}
 	

@@ -26,17 +26,11 @@ public class PessoaFisicaDAO {
 	 */
 	public boolean adicionarPessoaFisica(PessoaFisica pessoaFisica) throws Exception {
 		boolean valido = false;
-
-		Connection con = null;
-		PreparedStatement preparedStatement=null;
-		ResultSet generatedKeys = null;
 				
 		try {
-			Conexao.abrir();
 			
 			int idEndereco = inserirEndereco(pessoaFisica);
 			int idPessoa = inserirPessoa(pessoaFisica, idEndereco);
-			
 			inserirPessoaFisica(pessoaFisica, idPessoa);
 			inserirAdotante(idPessoa);
 			
@@ -44,9 +38,7 @@ public class PessoaFisicaDAO {
 		} catch (Exception ex) {
 			valido = false;
 			throw new Exception("Erro ao adicionar pessoa física no banco de dados", ex);
-		} finally {
-			Conexao.fechar(con, preparedStatement, generatedKeys);
-		}
+		} 
 		return valido;
 	}
 	
