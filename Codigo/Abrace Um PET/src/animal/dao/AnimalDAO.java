@@ -1,32 +1,35 @@
 package animal.dao;
 
 import infraestrutura.dao.Conexao;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import animal.dominio.Animal;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
+
+import animal.dominio.Animal;
 
 public class AnimalDAO {
 	
 	public Animal consultarAnimal(String rga) throws SQLException {
-		Connection connection = (Connection) Conexao.abrir();
+		Connection connection = Conexao.abrir();
 		PreparedStatement statementAnimal = null;
-		java.sql.ResultSet resultAnimal = null;
+		ResultSet resultAnimal = null;
 		
 		try {
 			String queryAnimal = "SELECT a.id, a.nome, a.tipo, a.rga, a.dataNascimento, a.idRaca, a.genero, "
 					+ "a.deficiencia, a.vacinado, a.castrado, a.tamanho, a.peso, a.temperamento, "
-					+ "a.observacao, a.dataResgate " + "FROM animal as a WHERE rga = ?";
-			statementAnimal = (PreparedStatement) connection.prepareStatement(queryAnimal);
+					+ "a.observacao, a.dataResgate FROM animal as a WHERE rga = ?";
+			
+			statementAnimal = connection.prepareStatement(queryAnimal);
 			statementAnimal.setString(1, rga);
 			resultAnimal = statementAnimal.executeQuery();
+			
 			Animal animal = new Animal();
+			
 			if (resultAnimal.next()) {
+				
 				animal.setId(resultAnimal.getInt("id"));
 				animal.setNome(resultAnimal.getString("a.nome"));
 				animal.setTipo(resultAnimal.getString("tipo"));
@@ -41,7 +44,6 @@ public class AnimalDAO {
 				animal.setTemperamento(resultAnimal.getString("a.temperamento"));
 				animal.setObservacao(resultAnimal.getString("observacao"));
 				animal.setDataResgate(resultAnimal.getString("dataResgate"));
-				
 			}
 			return animal;
 		} finally {

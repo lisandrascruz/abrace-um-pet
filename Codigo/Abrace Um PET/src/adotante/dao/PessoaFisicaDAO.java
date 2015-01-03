@@ -261,6 +261,7 @@ public class PessoaFisicaDAO {
 			Pessoa pessoa = new Pessoa();
 			PessoaFisica pessoaFisica = new PessoaFisica();
 			Endereco endereco = new Endereco();
+			
 			if (resultPessoaFisica.next()) {
 				
 				pessoa.setId(resultPessoaFisica.getInt("p.id"));
@@ -276,7 +277,6 @@ public class PessoaFisicaDAO {
 				pessoaFisica.setPessoa(pessoa);
 				pessoa.setEndereco(endereco);
 			}
-			
 			return pessoaFisica;
 		} catch (Exception e) {
 			throw new Exception("Pessoa não encontrada", e);
