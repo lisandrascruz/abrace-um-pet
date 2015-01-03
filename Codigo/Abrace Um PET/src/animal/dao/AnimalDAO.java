@@ -1,18 +1,18 @@
 package animal.dao;
 
 import infraestrutura.dao.Conexao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import com.mysql.jdbc.Statement;
 
 import animal.dominio.Animal;
 
+import com.mysql.jdbc.Statement;
+
 public class AnimalDAO {
 	
-	public Animal consultarAnimal(String rga) throws SQLException {
+	public Animal consultarAnimal(String rga) throws Exception {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statementAnimal = null;
 		ResultSet resultAnimal = null;
@@ -46,23 +46,13 @@ public class AnimalDAO {
 				animal.setDataResgate(resultAnimal.getString("dataResgate"));
 			}
 			return animal;
-		} finally {
+		} catch(Exception e){
+			throw new Exception("Animal não pôde ser consultado.", e);
+		}			
+		finally {
 			Conexao.fechar(connection, statementAnimal, resultAnimal);
 		}
 	}
-	
-	// public boolean adicionarAnimal(Animal animal) {
-	// try {
-	// Connection con = (Connection) Conexao.abrir();
-	// inserirAnimal(animal, con);
-	// return true;
-	// } catch (SQLException e) {
-	// throw new Exception("Erro ao adicionar animal no banco de dados", e);
-	// } finally {
-	// Conexao.fechar(con,statement,resultSet);
-	// }
-	// }
-	
 	public int inserirAnimal(Animal animal) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;

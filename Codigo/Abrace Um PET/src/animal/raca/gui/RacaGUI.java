@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import animal.raca.gui.cadastro.CadastrarRacaGUI;
+import animal.raca.gui.consulta.ConsultaRacaGUI;
+import animal.raca.gui.consulta.ConsultaRacaNomeGUI;
 import usuario.gui.TelaInicialGUI;
 
 public class RacaGUI extends JFrame {
@@ -61,11 +64,18 @@ public class RacaGUI extends JFrame {
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Editar");
-		button_1.setBounds(34, 167, 167, 23);
+		button_1.setBounds(34, 230, 167, 23);
 		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("Consultar");
-		button_2.setBounds(34, 232, 167, 23);
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaRacaNomeGUI consultar = new ConsultaRacaNomeGUI();
+				consultar.setVisible(true);
+				dispose();
+			}
+		});
+		button_2.setBounds(34, 169, 167, 23);
 		contentPane.add(button_2);
 		
 		JButton button_3 = new JButton("Excluir");

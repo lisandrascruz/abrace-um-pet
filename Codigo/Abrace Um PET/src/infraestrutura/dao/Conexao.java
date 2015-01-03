@@ -116,6 +116,7 @@ public class Conexao {
 			statement = (Statement) conexao.createStatement();
 			resultSet = statement.executeQuery(query);
 			if (resultSet.next()) {
+				
 				valido = true;
 			} else {
 				valido = false;

@@ -271,12 +271,10 @@ public class CadastroAnimalGUI extends JFrame {
 									
 								}
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 			}
