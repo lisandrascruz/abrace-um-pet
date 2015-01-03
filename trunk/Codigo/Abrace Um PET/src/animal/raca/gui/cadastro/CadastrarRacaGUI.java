@@ -1,4 +1,4 @@
-package animal.raca.gui;
+package animal.raca.gui.cadastro;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 
 import usuario.gui.TelaInicialGUI;
 import animal.raca.dominio.Raca;
+import animal.raca.gui.RacaGUI;
 import animal.raca.service.RacaService;
 import animal.service.Validacoes;
 
@@ -43,7 +44,7 @@ public class CadastrarRacaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCadastroRacaCachorro = new JLabel("Cadastro - Ra\u00E7a de Cachorro");
+		JLabel lblCadastroRacaCachorro = new JLabel("Cadastro de Ra\u00E7a ");
 		lblCadastroRacaCachorro.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblCadastroRacaCachorro.setBounds(10, 28, 327, 14);
 		contentPane.add(lblCadastroRacaCachorro);

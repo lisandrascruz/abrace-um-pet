@@ -1,21 +1,18 @@
 package animal.service;
 
-import java.sql.SQLException;
-
 import animal.dao.AnimalDAO;
 import animal.dominio.Animal;
 
 public class AnimalService {
 	private AnimalDAO	animalDAO	= new AnimalDAO();
 	
-	public boolean validarCadastroAnimal(String rga) throws SQLException {
+	public boolean validarCadastroAnimal(String rga) throws Exception {
 		boolean valido;
 		Animal animal = animalDAO.consultarAnimal(rga);
 		if (animal.getRga() == null) {
 			valido = true;
 		} else {
 			valido = false;
-			
 		}
 		return valido;
 	}

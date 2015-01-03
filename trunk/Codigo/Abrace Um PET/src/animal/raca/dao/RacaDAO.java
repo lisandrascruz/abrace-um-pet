@@ -2,32 +2,32 @@ package animal.raca.dao;
 
 import infraestrutura.dao.Conexao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import animal.raca.dominio.Raca;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-
 public class RacaDAO {
-	Conexao conexao = new Conexao();
+	Conexao	conexao	= new Conexao();
+	
 	/**
 	 * RETORNA OS OBJETOS DE RAÇAS EXISTENTES NO BANCO DE DADOS
 	 * 
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<Raca> getRaca() throws SQLException {
+	public List < Raca> getRaca() throws SQLException {
 		
 		Connection conn = (Connection) Conexao.abrir();
 		PreparedStatement statement = conn.prepareStatement("select * from raca");
 		ResultSet resultSet = statement.executeQuery();
 		
-		List<Raca> racas = new ArrayList<Raca>();
+		List < Raca> racas = new ArrayList < Raca>();
 		while (resultSet.next()) {
 			
 			Raca raca = new Raca();
@@ -51,7 +51,7 @@ public class RacaDAO {
 	 * @param raca
 	 * @param con
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public int inserirRaca(Raca raca) throws Exception {
 		Connection con = null;
@@ -108,18 +108,52 @@ public class RacaDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
-		} finally{
+		} finally {
 			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 	}
 	
 	/**
-	 * 	
+	 * 
 	 * @param nome
 	 * @return
 	 */
-	public boolean consultarRaca(String nome) throws Exception {
+	public boolean booleanConsultarRaca(String nome) throws Exception {
 		String query = ("SELECT nome FROM raca where nome='" + nome + "'");
 		return (Conexao.consultar(query));
+	}
+	
+	public Raca consultarRaca(String nome) throws Exception {
+		Connection connection = Conexao.abrir();
+		PreparedStatement statementAnimal = null;
+		ResultSet resultAnimal = null;
+		
+		try {
+			String queryRaca = "SELECT raca.nome, raca.origem, raca.tamanhoMax, raca.tamanhoMin, "
+					+ "raca.expectativaVida, raca.temperamento, raca.tipo FROM raca as a WHERE nome = ?";
+			
+			statementAnimal = connection.prepareStatement(queryRaca);
+			statementAnimal.setString(1, nome);
+			resultAnimal = statementAnimal.executeQuery();
+			
+			Raca raca = new Raca();
+			
+			if(resultAnimal.next()){
+				raca.setId(resultAnimal.getInt("id"));
+				raca.setNome(resultAnimal.getString("nome"));
+				raca.setOrigem(resultAnimal.getString("origem"));
+				raca.setTamanhoMax(resultAnimal.getDouble("tamanhoMax"));
+				raca.setTamanhoMin(resultAnimal.getDouble("tamanhoMin"));
+				raca.setTipo(resultAnimal.getString("tipo"));
+				raca.setExpectativaVida(resultAnimal.getInt("expectativaVida"));
+			}
+			return raca;
+		} catch(Exception e){
+			throw new Exception("Raça não pôde ser consultada.", e);
+		}
+		finally {
+			Conexao.fechar(connection, statementAnimal, resultAnimal);
+		}
+		
 	}
 }
