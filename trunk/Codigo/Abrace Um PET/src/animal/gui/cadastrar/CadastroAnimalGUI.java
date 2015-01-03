@@ -1,4 +1,4 @@
-package animal.gui;
+package animal.gui.cadastrar;
 
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -22,6 +22,7 @@ import javax.swing.text.MaskFormatter;
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 import animal.dominio.Animal;
+import animal.gui.AnimalGUI;
 import animal.service.AnimalService;
 
 public class CadastroAnimalGUI extends JFrame {

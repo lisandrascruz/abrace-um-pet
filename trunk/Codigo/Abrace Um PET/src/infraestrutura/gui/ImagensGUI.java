@@ -31,7 +31,6 @@ public class ImagensGUI {
 			e1.printStackTrace();
 		}
 	}
-
 	public static void imagemAdocaoFisico(JLabel label) {
 		try {
 			label.setIcon(new ImageIcon(new File("imagens/gatoeducado.png").getCanonicalPath()));
@@ -42,6 +41,13 @@ public class ImagensGUI {
 	public static void imagemAdocao(JLabel label) {
 		try {
 			label.setIcon(new ImageIcon(new File("imagens/cachorroEstiloso.png").getCanonicalPath()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	public static void imagemPessoa(JLabel label) {
+		try {
+			label.setIcon(new ImageIcon(new File("imagens/bolas.png").getCanonicalPath()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

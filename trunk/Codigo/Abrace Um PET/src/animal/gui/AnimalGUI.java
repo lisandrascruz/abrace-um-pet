@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import animal.gui.cadastrar.CadastroAnimalGUI;
+import animal.gui.consultar.ConsultarAnimalRGAFGUI;
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 
@@ -54,7 +56,7 @@ public class AnimalGUI extends JFrame {
 		
 		JLabel lblAnimal = new JLabel("Animal");
 		lblAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAnimal.setBounds(29, 57, 129, 14);
+		lblAnimal.setBounds(49, 57, 129, 14);
 		contentPane.add(lblAnimal);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
@@ -72,31 +74,27 @@ public class AnimalGUI extends JFrame {
 				
 			}
 		});
-		btnCadastrar.setBounds(220, 123,167, 23);
+		btnCadastrar.setBounds(49, 123,167, 23);
 		contentPane.add(btnCadastrar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(220, 259, 167, 23);
+		btnEditar.setBounds(49, 259, 167, 23);
 		contentPane.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(220, 325,167, 23);
+		btnExcluir.setBounds(49, 323,167, 23);
 		contentPane.add(btnExcluir);
 		
 		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(220, 190, 167, 23);
-		contentPane.add(btnConsultar);
-		
-		JButton btnSair = new JButton("Sair");
-		btnSair.addActionListener(new ActionListener() {
+		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginGUI loginGUI = new LoginGUI();
-				loginGUI.setVisible(true);
+				ConsultarAnimalRGAFGUI consultar = new ConsultarAnimalRGAFGUI();
+				consultar.setVisible(true);
 				dispose();
 			}
 		});
-		btnSair.setBounds(327, 382, 89, 23);
-		contentPane.add(btnSair);
+		btnConsultar.setBounds(49, 191, 167, 23);
+		contentPane.add(btnConsultar);
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -106,7 +104,7 @@ public class AnimalGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(181, 382, 89, 23);
+		btnVoltar.setBounds(127, 382, 89, 23);
 		contentPane.add(btnVoltar);
 	}
 }
