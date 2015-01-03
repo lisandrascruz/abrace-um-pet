@@ -16,15 +16,10 @@ public class PessoaJuridicaService {
 	}
 	
 	
-	public PessoaJuridica consultarPessoaJuridica(String cnpj){
+	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws Exception{
 		PessoaJuridica pessoaJuridica = new PessoaJuridica();
 		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
-		try{
-			pessoaJuridica = pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		return pessoaJuridica;
+		return pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
 	}
 	
 	public boolean validarCpfResponsavelJuridico(String cpf) throws Exception{
@@ -53,5 +48,10 @@ public class PessoaJuridicaService {
 			valido = false;
 		}
 		return valido;
+	}
+	
+	public void excluirPessoaJuridica(PessoaJuridica pessoaJuridica) throws Exception{
+		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
+		pessoaJuridicaDAO.excluirPessoaJuridica(pessoaJuridica);
 	}
 }

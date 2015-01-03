@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
@@ -56,48 +57,58 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 		btnConsultarCnpj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultarAdotanteJuridicoGUI consulta = new ConsultarAdotanteJuridicoGUI();
-				consulta.setVisible(true);
-				dispose();
-				consultaAdotanteJuridico(consulta);
+				
+				if( consultaAdotanteJuridico(consulta) ){
+					consulta.setVisible(true);
+					dispose();
+				}
 			}
 
 			/**
 			 * SETA OS RESULTADOS DA PESSOA JURIDICA OBTIDOS DO BANCO DE DADOS
 			 * @param consulta
 			 */
-			public void consultaAdotanteJuridico(ConsultarAdotanteJuridicoGUI consulta) {
-				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				EnderecoService enderecoService = new EnderecoService();
-				PessoaFisica pessoaFisica = new PessoaFisica();
-				pessoaJuridica = pessoaJuridicaService.consultarPessoaJuridica(jFormattedTextCnpj.getText());
-				Pessoa pessoa = pessoaJuridica.getPessoa();
+			public boolean consultaAdotanteJuridico(ConsultarAdotanteJuridicoGUI consulta) {
+				boolean cond = false;
+				try{
+					PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+					PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+					EnderecoService enderecoService = new EnderecoService();
+					PessoaFisica pessoaFisica = new PessoaFisica();
+					pessoaJuridica = pessoaJuridicaService.consultarPessoaJuridica(jFormattedTextCnpj.getText());
+					Pessoa pessoa = pessoaJuridica.getPessoa();
+					
+					int idEndereco = pessoa.getEndereco().getId();
+					int idRepresentante = pessoaJuridica.getResponsavel().getId();
+					Endereco endereco = enderecoService.consultarEndereco(idEndereco);
+					pessoaFisica = pessoaFisicaService.consultarPessoaFisica(idRepresentante);
+					
+					consulta.textNomeJuridico.setText(pessoa.getNome());
+					consulta.textEmail.setText(pessoa.getEmail());
+					consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
+					consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa.getTelefoneCelular());
+					consulta.formattedTextFieldCnpj.setText(pessoaJuridica.getCnpj());
+					
+					consulta.jFormattedTextCpf.setText(pessoaJuridica.getResponsavel().getCpf());
+					consulta.lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
+					
+					consulta.textRua.setText(endereco.getRua());
+					consulta.textBairro.setText(endereco.getBairro());
+					consulta.textCidade.setText(endereco.getCidade());
+					consulta.textEstado.setText(endereco.getEstado());
+					consulta.jFormattedTextCep.setText(endereco.getCep());
+					consulta.textNumero.setText(endereco.getNumero());
+					consulta.textComplemento.setText(endereco.getComplemento());
+					consulta.jFormattedTextCpf.setText(pessoaFisica.getCpf());
 				
-				int idEndereco = pessoa.getEndereco().getId();
-				int idRepresentante = pessoaJuridica.getResponsavel().getId();
-				Endereco endereco = enderecoService.consultarEndereco(idEndereco);
-				pessoaFisica = pessoaFisicaService.consultarPessoaFisica(idRepresentante);
-				
-				consulta.textNomeJuridico.setText(pessoa.getNome());
-				consulta.textEmail.setText(pessoa.getEmail());
-				consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
-				consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa.getTelefoneCelular());
-				consulta.formattedTextFieldCnpj.setText(pessoaJuridica.getCnpj());
-				
-				consulta.jFormattedTextCpf.setText(pessoaJuridica.getResponsavel().getCpf());
-				consulta.lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
-				
-				consulta.textRua.setText(endereco.getRua());
-				consulta.textBairro.setText(endereco.getBairro());
-				consulta.textCidade.setText(endereco.getCidade());
-				consulta.textEstado.setText(endereco.getEstado());
-				consulta.jFormattedTextCep.setText(endereco.getCep());
-				consulta.textNumero.setText(endereco.getNumero());
-				consulta.textComplemento.setText(endereco.getComplemento());
-				consulta.jFormattedTextCpf.setText(pessoaFisica.getCpf());
-				
-				pessoaJuridica.setResponsavel(pessoaFisica);
-				pessoa.setEndereco(endereco);
+					pessoaJuridica.setResponsavel(pessoaFisica);
+					pessoa.setEndereco(endereco);
+					consulta.pj = pessoaJuridica;
+					cond = true;
+				}catch (Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
+				return cond;
 			}
 		});
 		btnConsultarCnpj.setBounds(297, 199, 89, 23);
