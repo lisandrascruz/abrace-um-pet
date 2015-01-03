@@ -99,7 +99,7 @@ public class AdocaoDAO {
 		return id;
 	}
 	
-	public Adocao consultarAdocao(String cpf, String rga) throws SQLException {
+	public Adocao consultarAdocao(String cpf, String rga) throws Exception {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statementAdocao = null;
 		ResultSet resultAdocao = null;
@@ -116,7 +116,7 @@ public class AdocaoDAO {
 					+ "inner join pessoa as d "
 					+ "inner join pessoafisica as e "
 					+ "where a.idAnimal = b.id and a.idAdotante = c.id and c.idPessoa = d.id and e.idPessoa = d.id "
-					+ "and e.cpf = ? and b.rga = ? ";
+					+ "and e.cpf = ? and b.rga = ? and e.status <> 0";
 			
 			statementAdocao = connection.prepareStatement(queryAdocao);
 			statementAdocao.setString(1, cpf);
@@ -154,6 +154,8 @@ public class AdocaoDAO {
 			}
 			
 			return adocao;
+		}catch (Exception ex) {
+			throw new Exception("Adoção não pode ser realizada.",ex);
 		} finally {
 			if (resultAdocao != null) {
 				resultAdocao.close();

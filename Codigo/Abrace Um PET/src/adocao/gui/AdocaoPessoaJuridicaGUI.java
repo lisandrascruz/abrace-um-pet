@@ -109,38 +109,43 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 				
 				Adocao adocao;
 				AdocaoService adocaoService = new AdocaoService();
-				adocao = adocaoService.consultarAdocaoJuridica(jFormattedTextCnpj.getText(), textRGA.getText());
-				
-				if (adocao.getId() == 0){
-					adocao = new Adocao();
-					Adotante adotante = new Adotante();
-					adotante = adocaoService.consultarAdotante(pessoaJuridica.getPessoa());
-					adocao.setAnimal(animal);
-					adocao.setAdotante(adotante);
-					adocao.setDataAdocao(dataAdocao);
-					try{
-						adocaoService.adicionarAdocaoService(adocao);
-					}catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				try{
+					adocao = adocaoService.consultarAdocaoJuridica(jFormattedTextCnpj.getText(), textRGA.getText());
+					if (adocao.getId() == 0){
+						adocao = new Adocao();
+						Adotante adotante = new Adotante();
+						adotante = adocaoService.consultarAdotante(pessoaJuridica.getPessoa());
+						adocao.setAnimal(animal);
+						adocao.setAdotante(adotante);
+						adocao.setDataAdocao(dataAdocao);
+						try{
+							adocaoService.adicionarAdocaoService(adocao);
+						}catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+						}
+						SessaoUsuario sessao = SessaoUsuario.getInstancia();
+						sessao.setAdocao(adocao);
+						JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
 					}
-					SessaoUsuario sessao = SessaoUsuario.getInstancia();
-					sessao.setAdocao(adocao);
-					JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
-				}
-				else if (adocao.getDataDevolucao() == null)
-				{
-					adocao.setDataDevolucao(dataAdocao);
-					adocaoService.editarAdocao(adocao);
-					JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
-				}
-				else if (adocao.getDataDevolucao() != null) {
-					JOptionPane.showMessageDialog(null, "O animal não pode mais ser adotado por esta pessoa!!");
+					else if (adocao.getDataDevolucao() == null)
+					{
+						adocao.setDataDevolucao(dataAdocao);
+						adocaoService.editarAdocao(adocao);
+						JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
+					}
+					else if (adocao.getDataDevolucao() != null) {
+						JOptionPane.showMessageDialog(null, "O animal não pode mais ser adotado por esta pessoa!!");
+					}
+					
+					
+					TelaInicialGUI ti = new TelaInicialGUI();
+					ti.setVisible(true);
+					dispose();
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
 				
 				
-				TelaInicialGUI ti = new TelaInicialGUI();
-				ti.setVisible(true);
-				dispose();
 			}
 		});
 		btnAdotar.setBounds(162, 382, 89, 23);

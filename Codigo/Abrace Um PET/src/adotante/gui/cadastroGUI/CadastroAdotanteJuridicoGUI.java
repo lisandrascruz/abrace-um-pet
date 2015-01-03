@@ -194,7 +194,11 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				PessoaJuridicaService pjs = new PessoaJuridicaService();
 				pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
+				try{
+					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
 				
 				try{
 					//boolean validade = pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf());

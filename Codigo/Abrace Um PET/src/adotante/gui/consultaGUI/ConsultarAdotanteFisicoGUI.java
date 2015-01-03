@@ -18,6 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import adotante.dominio.PessoaFisica;
+import adotante.service.PessoaFisicaService;
+
 public class ConsultarAdotanteFisicoGUI extends JFrame {
 	
 	/**
@@ -39,7 +42,7 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 	protected JFormattedTextField	jFormattedTextCep;
 	protected JFormattedTextField	formattedTextFieldTelefoneFixo;
 	protected JFormattedTextField	jFormattedTextTeljFormattedTextCelular;
-	
+	protected PessoaFisica pf;
 	/**
 	 * Create the frame.
 	 * 
@@ -283,9 +286,25 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		contentPane.add(btnEditar);
 		
 		JButton btnAdotar = new JButton("Adotar");
-		btnAdotar.setBounds(277, 382, 89, 23);
+		btnAdotar.setBounds(151, 382, 89, 23);
 		contentPane.add(btnAdotar);
 		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+				try{
+					pessoaFisicaService.excluirPessoaFisica(pf);
+					JOptionPane.showMessageDialog(null, "Pessoa excluida com sucesso");
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
+
+				
+			}
+		});
+		btnExcluir.setBounds(261, 382, 89, 23);
+		contentPane.add(btnExcluir);
+		
 	}
-	
 }

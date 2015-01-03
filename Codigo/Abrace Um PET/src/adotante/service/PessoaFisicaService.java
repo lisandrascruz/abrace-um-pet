@@ -30,14 +30,10 @@ public class PessoaFisicaService {
 		return valido;
 	}
 	
-	public PessoaFisica consultarRepresentante(String cpf) {
+	public PessoaFisica consultarRepresentante(String cpf) throws Exception{
 		PessoaFisica pessoaFisica = new PessoaFisica();
 		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-		try {
-			pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(cpf);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		pessoaFisica = pessoaFisicaDAO.consultarPessoaFisica(cpf);
 		return pessoaFisica;
 	}
 	public PessoaFisica consultarPessoaFisica(int id){
@@ -49,5 +45,10 @@ public class PessoaFisicaService {
 			ex.printStackTrace();
 		}
 		return pessoaFisica;
+	}
+	
+	public void excluirPessoaFisica(PessoaFisica pessoaFisica) throws Exception{
+		PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+		pessoaFisicaDAO.excluirPessoaFisica(pessoaFisica);
 	}
 }
