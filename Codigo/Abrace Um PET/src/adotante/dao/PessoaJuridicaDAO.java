@@ -251,15 +251,15 @@ public class PessoaJuridicaDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws SQLException {
+	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws Exception {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statementPessoaJuridica = null;
 		ResultSet resultPessoaJuridica = null;
 		
 		try {
-			String queryPessoaJuridicaPessoa = "SELECT pj.id, pj.cnpj, pj.idPessoa, pj.idPessoaFisica, p.nome, "
+			String queryPessoaJuridicaPessoa = "SELECT pj.id, pj.cnpj, pj.idPessoa, pj.idPessoaFisica, pj.status, p.nome, "
 					+ "p.idEndereco, p.telefoneFixo, p.telefoneCelular, p.email FROM pessoajuridica as"
-					+ " pj INNER JOIN pessoa as p ON pj.idPessoa = p.id WHERE cnpj = ?";
+					+ " pj INNER JOIN pessoa as p ON pj.idPessoa = p.id WHERE pj.status <> 0 and cnpj = ?";
 			statementPessoaJuridica = connection.prepareStatement(queryPessoaJuridicaPessoa);
 			statementPessoaJuridica.setString(1, cnpj);
 			resultPessoaJuridica = statementPessoaJuridica.executeQuery();
@@ -290,6 +290,8 @@ public class PessoaJuridicaDAO {
 			}
 			
 			return pessoaJuridica;
+		} catch (Exception ex) {
+			throw new Exception("Pessoa jurídica não encontrada.", ex);
 		} finally {
 			if (resultPessoaJuridica != null) {
 				resultPessoaJuridica.close();
@@ -300,4 +302,135 @@ public class PessoaJuridicaDAO {
 		}
 		
 	}
+
+	public void excluirPessoaJuridica(PessoaJuridica pessoaJuridica) throws Exception{
+		excluindoEndereco(pessoaJuridica.getPessoa().getEndereco());
+		excluindoAdotante(pessoaJuridica.getPessoa());
+		excluindoPessoa(pessoaJuridica.getPessoa());
+		excluindoPessoaJuridica(pessoaJuridica);
+
+	}
+	
+	public void excluindoEndereco(Endereco endereco) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
+		try {
+			con = Conexao.abrir();
+			
+			int idEndereco = endereco.getId();
+
+			
+			String query = "update endereco set status = 0 where id = ?";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setInt(1, idEndereco);
+
+			
+			preparedStatement.executeUpdate();
+			
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao exclui o endereço",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
+		}
+	}
+	
+	public void excluindoAdotante(Pessoa pessoa) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
+		try {
+			con = Conexao.abrir();
+			
+			int idPessoa = pessoa.getId();
+
+			
+			String query = "update adotante set status = 0 where idPessoa = ?";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setInt(1, idPessoa);
+
+			
+			preparedStatement.executeUpdate();
+			
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao excluir o adotante",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
+		}
+		
+	}
+	
+	public void excluindoPessoa(Pessoa pessoa) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
+		try {
+			con = Conexao.abrir();
+			
+			int idPessoa = pessoa.getId();
+
+			
+			String query = "update pessoa set status = 0 where id = ?";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setInt(1, idPessoa);
+
+			
+			preparedStatement.executeUpdate();
+			
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao excluir a pessoa",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
+		}
+	}
+    
+	public void excluindoPessoaJuridica(PessoaJuridica pessoaJuridica) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
+		try {
+			con = Conexao.abrir();
+			
+			int idPessoaJuridica = pessoaJuridica.getId();
+
+			
+			String query = "update pessoajuridica set status = 0 where id = ?";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setInt(1, idPessoaJuridica);
+			
+			preparedStatement.executeUpdate();
+			
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao cadastrar o pessoa",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
+		}
+	}
+
+
+
 }

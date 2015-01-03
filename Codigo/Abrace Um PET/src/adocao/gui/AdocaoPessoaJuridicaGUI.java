@@ -79,8 +79,12 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				pessoaJuridica = new PessoaJuridica();
 				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+				try{
 				pessoaJuridica = pessoaJuridicaService.consultarPessoaJuridica(jFormattedTextCnpj.getText());
 				lblMostrarNome.setText(pessoaJuridica.getPessoa().getNome());
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
 			}
 		});
 		btnConsultarCnpj.setBounds(297, 128, 89, 23);

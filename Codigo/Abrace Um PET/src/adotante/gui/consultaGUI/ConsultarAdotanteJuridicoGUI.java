@@ -17,7 +17,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import adotante.dominio.PessoaFisica;
+import adotante.dominio.PessoaJuridica;
 import adotante.gui.cadastroGUI.CadastroPessoaGUI;
+import adotante.service.PessoaFisicaService;
+import adotante.service.PessoaJuridicaService;
 
 public class ConsultarAdotanteJuridicoGUI extends JFrame {
 	
@@ -41,6 +44,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 	protected JFormattedTextField jFormattedTextTeljFormattedTextCelular;
 	protected JFormattedTextField formattedTextFieldCnpj;
 	protected JFormattedTextField jFormattedTextCep;
+	protected PessoaJuridica pj;
 	
 	/**
 	 * Create the frame.
@@ -272,8 +276,26 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(btnEditar);
 		
 		JButton btnAdotar = new JButton("Adotar");
-		btnAdotar.setBounds(286, 382, 89, 23);
+		btnAdotar.setBounds(173, 382, 89, 23);
 		contentPane.add(btnAdotar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
+				try{
+					pessoaJuridicaService.excluirPessoaJuridica(pj);
+					JOptionPane.showMessageDialog(null, "Pessoa excluida com sucesso");
+					ConsultaPessoaJuridicaCNPJGUI consultar = new ConsultaPessoaJuridicaCNPJGUI();
+					consultar.setVisible(true);
+					dispose();
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
+			}
+		});
+		btnExcluir.setBounds(283, 382, 89, 23);
+		contentPane.add(btnExcluir);
 		
 	}
 }

@@ -296,6 +296,9 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 				try{
 					pessoaFisicaService.excluirPessoaFisica(pf);
 					JOptionPane.showMessageDialog(null, "Pessoa excluida com sucesso");
+					ConsultarAdotanteFisicoCPFGUI consultar = new ConsultarAdotanteFisicoCPFGUI();
+					consultar.setVisible(true);
+					dispose();
 				} catch(Exception ex){
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
