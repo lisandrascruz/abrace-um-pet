@@ -69,34 +69,39 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 			 * @param jFormattedTextCpf
 			 */
 			public void consultaAdotanteFisico(JFormattedTextField jFormattedTextCpf) {
-				ConsultarAdotanteFisicoGUI consulta = new ConsultarAdotanteFisicoGUI();
-				consulta.setVisible(true);
-				dispose();
-				
-				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				EnderecoService enderecoService = new EnderecoService();
-				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
-				Pessoa pessoa = pessoaFisica.getPessoa();
-				Endereco endereco = new Endereco();
-				int idEndereco = pessoaFisica.getPessoa().getEndereco().getId();
-				endereco = enderecoService.consultarEndereco(idEndereco);
-				
-				consulta.textNomeFisico.setText(pessoa.getNome());
-				consulta.textEmail.setText(pessoa.getEmail());
-				consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
-				consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa.getTelefoneCelular());
-
-				consulta.comboGenero.setToolTipText(pessoaFisica.getGenero());
-				consulta.jFormattedTextCPF.setText(pessoaFisica.getCpf());
-				consulta.textRG.setText(pessoaFisica.getRg());
-				
-				consulta.textRua.setText(endereco.getRua());
-				consulta.textBairro.setText(endereco.getBairro());
-				consulta.textCidade.setText(endereco.getCidade());
-				consulta.textEstado.setText(endereco.getEstado());
-				consulta.jFormattedTextCep.setText(endereco.getCep());
-				consulta.textNumero.setText(endereco.getNumero());
-				pessoa.setEndereco(endereco);
+				try{
+					ConsultarAdotanteFisicoGUI consulta = new ConsultarAdotanteFisicoGUI();
+					
+					PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+					EnderecoService enderecoService = new EnderecoService();
+					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
+					Pessoa pessoa = pessoaFisica.getPessoa();
+					Endereco endereco = new Endereco();
+					int idEndereco = pessoaFisica.getPessoa().getEndereco().getId();
+					endereco = enderecoService.consultarEndereco(idEndereco);
+					
+					consulta.textNomeFisico.setText(pessoa.getNome());
+					consulta.textEmail.setText(pessoa.getEmail());
+					consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
+					consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa.getTelefoneCelular());
+	
+					consulta.comboGenero.setToolTipText(pessoaFisica.getGenero());
+					consulta.jFormattedTextCPF.setText(pessoaFisica.getCpf());
+					consulta.textRG.setText(pessoaFisica.getRg());
+					
+					consulta.textRua.setText(endereco.getRua());
+					consulta.textBairro.setText(endereco.getBairro());
+					consulta.textCidade.setText(endereco.getCidade());
+					consulta.textEstado.setText(endereco.getEstado());
+					consulta.jFormattedTextCep.setText(endereco.getCep());
+					consulta.textNumero.setText(endereco.getNumero());
+					pessoa.setEndereco(endereco);
+					consulta.pf = pessoaFisica;
+					consulta.setVisible(true);
+					dispose();
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
 				
 			}
 		});

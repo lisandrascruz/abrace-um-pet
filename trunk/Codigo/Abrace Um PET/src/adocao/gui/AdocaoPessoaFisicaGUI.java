@@ -87,8 +87,12 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
-				lblMostrarNome.setText(pessoaFisica.getPessoa().getNome());
+				try{
+					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
+					lblMostrarNome.setText(pessoaFisica.getPessoa().getNome());
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
 			}
 		});
 		btnConsultarCpf.setBounds(282, 131, 89, 23);

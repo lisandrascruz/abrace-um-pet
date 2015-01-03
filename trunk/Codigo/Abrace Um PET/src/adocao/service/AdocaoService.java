@@ -35,14 +35,10 @@ public class AdocaoService {
 		return adocao;
 	}
 	
-	public Adocao consultarAdocaoJuridica(String cnpj, String rga){
+	public Adocao consultarAdocaoJuridica(String cnpj, String rga) throws Exception{
 		Adocao adocao = null;
 		AdocaoDAO adocaoDAO = new AdocaoDAO();
-		try{
-			adocao = adocaoDAO.consultarAdocaoJuridica(cnpj, rga);
-		} catch (Exception ex) {
-			
-		}
+	    adocao = adocaoDAO.consultarAdocaoJuridica(cnpj, rga);
 		return adocao;
 	}
 	
