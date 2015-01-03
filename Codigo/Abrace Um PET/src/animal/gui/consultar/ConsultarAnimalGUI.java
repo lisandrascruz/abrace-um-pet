@@ -275,6 +275,10 @@ public class ConsultarAnimalGUI extends JFrame {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(324, 382, 89, 23);
 		contentPane.add(btnExcluir);
+		
+		JButton btnMdia = new JButton("M\u00EDdia");
+		btnMdia.setBounds(225, 382, 89, 23);
+		contentPane.add(btnMdia);
 
 	}
 }
