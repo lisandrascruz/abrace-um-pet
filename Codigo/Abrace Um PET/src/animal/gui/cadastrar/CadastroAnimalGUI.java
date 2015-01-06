@@ -4,12 +4,15 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +39,8 @@ public class CadastroAnimalGUI extends JFrame {
 	private JTextField			textFieldRGA;
 	private JTextField texTemperamento;
 	private JTextField textObservacao;
+	private JTextField textImagePath;
+	private JLabel lblImagem;
 	
 	/**
 	 * Create the frame.
@@ -311,8 +316,37 @@ public class CadastroAnimalGUI extends JFrame {
 		textObservacao.setBounds(116, 290, 503, 20);
 		contentPane.add(textObservacao);
 		textObservacao.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Imagem");
+		lblNewLabel_1.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		lblNewLabel_1.setBounds(10, 317, 55, 50);
+		contentPane.add(lblNewLabel_1);
+		
+		textImagePath = new JTextField();
+		textImagePath.setBounds(76, 333, 164, 20);
+		contentPane.add(textImagePath);
+		textImagePath.setColumns(10);
+		
+		JButton btnProcurar = new JButton("Procurar");
+		btnProcurar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f =chooser.getSelectedFile();
+				String filename = f.getAbsolutePath();
+				textImagePath.setText(filename);
+				ImageIcon img = new ImageIcon(filename);
+				lblImagem.setIcon(img);	
+			}
+		});
+		btnProcurar.setBounds(250, 332, 89, 23);
+		contentPane.add(btnProcurar);
+		
+		
+		
+		lblImagem = new JLabel("");
+		lblImagem.setBounds(350, 321, 86, 50);
+		contentPane.add(lblImagem);
 	}
-
-
 
 }
