@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -63,12 +64,11 @@ public class LoginGUI extends JFrame {
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) { //TRATAR EXCECAO
+			public void actionPerformed(ActionEvent e) {
 				try {
 					login();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 				}
 			}
 		});

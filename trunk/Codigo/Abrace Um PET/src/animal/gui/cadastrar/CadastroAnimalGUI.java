@@ -1,7 +1,6 @@
 package animal.gui.cadastrar;
 
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
 import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 import animal.dominio.Animal;
@@ -44,9 +44,9 @@ public class CadastroAnimalGUI extends JFrame {
 	
 	/**
 	 * Create the frame.
-	 * @throws SQLException 
+	 * @throws Exception 
 	 */
-	public CadastroAnimalGUI() throws SQLException{
+	public CadastroAnimalGUI() throws Exception{
 		setTitle("Cadastro de Animal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
@@ -276,11 +276,11 @@ public class CadastroAnimalGUI extends JFrame {
 									
 								}
 							} catch (Exception e) {
-								e.printStackTrace();
+								JOptionPane.showConfirmDialog(null, "ERROR");
 							}
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						JOptionPane.showConfirmDialog(null, "Preencha RGA.");
 					}
 			}
 		});

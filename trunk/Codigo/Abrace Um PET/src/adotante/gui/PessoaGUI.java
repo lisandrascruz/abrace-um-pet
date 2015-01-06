@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import usuario.gui.TelaInicialGUI;
 import adotante.gui.cadastroGUI.CadastroPessoaGUI;
 import adotante.gui.consultaGUI.ConsultarPessoaGUI;
-import javax.swing.ImageIcon;
 
 public class PessoaGUI extends JFrame {
 	

@@ -3,11 +3,11 @@ package animal.gui.consultar;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -57,14 +57,23 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		btnConsultarRGA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					consultarAnimalRGA(textFieldRGA);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+					try {
+						consultarAnimalRGA(textFieldRGA);
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
+					}
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 				}
 			}
 			
-			public void consultarAnimalRGA(JTextField textFieldRGA) throws SQLException{
+			public void consultarAnimalRGA(JTextField textFieldRGA) throws Exception{
 				ConsultarAnimalGUI consulta = new ConsultarAnimalGUI();
+				try {
+					consulta = new ConsultarAnimalGUI();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e, "ERROR", 0);
+				}
 				consulta.setVisible(true);
 				dispose();
 				

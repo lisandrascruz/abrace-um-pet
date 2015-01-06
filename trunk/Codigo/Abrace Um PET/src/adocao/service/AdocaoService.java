@@ -9,32 +9,50 @@ import adotante.dominio.Pessoa;
 public class AdocaoService {
 	private AdocaoDAO adocaoDAO = new AdocaoDAO();
 
+	/**
+	 * CHAMA METODO DO DAO E ADICIONA ADOCAO
+	 * @param adocao
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean adicionarAdocaoService(Adocao adocao) throws Exception{
 		return adocaoDAO.adicionarAdocao(adocao);
 	}
 	
-	public Adotante consultarAdotante(Pessoa pessoa){
+	/**
+	 * CHAMA METODO DO DAO E CONSULTA ADOTANTE
+	 * @param pessoa
+	 * @return
+	 * @throws Exception
+	 */
+	public Adotante consultarAdotante(Pessoa pessoa) throws Exception{
 		Adotante adotante = null;
 		AdotanteDAO adotanteDAO = new AdotanteDAO();
-		try{
 			adotante = adotanteDAO.consultarAdotante(pessoa);
-		} catch (Exception ex) {
-			
-		}
 		return adotante;
 	}
 	
-	public Adocao consultarAdocao(String cpf, String rga){
+	/**
+	 * CHAMA METODO DO DAO E CONSULTA ADOCAO
+	 * @param cpf
+	 * @param rga
+	 * @return
+	 * @throws Exception
+	 */
+	public Adocao consultarAdocao(String cpf, String rga) throws Exception{
 		Adocao adocao = null;
 		AdocaoDAO adocaoDAO = new AdocaoDAO();
-		try{
-			adocao = adocaoDAO.consultarAdocao(cpf, rga);
-		} catch (Exception ex) {
-			
-		}
+		adocao = adocaoDAO.consultarAdocao(cpf, rga);
 		return adocao;
 	}
 	
+	/**
+	 * CHAMA METODO DO DAO E CONSULTA ADOCAO JURIDICA	
+	 * @param cnpj
+	 * @param rga
+	 * @return
+	 * @throws Exception
+	 */
 	public Adocao consultarAdocaoJuridica(String cnpj, String rga) throws Exception{
 		Adocao adocao = null;
 		AdocaoDAO adocaoDAO = new AdocaoDAO();
@@ -42,7 +60,13 @@ public class AdocaoService {
 		return adocao;
 	}
 	
-	public boolean editarAdocao(Adocao adocao){
+	/**
+	 * CHAMA METODO DO DAO E EDITA ADOCAO	
+	 * @param adocao
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean editarAdocao(Adocao adocao) throws Exception{
 		AdocaoDAO adocaoDAO = new AdocaoDAO();
 		return adocaoDAO.editarAdocao(adocao);
 	}

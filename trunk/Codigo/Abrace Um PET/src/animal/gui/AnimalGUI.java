@@ -2,21 +2,19 @@ package animal.gui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import usuario.gui.TelaInicialGUI;
 import animal.gui.cadastrar.CadastroAnimalGUI;
 import animal.gui.consultar.ConsultarAnimalRGAFGUI;
-import usuario.gui.LoginGUI;
-import usuario.gui.TelaInicialGUI;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.sql.SQLException;
 
 public class AnimalGUI extends JFrame {
 	
@@ -24,7 +22,7 @@ public class AnimalGUI extends JFrame {
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
-	private JPanel	contentPane;
+	private JPanel				contentPane;
 	
 	/**
 	 * Launch the application.
@@ -62,19 +60,22 @@ public class AnimalGUI extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroAnimalGUI cadastroAnimalGUI;
+				CadastroAnimalGUI cadastroAnimalGUI = null;
 				try {
-					cadastroAnimalGUI = new CadastroAnimalGUI();
+					try {
+						cadastroAnimalGUI = new CadastroAnimalGUI();
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
+					}
 					cadastroAnimalGUI.setVisible(true);
 					dispose();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 				}
 				
 			}
 		});
-		btnCadastrar.setBounds(49, 123,167, 23);
+		btnCadastrar.setBounds(49, 123, 167, 23);
 		contentPane.add(btnCadastrar);
 		
 		JButton btnEditar = new JButton("Editar");
@@ -82,7 +83,7 @@ public class AnimalGUI extends JFrame {
 		contentPane.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(49, 323,167, 23);
+		btnExcluir.setBounds(49, 323, 167, 23);
 		contentPane.add(btnExcluir);
 		
 		JButton btnConsultar = new JButton("Consultar");

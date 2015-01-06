@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.swing.JOptionPane;
+
 public class CriptografiaService {
 
 	public String criptografar(String senha) {
@@ -13,7 +15,7 @@ public class CriptografiaService {
 			md.update(senha.getBytes(), 0, senha.length());
 			senha = (new BigInteger(1, md.digest()).toString(16));
 		} catch (NoSuchAlgorithmException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 		}
 		return senha;
 	}

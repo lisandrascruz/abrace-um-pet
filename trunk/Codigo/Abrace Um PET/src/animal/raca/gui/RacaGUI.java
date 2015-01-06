@@ -10,10 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import animal.raca.gui.cadastro.CadastrarRacaGUI;
-import animal.raca.gui.consulta.ConsultaRacaGUI;
-import animal.raca.gui.consulta.ConsultaRacaNomeGUI;
 import usuario.gui.TelaInicialGUI;
+import animal.raca.gui.cadastro.CadastrarRacaGUI;
+import animal.raca.gui.consulta.ConsultaRacaNomeGUI;
 
 public class RacaGUI extends JFrame {
 	

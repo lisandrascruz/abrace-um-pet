@@ -11,17 +11,34 @@ public class PessoaJuridicaService {
 	PessoaFisica				pessoaFisica		= new PessoaFisica();
 	PessoaJuridica				pessoaJuridica		= new PessoaJuridica();
 	
+	/**
+	 * CHAMA METODO DO DAR E ADICIONA PESSOA JURIDICA
+	 * @param pessoaJuridica
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean adicionarPessoaJuridicaService(PessoaJuridica pessoaJuridica) throws Exception{
 		return pessoaJuridicaDAO.adicionarPessoaJuridica(pessoaJuridica);
 	}
 	
-	
+	/**
+	 * CHAMA METODO DO DAO E VALIDA PESSOA JURIDICA PELO CNPJ
+	 * @param cnpj
+	 * @return
+	 * @throws Exception
+	 */
 	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws Exception{
 		PessoaJuridica pessoaJuridica = new PessoaJuridica();
 		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		return pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
 	}
 	
+	/**
+	 * VALIDA RESPONSAVEL DA PESSOA JURIDICA PELO CPF
+	 * @param cpf
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean validarCpfResponsavelJuridico(String cpf) throws Exception{
 		boolean valido;
 		pessoaFisica.setCpf(cpf);
@@ -50,6 +67,11 @@ public class PessoaJuridicaService {
 		return valido;
 	}
 	
+	/**
+	 * EXCLUI PESSOA JURIDICA
+	 * @param pessoaJuridica
+	 * @throws Exception
+	 */
 	public void excluirPessoaJuridica(PessoaJuridica pessoaJuridica) throws Exception{
 		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		pessoaJuridicaDAO.excluirPessoaJuridica(pessoaJuridica);

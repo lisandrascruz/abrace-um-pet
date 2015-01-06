@@ -91,7 +91,7 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
 					lblMostrarNome.setText(pessoaFisica.getPessoa().getNome());
 				} catch(Exception ex){
-					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+					JOptionPane.showMessageDialog(null, "Representante não encontrado.");
 				}
 			}
 		});
@@ -103,7 +103,11 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				animal = new Animal();
 				AnimalService animalService = new AnimalService();
-				animal = animalService.consultarAnimal(textRga.getText());
+				try {
+					animal = animalService.consultarAnimal(textRga.getText());
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Animal não encontrado.");
+				}
 				lblMostrarAnimal.setText(animal.getNome());
 			}
 		});
@@ -118,31 +122,44 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				Calendar calobj = Calendar.getInstance();
 				String dataAdocao = df.format(calobj.getTime());
 				
-				Adocao adocao;
+				Adocao adocao = null;
 				AdocaoService adocaoService = new AdocaoService();
-				adocao = adocaoService.consultarAdocao(jFormattedTextCpf.getText(), textRga.getText());
+				try {
+					adocao = adocaoService.consultarAdocao(jFormattedTextCpf.getText(), textRga.getText());
+				} catch (Exception e1) {
+					JOptionPane.showConfirmDialog(null, "Adoção não pode ser realizada.");
+			
+				}
 				
 				if (adocao.getId() == 0){
 					adocao = new Adocao();
 					Adotante adotante = new Adotante();
-					adotante = adocaoService.consultarAdotante(pessoaFisica.getPessoa());
-					adocao.setAnimal(animal);
-					adocao.setAdotante(adotante);
-					adocao.setDataAdocao(dataAdocao);
+					try {
+						adotante = adocaoService.consultarAdotante(pessoaFisica.getPessoa());
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Adotante não encontrado!");
+					}
 					try{
+						adocao.setAnimal(animal);
+						adocao.setAdotante(adotante);
+						adocao.setDataAdocao(dataAdocao);
 						adocaoService.adicionarAdocaoService(adocao);
+						SessaoUsuario sessao = SessaoUsuario.getInstancia();
+						sessao.setAdocao(adocao);
+						JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
 					}catch (Exception ex) {
 						JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 					}
-					SessaoUsuario sessao = SessaoUsuario.getInstancia();
-					sessao.setAdocao(adocao);
-					JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
 				}
 				else if (adocao.getDataDevolucao() == null)
 				{
 					adocao.setDataDevolucao(dataAdocao);
-					adocaoService.editarAdocao(adocao);
-					JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
+					try {
+						adocaoService.editarAdocao(adocao);
+						JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Devolução não realizada!!");
+					}
 				}
 				else if (adocao.getDataDevolucao() != null) {
 					JOptionPane.showMessageDialog(null, "O animal não pode mais ser adotado por esta pessoa!!");

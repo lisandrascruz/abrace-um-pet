@@ -8,17 +8,18 @@ public class RacaService {
 	Raca	raca	= new Raca();
 	
 	/**
-	 * ADICIONA RAÇA
+	 * ADICIONA RACA
 	 * 
 	 * @param raca
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean adicionarRaca(Raca raca) {
+	public boolean adicionarRaca(Raca raca) throws Exception {
 		return racaDAO.adicionarRaca(raca);
 	}
 	
 	/**
-	 * VALIDA RAÇA
+	 * VALIDA RACA
 	 * 
 	 * @param nome
 	 * @return
@@ -36,7 +37,7 @@ public class RacaService {
 	}
 	
 	/**
-	 * CONSULTA DE RAÇA
+	 * CONSULTA DE RACA
 	 * 
 	 * @param nome
 	 * @return 

@@ -23,13 +23,13 @@ import adotante.service.PessoaFisicaService;
 import adotante.service.PessoaJuridicaService;
 
 public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
-
+	
 	private static final long	serialVersionUID	= 1L;
-	private JPanel	contentPane;
-	private JFormattedTextField jFormattedTextCnpj;
-	private JLabel lblMostrarNome;
-	private JLabel lblMostrarAnimal;
-	PessoaJuridica pessoaJuridica = new PessoaJuridica();
+	private JPanel				contentPane;
+	private JFormattedTextField	jFormattedTextCnpj;
+	private JLabel				lblMostrarNome;
+	private JLabel				lblMostrarAnimal;
+	PessoaJuridica				pessoaJuridica		= new PessoaJuridica();
 	
 	/**
 	 * Create the frame.
@@ -37,7 +37,7 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 	public ConsultaPessoaJuridicaCNPJGUI(){
 		setTitle("Consulta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 645,455);
+		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,24 +58,26 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ConsultarAdotanteJuridicoGUI consulta = new ConsultarAdotanteJuridicoGUI();
 				
-				if( consultaAdotanteJuridico(consulta) ){
+				if (consultaAdotanteJuridico(consulta)) {
 					consulta.setVisible(true);
 					dispose();
 				}
 			}
-
+			
 			/**
 			 * SETA OS RESULTADOS DA PESSOA JURIDICA OBTIDOS DO BANCO DE DADOS
+			 * 
 			 * @param consulta
 			 */
 			public boolean consultaAdotanteJuridico(ConsultarAdotanteJuridicoGUI consulta) {
 				boolean cond = false;
-				try{
+				try {
 					PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
 					PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
 					EnderecoService enderecoService = new EnderecoService();
 					PessoaFisica pessoaFisica = new PessoaFisica();
-					pessoaJuridica = pessoaJuridicaService.consultarPessoaJuridica(jFormattedTextCnpj.getText());
+					pessoaJuridica = pessoaJuridicaService
+							.consultarPessoaJuridica(jFormattedTextCnpj.getText());
 					Pessoa pessoa = pessoaJuridica.getPessoa();
 					
 					int idEndereco = pessoa.getEndereco().getId();
@@ -86,7 +88,8 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 					consulta.textNomeJuridico.setText(pessoa.getNome());
 					consulta.textEmail.setText(pessoa.getEmail());
 					consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
-					consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa.getTelefoneCelular());
+					consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa
+							.getTelefoneCelular());
 					consulta.formattedTextFieldCnpj.setText(pessoaJuridica.getCnpj());
 					
 					consulta.jFormattedTextCpf.setText(pessoaJuridica.getResponsavel().getCpf());
@@ -100,13 +103,13 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 					consulta.textNumero.setText(endereco.getNumero());
 					consulta.textComplemento.setText(endereco.getComplemento());
 					consulta.jFormattedTextCpf.setText(pessoaFisica.getCpf());
-				
+					
 					pessoaJuridica.setResponsavel(pessoaFisica);
 					pessoa.setEndereco(endereco);
 					consulta.pj = pessoaJuridica;
 					cond = true;
-				}catch (Exception ex){
-					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Pessoa Jurídica não encontrada.");
 				}
 				return cond;
 			}
@@ -140,9 +143,10 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 		lblMostrarAnimal.setBounds(117, 281, 152, 27);
 		contentPane.add(lblMostrarAnimal);
 	}
-
+	
 	/**
 	 * MASCARA PARA CNPJ
+	 * 
 	 * @return
 	 */
 	public MaskFormatter mascaraCNPJ() {
@@ -151,6 +155,7 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 			mascaraCnpj = new MaskFormatter("##.###.###/####-##");
 			mascaraCnpj.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
+			new RuntimeException();
 			e1.printStackTrace();
 		}
 		return mascaraCnpj;
