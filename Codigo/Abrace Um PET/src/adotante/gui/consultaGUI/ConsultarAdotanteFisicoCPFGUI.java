@@ -100,7 +100,7 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 					consulta.setVisible(true);
 					dispose();
 				} catch(Exception ex){
-					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+					JOptionPane.showMessageDialog(null, "Adotante Físico não existe.");
 				}
 				
 			}

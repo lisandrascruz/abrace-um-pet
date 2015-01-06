@@ -49,12 +49,12 @@ public class UsuarioDAO {
 					id = (int) generatedKeys.getLong(1);
 				}
 			}
-			con.commit();//IMPORTANTE POIS SEM ISSO NAO INSERE NO BANCO
+			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
 			throw new Exception("Erro ao cadastrar o usuário",ex);
 		} finally {
-			Conexao.fechar(con,preparedStatement,generatedKeys);//IMPORTANTE FECHAR A CONEXAO DPS
+			Conexao.fechar(con,preparedStatement,generatedKeys);
 		}
 		return id;
 	}

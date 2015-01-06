@@ -1,6 +1,7 @@
 package animal.raca.gui.consulta;
 
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -159,20 +160,26 @@ public class ConsultaRacaGUI extends JFrame {
 				String tipo = raca.getTipo().toString();
 				
 				if (validacaoDadosRaca(nome, origem, tipo)) {
-					if (racaService.adicionarRaca(raca)) {
-						JOptionPane.showMessageDialog(null, "Raça adicionada com sucesso!");
-						TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
-						telaInicialGUI.setVisible(true);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "Raça não cadastrada! Tente Novamente");
-						raca.setNome("");
-						raca.setOrigem("");
-						raca.setTamanhoMax(0);
-						raca.setTamanhoMin(0);
-						raca.setExpectativaVida(0);
-						raca.setTemperamento("");
-						textFieldNome.requestFocus();
+					try {
+						if (racaService.adicionarRaca(raca)) {
+							JOptionPane.showMessageDialog(null, "Raça adicionada com sucesso!");
+							TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
+							telaInicialGUI.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "Raça não cadastrada! Tente Novamente");
+							raca.setNome("");
+							raca.setOrigem("");
+							raca.setTamanhoMax(0);
+							raca.setTamanhoMin(0);
+							raca.setExpectativaVida(0);
+							raca.setTemperamento("");
+							textFieldNome.requestFocus();
+						}
+					} catch (HeadlessException e1) {
+						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 					}
 				}
 				
@@ -190,25 +197,25 @@ public class ConsultaRacaGUI extends JFrame {
 				try {
 					racaService.validarRaca(nome);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e);
+					JOptionPane.showMessageDialog(null, e, "ERROR", 0);
 					valido = false;
 				}
 				try {
 					validacoes.verificarVazio(nome, "Por favor, digite o nome da raça");
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1);
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 					valido = false;
 				}
 				try {
 					validacoes.verificarVazio(origem, "Por favor, digite a origem da raça");
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1);
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 					valido = false;
 				}
 				try {
 					validacoes.verificarVazio(tipo, "Por favor, escolha o tipo da raça");
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1);
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 					valido = false;
 				}
 				return valido;

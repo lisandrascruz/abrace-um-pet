@@ -5,7 +5,6 @@ import infraestrutura.dao.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +18,9 @@ public class RacaDAO {
 	 * RETORNA OS OBJETOS DE RAÇAS EXISTENTES NO BANCO DE DADOS
 	 * 
 	 * @return
-	 * @throws SQLException
+	 * @throws Exception
 	 */
-	public List < Raca> getRaca() throws SQLException {
+	public List < Raca> getRaca() throws Exception {
 		
 		Connection conn = (Connection) Conexao.abrir();
 		PreparedStatement statement = conn.prepareStatement("select * from raca");
@@ -46,7 +45,7 @@ public class RacaDAO {
 	}
 	
 	/**
-	 * USADO PARA INSERIR CADASTRO DE RAÇA NO BANCO DE DADOS
+	 * INSERIR CADASTRO DE RAÇA NO BANCO DE DADOS
 	 * 
 	 * @param raca
 	 * @param con
@@ -90,31 +89,33 @@ public class RacaDAO {
 	}
 	
 	/**
-	 * USADO PARA ADICIONAR A TABELA BANCO DE DADOS
+	 * ADICIONAR A TABELA BANCO DE DADOS
 	 * 
 	 * @author Lisandra Cruz
 	 * @param raca
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean adicionarRaca(Raca raca) {
+	public boolean adicionarRaca(Raca raca) throws Exception {
 		PreparedStatement preparedStatement = null;
+		boolean valido = false;
 		ResultSet generatedKeys = null;
 		Connection con = null;
 		RacaDAO racaDAO = new RacaDAO();
 		try {
 			con = (Connection) Conexao.abrir();
 			racaDAO.inserirRaca(raca);
-			return true;
+			valido = true;
+			return valido;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
+			throw new Exception("Erro ao cadastrar a raça", ex);
 		} finally {
 			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 	}
 	
 	/**
-	 * 
+	 * CONSULTA SE RACA EXISTE E RETORNA TRUE OU FALSE
 	 * @param nome
 	 * @return
 	 */
@@ -123,6 +124,12 @@ public class RacaDAO {
 		return (Conexao.consultar(query));
 	}
 	
+	/**
+	 * CONSULTA RACA 
+	 * @param nome
+	 * @return
+	 * @throws Exception
+	 */
 	public Raca consultarRaca(String nome) throws Exception {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statementAnimal = null;

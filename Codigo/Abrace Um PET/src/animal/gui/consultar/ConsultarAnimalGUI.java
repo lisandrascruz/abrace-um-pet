@@ -3,7 +3,6 @@ package animal.gui.consultar;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -44,9 +43,9 @@ public class ConsultarAnimalGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 * 
-	 * @throws SQLException
+	 * @throws Exception
 	 */
-	public ConsultarAnimalGUI() throws SQLException{
+	public ConsultarAnimalGUI() throws Exception{
 		setTitle("Cadastro de Animal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);

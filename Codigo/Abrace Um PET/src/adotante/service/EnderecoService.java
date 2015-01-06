@@ -1,26 +1,23 @@
 package adotante.service;
 
-import java.sql.SQLException;
-
 import adotante.dao.EnderecoDAO;
 import adotante.dominio.Endereco;
 
 public class EnderecoService {
 	/**
 	 * FAZ A CONSULTA DO ENDEREÇO ATRAVÉS DO ID
+	 * 
 	 * @param id
 	 * @return
+	 * @throws Exception
 	 */
-	public Endereco consultarEndereco(int id) {
+	public Endereco consultarEndereco(int id) throws Exception {
 		Endereco endereco = new Endereco();
 		EnderecoDAO enderecoDAO = new EnderecoDAO();
-		try {
-			endereco = enderecoDAO.consultarEndereco(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		endereco = enderecoDAO.consultarEndereco(id);
 		return endereco;
 	}
+	
 	/**
 	 * VALIDAR RUA DO ENDERECO
 	 * 

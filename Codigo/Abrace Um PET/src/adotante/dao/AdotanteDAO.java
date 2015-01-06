@@ -5,7 +5,7 @@ import infraestrutura.dao.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import adotante.dominio.Adotante;
 import adotante.dominio.Pessoa;
 
@@ -15,9 +15,9 @@ public class AdotanteDAO {
 	 * 
 	 * @param pessoa
 	 * @return
-	 * @throws SQLException
+	 * @throws Exception
 	 */
-	public Adotante consultarAdotante(Pessoa pessoa) throws SQLException {
+	public Adotante consultarAdotante(Pessoa pessoa) throws Exception {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statementAdotante = null;
 		ResultSet resultAdotante = null;

@@ -34,13 +34,13 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
-	private JPanel	contentPane;
-	private JTextField textRGA;
-	private JFormattedTextField jFormattedTextCnpj;
-	private JLabel lblMostrarNome;
-	private JLabel lblMostrarAnimal;
-	private Animal animal;
-	private PessoaJuridica pessoaJuridica;
+	private JPanel				contentPane;
+	private JTextField			textRGA;
+	private JFormattedTextField	jFormattedTextCnpj;
+	private JLabel				lblMostrarNome;
+	private JLabel				lblMostrarAnimal;
+	private Animal				animal;
+	private PessoaJuridica		pessoaJuridica;
 	
 	/**
 	 * Create the frame.
@@ -48,7 +48,7 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 	public AdocaoPessoaJuridicaGUI(){
 		setTitle("Ado\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 645,455);
+		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,11 +79,12 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				pessoaJuridica = new PessoaJuridica();
 				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-				try{
-				pessoaJuridica = pessoaJuridicaService.consultarPessoaJuridica(jFormattedTextCnpj.getText());
-				lblMostrarNome.setText(pessoaJuridica.getPessoa().getNome());
-				} catch(Exception ex){
-					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				try {
+					pessoaJuridica = pessoaJuridicaService
+							.consultarPessoaJuridica(jFormattedTextCnpj.getText());
+					lblMostrarNome.setText(pessoaJuridica.getPessoa().getNome());
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Pessoa Jurídica não encontrada.");
 				}
 			}
 		});
@@ -95,8 +96,12 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				animal = new Animal();
 				AnimalService animalService = new AnimalService();
-				animal = animalService.consultarAnimal(textRGA.getText());
-				lblMostrarAnimal.setText(animal.getNome());
+				try {
+					animal = animalService.consultarAnimal(textRGA.getText());
+					lblMostrarAnimal.setText(animal.getNome());
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Animal não encontrado.");
+				}
 			}
 		});
 		btnConsultarRga.setBounds(297, 241, 89, 23);
@@ -106,72 +111,69 @@ public class AdocaoPessoaJuridicaGUI extends JFrame {
 		btnAdotar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-
 				DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				Calendar calobj = Calendar.getInstance();
 				String dataAdocao = df.format(calobj.getTime());
 				
 				Adocao adocao;
 				AdocaoService adocaoService = new AdocaoService();
-				try{
-					adocao = adocaoService.consultarAdocaoJuridica(jFormattedTextCnpj.getText(), textRGA.getText());
-					if (adocao.getId() == 0){
+				try {
+					adocao = adocaoService.consultarAdocaoJuridica(jFormattedTextCnpj.getText(),
+							textRGA.getText());
+					if (adocao.getId() == 0) {
 						adocao = new Adocao();
 						Adotante adotante = new Adotante();
 						adotante = adocaoService.consultarAdotante(pessoaJuridica.getPessoa());
 						adocao.setAnimal(animal);
 						adocao.setAdotante(adotante);
 						adocao.setDataAdocao(dataAdocao);
-						try{
+						try {
 							adocaoService.adicionarAdocaoService(adocao);
-						}catch (Exception ex) {
+						} catch (Exception ex) {
 							JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 						}
 						SessaoUsuario sessao = SessaoUsuario.getInstancia();
 						sessao.setAdocao(adocao);
-						JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!!");
-					}
-					else if (adocao.getDataDevolucao() == null)
-					{
+						JOptionPane.showMessageDialog(null, "Adoção realizada com sucesso!");
+					} else if (adocao.getDataDevolucao() == null) {
 						adocao.setDataDevolucao(dataAdocao);
 						adocaoService.editarAdocao(adocao);
-						JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
+						JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!");
+					} else if (adocao.getDataDevolucao() != null) {
+						JOptionPane.showMessageDialog(null,
+								"O animal não pode mais ser adotado por esta pessoa!");
 					}
-					else if (adocao.getDataDevolucao() != null) {
-						JOptionPane.showMessageDialog(null, "O animal não pode mais ser adotado por esta pessoa!!");
-					}
-					
 					
 					TelaInicialGUI ti = new TelaInicialGUI();
 					ti.setVisible(true);
 					dispose();
-				}catch(Exception ex){
+					
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
-				
 				
 			}
 		});
 		btnAdotar.setBounds(162, 382, 89, 23);
 		contentPane.add(btnAdotar);
 		
-		JButton btnVotar = new JButton("Votar");
-		btnVotar.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
 				telaInicialGUI.setVisible(true);
 				dispose();
 			}
 		});
-		btnVotar.setBounds(297, 382, 89, 23);
-		contentPane.add(btnVotar);
+		btnVoltar.setBounds(297, 382, 89, 23);
+		contentPane.add(btnVoltar);
 		
 		MaskFormatter mascaraCnpj = null;
 		try {
 			mascaraCnpj = new MaskFormatter("##.###.###/####-##");
 			mascaraCnpj.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 		}
 		
 		jFormattedTextCnpj = new JFormattedTextField(mascaraCnpj);

@@ -38,6 +38,7 @@ public class AdocaoPessoaGUI extends JFrame {
 		lblAdoo.setBounds(33, 40, 88, 23);
 		contentPane.add(lblAdoo);
 		
+		
 		JButton btnNewButtonPessoaFisica = new JButton("Pessoa Fisica");
 		btnNewButtonPessoaFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -19,7 +19,6 @@ import javax.swing.text.MaskFormatter;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.gui.cadastroGUI.CadastroPessoaGUI;
-import adotante.service.PessoaFisicaService;
 import adotante.service.PessoaJuridicaService;
 
 public class ConsultarAdotanteJuridicoGUI extends JFrame {

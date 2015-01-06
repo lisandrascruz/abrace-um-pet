@@ -114,11 +114,9 @@ public class CadastroUsuarioGUI extends JFrame {
 						}
 					}
 				} catch (HeadlessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
 				}
 			}
 

@@ -60,7 +60,8 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			mascaraTelFixo = new MaskFormatter("(##)####-####");
 			mascaraTelFixo.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um telefone fixo válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null,
+					"Digite um telefone fixo válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		
 		JFormattedTextField formattedTextFieldTelefoneFixo = new JFormattedTextField(mascaraTelFixo);
@@ -96,7 +97,8 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			mascaraCep = new MaskFormatter("##.###-###");
 			mascaraCep.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null, "Digite um cpf válido!" + e1.getMessage(), "ERROR",
+					0);
 		}
 		JFormattedTextField jFormattedTextCep = new JFormattedTextField(mascaraCep);
 		jFormattedTextCep.setBounds(173, 280, 189, 20);
@@ -189,29 +191,31 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 		
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
+			@SuppressWarnings ("unused" )
 			public void actionPerformed(ActionEvent e) {
 				
 				PessoaJuridicaService pjs = new PessoaJuridicaService();
 				pessoaFisica = new PessoaFisica();
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				try{
-					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
-				}catch(Exception ex){
+				try {
+					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf
+							.getText());
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
 				
-				try{
-					//boolean validade = pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf());
-					if(true)
-					{
+				try {
+					// boolean validade =
+					// pjs.validarCpfResponsavelJuridico(pessoaFisica.getCpf());
+					if (true) {
 						lblMostrarRepresentante.setText(pessoaFisica.getPessoa().getNome());
-					}else {
+					} else {
 						lblMostrarRepresentante.setText("");
 					}
-				} catch(Exception ex){
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
-					
+				
 			}
 		});
 		btnConsultar.setBounds(483, 181, 99, 23);
@@ -248,21 +252,26 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				String bairro = endereco.getBairro();
 				String cidade = endereco.getCidade();
 				String estado = endereco.getEstado();
+				@SuppressWarnings ("unused" )
 				String nome = pessoaJuridica.getPessoa().getNome();
+				@SuppressWarnings ("unused" )
 				String email = pessoaJuridica.getPessoa().getEmail();
+				@SuppressWarnings ("unused" )
 				String cnpj = pessoaJuridica.getCnpj();
 				
-				if ((validarEndereco(numero, rua, bairro, cidade, estado) )) {
-					try{
-						boolean validade = pessoaJuridicaService.adicionarPessoaJuridicaService(pessoaJuridica);
+				if ((validarEndereco(numero, rua, bairro, cidade, estado))) {
+					try {
+						boolean validade = pessoaJuridicaService
+								.adicionarPessoaJuridicaService(pessoaJuridica);
 						
 						if (validade) {
-							JOptionPane.showMessageDialog(null, "Adotante juridico cadastrado com sucesso");
+							JOptionPane.showMessageDialog(null,
+									"Adotante juridico cadastrado com sucesso");
 							CadastroPessoaGUI cadastroAdotante = new CadastroPessoaGUI();
 							cadastroAdotante.setVisible(true);
 							dispose();
-						} 
-					}catch(Exception ex){
+						}
+					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 					}
 					
@@ -282,20 +291,25 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 				
 				boolean valido = false;
 				
-				try{
+				try {
 					boolean validade = pessoaJuridicaService.validarCadastroPessoaJuridica(cnpj);
 					
-					if ( validade == false) {
+					if (validade == false) {
 						if (pessoaService.validarNome(nome)) {
 							if (pessoaService.validarEmail(email)) {
 								valido = true;
 							} else {
-								JOptionPane.showMessageDialog(null, "Por favor, digite um email válido, usar formato - exemplo@exemplo.com", "ERROR", 0);
+								JOptionPane
+										.showMessageDialog(
+												null,
+												"Por favor, digite um email válido, usar formato - exemplo@exemplo.com",
+												"ERROR", 0);
 								valido = false;
 							}
 							
 						} else {
-							JOptionPane.showMessageDialog(null, "Por favor, digite o nome", "ERROR", 0);
+							JOptionPane.showMessageDialog(null, "Por favor, digite o nome",
+									"ERROR", 0);
 							valido = false;
 						}
 						
@@ -303,10 +317,9 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 						JOptionPane.showMessageDialog(null, "CNPJ já cadastrado", "ERROR", 0);
 						valido = false;
 					}
-				}catch(Exception ex){
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
-				
 				
 				return valido;
 			}
@@ -322,7 +335,8 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 			 * @param estado
 			 * @return
 			 */
-			public boolean validarEndereco(String numero, String rua, String bairro, String cidade, String estado) {
+			public boolean validarEndereco(String numero, String rua, String bairro, String cidade,
+					String estado) {
 				EnderecoService enderecoService = new EnderecoService();
 				boolean valido;
 				
@@ -333,24 +347,29 @@ public class CadastroAdotanteJuridicoGUI extends JFrame {
 								if (enderecoService.validarEstado(estado)) {
 									valido = true;
 								} else {
-									JOptionPane.showMessageDialog(null, "Por favor, digite um estado válido.", "ERROR", 0);
+									JOptionPane.showMessageDialog(null,
+											"Por favor, digite um estado válido.", "ERROR", 0);
 									valido = false;
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Por favor, digite uma cidade válida.", "ERROR", 0);
+								JOptionPane.showMessageDialog(null,
+										"Por favor, digite uma cidade válida.", "ERROR", 0);
 								valido = false;
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Por favor, digite um bairro válido.", "ERROR", 0);
+							JOptionPane.showMessageDialog(null,
+									"Por favor, digite um bairro válido.", "ERROR", 0);
 							valido = false;
 						}
 						
 					} else {
-						JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.", "ERROR", 0);
+						JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.",
+								"ERROR", 0);
 						valido = false;
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Por favor, digite uma rua válida.", "ERROR", 0);
+					JOptionPane.showMessageDialog(null, "Por favor, digite uma rua válida.",
+							"ERROR", 0);
 					valido = false;
 				}
 				return valido;

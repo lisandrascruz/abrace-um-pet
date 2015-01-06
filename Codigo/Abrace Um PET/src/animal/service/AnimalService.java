@@ -27,14 +27,10 @@ public class AnimalService {
 		return valido;
 	}
 	
-	public Animal consultarAnimal(String rga) {
+	public Animal consultarAnimal(String rga) throws Exception {
 		Animal animal = null;
 		AnimalDAO AnimalDAO = new AnimalDAO();
-		try {
 			animal = AnimalDAO.consultarAnimal(rga);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 		return animal;
 	}
 	

@@ -1,24 +1,20 @@
 package animal.raca.gui.consulta;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-import animal.dominio.Animal;
-import animal.gui.consultar.ConsultarAnimalGUI;
+import jdk.nashorn.internal.scripts.JO;
 import animal.raca.dominio.Raca;
 import animal.raca.service.RacaService;
-import animal.service.AnimalService;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.sql.SQLException;
 
 public class ConsultaRacaNomeGUI extends JFrame {
 	private static final long	serialVersionUID	= 1L;
@@ -62,7 +58,7 @@ public class ConsultaRacaNomeGUI extends JFrame {
 				}
 			}
 			
-			public void consultarRacaNome(JLabel lblNome) throws Exception{
+			public void consultarRacaNome(JLabel lblNome){
 				ConsultaRacaGUI consulta = new ConsultaRacaGUI();
 				consulta.setVisible(true);
 				dispose();
@@ -70,7 +66,11 @@ public class ConsultaRacaNomeGUI extends JFrame {
 				RacaService rs = new RacaService();
 				Raca raca = new Raca();
 				
-				raca = rs.consultarRaca(lblNome.getText());
+				try {
+					raca = rs.consultarRaca(lblNome.getText());
+				} catch (Exception e) {
+					JOptionPane.showConfirmDialog(null, "Digite um nome para a raça.");
+				}
 				
 				consulta.textFieldNome.setText(raca.getNome());
 				consulta.textFieldOrigem.setText(raca.getOrigem());
