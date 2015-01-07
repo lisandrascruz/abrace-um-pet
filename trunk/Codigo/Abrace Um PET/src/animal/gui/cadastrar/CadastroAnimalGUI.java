@@ -107,6 +107,9 @@ public class CadastroAnimalGUI extends JFrame {
 		JComboBox comboBoxRaca = new JComboBox();
 		comboBoxRaca.setBounds(250, 119, 134, 20);
 		contentPane.add(comboBoxRaca);
+		DefaultComboBoxModel<String> modelRacas = null;
+		modelRacas = new DefaultComboBoxModel(listarRacas().toArray());
+		comboBoxRaca.setModel(modelRacas);
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -365,14 +368,9 @@ public class CadastroAnimalGUI extends JFrame {
 		lblImagem.setBounds(350, 321, 86, 50);
 		contentPane.add(lblImagem);
 	
-		DefaultComboBoxModel<String> modelRacas = null;
-		modelRacas = new DefaultComboBoxModel(listarRacas().toArray());
-		comboBoxRaca.setModel(modelRacas);
+		
 	}	
-	static private String selectedString(ItemSelectable is) {
-	    Object selected[] = is.getSelectedObjects();
-	    return ((selected.length == 0) ? "null" : (String) selected[0]);
-	  }
+	
 	RacaService racaService = new RacaService();
 	private List<String> listarRacas() throws Exception{
 		ArrayList<String> racasRetorno=new ArrayList<String>();
