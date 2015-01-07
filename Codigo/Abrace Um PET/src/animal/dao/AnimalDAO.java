@@ -59,9 +59,9 @@ public class AnimalDAO {
 		ResultSet generatedKeys = null;
 		int id = -1;
 		
-		String query = "insert into animal (nome, tipo, rga, dataNascimento, genero, deficiencia, vacinado,"
+		String query = "insert into animal (nome, tipo, rga, dataNascimento,idRaca, genero, deficiencia, vacinado,"
 				+ " castrado, tamanho,"
-				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "peso, temperamento, observacao, dataResgate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			con = (Connection) Conexao.abrir();
 			preparedStatement = (PreparedStatement) con.prepareStatement(query,
@@ -71,15 +71,16 @@ public class AnimalDAO {
 			preparedStatement.setString(2, animal.getTipo());
 			preparedStatement.setString(3, animal.getRga());
 			preparedStatement.setString(4, animal.getDataNascimento());
-			preparedStatement.setString(5, animal.getGenero());
-			preparedStatement.setString(6, animal.getDeficiencia());
-			preparedStatement.setString(7, animal.getVacinado());
-			preparedStatement.setString(8, animal.getCastrado());
-			preparedStatement.setDouble(9, animal.getTamanho());
-			preparedStatement.setDouble(10, animal.getPeso());
-			preparedStatement.setString(11, animal.getTemperamento());
-			preparedStatement.setString(12, animal.getObservacao());
-			preparedStatement.setString(13, animal.getDataResgate());
+			preparedStatement.setInt(5, animal.getIdRaca());
+			preparedStatement.setString(6, animal.getGenero());
+			preparedStatement.setString(7, animal.getDeficiencia());
+			preparedStatement.setString(8, animal.getVacinado());
+			preparedStatement.setString(9, animal.getCastrado());
+			preparedStatement.setDouble(10, animal.getTamanho());
+			preparedStatement.setDouble(11, animal.getPeso());
+			preparedStatement.setString(12, animal.getTemperamento());
+			preparedStatement.setString(13, animal.getObservacao());
+			preparedStatement.setString(14, animal.getDataResgate());
 			
 			int affectedRows = preparedStatement.executeUpdate();
 			

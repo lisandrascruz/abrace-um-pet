@@ -1,11 +1,17 @@
 package animal.gui.cadastrar;
 
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -26,6 +32,8 @@ import usuario.gui.LoginGUI;
 import usuario.gui.TelaInicialGUI;
 import animal.dominio.Animal;
 import animal.gui.AnimalGUI;
+import animal.raca.dominio.Raca;
+import animal.raca.service.RacaService;
 import animal.service.AnimalService;
 
 public class CadastroAnimalGUI extends JFrame {
@@ -91,6 +99,14 @@ public class CadastroAnimalGUI extends JFrame {
 		comboBoxTipo.setToolTipText("");
 		comboBoxTipo.setBounds(76, 119, 110, 20);
 		contentPane.add(comboBoxTipo);
+		
+		JLabel lblRaa = new JLabel("Ra\u00E7a :");
+		lblRaa.setBounds(205, 122, 46, 14);
+		contentPane.add(lblRaa);
+		
+		JComboBox comboBoxRaca = new JComboBox();
+		comboBoxRaca.setBounds(250, 119, 134, 20);
+		contentPane.add(comboBoxRaca);
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -239,13 +255,14 @@ public class CadastroAnimalGUI extends JFrame {
 		btnCancelar.setBounds(389, 387, 110, 23);
 		contentPane.add(btnCancelar);
 		
+		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
-	
+				animal.setIdRaca(comboBoxRaca.getSelectedIndex()+1);
 				animal.setNome(textFieldNome.getText());
 				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
 
@@ -347,6 +364,24 @@ public class CadastroAnimalGUI extends JFrame {
 		lblImagem = new JLabel("");
 		lblImagem.setBounds(350, 321, 86, 50);
 		contentPane.add(lblImagem);
+	
+		DefaultComboBoxModel<String> modelRacas = null;
+		modelRacas = new DefaultComboBoxModel(listarRacas().toArray());
+		comboBoxRaca.setModel(modelRacas);
+	}	
+	static private String selectedString(ItemSelectable is) {
+	    Object selected[] = is.getSelectedObjects();
+	    return ((selected.length == 0) ? "null" : (String) selected[0]);
+	  }
+	RacaService racaService = new RacaService();
+	private List<String> listarRacas() throws Exception{
+		ArrayList<String> racasRetorno=new ArrayList<String>();
+		List<Raca> raca = racaService.getRacas();
+		for (int i = 0; i < raca.size(); i++) {
+			racasRetorno.add(raca.get(i).getNome());
+		}
+		return racasRetorno;
 	}
-
+	
+	
 }
