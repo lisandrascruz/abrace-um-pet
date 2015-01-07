@@ -18,9 +18,9 @@ import animal.raca.service.RacaService;
 
 public class ConsultaRacaNomeGUI extends JFrame {
 	private static final long	serialVersionUID	= 1L;
-	private JPanel	contentPane;
-	private JTextField textField;
-
+	private JPanel				contentPane;
+	private JTextField			textField;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -51,34 +51,38 @@ public class ConsultaRacaNomeGUI extends JFrame {
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					consultarRacaNome(lblNome);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				ConsultaRacaGUI consulta = new ConsultaRacaGUI();
+				if(consultarRacaNome(consulta)){
+					consulta.setVisible(true);
+					dispose();
 				}
+
 			}
 			
-			public void consultarRacaNome(JLabel lblNome){
-				ConsultaRacaGUI consulta = new ConsultaRacaGUI();
-				consulta.setVisible(true);
-				dispose();
-				
+			public boolean consultarRacaNome(ConsultaRacaGUI consulta) {
+				boolean valido = false;				
 				RacaService rs = new RacaService();
 				Raca raca = new Raca();
 				
 				try {
 					raca = rs.consultarRaca(lblNome.getText());
+					
+					consulta.textFieldNome.setText(raca.getNome());
+					consulta.textFieldOrigem.setText(raca.getOrigem());
+					consulta.formattedTextFieldExpectativaDeVida.setText(String.valueOf(raca
+							.getExpectativaVida()));
+					consulta.formattedTextFieldTamanhoMaximo.setText(String.valueOf(raca
+							.getTamanhoMax()));
+					consulta.formattedTextFieldTamanhoMinimo.setText(String.valueOf(raca
+							.getTamanhoMin()));
+					consulta.comboBoxTipo.setSelectedItem(raca.getTipo());
+					consulta.editorPane.setText(raca.getTemperamento());
+					valido = true;
 				} catch (Exception e) {
-					JOptionPane.showConfirmDialog(null, "Digite um nome para a raça.");
+					JOptionPane.showConfirmDialog(null, "Raça não encontrada", "ERRO", 0);
 				}
+				return valido;
 				
-				consulta.textFieldNome.setText(raca.getNome());
-				consulta.textFieldOrigem.setText(raca.getOrigem());
-				consulta.formattedTextFieldExpectativaDeVida.setText(String.valueOf(raca.getExpectativaVida()));
-				consulta.formattedTextFieldTamanhoMaximo.setText(String.valueOf(raca.getTamanhoMax()));
-				consulta.formattedTextFieldTamanhoMinimo.setText(String.valueOf(raca.getTamanhoMin()));
-				consulta.comboBoxTipo.setSelectedItem(raca.getTipo());
-				consulta.editorPane.setText(raca.getTemperamento());
 			}
 			
 		});

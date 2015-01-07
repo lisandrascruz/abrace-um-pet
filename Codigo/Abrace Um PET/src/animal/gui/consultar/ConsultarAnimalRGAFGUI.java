@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import adotante.gui.consultaGUI.ConsultarAdotanteJuridicoGUI;
 import animal.dominio.Animal;
+import animal.gui.AnimalGUI;
 import animal.service.AnimalService;
 
 public class ConsultarAnimalRGAFGUI extends JFrame {
@@ -21,9 +23,9 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
-	private JPanel	contentPane;
-	protected JTextField textFieldRGA;
-
+	private JPanel				contentPane;
+	protected JTextField		textFieldRGA;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -36,12 +38,10 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
 		JLabel lblConsultarAnimal = new JLabel("Consulta de Animal");
 		lblConsultarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblConsultarAnimal.setBounds(28, 62, 193, 14);
 		contentPane.add(lblConsultarAnimal);
-		
 		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -56,49 +56,54 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		JButton btnConsultarRGA = new JButton("Consultar");
 		btnConsultarRGA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					try {
-						consultarAnimalRGA(textFieldRGA);
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
-					}
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
+				ConsultarAnimalGUI consulta = new ConsultarAnimalGUI();
+				if (consultarAnimalRGA(consulta)==true) {
+					consulta.setVisible(true);
+					dispose();
 				}
 			}
 			
-			public void consultarAnimalRGA(JTextField textFieldRGA) throws Exception{
-				ConsultarAnimalGUI consulta = new ConsultarAnimalGUI();
-				try {
-					consulta = new ConsultarAnimalGUI();
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e, "ERROR", 0);
-				}
-				consulta.setVisible(true);
-				dispose();
-				
+			public boolean consultarAnimalRGA(ConsultarAnimalGUI consulta) {
+				boolean cond = false;
 				AnimalService as = new AnimalService();
 				Animal animal = new Animal();
-			
-				animal = as.consultarAnimal(textFieldRGA.getText());
 				
-				consulta.textFieldNome.setText(animal.getNome());
-				consulta.textFieldRGA.setText(animal.getRga());
-				consulta.texTemperamento.setText(animal.getTemperamento());
-				consulta.textObservacao.setText(animal.getObservacao());
-				consulta.formattedTextFieldDataNascimento.setText(animal.getDataNascimento());
-				consulta.formattedTextFieldDataResgate.setText(animal.getDataResgate());
-				consulta.formattedTextFieldPeso.setText(String.valueOf(animal.getPeso()));
-				consulta.formattedTextFieldTamanho.setText(String.valueOf(animal.getTamanho()));
-				consulta.comboBoxCastrado.setSelectedItem(animal.getCastrado());
-				consulta.comboBoxDeficiencia.setSelectedItem(animal.getDeficiencia());
-				consulta.comboBoxGenero.setSelectedItem(animal.getGenero());
-				consulta.comboBoxTipo.setSelectedItem(animal.getTipo());
-				consulta.comboBoxVacinado.setSelectedItem(animal.getVacinado());
-				
+				try {
+					
+					animal = as.consultarAnimal(textFieldRGA.getText());
+					
+					consulta.textFieldNome.setText(animal.getNome().toString());
+					consulta.textFieldRGA.setText(animal.getRga());
+					consulta.texTemperamento.setText(animal.getTemperamento());
+					consulta.textObservacao.setText(animal.getObservacao());
+					consulta.formattedTextFieldDataNascimento.setText(animal.getDataNascimento());
+					consulta.formattedTextFieldDataResgate.setText(animal.getDataResgate());
+					consulta.formattedTextFieldPeso.setText(String.valueOf(animal.getPeso()));
+					consulta.formattedTextFieldTamanho.setText(String.valueOf(animal.getTamanho()));
+					consulta.comboBoxCastrado.setSelectedItem(animal.getCastrado());
+					consulta.comboBoxDeficiencia.setSelectedItem(animal.getDeficiencia());
+					consulta.comboBoxGenero.setSelectedItem(animal.getGenero());
+					consulta.comboBoxTipo.setSelectedItem(animal.getTipo());
+					consulta.comboBoxVacinado.setSelectedItem(animal.getVacinado());
+					cond = true;
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"Animal não encontrado!", "ERRO", 0);
+				}
+				return cond;
 			}
 		});
-		btnConsultarRGA.setBounds(183, 263, 89, 23);
+		btnConsultarRGA.setBounds(183, 245, 89, 23);
 		contentPane.add(btnConsultarRGA);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnimalGUI a = new AnimalGUI();
+				setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(530, 382, 89, 23);
+		contentPane.add(btnVoltar);
 	}
 }
