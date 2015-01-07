@@ -45,8 +45,8 @@ public class ConsultarAnimalGUI extends JFrame {
 	 * 
 	 * @throws Exception
 	 */
-	public ConsultarAnimalGUI() throws Exception{
-		setTitle("Cadastro de Animal");
+	public ConsultarAnimalGUI(){
+		setTitle("Consulta de Animal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
@@ -54,7 +54,7 @@ public class ConsultarAnimalGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCadastroDeAnimais = new JLabel("Cadastro de Animal\r\n");
+		JLabel lblCadastroDeAnimais = new JLabel("Consulta de Animal\r\n");
 		lblCadastroDeAnimais.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblCadastroDeAnimais.setBounds(10, 30, 179, 14);
 		contentPane.add(lblCadastroDeAnimais);

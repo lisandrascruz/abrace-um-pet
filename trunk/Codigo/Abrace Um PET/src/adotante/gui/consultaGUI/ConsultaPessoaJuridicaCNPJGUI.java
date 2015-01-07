@@ -109,7 +109,7 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 					consulta.pj = pessoaJuridica;
 					cond = true;
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Pessoa Jurídica não encontrada.");
+					JOptionPane.showMessageDialog(null, "Pessoa Jurídica não encontrada.", "ERRO", 0);
 				}
 				return cond;
 			}
