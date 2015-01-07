@@ -4,6 +4,7 @@ package animal.dominio;
 public class Animal {
 	
 	private int id;
+	private int idRaca;
 	private String nome;
 	private String tipo;
 	private String rga;
@@ -102,6 +103,12 @@ public class Animal {
 	}
 	public void setDataResgate(String dataResgate) {
 		this.dataResgate = dataResgate;
+	}
+	public int getIdRaca() {
+		return idRaca;
+	}
+	public void setIdRaca(int idRaca) {
+		this.idRaca = idRaca;
 	}
 	
 	

@@ -1,5 +1,9 @@
 package animal.raca.service;
 
+import java.util.ArrayList;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import animal.raca.dao.RacaDAO;
 import animal.raca.dominio.Raca;
 
@@ -45,5 +49,10 @@ public class RacaService {
 	 */
 	public Raca consultarRaca(String nome) throws Exception {
 		return racaDAO.consultarRaca(nome);
+	}
+	public  java.util.List < Raca> getRacas() throws Exception{
+		return  racaDAO.getRaca();
+		
+		
 	}
 }
