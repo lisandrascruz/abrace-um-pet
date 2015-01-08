@@ -48,7 +48,7 @@ public class RacaGUI extends JFrame {
 				
 			}
 		});
-		btnVolta.setBounds(112, 382, 89, 23);
+		btnVolta.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVolta);
 		
 		JButton button = new JButton("Cadastrar");
@@ -59,26 +59,18 @@ public class RacaGUI extends JFrame {
 				dispose();
 			}
 		});
-		button.setBounds(34, 104, 167, 23);
+		button.setBounds(172, 168, 279, 39);
 		contentPane.add(button);
 		
-		JButton button_1 = new JButton("Editar");
-		button_1.setBounds(34, 230, 167, 23);
-		contentPane.add(button_1);
-		
-		JButton button_2 = new JButton("Consultar");
-		button_2.addActionListener(new ActionListener() {
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaRacaNomeGUI consultar = new ConsultaRacaNomeGUI();
 				consultar.setVisible(true);
 				dispose();
 			}
 		});
-		button_2.setBounds(34, 169, 167, 23);
-		contentPane.add(button_2);
-		
-		JButton button_3 = new JButton("Excluir");
-		button_3.setBounds(34, 299, 167, 23);
-		contentPane.add(button_3);
+		btnConsultar.setBounds(172, 236, 279, 39);
+		contentPane.add(btnConsultar);
 	}
 }

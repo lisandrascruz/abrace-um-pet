@@ -18,6 +18,7 @@ import javax.swing.text.MaskFormatter;
 
 import animal.dominio.Animal;
 import animal.gui.AnimalGUI;
+import javax.swing.JPasswordField;
 
 public class ConsultarAnimalGUI extends JFrame {
 	/**
@@ -39,7 +40,9 @@ public class ConsultarAnimalGUI extends JFrame {
 	protected JFormattedTextField	formattedTextFieldTamanho;
 	protected JFormattedTextField	formattedTextFieldPeso;
 	protected JFormattedTextField	formattedTextFieldDataNascimento;
-	
+	protected JButton				btnMidia;
+	protected JButton				btnExcluir;
+	protected JButton btnCancelar;
 	/**
 	 * Create the frame.
 	 * 
@@ -255,7 +258,7 @@ public class ConsultarAnimalGUI extends JFrame {
 		contentPane.add(textObservacao);
 		textObservacao.setColumns(10);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AnimalGUI animalGUI = new AnimalGUI();
@@ -268,16 +271,64 @@ public class ConsultarAnimalGUI extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				camposEditaveis();
+								
+				
+			}
+
+			/**
+			 * RESPONSAVEL POR DEIXAR TODOS OS CAMPOS EDITÁVEIS
+			 */
+			public void camposEditaveis() {
+				texTemperamento.setEditable(true);
+				textFieldNome.setEditable(true);
+				textFieldRGA.setEditable(true);
+				textObservacao.setEditable(true);
+				formattedTextFieldDataNascimento.setEditable(true);
+				formattedTextFieldDataResgate.setEditable(true);
+				formattedTextFieldPeso.setEditable(true);
+				formattedTextFieldTamanho.setEditable(true);
+				comboBoxCastrado.setEditable(true);
+				comboBoxDeficiencia.setEditable(true);
+				comboBoxGenero.setEditable(true);
+				comboBoxTipo.setEditable(true);
+				comboBoxVacinado.setEditable(true);
+				
+				JButton btnSalvar = new JButton("Salvar");
+				btnSalvar.setBounds(431, 382, 89, 23);
+				contentPane.add(btnSalvar);
+				
+				btnMidia.setVisible(false);
+				btnEditar.setVisible(false);
+				btnExcluir.setVisible(false);
+				btnCancelar.setVisible(false);
+				
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ConsultarAnimalRGAFGUI c = new ConsultarAnimalRGAFGUI();
+						c.setVisible(true);
+						dispose();
+					}
+
+				});
+				btnCancelar.setBounds(530, 382, 89, 23);
+				contentPane.add(btnCancelar);
+			}
+								
+		});
 		btnEditar.setBounds(429, 382, 89, 23);
 		contentPane.add(btnEditar);
 		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(324, 382, 89, 23);
 		contentPane.add(btnExcluir);
 		
-		JButton btnMdia = new JButton("M\u00EDdia");
-		btnMdia.setBounds(225, 382, 89, 23);
-		contentPane.add(btnMdia);
-
+		btnMidia = new JButton("M\u00EDdia");
+		btnMidia.setBounds(225, 382, 89, 23);
+		contentPane.add(btnMidia);
+		
 	}
 }

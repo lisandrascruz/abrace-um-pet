@@ -75,16 +75,8 @@ public class AnimalGUI extends JFrame {
 				
 			}
 		});
-		btnCadastrar.setBounds(49, 123, 167, 23);
+		btnCadastrar.setBounds(172, 168, 279, 39);
 		contentPane.add(btnCadastrar);
-		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(49, 259, 167, 23);
-		contentPane.add(btnEditar);
-		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(49, 323, 167, 23);
-		contentPane.add(btnExcluir);
 		
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
@@ -94,7 +86,7 @@ public class AnimalGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnConsultar.setBounds(49, 191, 167, 23);
+		btnConsultar.setBounds(172, 236, 279, 39);
 		contentPane.add(btnConsultar);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -105,7 +97,7 @@ public class AnimalGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(127, 382, 89, 23);
+		btnVoltar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVoltar);
 	}
 }
