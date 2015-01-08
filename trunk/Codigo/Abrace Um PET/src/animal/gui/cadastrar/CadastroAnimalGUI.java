@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.ComboBox;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -108,9 +110,7 @@ public class CadastroAnimalGUI extends JFrame {
 		JComboBox comboBoxRaca = new JComboBox();
 		comboBoxRaca.setBounds(250, 119, 134, 20);
 		contentPane.add(comboBoxRaca);
-		DefaultComboBoxModel<String> modelRacas = null;
-		modelRacas = new DefaultComboBoxModel(listarRacas().toArray());
-		comboBoxRaca.setModel(modelRacas);
+		
 		
 		JLabel lblNewLabel = new JLabel("Data de Nascimento: ");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -266,7 +266,12 @@ public class CadastroAnimalGUI extends JFrame {
 				
 				AnimalService animalService = new AnimalService();
 				Animal animal = new Animal();
-				animal.setIdRaca(comboBoxRaca.getSelectedIndex()+1);
+				try {
+					animal.setIdRaca(setId(comboBoxRaca.getSelectedItem().toString()));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				animal.setNome(textFieldNome.getText());
 				animal.setTipo(comboBoxTipo.getSelectedItem().toString());
 
@@ -367,16 +372,78 @@ public class CadastroAnimalGUI extends JFrame {
 		lblImagem = new JLabel("");
 		lblImagem.setBounds(350, 321, 86, 50);
 		contentPane.add(lblImagem);
-	
+		ItemListener itemListener = new ItemListener() {
+		      public void itemStateChanged(ItemEvent itemEvent) {
+		        int state = itemEvent.getStateChange();
+		        System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
+		        System.out.println("Item: " + itemEvent.getItem());
+		        ItemSelectable is = itemEvent.getItemSelectable();
+		        DefaultComboBoxModel<String> modelRacas = null;
+		        if(itemEvent.getItem().equals("Gato")){
+		        	
+					try {
+						modelRacas = new DefaultComboBoxModel(listarRacasGato().toArray());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					 comboBoxRaca.setModel(modelRacas);
+				
+					
+		        }
+		        if(itemEvent.getItem().equals("Cachorro")){
+					try {
+						modelRacas = new DefaultComboBoxModel(listarRacasCachorro().toArray());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					 comboBoxRaca.setModel(modelRacas);
+				}
+		       
+		        
+		        }
+		};
+		comboBoxTipo.addItemListener(itemListener);
 		
 	}	
 	
 	RacaService racaService = new RacaService();
-	private List<String> listarRacas() throws Exception{
+	private int  setId(String racaSelecionada) throws Exception{
+		List<Raca> raca = racaService.getRacas();
+		int idRacaRetorno=-1;
+		for (int i = 0; i < raca.size(); i++) {
+			if(racaSelecionada.equals(raca.get(i).getNome())){
+				idRacaRetorno= raca.get(i).getId();
+			}
+		
+		}
+		return idRacaRetorno;
+		
+	}
+	static private String selectedString(ItemSelectable is) {
+	    Object selected[] = is.getSelectedObjects();
+	    return ((selected.length == 0) ? "null" : (String) selected[0]);
+	  }
+	private List<String> listarRacasGato() throws Exception{
 		ArrayList<String> racasRetorno=new ArrayList<String>();
 		List<Raca> raca = racaService.getRacas();
 		for (int i = 0; i < raca.size(); i++) {
-			racasRetorno.add(raca.get(i).getNome());
+			if(raca.get(i).getTipo().equals("Gato")){
+				racasRetorno.add(raca.get(i).getNome());
+			}
+			
+		}
+		return racasRetorno;
+	}
+	private List<String> listarRacasCachorro() throws Exception{
+		ArrayList<String> racasRetorno=new ArrayList<String>();
+		List<Raca> raca = racaService.getRacas();
+		for (int i = 0; i < raca.size(); i++) {
+			if(raca.get(i).getTipo().equals("Cachorro")){
+				racasRetorno.add(raca.get(i).getNome());
+			}
+			
 		}
 		return racasRetorno;
 	}
