@@ -83,32 +83,32 @@ public class UsuarioDAO {
 		return Conexao.consultar(resultSet);
 	}
 	
-//	public int getIdUsuario(Usuario usuario) throws SQLException {
-//		Connection connection = Conexao.abrir();
-//		PreparedStatement statement = null;
-//		ResultSet resultAdotante = null;
-////        int id =-1;
-//		String login = usuario.getLogin();
-//		String senha = usuario.getSenha();
-//
-//		try {
-//			String resultSet = ("select id from usuario where login='" + login + "'and senha='" + senha + "'");
-//			statement = (PreparedStatement) connection.prepareStatement(resultSet);
-//			resultAdotante = statement.executeQuery();
-//
-//			if (resultAdotante.next()) {
-//
-//			usuario.setId(resultAdotante.getInt("id"));
-//			}
-//			return usuario.getId();
-//		} finally {
-//			if (resultAdotante != null) {
-//				resultAdotante.close();
-//			}
-//			if (statement != null) {
-//				statement.close();
-//			}
-//		}
-//	}
+	public int getIdUsuario(Usuario usuario) throws Exception {
+		Connection connection = Conexao.abrir();
+		PreparedStatement statement = null;
+		ResultSet resultAdotante = null;
+        int id =-1;
+		String login = usuario.getLogin();
+		String senha = usuario.getSenha();
+
+		try {
+			String resultSet = ("select id from usuario where login='" + login + "'and senha='" + senha + "'");
+			statement = (PreparedStatement) connection.prepareStatement(resultSet);
+			resultAdotante = statement.executeQuery();
+
+			if (resultAdotante.next()) {
+
+			usuario.setId(resultAdotante.getInt("id"));
+			}
+			return usuario.getId();
+		} finally {
+			if (resultAdotante != null) {
+				resultAdotante.close();
+			}
+			if (statement != null) {
+				statement.close();
+			}
+		}
+	}
 
 }

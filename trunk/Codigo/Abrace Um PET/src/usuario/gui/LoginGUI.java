@@ -141,7 +141,8 @@ public class LoginGUI extends JFrame {
 
 		if (usuarioService.consultarUsuarioService(login, senha)) {
 			usuario.setSenha(senha);
-			//int id = usuarioService.getIdUsuario(usuario);
+			int id = usuarioService.getIdUsuario(usuario);
+			usuario.setId(id);
 			SessaoUsuario sessao = SessaoUsuario.getInstancia();
 			sessao.setUsuarioLogado(usuario);
 			TelaInicialGUI tl = new TelaInicialGUI();
