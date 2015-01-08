@@ -37,7 +37,7 @@ public class RacaDAO {
 			raca.setTamanhoMin(resultSet.getInt("tamanhoMin"));
 			raca.setExpectativaVida(resultSet.getInt("expectativaVida"));
 			raca.setTemperamento(resultSet.getString("temperamento"));
-			raca.setTemperamento(resultSet.getString("tipo"));
+			raca.setTipo(resultSet.getString("tipo"));
 			
 			racas.add(raca);
 		}
