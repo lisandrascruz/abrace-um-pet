@@ -53,7 +53,7 @@ public class CadastroPessoaGUI extends JFrame {
 		setContentPane(contentPane);
 
 		JButton btnPessoaFsica = new JButton("Pessoa F\u00EDsica");
-		btnPessoaFsica.setBounds(61, 154, 279, 39);
+		btnPessoaFsica.setBounds(172, 168, 279, 39);
 		btnPessoaFsica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotanteFisicoGUI cadastroFisico = new CadastroAdotanteFisicoGUI();
@@ -63,7 +63,7 @@ public class CadastroPessoaGUI extends JFrame {
 		});
 
 		JButton btnPessoaJurdica = new JButton("Pessoa Jur\u00EDdica");
-		btnPessoaJurdica.setBounds(61, 222, 279, 39);
+		btnPessoaJurdica.setBounds(172, 236, 279, 39);
 		btnPessoaJurdica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroAdotanteJuridicoGUI cadastroPessoaJuridica = new CadastroAdotanteJuridicoGUI();
@@ -83,19 +83,13 @@ public class CadastroPessoaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(251, 382, 89, 23);
+		btnVoltar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVoltar);
 
 		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Adotante");
 		lblCadastroDeUsurio.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblCadastroDeUsurio.setBounds(44, 37, 214, 39);
 		contentPane.add(lblCadastroDeUsurio);
-
-		JLabel label = new JLabel("");
-		ImagensGUI.imagemCadastroAdotante(label);
-		
-		label.setBounds(385, 180, 244, 236);
-		contentPane.add(label);
 	}
 
 }

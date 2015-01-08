@@ -46,12 +46,12 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 		
 		JLabel lblAdooPessoa = new JLabel("Consulta de Pessoa Juridica");
 		lblAdooPessoa.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblAdooPessoa.setBounds(10, 52, 264, 27);
+		lblAdooPessoa.setBounds(26, 61, 264, 27);
 		contentPane.add(lblAdooPessoa);
 		
 		JLabel lblCpf = new JLabel("CNPJ:");
 		lblCpf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblCpf.setBounds(42, 202, 46, 14);
+		lblCpf.setBounds(170, 207, 46, 14);
 		contentPane.add(lblCpf);
 		
 		JButton btnConsultarCnpj = new JButton("Consultar");
@@ -115,7 +115,7 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 				return cond;
 			}
 		});
-		btnConsultarCnpj.setBounds(297, 199, 89, 23);
+		btnConsultarCnpj.setBounds(396, 204, 89, 23);
 		contentPane.add(btnConsultarCnpj);
 		
 		JButton btnVotar = new JButton("Votar");
@@ -126,12 +126,12 @@ public class ConsultaPessoaJuridicaCNPJGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVotar.setBounds(297, 382, 89, 23);
+		btnVotar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVotar);
 		
 		MaskFormatter mascaraCnpj = mascaraCNPJ();
 		jFormattedTextCnpj = new JFormattedTextField(mascaraCnpj);
-		jFormattedTextCnpj.setBounds(122, 200, 152, 20);
+		jFormattedTextCnpj.setBounds(226, 205, 152, 20);
 		contentPane.add(jFormattedTextCnpj);
 		
 		lblMostrarNome = new JLabel("");

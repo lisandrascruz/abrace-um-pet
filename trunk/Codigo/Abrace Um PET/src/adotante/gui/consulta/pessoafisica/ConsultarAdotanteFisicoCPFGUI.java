@@ -24,7 +24,7 @@ import adotante.service.EnderecoService;
 import adotante.service.PessoaFisicaService;
 
 public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
-
+	
 	private static final long	serialVersionUID	= 1L;
 	private JPanel				contentPane;
 	private JLabel				lblMostrarNome;
@@ -44,7 +44,7 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("CPF:");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblNewLabel.setBounds(28, 202, 46, 14);
+		lblNewLabel.setBounds(162, 202, 46, 14);
 		contentPane.add(lblNewLabel);
 		
 		MaskFormatter mascaraCpf = null;
@@ -53,10 +53,11 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 			mascaraCpf.setPlaceholderCharacter('_');
 			
 		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);
+			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR",
+					0);
 		}
 		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
-		jFormattedTextCpf.setBounds(84, 200, 188, 20);
+		jFormattedTextCpf.setBounds(218, 200, 188, 20);
 		contentPane.add(jFormattedTextCpf);
 		
 		JButton btnConsultarCpf = new JButton("Consultar");
@@ -64,27 +65,28 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ConsultarAdotanteFisicoGUI consulta = new ConsultarAdotanteFisicoGUI();
 				
-				if(consultaAdotanteFisico(consulta)==true){
+				if (consultaAdotanteFisico(consulta) == true) {
 					consulta.setVisible(true);
 					dispose();
 				}
 				
 			}
-
-				/**
-				 * EFETUA A CONSULTA DE UMA ADOTANTE FISICO ATRAVÉS DO CPF E SETA NA GUI 
-				 * @param consulta
-				 * @return
-				 */
+			
+			/**
+			 * EFETUA A CONSULTA DE UMA ADOTANTE FISICO ATRAVÉS DO CPF E SETA NA
+			 * GUI
+			 * 
+			 * @param consulta
+			 * @return
+			 */
 			public boolean consultaAdotanteFisico(ConsultarAdotanteFisicoGUI consulta) {
 				boolean valido = false;
-				try{
+				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
+				EnderecoService enderecoService = new EnderecoService();
+				try {
 					
-					PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-					EnderecoService enderecoService = new EnderecoService();
-					
-					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf.getText());
-					
+					pessoaFisica = pessoaFisicaService.consultarRepresentante(jFormattedTextCpf
+							.getText());
 					Pessoa pessoa = pessoaFisica.getPessoa();
 					Endereco endereco = new Endereco();
 					int idEndereco = pessoaFisica.getPessoa().getEndereco().getId();
@@ -93,9 +95,10 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 					consulta.textNomeFisico.setText(pessoa.getNome());
 					consulta.textEmail.setText(pessoa.getEmail());
 					consulta.formattedTextFieldTelefoneFixo.setText(pessoa.getTelefoneFixo());
-					consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa.getTelefoneCelular());
-	
-					consulta.comboGenero.setToolTipText(pessoaFisica.getGenero());
+					consulta.jFormattedTextTeljFormattedTextCelular.setText(pessoa
+							.getTelefoneCelular());
+					
+					consulta.comboGenero.setSelectedItem(pessoaFisica.getGenero());
 					consulta.jFormattedTextCPF.setText(pessoaFisica.getCpf());
 					consulta.textRG.setText(pessoaFisica.getRg());
 					
@@ -108,13 +111,13 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 					pessoa.setEndereco(endereco);
 					consulta.pf = pessoaFisica;
 					valido = true;
-				} catch(Exception ex){
-					JOptionPane.showMessageDialog(null, "Adotante Físico não existe.");
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null,"Adotante Físico não existe.","Erro", 0);
 				}
 				return valido;
 			}
 		});
-		btnConsultarCpf.setBounds(282, 199, 89, 23);
+		btnConsultarCpf.setBounds(416, 199, 89, 23);
 		contentPane.add(btnConsultarCpf);
 		
 		lblMostrarNome = new JLabel("");
@@ -132,16 +135,11 @@ public class ConsultarAdotanteFisicoCPFGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ConsultarPessoaGUI consultaPessoa = new ConsultarPessoaGUI();
 				consultaPessoa.setVisible(true);
-				dispose();;
+				dispose();
 			}
 		});
-		btnVoltar.setBounds(282, 382, 89, 23);
+		btnVoltar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVoltar);
-		
-		JLabel label = new JLabel("");
-		ImagensGUI.imagemAdocaoFisico(label);
-		label.setBounds(384, 62, 235, 343);
-		contentPane.add(label);
 		
 	}
 }
