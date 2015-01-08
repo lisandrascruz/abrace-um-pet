@@ -1,7 +1,6 @@
 package animal.raca.gui.consulta;
 
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import usuario.gui.TelaInicialGUI;
+import animal.gui.consultar.ConsultarAnimalRGAGUI;
 import animal.raca.dominio.Raca;
 import animal.raca.gui.RacaGUI;
 import animal.raca.service.RacaService;
@@ -39,11 +38,14 @@ public class ConsultaRacaGUI extends JFrame {
 	protected JFormattedTextField	formattedTextFieldExpectativaDeVida;
 	protected JComboBox				comboBoxTipo;
 	protected JEditorPane			editorPane;
+	private JButton btnEditar;
+	private JButton btnExcluir;
 	
 	/**
 	 * Create the frame.
 	 */
 	public ConsultaRacaGUI(){
+		setTitle("Consulta de Ra\u00E7a ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
 		contentPane = new JPanel();
@@ -51,7 +53,7 @@ public class ConsultaRacaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblCadastroRacaCachorro = new JLabel("Cadastro de Ra\u00E7a ");
+		lblCadastroRacaCachorro = new JLabel("Consultar Ra\u00E7a ");
 		lblCadastroRacaCachorro.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblCadastroRacaCachorro.setBounds(10, 28, 327, 14);
 		contentPane.add(lblCadastroRacaCachorro);
@@ -127,6 +129,7 @@ public class ConsultaRacaGUI extends JFrame {
 		contentPane.add(formattedTextFieldExpectativaDeVida);
 		
 		comboBoxTipo = new JComboBox();
+		comboBoxTipo.setToolTipText("Consulta");
 		comboBoxTipo.setEnabled(false);
 		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] { "", "Gato", "Cachorro" }));
 		comboBoxTipo.setBounds(76, 194, 101, 20);
@@ -142,89 +145,6 @@ public class ConsultaRacaGUI extends JFrame {
 		editorPane.setBounds(76, 292, 475, 75);
 		contentPane.add(editorPane);
 		
-		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				raca.setNome(textFieldNome.getText());
-				raca.setOrigem(textFieldOrigem.getText());
-				raca.setTamanhoMax(Double.parseDouble(formattedTextFieldTamanhoMaximo.getText()));
-				raca.setTamanhoMin(Double.parseDouble(formattedTextFieldTamanhoMinimo.getText()));
-				raca.setExpectativaVida(Integer.parseInt(formattedTextFieldExpectativaDeVida
-						.getText()));
-				raca.setTipo(comboBoxTipo.getSelectedItem().toString());
-				raca.setTemperamento(editorPane.getText().toString());
-				
-				String nome = raca.getNome().toString();
-				String origem = raca.getOrigem().toString();
-				String tipo = raca.getTipo().toString();
-				
-				if (validacaoDadosRaca(nome, origem, tipo)) {
-					try {
-						if (racaService.adicionarRaca(raca)) {
-							JOptionPane.showMessageDialog(null, "Raça adicionada com sucesso!");
-							TelaInicialGUI telaInicialGUI = new TelaInicialGUI();
-							telaInicialGUI.setVisible(true);
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "Raça não cadastrada! Tente Novamente");
-							raca.setNome("");
-							raca.setOrigem("");
-							raca.setTamanhoMax(0);
-							raca.setTamanhoMin(0);
-							raca.setExpectativaVida(0);
-							raca.setTemperamento("");
-							textFieldNome.requestFocus();
-						}
-					} catch (HeadlessException e1) {
-						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
-					}
-				}
-				
-			}
-			
-			/**
-			 * @param nome
-			 * @param origem
-			 * @param tipo
-			 * @param temperamento
-			 * @return
-			 */
-			public boolean validacaoDadosRaca(String nome, String origem, String tipo) {
-				boolean valido = true;
-				try {
-					racaService.validarRaca(nome);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e, "ERROR", 0);
-					valido = false;
-				}
-				try {
-					validacoes.verificarVazio(nome, "Por favor, digite o nome da raça");
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
-					valido = false;
-				}
-				try {
-					validacoes.verificarVazio(origem, "Por favor, digite a origem da raça");
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
-					valido = false;
-				}
-				try {
-					validacoes.verificarVazio(tipo, "Por favor, escolha o tipo da raça");
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "ERROR", 0);
-					valido = false;
-				}
-				return valido;
-				
-			}
-		});
-		btnCadastrar.setBounds(445, 382, 101, 23);
-		contentPane.add(btnCadastrar);
-		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,13 +153,62 @@ public class ConsultaRacaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(335, 382, 89, 23);
+		btnCancelar.setBounds(462, 383, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblTipo.setBounds(10, 195, 46, 17);
 		contentPane.add(lblTipo);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				camposEditaveis(btnCancelar);
+			}
+			/**
+			 * DEIXA OS CAMPOS EDITAVEIS, OCULTA ALGUNS BOTOES E ATIVA OUTROS.
+			 * @param btnCancelar
+			 */
+			private void camposEditaveis(JButton btnCancelar) {
+				editorPane.setEditable(true);
+				textFieldNome.setEditable(true);
+				textFieldOrigem.setEditable(true);
+				formattedTextFieldExpectativaDeVida.setEditable(true);
+				formattedTextFieldTamanhoMaximo.setEditable(true);
+				formattedTextFieldTamanhoMinimo.setEditable(true);
+				
+				JButton btnSalvar = new JButton("Salvar");
+				btnSalvar.setBounds(431, 382, 89, 23);
+				contentPane.add(btnSalvar);
+				
+				btnEditar.setVisible(false);
+				btnExcluir.setVisible(false);
+				btnCancelar.setVisible(false);
+				
+				JButton btnCancelar2 = new JButton("Cancelar");
+				btnCancelar2.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ConsultarAnimalRGAGUI c = new ConsultarAnimalRGAGUI();
+						c.setVisible(true);
+						dispose();
+					}
+					
+				});
+				btnCancelar2.setBounds(530, 382, 89, 23);
+				contentPane.add(btnCancelar2);
+			}
+			
+		});
+		btnEditar.setBounds(219, 382, 89, 23);
+		contentPane.add(btnEditar);
+		btnEditar.setBounds(358, 383, 89, 23);
+		contentPane.add(btnEditar);
+		
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setBounds(253, 383, 89, 23);
+		contentPane.add(btnExcluir);
 		
 	}
 }

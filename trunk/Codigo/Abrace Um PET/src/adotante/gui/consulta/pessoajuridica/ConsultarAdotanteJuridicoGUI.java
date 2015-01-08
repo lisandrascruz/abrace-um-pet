@@ -274,6 +274,15 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				camposEditaveis(btnCancelar, btnEditar);
+				
+			}
+			/**
+			 * DEIXA OS CAMPOS EDITAVEIS, OCULTA ALGUNS BOTOES E ATIVA OUTROS.
+			 * @param btnCancelar
+			 * @param btnEditar
+			 */
+			private void camposEditaveis(JButton btnCancelar, JButton btnEditar) {
 				textNomeJuridico.setEditable(true);
 				textEmail.setEditable(true);
 				textRua.setEditable(true);
@@ -306,7 +315,6 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 				});
 				btnCancelar2.setBounds(483, 382, 89, 23);
 				contentPane.add(btnCancelar2);
-				
 			}
 			
 		});

@@ -3,6 +3,7 @@ package animal.gui.consultar;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,10 +11,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
 import animal.dominio.Animal;
+import animal.gui.AnimalGUI;
 import animal.service.AnimalService;
 
-public class ConsultarAnimalRGAFGUI extends JFrame {
+public class ConsultarAnimalRGAGUI extends JFrame {
 	
 	/**
 	 * 
@@ -25,7 +28,7 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConsultarAnimalRGAFGUI(){
+	public ConsultarAnimalRGAGUI(){
 		setTitle("Consulta de Animal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 455);
@@ -43,11 +46,11 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRga.setBounds(28, 202, 46, 14);
+		lblRga.setBounds(152, 218, 46, 14);
 		contentPane.add(lblRga);
 		
 		textFieldRGA = new JTextField();
-		textFieldRGA.setBounds(84, 200, 188, 20);
+		textFieldRGA.setBounds(190, 216, 188, 20);
 		contentPane.add(textFieldRGA);
 		textFieldRGA.setColumns(10);
 		
@@ -68,7 +71,7 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 					consulta.textFieldNome.setText(animal.getNome());
 					consulta.textFieldRGA.setText(animal.getRga());
 					consulta.texTemperamento.setText(animal.getTemperamento());
-					consulta.textObservacao.setText(animal.getObservacao());
+					consulta.textField.setText(animal.getObservacao());
 					consulta.formattedTextFieldDataNascimento.setText(animal.getDataNascimento());
 					consulta.formattedTextFieldDataResgate.setText(animal.getDataResgate());
 					consulta.formattedTextFieldPeso.setText(String.valueOf(animal.getPeso()));
@@ -78,7 +81,7 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 					consulta.comboBoxGenero.setSelectedItem(animal.getGenero());
 					consulta.comboBoxTipo.setSelectedItem(animal.getTipo());
 					consulta.comboBoxVacinado.setSelectedItem(animal.getVacinado());
-					consulta.an = animal;
+					consulta.animal = animal;
 					if(animal.getId() != 0){
 						consulta.setVisible(true);
 						dispose();
@@ -92,7 +95,18 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 				
 			}
 		});
-		btnConsultarRGA.setBounds(183, 263, 89, 23);
+		btnConsultarRGA.setBounds(388, 215, 89, 23);
 		contentPane.add(btnConsultarRGA);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AnimalGUI a = new AnimalGUI();
+				a.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(530, 383, 89, 23);
+		contentPane.add(btnVoltar);
 	}
 }

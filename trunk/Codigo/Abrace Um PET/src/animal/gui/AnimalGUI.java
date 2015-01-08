@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import usuario.gui.TelaInicialGUI;
 import animal.gui.cadastrar.CadastroAnimalGUI;
-import animal.gui.consultar.ConsultarAnimalRGAFGUI;
+import animal.gui.consultar.ConsultarAnimalRGAGUI;
 
 public class AnimalGUI extends JFrame {
 	
@@ -81,7 +81,7 @@ public class AnimalGUI extends JFrame {
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarAnimalRGAFGUI consultar = new ConsultarAnimalRGAFGUI();
+				ConsultarAnimalRGAGUI consultar = new ConsultarAnimalRGAGUI();
 				consultar.setVisible(true);
 				dispose();
 			}
