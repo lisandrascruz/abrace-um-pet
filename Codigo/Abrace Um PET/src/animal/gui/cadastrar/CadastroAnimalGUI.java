@@ -375,8 +375,6 @@ public class CadastroAnimalGUI extends JFrame {
 		ItemListener itemListener = new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {
 		        int state = itemEvent.getStateChange();
-		        System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
-		        System.out.println("Item: " + itemEvent.getItem());
 		        ItemSelectable is = itemEvent.getItemSelectable();
 		        DefaultComboBoxModel<String> modelRacas = null;
 		        if(itemEvent.getItem().equals("Gato")){
