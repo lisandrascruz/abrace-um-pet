@@ -21,6 +21,7 @@ import animal.gui.consultar.ConsultarAnimalRGAGUI;
 import animal.raca.dominio.Raca;
 import animal.raca.gui.RacaGUI;
 import animal.raca.service.RacaService;
+import animal.service.AnimalService;
 import animal.service.Validacoes;
 
 public class ConsultaRacaGUI extends JFrame {
@@ -36,10 +37,10 @@ public class ConsultaRacaGUI extends JFrame {
 	protected JFormattedTextField	formattedTextFieldTamanhoMaximo;
 	protected JFormattedTextField	formattedTextFieldTamanhoMinimo;
 	protected JFormattedTextField	formattedTextFieldExpectativaDeVida;
-	protected JComboBox				comboBoxTipo;
+	protected JComboBox < ?>		comboBoxTipo;
 	protected JEditorPane			editorPane;
-	private JButton btnEditar;
-	private JButton btnExcluir;
+	private JButton					btnEditar;
+	private JButton					btnExcluir;
 	
 	/**
 	 * Create the frame.
@@ -167,6 +168,7 @@ public class ConsultaRacaGUI extends JFrame {
 				
 				camposEditaveis(btnCancelar);
 			}
+			
 			/**
 			 * DEIXA OS CAMPOS EDITAVEIS, OCULTA ALGUNS BOTOES E ATIVA OUTROS.
 			 * @param btnCancelar
@@ -180,7 +182,35 @@ public class ConsultaRacaGUI extends JFrame {
 				formattedTextFieldTamanhoMinimo.setEditable(true);
 				
 				JButton btnSalvar = new JButton("Salvar");
-				btnSalvar.setBounds(431, 382, 89, 23);
+				btnSalvar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						RacaService rs = new RacaService();
+						try {
+							setarValores();
+							rs.edicaoRaca(raca);
+							JOptionPane.showMessageDialog(null, "Raça atualizada com sucesso");
+							ConsultaRacaNomeGUI consultar = new ConsultaRacaNomeGUI();
+							consultar.setVisible(true);
+							dispose();
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, ex, "Erro ao atualizar raça.", 0);
+						}
+					}
+					/**
+					 * MÉTODO PARA SETAR OS VALORES ATUALIZADOS
+					 */
+					private void setarValores() {
+						raca.setNome(textFieldNome.getText());
+						raca.setTipo(comboBoxTipo.getSelectedItem().toString());
+						raca.setOrigem(textFieldOrigem.getText());
+						raca.setTamanhoMax(Double.parseDouble(formattedTextFieldTamanhoMaximo.getText()));
+						raca.setTamanhoMin(Double.parseDouble(formattedTextFieldTamanhoMinimo.getText()));
+						raca.setExpectativaVida(Integer.parseInt(formattedTextFieldExpectativaDeVida.getText()));
+						raca.setTemperamento(editorPane.getText());
+					}
+					
+				});
+				btnSalvar.setBounds(358, 383, 89, 23);
 				contentPane.add(btnSalvar);
 				
 				btnEditar.setVisible(false);
@@ -196,13 +226,11 @@ public class ConsultaRacaGUI extends JFrame {
 					}
 					
 				});
-				btnCancelar2.setBounds(530, 382, 89, 23);
+				btnCancelar2.setBounds(462, 383, 89, 23);
 				contentPane.add(btnCancelar2);
 			}
 			
 		});
-		btnEditar.setBounds(219, 382, 89, 23);
-		contentPane.add(btnEditar);
 		btnEditar.setBounds(358, 383, 89, 23);
 		contentPane.add(btnEditar);
 		

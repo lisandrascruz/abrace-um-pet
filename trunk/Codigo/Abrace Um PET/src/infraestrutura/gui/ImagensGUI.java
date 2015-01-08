@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 public class ImagensGUI {
 	public static void imagemLogin(JLabel label) {
 		try {
-			label.setIcon(new ImageIcon(new File("imagens/login.png").getCanonicalPath()));
+			label.setIcon(new ImageIcon(new File("imagens/11.png").getCanonicalPath()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

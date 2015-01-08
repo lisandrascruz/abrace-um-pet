@@ -48,17 +48,17 @@ public class LoginGUI extends JFrame {
 
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
-		lblLogin.setBounds(279, 88, 63, 17);
+		lblLogin.setBounds(37, 124, 63, 17);
 		contentPane.add(lblLogin);
 
 		textLogin = new JTextField();
-		textLogin.setBounds(379, 88, 199, 20);
+		textLogin.setBounds(110, 124, 199, 20);
 		contentPane.add(textLogin);
 		textLogin.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
-		lblSenha.setBounds(279, 165, 63, 17);
+		lblSenha.setBounds(37, 228, 63, 17);
 		contentPane.add(lblSenha);
 
 		JButton btnAcessar = new JButton("Acessar");
@@ -72,17 +72,8 @@ public class LoginGUI extends JFrame {
 				}
 			}
 		});
-		btnAcessar.setBounds(489, 216, 89, 23);
+		btnAcessar.setBounds(220, 296, 89, 23);
 		contentPane.add(btnAcessar);
-
-		JButton btnFechar = new JButton("Fechar");
-		btnFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnFechar.setBounds(489, 382, 89, 23);
-		contentPane.add(btnFechar);
 
 		JButton btnFaaSeuCadastro = new JButton("Fa\u00E7a seu cadastro");
 		btnFaaSeuCadastro.addActionListener(new ActionListener() {
@@ -92,11 +83,11 @@ public class LoginGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnFaaSeuCadastro.setBounds(335, 382, 144, 23);
+		btnFaaSeuCadastro.setBounds(376, 382, 144, 23);
 		contentPane.add(btnFaaSeuCadastro);
 
 		textSenha = new JPasswordField();
-		textSenha.setBounds(379, 165, 199, 20);
+		textSenha.setBounds(110, 228, 199, 20);
 		contentPane.add(textSenha);
 		
 		JButton button = new JButton("Sobre");
@@ -107,12 +98,12 @@ public class LoginGUI extends JFrame {
 				dispose();
 			}
 		});
-		button.setBounds(10, 382, 89, 23);
+		button.setBounds(530, 382, 89, 23);
 		contentPane.add(button);
 		
 		JLabel lblNewLabel = new JLabel("");
 		ImagensGUI.imagemLogin(lblNewLabel);
-		lblNewLabel.setBounds(10, 88, 359, 272);
+		lblNewLabel.setBounds(353, 73, 266, 271);
 		contentPane.add(lblNewLabel);
         panelStatus= new JTextPane();
 		panelStatus.setEditable(false);

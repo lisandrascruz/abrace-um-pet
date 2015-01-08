@@ -336,14 +336,6 @@ public class PessoaFisicaDAO {
 		
 	}
 	
-	public void editarPessoa() throws Exception {
-		Connection connection = Conexao.abrir();
-		PreparedStatement statementPessoaFisica = null;
-		ResultSet resultPessoaFisica = null;
-		String query = "UPDATE pessoafisica SET nome = ?, telefoneCelular = ?, telefoneFixo = ?, email = ?";
-		
-	}
-	
 	public void excluirPessoaFisica(PessoaFisica pessoaFisica) throws Exception {
 		excluindoEndereco(pessoaFisica.getPessoa().getEndereco());
 		excluindoAdotante(pessoaFisica.getPessoa());
@@ -444,24 +436,49 @@ public class PessoaFisicaDAO {
 		
 		try {
 			con = Conexao.abrir();
-			
 			int idPessoaFisica = pessoaFisica.getId();
-			
 			String query = "update pessoafisica set status = 0 where id = ?";
-			
 			preparedStatement = (PreparedStatement) con.prepareStatement(query,
 					Statement.RETURN_GENERATED_KEYS);
-			
 			preparedStatement.setInt(1, idPessoaFisica);
-			
 			preparedStatement.executeUpdate();
-			
 			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
 			throw new Exception("Erro ao cadastrar o pessoa", ex);
 		} finally {
 			Conexao.fechar(con, preparedStatement, generatedKeys);
+		}
+	}
+	/**
+	 * METODO RESPONSAVEL PELA ATUALIZAÇÃO DOS DADOS DE PESSOA FISICA
+	 * @param pessoaFisica
+	 * @throws Exception
+	 */
+	public void editarPessoaFisica(PessoaFisica pessoaFisica) throws Exception {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet generatedKeys = null;
+		con = Conexao.abrir();
+		
+		String queryAnimal = "UPDATE pessoafisica SET rg =?, cpf =?, genero =?, idPessoa=? WHERE id=?";
+		try {
+			
+			pst = (PreparedStatement) con.prepareStatement(queryAnimal,
+					Statement.RETURN_GENERATED_KEYS);
+			pst.setString(1, pessoaFisica.getRg());
+			pst.setString(2, pessoaFisica.getCpf());
+			pst.setString(3, pessoaFisica.getGenero());
+			pst.setInt(4, pessoaFisica.getPessoa().getId());
+			pst.setInt(5, pessoaFisica.getId());
+			pst.executeUpdate();
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao atualizar pessoa fisica", ex);
+		} finally {
+			Conexao.fechar(con, pst, generatedKeys);
 		}
 	}
 }

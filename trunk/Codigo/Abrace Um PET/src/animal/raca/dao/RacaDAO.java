@@ -94,7 +94,7 @@ public class RacaDAO {
 	 * @author Lisandra Cruz
 	 * @param raca
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean adicionarRaca(Raca raca) throws Exception {
 		PreparedStatement preparedStatement = null;
@@ -116,6 +116,7 @@ public class RacaDAO {
 	
 	/**
 	 * CONSULTA SE RACA EXISTE E RETORNA TRUE OU FALSE
+	 * 
 	 * @param nome
 	 * @return
 	 */
@@ -125,7 +126,8 @@ public class RacaDAO {
 	}
 	
 	/**
-	 * CONSULTA RACA 
+	 * CONSULTA RACA
+	 * 
 	 * @param nome
 	 * @return
 	 * @throws Exception
@@ -145,7 +147,7 @@ public class RacaDAO {
 			
 			Raca raca = new Raca();
 			
-			if(resultAnimal.next()){
+			if (resultAnimal.next()) {
 				raca.setId(resultAnimal.getInt("id"));
 				raca.setNome(resultAnimal.getString("nome"));
 				raca.setOrigem(resultAnimal.getString("origem"));
@@ -155,11 +157,48 @@ public class RacaDAO {
 				raca.setExpectativaVida(resultAnimal.getInt("expectativaVida"));
 			}
 			return raca;
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new Exception("Raça não pôde ser consultada.", e);
-		}
-		finally {
+		} finally {
 			Conexao.fechar(connection, statementAnimal, resultAnimal);
+		}
+		
+	}
+	
+	/**
+	 * METODO RESPONSAVEL PELA ATUALIZAÇÃO DOS DADOS DE RAÇA
+	 * 
+	 * @param raca
+	 * @throws Exception
+	 */
+	public void editarRaca(Raca raca) throws Exception {
+		
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet generatedKeys = null;
+		con = Conexao.abrir();
+		
+		String queryAnimal = "UPDATE raca SET nome =?, tipo =?, origem =?, tamanhoMax=?, tamanhoMin=?, "
+				+ "expectativaVida=?, temperamento=? WHERE id=?";
+		try {
+			
+			pst = (PreparedStatement) con.prepareStatement(queryAnimal,
+					Statement.RETURN_GENERATED_KEYS);
+			pst.setString(1, raca.getNome());
+			pst.setString(2, raca.getTipo());
+			pst.setString(3, raca.getOrigem());
+			pst.setDouble(4, raca.getTamanhoMax());
+			pst.setDouble(5, raca.getTamanhoMin());
+			pst.setInt(6, raca.getExpectativaVida());
+			pst.setString(7, raca.getTemperamento());
+			pst.executeUpdate();
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao atualizar raça", ex);
+		} finally {
+			Conexao.fechar(con, pst, generatedKeys);
 		}
 		
 	}
