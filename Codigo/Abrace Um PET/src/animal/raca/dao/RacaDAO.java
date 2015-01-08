@@ -33,7 +33,6 @@ public class RacaDAO {
 			raca.setId(resultSet.getInt("id"));
 			raca.setNome(resultSet.getString("nome"));
 			raca.setOrigem(resultSet.getString("origem"));
-			raca.setTipo(resultSet.getString("tipo"));
 			raca.setTamanhoMax(resultSet.getInt("tamanhoMax"));
 			raca.setTamanhoMin(resultSet.getInt("tamanhoMin"));
 			raca.setExpectativaVida(resultSet.getInt("expectativaVida"));
