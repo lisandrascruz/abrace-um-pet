@@ -287,6 +287,15 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mostrarCampos(btnCancelar, btnEditar);
+				
+			}
+			/**
+			 * DEIXA OS CAMPOS EDITAVEIS, OCULTA ALGUNS BOTOES E ATIVA OUTROS.
+			 * @param btnCancelar
+			 * @param btnEditar
+			 */
+			private void mostrarCampos(JButton btnCancelar, JButton btnEditar) {
 				textNomeFisico.setEditable(true);
 				textEmail.setEditable(true);
 				textRG.setEditable(true);
@@ -319,7 +328,6 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 				});
 				btnCancelar2.setBounds(483, 382, 89, 23);
 				contentPane.add(btnCancelar2);
-				
 			}
 		});
 		btnEditar.setBounds(373, 382, 89, 23);

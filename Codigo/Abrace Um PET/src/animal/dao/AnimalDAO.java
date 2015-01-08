@@ -18,9 +18,9 @@ public class AnimalDAO {
 			int idAnimal = inserirAnimal(animal);
 			int idImagem = inserirImagem(animal);
 			inserirImagemAnimal(idAnimal, idImagem);
-		
+			
 			return true;
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
 	}
@@ -59,10 +59,9 @@ public class AnimalDAO {
 				animal.setDataResgate(resultAnimal.getString("dataResgate"));
 			}
 			return animal;
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new Exception("Animal não pôde ser encontrado.", e);
-		}			
-		finally {
+		} finally {
 			Conexao.fechar(connection, statementAnimal, resultAnimal);
 		}
 	}
@@ -113,13 +112,12 @@ public class AnimalDAO {
 		}
 		return id;
 	}
-
-	public int inserirImagem(Animal animal) throws Exception{
+	
+	public int inserirImagem(Animal animal) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
 		int id = 0;
-		
 		
 		try {
 			con = Conexao.abrir();
@@ -129,7 +127,8 @@ public class AnimalDAO {
 			
 			String query = "insert into imagem (path, status) values (?, ?)";
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, path);
 			preparedStatement.setInt(2, status);
@@ -145,20 +144,19 @@ public class AnimalDAO {
 			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
-			throw new Exception("Erro ao cadastrar a imagem",ex);
+			throw new Exception("Erro ao cadastrar a imagem", ex);
 		} finally {
-			Conexao.fechar(con,preparedStatement,generatedKeys);
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 		
 	}
-
-	public int inserirImagemAnimal(int idAnimal, int idImagem) throws Exception{
+	
+	public int inserirImagemAnimal(int idAnimal, int idImagem) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
 		int id = 0;
-		
 		
 		try {
 			con = Conexao.abrir();
@@ -167,7 +165,8 @@ public class AnimalDAO {
 			
 			String query = "insert into imagemanimal (idimagem, idanimal, status) values (?, ?, ?)";
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setInt(1, idImagem);
 			preparedStatement.setInt(2, idAnimal);
@@ -184,22 +183,22 @@ public class AnimalDAO {
 			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
-			throw new Exception("Erro ao relacionar a imagem ao animal",ex);
+			throw new Exception("Erro ao relacionar a imagem ao animal", ex);
 		} finally {
-			Conexao.fechar(con,preparedStatement,generatedKeys);
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 		return id;
 		
 	}
 	
-	public void excluirAnimal(Animal animal) throws Exception{
+	public void excluirAnimal(Animal animal) throws Exception {
 		ImagemAnimal imagemAnimal = consultaImagemAnimal(animal);
 		excluindoImagem(imagemAnimal.getIdImagem());
 		excluindoImagemAnimal(imagemAnimal.getId());
 		excluindoAnimal(animal);
 	}
 	
-	public void excluindoImagemAnimal(int idImagemAnimal) throws Exception{
+	public void excluindoImagemAnimal(int idImagemAnimal) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
@@ -209,23 +208,23 @@ public class AnimalDAO {
 			
 			String query = "update imagemanimal set status = 0 where id = ?";
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setInt(1, idImagemAnimal);
-
 			
 			preparedStatement.executeUpdate();
 			
 			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
-			throw new Exception("Erro ao excluir relação imagem animal",ex);
+			throw new Exception("Erro ao excluir relação imagem animal", ex);
 		} finally {
-			Conexao.fechar(con,preparedStatement,generatedKeys);
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 	}
 	
-	public void excluindoImagem(int idImagem) throws Exception{
+	public void excluindoImagem(int idImagem) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
@@ -235,54 +234,46 @@ public class AnimalDAO {
 			
 			String query = "update imagem set status = 0 where id = ?";
 			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setInt(1, idImagem);
-
 			
 			preparedStatement.executeUpdate();
-			
 			
 			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
-			throw new Exception("Erro ao excluir imagem",ex);
+			throw new Exception("Erro ao excluir imagem", ex);
 		} finally {
-			Conexao.fechar(con,preparedStatement,generatedKeys);
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 	}
 	
-	public void excluindoAnimal(Animal animal) throws Exception{
+	public void excluindoAnimal(Animal animal) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
 		
 		try {
 			con = Conexao.abrir();
-			
 			int idAnimal = animal.getId();
-
-			
 			String query = "update animal set status = 0 where id = ?";
-			
-			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, idAnimal);
-
-			
 			preparedStatement.executeUpdate();
-			
 			
 			con.commit();
 		} catch (Exception ex) {
 			con.rollback();
-			throw new Exception("Erro ao excluir animal",ex);
+			throw new Exception("Erro ao excluir animal", ex);
 		} finally {
-			Conexao.fechar(con,preparedStatement,generatedKeys);
+			Conexao.fechar(con, preparedStatement, generatedKeys);
 		}
 	}
-
-	public ImagemAnimal consultaImagemAnimal(Animal animal) throws Exception{
+	
+	public ImagemAnimal consultaImagemAnimal(Animal animal) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
@@ -310,11 +301,54 @@ public class AnimalDAO {
 				
 			}
 			return imagemAnimal;
-		} catch(Exception e){
+		} catch (Exception e) {
 			throw new Exception("Relação imagem animal não pôde ser encontrada.", e);
-		}			
-		finally {
-			Conexao.fechar(con,preparedStatement,resultset);
+		} finally {
+			Conexao.fechar(con, preparedStatement, resultset);
 		}
+	}
+	/**
+	 * METODO RESPONSAVEL PELA ATUALIZAÇÃO DOS DADOS DE ANIMAIS
+	 * @param animal
+	 * @throws Exception
+	 */
+	public void editarAnimal(Animal animal) throws Exception {
+		
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet generatedKeys = null;
+		con = Conexao.abrir();
+		
+		String queryAnimal = "UPDATE animal SET nome =?, tipo =?, rga =?, dataNascimento=?, idRaca=?, genero=?, deficiencia=? ,vacinado =?,"
+				+ "castrado =?, tamanho =?, peso =?, temperamento =?, observacao =?, dataResgate=? WHERE id=?";
+		try {
+			
+			pst = (PreparedStatement) con.prepareStatement(queryAnimal,
+					Statement.RETURN_GENERATED_KEYS);
+			pst.setString(1, animal.getNome());
+			pst.setString(2, animal.getTipo());
+			pst.setString(3, animal.getRga());
+			pst.setString(4, animal.getDataNascimento());
+			pst.setInt(5, animal.getIdRaca());
+			pst.setString(6, animal.getGenero());
+			pst.setString(7, animal.getDeficiencia());
+			pst.setString(8, animal.getVacinado());
+			pst.setString(9, animal.getCastrado());
+			pst.setDouble(10, animal.getTamanho());
+			pst.setDouble(11, animal.getPeso());
+			pst.setString(12, animal.getTemperamento());
+			pst.setString(13, animal.getObservacao());
+			pst.setString(14, animal.getDataResgate());
+			pst.setInt(15, animal.getId());
+			pst.executeUpdate();
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao atualizar animal", ex);
+		} finally {
+			Conexao.fechar(con, pst, generatedKeys);
+		}
+		
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
+
 import animal.dominio.Animal;
 import animal.gui.AnimalGUI;
 import animal.service.AnimalService;
-
 
 public class ConsultarAnimalGUI extends JFrame {
 	/**
@@ -29,8 +30,6 @@ public class ConsultarAnimalGUI extends JFrame {
 	protected JTextField			textFieldNome;
 	protected JTextField			textFieldRGA;
 	protected JTextField			texTemperamento;
-	protected JTextField			textObservacao;
-	protected Animal				animal;
 	protected JComboBox < String>	comboBoxCastrado;
 	protected JComboBox < String>	comboBoxTipo;
 	protected JComboBox < String>	comboBoxGenero;
@@ -40,10 +39,12 @@ public class ConsultarAnimalGUI extends JFrame {
 	protected JFormattedTextField	formattedTextFieldTamanho;
 	protected JFormattedTextField	formattedTextFieldPeso;
 	protected JFormattedTextField	formattedTextFieldDataNascimento;
-	protected Animal an;
+	protected Animal				animal;
 	protected JButton				btnMidia;
 	protected JButton				btnExcluir;
-	protected JButton btnCancelar;
+	protected JButton				btnCancelar;
+	protected JTextField			textField;
+	
 	/**
 	 * Create the frame.
 	 * 
@@ -78,7 +79,6 @@ public class ConsultarAnimalGUI extends JFrame {
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
 		lblRga.setBounds(375, 79, 38, 14);
 		contentPane.add(lblRga);
-		
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setBounds(10, 122, 46, 14);
@@ -165,8 +165,7 @@ public class ConsultarAnimalGUI extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		formattedTextFieldDataNascimento = new JFormattedTextField(
-				mascaraDataNascimento);
+		formattedTextFieldDataNascimento = new JFormattedTextField(mascaraDataNascimento);
 		formattedTextFieldDataNascimento.setEditable(false);
 		formattedTextFieldDataNascimento.setBounds(350, 205, 63, 20);
 		contentPane.add(formattedTextFieldDataNascimento);
@@ -253,12 +252,6 @@ public class ConsultarAnimalGUI extends JFrame {
 		contentPane.add(texTemperamento);
 		texTemperamento.setColumns(10);
 		
-		textObservacao = new JTextField();
-		textObservacao.setEditable(false);
-		textObservacao.setBounds(116, 290, 503, 20);
-		contentPane.add(textObservacao);
-		textObservacao.setColumns(10);
-		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -266,7 +259,7 @@ public class ConsultarAnimalGUI extends JFrame {
 				animalGUI.setVisible(true);
 				dispose();
 			}
-
+			
 		});
 		btnCancelar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnCancelar);
@@ -275,18 +268,17 @@ public class ConsultarAnimalGUI extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				camposEditaveis();
-								
 				
 			}
-
+			
 			/**
-			 * RESPONSAVEL POR DEIXAR TODOS OS CAMPOS EDITÁVEIS
+			 * DEIXA OS CAMPOS EDITAVEIS, OCULTA ALGUNS BOTOES E ATIVA OUTROS.
 			 */
 			public void camposEditaveis() {
 				texTemperamento.setEditable(true);
 				textFieldNome.setEditable(true);
 				textFieldRGA.setEditable(true);
-				textObservacao.setEditable(true);
+				textField.setEditable(true);
 				formattedTextFieldDataNascimento.setEditable(true);
 				formattedTextFieldDataResgate.setEditable(true);
 				formattedTextFieldPeso.setEditable(true);
@@ -297,7 +289,46 @@ public class ConsultarAnimalGUI extends JFrame {
 				comboBoxTipo.setEnabled(true);
 				comboBoxVacinado.setEnabled(true);
 				
+				
+				
 				JButton btnSalvar = new JButton("Salvar");
+				btnSalvar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						AnimalService animalService = new AnimalService();
+						try {
+							setarValores();
+							animalService.edicaoAnimal(animal);
+							JOptionPane.showMessageDialog(null, "Animal atualizado com sucesso");
+							ConsultarAnimalRGAGUI consultar = new ConsultarAnimalRGAGUI();
+							consultar.setVisible(true);
+							dispose();
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, ex, "Erro ao atualizar animal", 0);
+						}
+					}
+					/**
+					 * MÉTODO PARA SETAR OS VALORES ATUALIZADOS
+					 */
+					private void setarValores() {
+						animal.setNome(textFieldNome.getText());
+						animal.setTipo(comboBoxTipo.getSelectedItem().toString());
+
+						animal.setRga(textFieldRGA.getText());
+						animal.setDataNascimento(formattedTextFieldDataNascimento.getText());
+						animal.setGenero(comboBoxGenero.getSelectedItem().toString());
+						
+						animal.setDeficiencia(comboBoxDeficiencia.getSelectedItem().toString());
+						animal.setVacinado(comboBoxVacinado.getSelectedItem().toString());
+						animal.setCastrado(comboBoxCastrado.getSelectedItem().toString());
+
+						animal.setTamanho(Double.parseDouble(formattedTextFieldTamanho.getText()));
+						animal.setPeso(Double.parseDouble(formattedTextFieldPeso.getText()));
+						animal.setTemperamento(texTemperamento.getText());
+						animal.setObservacao(textField.getText());
+						animal.setDataResgate(formattedTextFieldDataResgate.getText());
+					}
+					
+				});
 				btnSalvar.setBounds(431, 382, 89, 23);
 				contentPane.add(btnSalvar);
 				
@@ -309,16 +340,16 @@ public class ConsultarAnimalGUI extends JFrame {
 				JButton btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ConsultarAnimalRGAFGUI c = new ConsultarAnimalRGAFGUI();
+						ConsultarAnimalRGAGUI c = new ConsultarAnimalRGAGUI();
 						c.setVisible(true);
 						dispose();
 					}
-
+					
 				});
 				btnCancelar.setBounds(530, 382, 89, 23);
 				contentPane.add(btnCancelar);
 			}
-								
+			
 		});
 		btnEditar.setBounds(429, 382, 89, 23);
 		contentPane.add(btnEditar);
@@ -326,13 +357,13 @@ public class ConsultarAnimalGUI extends JFrame {
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AnimalService animalService =new AnimalService();
-				try{
-					animalService.excluirAnimal(an);
+				AnimalService animalService = new AnimalService();
+				try {
+					animalService.excluirAnimal(animal);
 					JOptionPane.showMessageDialog(null, "Animal excluido com sucesso");
-					ConsultarAnimalRGAFGUI consultar = new ConsultarAnimalRGAFGUI();
+					ConsultarAnimalRGAGUI consultar = new ConsultarAnimalRGAGUI();
 					consultar.setVisible(true);
-				}catch (Exception ex){
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
 			}
@@ -343,6 +374,12 @@ public class ConsultarAnimalGUI extends JFrame {
 		btnMidia = new JButton("M\u00EDdia");
 		btnMidia.setBounds(225, 382, 89, 23);
 		contentPane.add(btnMidia);
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(116, 290, 503, 64);
+		contentPane.add(textField);
+		textField.setColumns(10);
 		
 	}
 }

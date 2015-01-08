@@ -87,7 +87,6 @@ public class UsuarioDAO {
 		Connection connection = Conexao.abrir();
 		PreparedStatement statement = null;
 		ResultSet resultAdotante = null;
-        int id =-1;
 		String login = usuario.getLogin();
 		String senha = usuario.getSenha();
 
