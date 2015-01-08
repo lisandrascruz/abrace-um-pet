@@ -47,7 +47,7 @@ public class AdocaoPessoaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButtonPessoaFisica.setBounds(57, 143, 279, 39);
+		btnNewButtonPessoaFisica.setBounds(172, 168, 279, 39);
 		contentPane.add(btnNewButtonPessoaFisica);
 		
 		JButton btnNewButtonPessoaJuridica = new JButton("Pessoa Juridica");
@@ -58,7 +58,7 @@ public class AdocaoPessoaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButtonPessoaJuridica.setBounds(57, 237, 279, 39);
+		btnNewButtonPessoaJuridica.setBounds(172, 236, 279, 39);
 		contentPane.add(btnNewButtonPessoaJuridica);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -69,13 +69,8 @@ public class AdocaoPessoaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(247, 382, 89, 23);
+		btnVoltar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVoltar);
-		
-		JLabel lblNewLabel = new JLabel("");
-		ImagensGUI.imagemAdocao(lblNewLabel);
-		lblNewLabel.setBounds(373, 105, 224, 311);
-		contentPane.add(lblNewLabel);
 
 	}
 	

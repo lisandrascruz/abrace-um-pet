@@ -57,7 +57,7 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("CPF:");
 		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblNewLabel.setBounds(28, 134, 46, 14);
+		lblNewLabel.setBounds(118, 170, 46, 14);
 		contentPane.add(lblNewLabel);
 		
 		MaskFormatter mascaraCpf = null;
@@ -69,16 +69,16 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Digite um CPF válido!" + e1.getMessage(), "ERROR", 0);
 		}
 		JFormattedTextField jFormattedTextCpf = new JFormattedTextField(mascaraCpf);
-		jFormattedTextCpf.setBounds(84, 132, 188, 20);
+		jFormattedTextCpf.setBounds(174, 168, 188, 20);
 		contentPane.add(jFormattedTextCpf);
 		
 		JLabel lblNewLabel_1 = new JLabel("RGA:");
 		lblNewLabel_1.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(28, 264, 46, 14);
+		lblNewLabel_1.setBounds(118, 234, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		textRga = new JTextField();
-		textRga.setBounds(84, 262, 191, 20);
+		textRga.setBounds(174, 232, 191, 20);
 		contentPane.add(textRga);
 		textRga.setColumns(10);
 		
@@ -95,7 +95,7 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				}
 			}
 		});
-		btnConsultarCpf.setBounds(282, 131, 89, 23);
+		btnConsultarCpf.setBounds(372, 167, 89, 23);
 		contentPane.add(btnConsultarCpf);
 		
 		JButton btnConsultarRga = new JButton("Consultar");
@@ -111,7 +111,7 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				lblMostrarAnimal.setText(animal.getNome());
 			}
 		});
-		btnConsultarRga.setBounds(282, 261, 89, 23);
+		btnConsultarRga.setBounds(372, 231, 89, 23);
 		contentPane.add(btnConsultarRga);
 		
 		JButton btnAdotar = new JButton("Adotar");
@@ -170,17 +170,17 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnAdotar.setBounds(183, 382, 89, 23);
+		btnAdotar.setBounds(372, 290, 89, 23);
 		contentPane.add(btnAdotar);
 		
 		lblMostrarNome = new JLabel("");
 		lblMostrarNome.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblMostrarNome.setBounds(84, 163, 193, 23);
+		lblMostrarNome.setBounds(174, 198, 193, 23);
 		contentPane.add(lblMostrarNome);
 		
 		lblMostrarAnimal = new JLabel("");
 		lblMostrarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
-		lblMostrarAnimal.setBounds(84, 293, 193, 29);
+		lblMostrarAnimal.setBounds(174, 263, 193, 23);
 		contentPane.add(lblMostrarAnimal);
 		
 		JLabel lblAdooDePessoa = new JLabel("Ado\u00E7\u00E3o de Pessoa Fisica");
@@ -196,13 +196,8 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(282, 382, 89, 23);
+		btnVoltar.setBounds(530, 382, 89, 23);
 		contentPane.add(btnVoltar);
-		
-		JLabel label = new JLabel("");
-		ImagensGUI.imagemAdocaoFisico(label);
-		label.setBounds(384, 62, 235, 343);
-		contentPane.add(label);
 		
 		
 	}
