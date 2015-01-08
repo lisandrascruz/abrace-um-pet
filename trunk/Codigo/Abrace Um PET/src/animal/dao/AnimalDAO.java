@@ -53,6 +53,7 @@ public class AnimalDAO {
 			Conexao.fechar(connection, statementAnimal, resultAnimal);
 		}
 	}
+	
 	public int inserirAnimal(Animal animal) throws Exception {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;

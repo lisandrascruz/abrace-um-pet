@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import adotante.gui.consultaGUI.ConsultarAdotanteJuridicoGUI;
+import adotante.gui.consulta.pessoajuridica.ConsultarAdotanteJuridicoGUI;
 import animal.dominio.Animal;
 import animal.gui.AnimalGUI;
 import animal.service.AnimalService;
@@ -99,7 +99,7 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AnimalGUI a = new AnimalGUI();
-				setVisible(true);
+				a.setVisible(true);
 				dispose();
 			}
 		});

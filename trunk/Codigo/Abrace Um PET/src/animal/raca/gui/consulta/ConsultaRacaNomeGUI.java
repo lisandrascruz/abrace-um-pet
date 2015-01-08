@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import jdk.nashorn.internal.scripts.JO;
 import animal.raca.dominio.Raca;
+import animal.raca.gui.RacaGUI;
 import animal.raca.service.RacaService;
 
 public class ConsultaRacaNomeGUI extends JFrame {
@@ -52,20 +53,26 @@ public class ConsultaRacaNomeGUI extends JFrame {
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaRacaGUI consulta = new ConsultaRacaGUI();
-				if(consultarRacaNome(consulta)){
+				if (consultarRacaNome(consulta)==true) {
 					consulta.setVisible(true);
 					dispose();
 				}
-
+				
 			}
 			
+			/**
+			 * SETA NA TELA OS VALORES EM SEUS REESPECTIVOS CAMPOS
+			 * 
+			 * @param consulta
+			 * @return
+			 */
 			public boolean consultarRacaNome(ConsultaRacaGUI consulta) {
-				boolean valido = false;				
+				boolean cond = false;
 				RacaService rs = new RacaService();
 				Raca raca = new Raca();
 				
 				try {
-					raca = rs.consultarRaca(lblNome.getText());
+					raca = rs.consultarRaca(lblNome.toString());
 					
 					consulta.textFieldNome.setText(raca.getNome());
 					consulta.textFieldOrigem.setText(raca.getOrigem());
@@ -77,16 +84,26 @@ public class ConsultaRacaNomeGUI extends JFrame {
 							.getTamanhoMin()));
 					consulta.comboBoxTipo.setSelectedItem(raca.getTipo());
 					consulta.editorPane.setText(raca.getTemperamento());
-					valido = true;
+					cond = true;
 				} catch (Exception e) {
-					JOptionPane.showConfirmDialog(null, "Raça não encontrada", "ERRO", 0);
+					JOptionPane.showMessageDialog(null, "Raça não encontrada", "ERRO", 0);
 				}
-				return valido;
-				
+				return cond;
 			}
 			
 		});
-		btnConsultar.setBounds(183, 262, 89, 23);
+		btnConsultar.setBounds(183, 242, 89, 23);
 		contentPane.add(btnConsultar);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RacaGUI raca = new RacaGUI();
+				raca.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(530, 382, 89, 23);
+		contentPane.add(btnVoltar);
 	}
 }
