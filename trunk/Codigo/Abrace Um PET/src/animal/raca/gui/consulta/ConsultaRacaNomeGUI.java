@@ -72,7 +72,7 @@ public class ConsultaRacaNomeGUI extends JFrame {
 				Raca raca = new Raca();
 				
 				try {
-					raca = rs.consultarRaca(lblNome.toString());
+					raca = rs.consultarRaca(lblNome.getText());
 					
 					consulta.textFieldNome.setText(raca.getNome());
 					consulta.textFieldOrigem.setText(raca.getOrigem());

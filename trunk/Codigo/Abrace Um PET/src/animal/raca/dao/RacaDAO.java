@@ -136,8 +136,8 @@ public class RacaDAO {
 		ResultSet resultAnimal = null;
 		
 		try {
-			String queryRaca = "SELECT raca.nome, raca.origem, raca.tamanhoMax, raca.tamanhoMin, "
-					+ "raca.expectativaVida, raca.temperamento, raca.tipo FROM raca as a WHERE nome = ?";
+			String queryRaca = "SELECT a.nome, a.origem, a.tamanhoMax, a.tamanhoMin, "
+					+ "a.expectativaVida, a.temperamento, a.tipo FROM raca as a WHERE a.nome = ?";
 			
 			statementAnimal = connection.prepareStatement(queryRaca);
 			statementAnimal.setString(1, nome);
