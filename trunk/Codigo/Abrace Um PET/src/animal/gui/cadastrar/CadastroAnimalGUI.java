@@ -3,6 +3,7 @@ package animal.gui.cadastrar;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.ItemSelectable;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -282,21 +283,18 @@ public class CadastroAnimalGUI extends JFrame {
 				animal.setTemperamento(texTemperamento.getText());
 				animal.setObservacao(textObservacao.getText());
 				animal.setDataResgate(formattedTextFieldDataResgate.getText());
-					
+				animal.setImagem(textImagePath.getText());	
 					try {
 						if (animalService.validarCadastroAnimal(textFieldRGA.getText())) {
-							try {
-								if (animalService.adicionarAnimal(animal)) {
-								JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
+								try {
+									animalService.adicionarAnimal(animal);
+									JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso");
 									TelaInicialGUI telaInicialGui = new TelaInicialGUI();
 									telaInicialGui.setVisible(true);
 									dispose();
-								} else {
-									JOptionPane.showMessageDialog(null, "O cadastro não pode ser realizado, tente novamente!", "ERROR", 0);
+								} catch (Exception ex)  {
+									JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 									
-								}
-							} catch (Exception e) {
-								JOptionPane.showConfirmDialog(null, "ERROR");
 							}
 						}
 					} catch (Exception e) {
@@ -356,7 +354,9 @@ public class CadastroAnimalGUI extends JFrame {
 				String filename = f.getAbsolutePath();
 				textImagePath.setText(filename);
 				ImageIcon img = new ImageIcon(filename);
-				lblImagem.setIcon(img);	
+				lblImagem.setIcon(new ImageIcon(img.getImage().getScaledInstance(lblImagem.getWidth(), 
+						lblImagem.getHeight(), Image.SCALE_DEFAULT)));	
+				lblImagem.repaint();  
 			}
 		});
 		btnProcurar.setBounds(250, 332, 89, 23);

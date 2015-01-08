@@ -28,7 +28,6 @@ public class PessoaJuridicaService {
 	 * @throws Exception
 	 */
 	public PessoaJuridica consultarPessoaJuridica(String cnpj) throws Exception{
-		PessoaJuridica pessoaJuridica = new PessoaJuridica();
 		PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		return pessoaJuridicaDAO.consultarPessoaJuridica(cnpj);
 	}

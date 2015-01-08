@@ -4,21 +4,21 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
 import animal.dominio.Animal;
 import animal.gui.AnimalGUI;
-import javax.swing.JPasswordField;
+import animal.service.AnimalService;
+
 
 public class ConsultarAnimalGUI extends JFrame {
 	/**
@@ -40,6 +40,7 @@ public class ConsultarAnimalGUI extends JFrame {
 	protected JFormattedTextField	formattedTextFieldTamanho;
 	protected JFormattedTextField	formattedTextFieldPeso;
 	protected JFormattedTextField	formattedTextFieldDataNascimento;
+	protected Animal an;
 	protected JButton				btnMidia;
 	protected JButton				btnExcluir;
 	protected JButton btnCancelar;
@@ -323,6 +324,19 @@ public class ConsultarAnimalGUI extends JFrame {
 		contentPane.add(btnEditar);
 		
 		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnimalService animalService =new AnimalService();
+				try{
+					animalService.excluirAnimal(an);
+					JOptionPane.showMessageDialog(null, "Animal excluido com sucesso");
+					ConsultarAnimalRGAFGUI consultar = new ConsultarAnimalRGAFGUI();
+					consultar.setVisible(true);
+				}catch (Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
+				}
+			}
+		});
 		btnExcluir.setBounds(324, 382, 89, 23);
 		contentPane.add(btnExcluir);
 		

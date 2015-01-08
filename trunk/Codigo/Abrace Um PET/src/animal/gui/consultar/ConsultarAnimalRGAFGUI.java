@@ -3,7 +3,6 @@ package animal.gui.consultar;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,10 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import adotante.gui.consulta.pessoajuridica.ConsultarAdotanteJuridicoGUI;
 import animal.dominio.Animal;
-import animal.gui.AnimalGUI;
 import animal.service.AnimalService;
 
 public class ConsultarAnimalRGAFGUI extends JFrame {
@@ -23,9 +19,9 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
-	private JPanel				contentPane;
-	protected JTextField		textFieldRGA;
-	
+	private JPanel	contentPane;
+	protected JTextField textFieldRGA;
+
 	/**
 	 * Create the frame.
 	 */
@@ -38,41 +34,38 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblConsultarAnimal = new JLabel("Consultar Animal");
+		
+		JLabel lblConsultarAnimal = new JLabel("Consulta de Animal");
 		lblConsultarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblConsultarAnimal.setBounds(28, 62, 193, 14);
 		contentPane.add(lblConsultarAnimal);
 		
+		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRga.setBounds(138, 199, 46, 14);
+		lblRga.setBounds(28, 202, 46, 14);
 		contentPane.add(lblRga);
 		
 		textFieldRGA = new JTextField();
-		textFieldRGA.setBounds(194, 197, 188, 20);
+		textFieldRGA.setBounds(84, 200, 188, 20);
 		contentPane.add(textFieldRGA);
 		textFieldRGA.setColumns(10);
 		
 		JButton btnConsultarRGA = new JButton("Consultar");
 		btnConsultarRGA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarAnimalGUI consulta = new ConsultarAnimalGUI();
-				if (consultarAnimalRGA(consulta)==true) {
-					consulta.setVisible(true);
-					dispose();
-				}
+					consultarAnimalRGA(textFieldRGA);
 			}
 			
-			public boolean consultarAnimalRGA(ConsultarAnimalGUI consulta) {
-				boolean cond = false;
-				AnimalService as = new AnimalService();
-				Animal animal = new Animal();
+			public void consultarAnimalRGA(JTextField textFieldRGA) {		
+				try{
+					ConsultarAnimalGUI consulta = new ConsultarAnimalGUI();
+					AnimalService as = new AnimalService();
+					Animal animal = new Animal();
 				
-				try {
-					
 					animal = as.consultarAnimal(textFieldRGA.getText());
 					
-					consulta.textFieldNome.setText(animal.getNome().toString());
+					consulta.textFieldNome.setText(animal.getNome());
 					consulta.textFieldRGA.setText(animal.getRga());
 					consulta.texTemperamento.setText(animal.getTemperamento());
 					consulta.textObservacao.setText(animal.getObservacao());
@@ -85,25 +78,21 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 					consulta.comboBoxGenero.setSelectedItem(animal.getGenero());
 					consulta.comboBoxTipo.setSelectedItem(animal.getTipo());
 					consulta.comboBoxVacinado.setSelectedItem(animal.getVacinado());
-					cond = true;
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null,"Animal não encontrado!", "ERRO", 0);
+					consulta.an = animal;
+					if(animal.getId() != 0){
+						consulta.setVisible(true);
+						dispose();
+					} else{
+						JOptionPane.showMessageDialog(null, "Não encontrado", "ERROR", 0);
+					}
+				
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
-				return cond;
+				
 			}
 		});
-		btnConsultarRGA.setBounds(392, 196, 89, 23);
+		btnConsultarRGA.setBounds(183, 263, 89, 23);
 		contentPane.add(btnConsultarRGA);
-		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AnimalGUI a = new AnimalGUI();
-				a.setVisible(true);
-				dispose();
-			}
-		});
-		btnVoltar.setBounds(530, 382, 89, 23);
-		contentPane.add(btnVoltar);
 	}
 }

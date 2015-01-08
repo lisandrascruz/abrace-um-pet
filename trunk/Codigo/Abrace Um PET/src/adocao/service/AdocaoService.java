@@ -60,14 +60,15 @@ public class AdocaoService {
 		return adocao;
 	}
 	
+
 	/**
 	 * CHAMA METODO DO DAO E EDITA ADOCAO	
 	 * @param adocao
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean editarAdocao(Adocao adocao) throws Exception{
+	public void editarAdocao(Adocao adocao) throws Exception{
 		AdocaoDAO adocaoDAO = new AdocaoDAO();
-		return adocaoDAO.editarAdocao(adocao);
+		adocaoDAO.editarAdocao(adocao);
 	}
 }
