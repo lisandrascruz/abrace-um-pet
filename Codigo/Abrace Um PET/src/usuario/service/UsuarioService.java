@@ -122,5 +122,10 @@ public class UsuarioService {
 		}
 		return valido;
 	}
+	public int getIdUsuario(Usuario usuario) throws Exception{
+		UsuarioDAO dao = new UsuarioDAO();
+		return dao.getIdUsuario(usuario);
+		
+	}
 	
 }
