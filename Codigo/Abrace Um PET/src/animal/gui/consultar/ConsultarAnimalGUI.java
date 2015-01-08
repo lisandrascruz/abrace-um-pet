@@ -290,11 +290,11 @@ public class ConsultarAnimalGUI extends JFrame {
 				formattedTextFieldDataResgate.setEditable(true);
 				formattedTextFieldPeso.setEditable(true);
 				formattedTextFieldTamanho.setEditable(true);
-				comboBoxCastrado.setEditable(true);
-				comboBoxDeficiencia.setEditable(true);
-				comboBoxGenero.setEditable(true);
-				comboBoxTipo.setEditable(true);
-				comboBoxVacinado.setEditable(true);
+				comboBoxCastrado.setEnabled(true);
+				comboBoxDeficiencia.setEnabled(true);
+				comboBoxGenero.setEnabled(true);
+				comboBoxTipo.setEnabled(true);
+				comboBoxVacinado.setEnabled(true);
 				
 				JButton btnSalvar = new JButton("Salvar");
 				btnSalvar.setBounds(431, 382, 89, 23);

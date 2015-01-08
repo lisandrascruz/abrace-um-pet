@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import usuario.gui.TelaInicialGUI;
 import adotante.gui.cadastro.CadastroPessoaGUI;
 import adotante.gui.consulta.ConsultarPessoaGUI;
+import java.awt.Dialog.ModalExclusionType;
 
 public class PessoaGUI extends JFrame {
 	

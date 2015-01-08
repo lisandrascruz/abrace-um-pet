@@ -43,7 +43,9 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 	protected JFormattedTextField	jFormattedTextCep;
 	protected JFormattedTextField	formattedTextFieldTelefoneFixo;
 	protected JFormattedTextField	jFormattedTextTeljFormattedTextCelular;
-	protected PessoaFisica pf;
+	protected PessoaFisica			pf;
+	protected JButton				btnExcluir;
+	
 	/**
 	 * Create the frame.
 	 * 
@@ -250,16 +252,16 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		separator.setBounds(11, 217, 563, 14);
 		contentPane.add(separator);
 		
-		JButton btnVoltar = new JButton("Cancelar");
-		btnVoltar.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultarPessoaGUI c = new ConsultarPessoaGUI();
 				c.setVisible(true);
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(479, 382, 95, 23);
-		contentPane.add(btnVoltar);
+		btnCancelar.setBounds(479, 382, 95, 23);
+		contentPane.add(btnCancelar);
 		
 		JLabel lblRg = new JLabel("RG: ");
 		lblRg.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
@@ -278,7 +280,7 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 		
 		comboGenero = new JComboBox < String>();
 		comboGenero.setEnabled(false);
-		comboGenero.setModel(new DefaultComboBoxModel <String>(new String[] { " ", "M", "F" }));
+		comboGenero.setModel(new DefaultComboBoxModel < String>(new String[] { " ", "M", "F" }));
 		comboGenero.setBounds(518, 80, 53, 20);
 		contentPane.add(comboGenero);
 		
@@ -294,29 +296,48 @@ public class ConsultarAdotanteFisicoGUI extends JFrame {
 				textNumero.setEditable(true);
 				textRua.setEditable(true);
 				textComplemento.setEditable(true);
+				formattedTextFieldTelefoneFixo.setEditable(true);
+				comboGenero.setEnabled(true);
+				jFormattedTextCep.setEditable(true);
+				jFormattedTextTeljFormattedTextCelular.setEditable(true);
+				
+				btnCancelar.setVisible(false);
+				btnEditar.setVisible(false);
+				btnExcluir.setVisible(false);
+				
+				JButton btnSalvar = new JButton("Salvar");
+				btnSalvar.setBounds(373, 382, 89, 23);
+				contentPane.add(btnSalvar);
+				
+				JButton btnCancelar2 = new JButton("Cancelar");
+				btnCancelar2.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ConsultarAdotanteFisicoCPFGUI c = new ConsultarAdotanteFisicoCPFGUI();
+						c.setVisible(true);
+						dispose();
+					}
+				});
+				btnCancelar2.setBounds(483, 382, 89, 23);
+				contentPane.add(btnCancelar2);
+				
 			}
 		});
-		btnEditar.setBounds(376, 382, 89, 23);
+		btnEditar.setBounds(373, 382, 89, 23);
 		contentPane.add(btnEditar);
 		
-		JButton btnAdotar = new JButton("Adotar");
-		btnAdotar.setBounds(151, 382, 89, 23);
-		contentPane.add(btnAdotar);
-		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-				try{
+				try {
 					pessoaFisicaService.excluirPessoaFisica(pf);
 					JOptionPane.showMessageDialog(null, "Pessoa excluida com sucesso");
 					ConsultarAdotanteFisicoCPFGUI consultar = new ConsultarAdotanteFisicoCPFGUI();
 					consultar.setVisible(true);
 					dispose();
-				} catch(Exception ex){
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 				}
-
 				
 			}
 		});

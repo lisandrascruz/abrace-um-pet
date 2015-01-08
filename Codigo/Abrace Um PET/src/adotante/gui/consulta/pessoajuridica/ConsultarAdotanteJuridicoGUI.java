@@ -19,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 import adotante.dominio.PessoaFisica;
 import adotante.dominio.PessoaJuridica;
 import adotante.gui.cadastro.CadastroPessoaGUI;
+import adotante.gui.consulta.pessoafisica.ConsultarAdotanteFisicoCPFGUI;
 import adotante.service.PessoaJuridicaService;
 
 public class ConsultarAdotanteJuridicoGUI extends JFrame {
@@ -44,7 +45,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 	protected JFormattedTextField formattedTextFieldCnpj;
 	protected JFormattedTextField jFormattedTextCep;
 	protected PessoaJuridica pj;
-	
+	protected JButton btnExcluir;
 	/**
 	 * Create the frame.
 	 */
@@ -271,14 +272,48 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 		contentPane.add(lblMostrarRepresentante);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(394, 382, 89, 23);
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textNomeJuridico.setEditable(true);
+				textEmail.setEditable(true);
+				textRua.setEditable(true);
+				textBairro.setEditable(true);
+				textCidade.setEditable(true);
+				textEstado.setEditable(true);
+				textNumero.setEditable(true);
+				textComplemento.setEditable(true);
+				jFormattedTextCep.setEditable(true);
+				jFormattedTextTeljFormattedTextCelular.setEditable(true);
+				formattedTextFieldCnpj.setVisible(true);
+				formattedTextFieldTelefoneFixo.setEditable(true);
+				
+				
+				btnCancelar.setVisible(false);
+				btnEditar.setVisible(false);
+				btnExcluir.setVisible(false);
+				
+				JButton btnSalvar = new JButton("Salvar");
+				btnSalvar.setBounds(373, 382, 89, 23);
+				contentPane.add(btnSalvar);
+				
+				JButton btnCancelar2 = new JButton("Cancelar");
+				btnCancelar2.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ConsultarAdotanteFisicoCPFGUI c = new ConsultarAdotanteFisicoCPFGUI();
+						c.setVisible(true);
+						dispose();
+					}
+				});
+				btnCancelar2.setBounds(483, 382, 89, 23);
+				contentPane.add(btnCancelar2);
+				
+			}
+			
+		});
+		btnEditar.setBounds(384, 382, 89, 23);
 		contentPane.add(btnEditar);
 		
-		JButton btnAdotar = new JButton("Adotar");
-		btnAdotar.setBounds(173, 382, 89, 23);
-		contentPane.add(btnAdotar);
-		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
@@ -293,7 +328,7 @@ public class ConsultarAdotanteJuridicoGUI extends JFrame {
 				}
 			}
 		});
-		btnExcluir.setBounds(283, 382, 89, 23);
+		btnExcluir.setBounds(280, 382, 89, 23);
 		contentPane.add(btnExcluir);
 		
 	}

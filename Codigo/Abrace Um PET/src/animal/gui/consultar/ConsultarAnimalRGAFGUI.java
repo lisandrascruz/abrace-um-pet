@@ -38,18 +38,18 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblConsultarAnimal = new JLabel("Consulta de Animal");
+		JLabel lblConsultarAnimal = new JLabel("Consultar Animal");
 		lblConsultarAnimal.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		lblConsultarAnimal.setBounds(28, 62, 193, 14);
 		contentPane.add(lblConsultarAnimal);
 		
 		JLabel lblRga = new JLabel("RGA: ");
 		lblRga.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblRga.setBounds(28, 202, 46, 14);
+		lblRga.setBounds(138, 199, 46, 14);
 		contentPane.add(lblRga);
 		
 		textFieldRGA = new JTextField();
-		textFieldRGA.setBounds(84, 200, 188, 20);
+		textFieldRGA.setBounds(194, 197, 188, 20);
 		contentPane.add(textFieldRGA);
 		textFieldRGA.setColumns(10);
 		
@@ -92,7 +92,7 @@ public class ConsultarAnimalRGAFGUI extends JFrame {
 				return cond;
 			}
 		});
-		btnConsultarRGA.setBounds(183, 245, 89, 23);
+		btnConsultarRGA.setBounds(392, 196, 89, 23);
 		contentPane.add(btnConsultarRGA);
 		
 		JButton btnVoltar = new JButton("Voltar");

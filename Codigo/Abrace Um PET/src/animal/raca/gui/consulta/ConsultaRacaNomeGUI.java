@@ -41,11 +41,11 @@ public class ConsultaRacaNomeGUI extends JFrame {
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-		lblNome.setBounds(28, 202, 46, 14);
+		lblNome.setBounds(154, 199, 46, 14);
 		contentPane.add(lblNome);
 		
 		textField = new JTextField();
-		textField.setBounds(84, 200, 188, 20);
+		textField.setBounds(210, 197, 188, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -92,7 +92,7 @@ public class ConsultaRacaNomeGUI extends JFrame {
 			}
 			
 		});
-		btnConsultar.setBounds(183, 242, 89, 23);
+		btnConsultar.setBounds(414, 196, 89, 23);
 		contentPane.add(btnConsultar);
 		
 		JButton btnVoltar = new JButton("Voltar");
