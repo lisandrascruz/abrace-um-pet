@@ -18,6 +18,7 @@ public class Animal {
 	private String temperamento;
 	private String observacao;
 	private String dataResgate;
+	private String imagem;
 	
 	
 	public int getId() {
@@ -104,14 +105,17 @@ public class Animal {
 	public void setDataResgate(String dataResgate) {
 		this.dataResgate = dataResgate;
 	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
 	public int getIdRaca() {
 		return idRaca;
 	}
 	public void setIdRaca(int idRaca) {
 		this.idRaca = idRaca;
 	}
-	
-	
-	
 	
 }

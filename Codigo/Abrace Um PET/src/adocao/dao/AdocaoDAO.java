@@ -37,15 +37,33 @@ public class AdocaoDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean editarAdocao(Adocao adocao) throws Exception {
-		String query = "update adocao set dataDevolucao = ? where id = ?";
-		Connection con = Conexao.abrir();
-		PreparedStatement preparedStatement = (PreparedStatement) con.prepareStatement(query);
-		preparedStatement.setString(1, adocao.getDataDevolucao());
-		preparedStatement.setInt(2, adocao.getId());
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		return true;
+	
+	public void editarAdocao(Adocao adocao) throws Exception{
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
+		
+		try {
+			con = Conexao.abrir();
+		
+			String query = "update adocao set dataDevolucao = ? where id = ?";
+			
+			preparedStatement = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			
+			preparedStatement.setString(1, adocao.getDataDevolucao());
+			preparedStatement.setInt(2, adocao.getId());
+	
+			
+			preparedStatement.executeUpdate();
+			
+			
+			con.commit();
+		} catch (Exception ex) {
+			con.rollback();
+			throw new Exception("Erro ao excluir animal",ex);
+		} finally {
+			Conexao.fechar(con,preparedStatement,generatedKeys);
+		}
 	}
 	
 	/**

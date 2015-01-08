@@ -154,11 +154,11 @@ public class AdocaoPessoaFisicaGUI extends JFrame {
 				else if (adocao.getDataDevolucao() == null)
 				{
 					adocao.setDataDevolucao(dataAdocao);
-					try {
-						adocaoService.editarAdocao(adocao);
-						JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Devolução não realizada!!");
+					try{
+					adocaoService.editarAdocao(adocao);
+					JOptionPane.showMessageDialog(null, "Devolução realizada com sucesso!!");
+					} catch (Exception ex){
+						JOptionPane.showMessageDialog(null, ex, "ERROR", 0);
 					}
 				}
 				else if (adocao.getDataDevolucao() != null) {
