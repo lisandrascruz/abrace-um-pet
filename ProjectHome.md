@@ -1,0 +1,1 @@
+O intuito do sistema é contribuir com o projeto de adoção com intenção de migrar o sistema de cadastro dos usuários e de animais até então feito de forma manual para um lugar mais seguro e de melhor acesso evitando assim o risco da perda de informações tão importantes.
